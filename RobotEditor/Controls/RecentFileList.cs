@@ -12,7 +12,6 @@ using System.Xml;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Win32;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;

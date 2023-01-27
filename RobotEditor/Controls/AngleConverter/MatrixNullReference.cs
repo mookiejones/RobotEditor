@@ -1,6 +1,6 @@
 using System;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.AngleConverter
 {
     [Serializable]
     public sealed class MatrixNullReference : NullReferenceException

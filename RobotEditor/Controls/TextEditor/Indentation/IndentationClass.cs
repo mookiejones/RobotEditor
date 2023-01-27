@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Indentation
 {
     internal sealed class IndentationClass
     {
@@ -105,7 +105,7 @@ namespace RobotEditor.Classes
                         }
                         var c3 = c;
                         c = c2;
-                        c2 = ((i + 1 < text.Length) ? text[i + 1] : '\n');
+                        c2 = i + 1 < text.Length ? text[i + 1] : '\n';
                         if (_escape)
                         {
                             _escape = false;
@@ -165,7 +165,7 @@ namespace RobotEditor.Classes
                                 {
                                     if (c4 == '\\')
                                     {
-                                        if ((_inString && !_verbatim) || _inChar)
+                                        if (_inString && !_verbatim || _inChar)
                                         {
                                             _escape = true;
                                         }
@@ -313,13 +313,13 @@ namespace RobotEditor.Classes
                                             break;
                                     }
                                 }
-                                IL_873:
+                            IL_873:
                                 if (!char.IsWhiteSpace(c))
                                 {
                                     _lastRealChar = c;
                                 }
                                 goto IL_88B;
-                                IL_671:
+                            IL_671:
                                 _blocks.Push(_block);
                                 if (_block.StartLine == doc.LineNumber)
                                 {
@@ -331,7 +331,7 @@ namespace RobotEditor.Classes
                                 }
                                 _block.Indent(Repeat(set.IndentString, block.OneLineBlock) +
                                               (block.Continuation ? set.IndentString : "") +
-                                              ((i == text.Length - 1) ? set.IndentString : new string(' ', i + 1)));
+                                              (i == text.Length - 1 ? set.IndentString : new string(' ', i + 1)));
                                 _block.Bracket = c;
                                 goto IL_873;
                             }
@@ -341,7 +341,7 @@ namespace RobotEditor.Classes
                             }
                             _wordBuilder.Length = 0;
                         }
-                        IL_88B:
+                    IL_88B:
                         ;
                     }
                     if (_wordBuilder.Length > 0)
@@ -475,7 +475,7 @@ namespace RobotEditor.Classes
                 }
                 else
                 {
-                    var stringBuilder = new StringBuilder(text.Length*count);
+                    var stringBuilder = new StringBuilder(text.Length * count);
                     for (var i = 0; i < count; i++)
                     {
                         stringBuilder.Append(text);

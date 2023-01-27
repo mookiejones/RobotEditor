@@ -17,13 +17,13 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
 using RobotEditor.Abstract;
-using RobotEditor.Classes;
 using RobotEditor.Controls.TextEditor;
+using RobotEditor.Controls.TextEditor.Snippets;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;
 using RobotEditor.Utilities;
-using RobotEditor.ViewModel; 
+using RobotEditor.ViewModel;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 

@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 using CommunityToolkit.Mvvm.Messaging;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;

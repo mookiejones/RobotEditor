@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RobotEditor.Controls.TextEditor;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
-using RobotEditor.Classes;
 
 namespace RobotEditor.Converters
 {
@@ -12,19 +12,14 @@ namespace RobotEditor.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result;
-            if (value is EditorOptions)
-            {
-                result = (value as EditorOptions);
-            }
-            else
-            {
-                Debug.WriteLine("TextOptions Converter Failed {0}", new[]
-                {
+            if (value is EditorOptions result)
+                return result;
+            Debug.WriteLine("TextOptions Converter Failed {0}", new[]
+              {
                     value
                 });
-                result = Binding.DoNothing;
-            }
+            return Binding.DoNothing;
+            
             return result;
         }
 

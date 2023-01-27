@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
+using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
 
-namespace RobotEditor.Classes
+namespace RobotEditor
 {
     public static class Global
     {
@@ -50,7 +51,7 @@ namespace RobotEditor.Classes
 
         public static bool DoesDirectoryExist(string filename)
         {
-            var fileInfo = new System.IO.FileInfo(filename);
+            var fileInfo = new FileInfo(filename);
             bool result;
             if (fileInfo.DirectoryName != null)
             {

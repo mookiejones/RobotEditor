@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using RobotEditor.Enums;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Languages.Data
 {
     [Localizable(false)]
     public sealed class CartesianTypes

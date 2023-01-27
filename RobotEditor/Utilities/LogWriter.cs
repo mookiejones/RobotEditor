@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Media;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Utilities
 {
     public sealed class LogWriter
     {

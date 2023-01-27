@@ -1,4 +1,4 @@
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     public sealed class BracketSearchResult
     {

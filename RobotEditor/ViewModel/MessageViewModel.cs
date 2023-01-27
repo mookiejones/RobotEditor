@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
+using RobotEditor.Messages;
 using RobotEditor.Utilities;
 
 namespace RobotEditor.ViewModel

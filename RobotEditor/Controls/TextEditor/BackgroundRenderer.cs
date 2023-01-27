@@ -4,7 +4,7 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     [DebuggerStepThrough]
     public sealed class BackgroundRenderer : IBackgroundRenderer
@@ -16,8 +16,11 @@ namespace RobotEditor.Classes
             _line = line;
         }
 
-        public KnownLayer Layer { get; // ReSharper disable once UnusedAutoPropertyAccessor.Local
-            private set; }
+        public KnownLayer Layer
+        {
+            get; // ReSharper disable once UnusedAutoPropertyAccessor.Local
+            private set;
+        }
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
@@ -28,7 +31,7 @@ namespace RobotEditor.Classes
                 StartOffset = _line.Offset,
                 EndOffset = _line.EndOffset
             };
-// ReSharper disable once RedundantArgumentDefaultValue
+            // ReSharper disable once RedundantArgumentDefaultValue
             foreach (var current in BackgroundGeometryBuilder.GetRectsForSegment(textView, segment, false))
             {
                 drawingContext.DrawRoundedRectangle(new SolidColorBrush(EditorOptions.Instance.HighlightedLineColor),

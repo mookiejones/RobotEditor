@@ -3,7 +3,7 @@ using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Languages.Data
 {
     public sealed class Variable : ObservableObject, IVariable
     {
@@ -18,25 +18,25 @@ namespace RobotEditor.Classes
         private string _type = string.Empty;
         private string _value = string.Empty;
 
-        public bool IsSelected { get =>_isSelected; set=>SetProperty(ref _isSelected,value); }
+        public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
 
-        public BitmapImage Icon { get =>_icon; set=>SetProperty(ref _icon,value); }
+        public BitmapImage Icon { get => _icon; set => SetProperty(ref _icon, value); }
 
-        public string Description { get =>_description; set=>SetProperty(ref _description,value); }
+        public string Description { get => _description; set => SetProperty(ref _description, value); }
 
-        public string Name { get =>_name; set=>SetProperty(ref _name,value); }
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        public string Type { get =>_type; set=>SetProperty(ref _type,value); }
+        public string Type { get => _type; set => SetProperty(ref _type, value); }
 
-        public string Path { get =>_path; set=>SetProperty(ref _path,value); }
+        public string Path { get => _path; set => SetProperty(ref _path, value); }
 
-        public string Value { get =>_value; set=>SetProperty(ref _value,value); }
+        public string Value { get => _value; set => SetProperty(ref _value, value); }
 
-        public string Comment { get =>_comment; set=>SetProperty(ref _comment,value); }
+        public string Comment { get => _comment; set => SetProperty(ref _comment, value); }
 
-        public string Declaration { get =>_declaration; set=>SetProperty(ref _declaration,value); }
+        public string Declaration { get => _declaration; set => SetProperty(ref _declaration, value); }
 
-        public int Offset { get =>_offset; set=>SetProperty(ref _offset,value); }
+        public int Offset { get => _offset; set => SetProperty(ref _offset, value); }
 
         #region Returns
 
@@ -45,7 +45,7 @@ namespace RobotEditor.Classes
         /// </summary>
         private const string ReturnsPropertyName = "Returns";
 
-        private string _returns = String.Empty;
+        private string _returns = string.Empty;
 
         /// <summary>
         ///     Sets and gets the Returns property.
@@ -141,7 +141,7 @@ namespace RobotEditor.Classes
         /// </summary>
         private const string ShowOffsetPropertyName = "ShowOffset";
 
-        private string _showOffset = String.Empty;
+        private string _showOffset = string.Empty;
 
         /// <summary>
         ///     Sets and gets the ShowOffset property.

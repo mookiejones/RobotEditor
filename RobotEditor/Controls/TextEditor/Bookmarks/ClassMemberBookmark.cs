@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Bookmarks
 {
     public sealed class ClassMemberBookmark : IBookmark
     {

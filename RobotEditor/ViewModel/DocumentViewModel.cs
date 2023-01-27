@@ -1,8 +1,8 @@
 using System.IO;
 using System.Windows;
 using RobotEditor.Abstract;
-using RobotEditor.Classes;
 using RobotEditor.Interfaces;
+using RobotEditor.Robots;
 
 namespace RobotEditor.ViewModel
 {

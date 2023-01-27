@@ -28,6 +28,8 @@ using ICSharpCode.AvalonEdit.Snippets;
 using Microsoft.Win32;
 using RobotEditor.Abstract;
 using RobotEditor.Classes;
+using RobotEditor.Controls.TextEditor.Brackets;
+using RobotEditor.Controls.TextEditor.IconBar;
 using RobotEditor.Controls.TextEditor.Snippets;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;

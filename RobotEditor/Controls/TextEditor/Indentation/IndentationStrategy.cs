@@ -5,7 +5,7 @@ using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Indentation
 {
     [Localizable(false)]
     public class IndentationStrategy : DefaultIndentationStrategy

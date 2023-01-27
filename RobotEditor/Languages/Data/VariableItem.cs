@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Languages.Data
 {
     public class VariableItem : DependencyObject
     {

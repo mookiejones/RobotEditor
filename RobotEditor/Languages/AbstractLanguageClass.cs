@@ -22,6 +22,7 @@ using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.Messages;
+using RobotEditor.Model;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;

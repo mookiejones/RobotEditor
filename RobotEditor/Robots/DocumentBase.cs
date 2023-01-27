@@ -7,7 +7,7 @@ using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.ViewModel;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Robots
 {
     public abstract class DocumentBase : FileViewModel, IEditorDocument
     {
@@ -42,15 +42,15 @@ namespace RobotEditor.Classes
             // Is Offset of textbox greater than desired value?
             var enoughLines = TextBox.Text.Length >= variable.Offset;
             if (enoughLines)
-                    TextBox.SelectText(variable);
+                TextBox.SelectText(variable);
         }
 
         private void InitializeControl()
         {
             TextBox.FileLanguage = FileLanguage;
             Load(ContentId);
-           
-            TextBox.GotFocus += delegate(object s, RoutedEventArgs e) { TextBox = (s as Editor); };
+
+            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = s as Editor; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
             if (ContentId != null)
@@ -63,7 +63,7 @@ namespace RobotEditor.Classes
 
         protected void TextChanged(object sender)
         {
-            TextBox = (sender as Editor);
+            TextBox = sender as Editor;
             if (TextBox != null)
             {
                 FileLanguage.RawText = TextBox.Text;
@@ -88,7 +88,7 @@ namespace RobotEditor.Classes
 
         private AbstractLanguageClass _filelanguage = new LanguageBase();
 
-        public AbstractLanguageClass FileLanguage { get =>_filelanguage; set=>SetProperty(ref _filelanguage,value); }
+        public AbstractLanguageClass FileLanguage { get => _filelanguage; set => SetProperty(ref _filelanguage, value); }
 
         #endregion
 
@@ -96,7 +96,7 @@ namespace RobotEditor.Classes
 
         private Visibility _visibility = Visibility.Visible;
 
-        public Visibility Visibility { get =>_visibility; set=>SetProperty(ref _visibility,value); }
+        public Visibility Visibility { get => _visibility; set => SetProperty(ref _visibility, value); }
 
         #endregion        public AbstractLanguageClass FileLanguage { get; set; }
 

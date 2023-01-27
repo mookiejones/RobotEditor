@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.FTP
 {
     public class FTPFolder
     {

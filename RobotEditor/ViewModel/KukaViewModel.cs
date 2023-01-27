@@ -3,12 +3,12 @@ using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.Input;
 using RobotEditor.Abstract;
-using RobotEditor.Classes;
 using RobotEditor.Controls;
 using RobotEditor.Controls.TextEditor;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
+using RobotEditor.Robots;
 using RobotEditor.Utilities;
 
 namespace RobotEditor.ViewModel

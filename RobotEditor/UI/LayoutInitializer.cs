@@ -2,9 +2,9 @@
 using System.Linq;
 using AvalonDock.Layout;
 using RobotEditor.Enums;
-using RobotEditor.ViewModel; 
+using RobotEditor.ViewModel;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.UI
 {
     [Localizable(false)]
     public sealed class LayoutInitializer : ILayoutUpdateStrategy
@@ -46,7 +46,7 @@ namespace RobotEditor.Classes
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "RightPane");
-                switch (((ToolViewModel) content).DefaultPane)
+                switch (((ToolViewModel)content).DefaultPane)
                 {
                     case DefaultToolPane.Left:
                         if (layoutAnchorablePane2 != null)
@@ -76,7 +76,7 @@ namespace RobotEditor.Classes
                 var layoutAnchorablePane4 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
-                        .FirstOrDefault((LayoutAnchorablePane d) => d.Name == "ToolsPane");
+                        .FirstOrDefault((d) => d.Name == "ToolsPane");
                 if (layoutAnchorablePane4 != null)
                 {
                     layoutAnchorablePane4.Children.Add(anchorableToShow);

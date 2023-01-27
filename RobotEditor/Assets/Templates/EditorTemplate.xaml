@@ -10,30 +10,30 @@
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
     <Style x:Key="{x:Type textEditor:Editor}" TargetType="{x:Type textEditor:Editor}">
         <Setter Property="Background"
-                Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderBrush"
-                Value="{Binding BorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding BorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="Foreground"
-                Value="{Binding FontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding FontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="LineNumbersForeground"
-                Value="{Binding LineNumbersFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding LineNumbersFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="ShowLineNumbers"
-                Value="{Binding ShowLineNumbers, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding ShowLineNumbers, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderThickness"
-                Value="{Binding BorderThickness, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding BorderThickness, Source={x:Static textEditor:EditorOptions.Instance}}" />
     </Style>
     <Style x:Key="{x:Type avalonedit:TextArea}" TargetType="{x:Type avalonedit:TextArea}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SelectionBrush"
-                Value="{Binding SelectedTextBackground, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding SelectedTextBackground, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="SelectionBorder">
             <Setter.Value>
-                <Pen Thickness="{Binding SelectedBorderThickness, Source={x:Static gui:EditorOptions.Instance}}"
-                     Brush="{Binding SelectedBorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                <Pen Thickness="{Binding SelectedBorderThickness, Source={x:Static textEditor:EditorOptions.Instance}}"
+                     Brush="{Binding SelectedBorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
             </Setter.Value>
         </Setter>
         <Setter Property="SelectionForeground"
-                Value="{Binding SelectedFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static gui:EditorOptions.Instance}}" />
+                Value="{Binding SelectedFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type avalonedit:TextArea}">

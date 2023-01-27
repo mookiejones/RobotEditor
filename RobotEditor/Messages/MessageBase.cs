@@ -1,5 +1,4 @@
 ﻿using System.Windows.Media.Imaging;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Utilities;

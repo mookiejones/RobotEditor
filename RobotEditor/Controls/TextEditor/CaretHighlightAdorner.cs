@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using ICSharpCode.AvalonEdit.Editing;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     internal sealed class CaretHighlightAdorner : Adorner
     {
@@ -19,7 +19,7 @@ namespace RobotEditor.Classes
             var rect = textArea.Caret.CalculateCaretRectangle();
             rect.Offset(-textArea.TextView.ScrollOffset);
             var toValue = rect;
-            var num = Math.Max(rect.Width, rect.Height)*0.25;
+            var num = Math.Max(rect.Width, rect.Height) * 0.25;
             toValue.Inflate(num, num);
             _pen = new Pen(TextBlock.GetForeground(textArea.TextView).Clone(), 1.0);
             _geometry = new RectangleGeometry(rect, 2.0, 2.0);

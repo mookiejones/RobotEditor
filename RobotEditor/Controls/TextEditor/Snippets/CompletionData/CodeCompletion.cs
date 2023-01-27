@@ -8,7 +8,7 @@ using ICSharpCode.AvalonEdit.Editing;
 using RobotEditor.Interfaces;
 using RobotEditor.ViewModel;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
 {
     public sealed class CodeCompletion : ICompletionData
     {

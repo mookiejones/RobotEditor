@@ -1,4 +1,4 @@
-﻿namespace RobotEditor.Classes
+﻿namespace RobotEditor.Languages.Data
 {
     public sealed class PositionValue
     {

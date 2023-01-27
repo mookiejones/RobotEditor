@@ -4,7 +4,7 @@ using ICSharpCode.AvalonEdit.Document;
 using RobotEditor.Interfaces;
 using ITextAnchor = RobotEditor.Interfaces.ITextAnchor;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Bookmarks
 {
     public class BookmarkBase : IBookmark
     {
@@ -49,13 +49,13 @@ namespace RobotEditor.Classes
             }
         }
 
-        public int ColumnNumber => (Anchor != null) ? Anchor.Column : _location.Column;
+        public int ColumnNumber => Anchor != null ? Anchor.Column : _location.Column;
 
         public virtual bool CanToggle => true;
 
         public static IImage DefaultBookmarkImage => defaultBookmarkImage;
 
-        public int LineNumber => (Anchor != null) ? Anchor.Line : _location.Line;
+        public int LineNumber => Anchor != null ? Anchor.Line : _location.Line;
 
         public virtual int ZOrder => 0;
 
@@ -101,7 +101,7 @@ namespace RobotEditor.Classes
 
         private void AnchorDeleted(object sender, EventArgs e)
         {
-//            _location = Location.Empty;
+            //            _location = Location.Empty;
             Anchor = null;
             RemoveMark();
         }

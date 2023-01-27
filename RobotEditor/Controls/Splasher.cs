@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls
 {
     public static class Splasher
     {

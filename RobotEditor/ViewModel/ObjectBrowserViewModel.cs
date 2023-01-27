@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Utilities;

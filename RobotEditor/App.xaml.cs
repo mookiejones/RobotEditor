@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Messages;
 using RobotEditor.ViewModel;
@@ -18,6 +17,7 @@ using MessageBox = System.Windows.MessageBox;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using RobotEditor.UI;
+using RobotEditor.Controls;
 
 namespace RobotEditor
 {

@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ICSharpCode.AvalonEdit.Rendering;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     public class ImageElementGenerator : VisualLineElementGenerator
     {
@@ -34,7 +34,7 @@ namespace RobotEditor.Classes
         public override int GetFirstInterestedOffset(int startOffset)
         {
             var match = FindMatch(startOffset);
-            return match.Success ? (startOffset + match.Index) : -1;
+            return match.Success ? startOffset + match.Index : -1;
         }
 
         public override VisualLineElement ConstructElement(int offset)

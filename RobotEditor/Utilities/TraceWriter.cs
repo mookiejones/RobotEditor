@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Utilities
 {
     public static class TraceWriter
     {

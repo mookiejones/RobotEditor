@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Bookmarks
 {
     public sealed class BookmarkImage : IImage
     {

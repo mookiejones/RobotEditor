@@ -1,12 +1,11 @@
 ﻿using System.Windows.Media.Imaging;
 using RobotEditor.Interfaces;
-using RobotEditor.Messages;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Messages
 {
     public sealed class OutputWindowMessage : MessageBase, IMessage
     {
         public string Time { get; set; }
-        
+
     }
 }

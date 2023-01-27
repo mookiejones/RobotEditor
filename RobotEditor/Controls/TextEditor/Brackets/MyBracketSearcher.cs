@@ -4,7 +4,7 @@ using System.Diagnostics;
 using ICSharpCode.AvalonEdit.Document;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Brackets
 {
     public sealed class MyBracketSearcher : IBracketSearcher
     {
@@ -107,7 +107,7 @@ namespace RobotEditor.Classes
                     {
                         if (charAt == '\\')
                         {
-                            if ((flag && !flag3) || flag2)
+                            if (flag && !flag3 || flag2)
                             {
                                 i++;
                             }
@@ -125,7 +125,7 @@ namespace RobotEditor.Classes
                     }
                 }
             }
-            return (flag || flag2) ? 2 : num;
+            return flag || flag2 ? 2 : num;
         }
 
         private static int SearchBracketBackward(ITextSource document, int offset, char openBracket, char closingBracket)
@@ -215,7 +215,7 @@ namespace RobotEditor.Classes
                                         {
                                             goto IL_262;
                                         }
-                                        if ((flag4 && !flag5) || flag3)
+                                        if (flag4 && !flag5 || flag3)
                                         {
                                             i++;
                                         }
@@ -251,10 +251,10 @@ namespace RobotEditor.Classes
                                     }
                                 }
                             }
-                            IL_2DC:
+                        IL_2DC:
                             i++;
                             continue;
-                            IL_262:
+                        IL_262:
                             if (charAt == openBracket)
                             {
                                 if (!flag4 && !flag3 && !flag2 && !flag)
@@ -378,7 +378,7 @@ namespace RobotEditor.Classes
                                         {
                                             goto IL_22C;
                                         }
-                                        if ((flag && !flag3) || flag2)
+                                        if (flag && !flag3 || flag2)
                                         {
                                             offset++;
                                         }
@@ -414,10 +414,10 @@ namespace RobotEditor.Classes
                                     }
                                 }
                             }
-                            IL_29E:
+                        IL_29E:
                             offset++;
                             continue;
-                            IL_22C:
+                        IL_22C:
                             if (charAt == openBracket)
                             {
                                 if (!flag && !flag2 && !flag4 && !flag5)

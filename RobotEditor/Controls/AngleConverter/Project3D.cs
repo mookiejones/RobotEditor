@@ -1,7 +1,7 @@
 using System;
 using RobotEditor.Controls.AngleConverter.Classes;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.AngleConverter
 {
     public static class Project3D
     {
@@ -28,7 +28,7 @@ namespace RobotEditor.Classes
             else
             {
                 var scalar = Vector.Dot(vector3D, line.Direction);
-                result = line.Origin + (Vector3D) ((Point3D) (line.Direction*scalar));
+                result = line.Origin + (Vector3D)(Point3D)(line.Direction * scalar);
             }
             return result;
         }
@@ -37,7 +37,7 @@ namespace RobotEditor.Classes
         {
             var vec = plane.Point - point;
             var vector3D = Vector3D.Cross(Vector3D.Cross(vec, plane.Normal), plane.Normal).Normalised();
-            return plane.Point + (Vector3D) ((Point3D) (vector3D*Vector.Dot(vec, vector3D)));
+            return plane.Point + (Vector3D)(Point3D)(vector3D * Vector.Dot(vec, vector3D));
         }
 
         public static Point3D PointOntoSphere(Sphere3D sphere, Point3D point)

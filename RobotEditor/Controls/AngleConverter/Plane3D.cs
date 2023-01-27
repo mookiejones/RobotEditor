@@ -4,7 +4,7 @@ using System.ComponentModel;
 using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Controls.AngleConverter.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.AngleConverter
 {
     [Localizable(false)]
     public sealed class Plane3D : IGeometricElement3D

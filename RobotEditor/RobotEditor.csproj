@@ -183,6 +183,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="App.Initialize.cs" />
+    <Compile Include="Controls\AngleConverter\Distance3D.cs" />
+    <Compile Include="Controls\AngleConverter\NRSolver.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
     <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />

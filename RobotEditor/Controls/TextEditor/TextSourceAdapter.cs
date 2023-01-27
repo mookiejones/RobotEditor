@@ -3,7 +3,7 @@ using System.IO;
 using ICSharpCode.AvalonEdit.Document;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     public class TextSourceAdapter : ITextBuffer
     {

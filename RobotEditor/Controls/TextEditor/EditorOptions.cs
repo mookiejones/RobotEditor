@@ -11,7 +11,7 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor
 {
     [Localizable(false)]
     [Serializable]
@@ -346,7 +346,11 @@ namespace RobotEditor.Classes
         [Localizable(false)]
         private static void Register(string name, string[] ext)
         {
-            var filename = string.Format("RobotEditor.Controls.TextEditor.SyntaxHighlighting.{0}Highlight.xshd", name);
+            /// Lets get the current namespace of EditorOptions
+            var type = typeof(EditorOptions);
+            var ns=type.Namespace;
+            
+            var filename = string.Format("RobotEditor.Controls.SyntaxHighlighting.{0}Highlight.xshd", name);
             using (var manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
             {
                 if (manifestResourceStream == null)

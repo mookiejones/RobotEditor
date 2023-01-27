@@ -8,9 +8,10 @@ using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
+using RobotEditor.Controls.TextEditor.Bookmarks;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.IconBar
 {
     public sealed class IconBarMargin : AbstractMargin, IDisposable
     {
@@ -32,7 +33,7 @@ namespace RobotEditor.Classes
         public void Dispose()
         {
             TextView = null;
-// ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
+            // ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
             GC.SuppressFinalize(this);
         }
 
@@ -53,7 +54,7 @@ namespace RobotEditor.Classes
                 _manager.RedrawRequested += OnRedrawRequested;
             }
 
-//            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
+            //            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
             InvalidateVisual();
         }
 
@@ -143,7 +144,7 @@ namespace RobotEditor.Classes
 
         private IBookmark GetBookmarkFromLine(int line)
         {
-            IBookmark[] result = {null};
+            IBookmark[] result = { null };
             foreach (
                 var bm in
                     _manager.Bookmarks.Where(bm => bm.LineNumber == line)
@@ -163,7 +164,7 @@ namespace RobotEditor.Classes
         private void StartDragDrop(IBookmark bm, MouseEventArgs e)
         {
             _dragDropBookmark = bm;
-            _dragDropStartPoint = (_dragDropCurrentPoint = e.GetPosition(this).Y);
+            _dragDropStartPoint = _dragDropCurrentPoint = e.GetPosition(this).Y;
             if (TextView != null)
             {
                 if (TextView.Services.GetService(typeof(TextArea)) is TextArea textArea)
@@ -212,7 +213,7 @@ namespace RobotEditor.Classes
             {
                 var visualLineFromVisualTop =
                     textView.GetVisualLineFromVisualTop(e.GetPosition(textView).Y + textView.ScrollOffset.Y);
-                result = ((visualLineFromVisualTop == null) ? 0 : visualLineFromVisualTop.FirstDocumentLine.LineNumber);
+                result = visualLineFromVisualTop == null ? 0 : visualLineFromVisualTop.FirstDocumentLine.LineNumber;
             }
             return result;
         }

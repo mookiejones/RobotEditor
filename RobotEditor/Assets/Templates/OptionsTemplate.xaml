@@ -2,15 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   
                      
-                    xmlns:gui="clr-namespace:RobotEditor.Classes" 
-                    xmlns:xctk="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" xmlns:xctk2="clr-namespace:ColorPickerLib.Converters;assembly=ColorPickerLib" xmlns:converters="clr-namespace:RobotEditor.Converters" xmlns:converters1="http://metro.mahapps.com/winfx/xaml/shared">
+                    xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor" 
+                    xmlns:xctk="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" 
+                    xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" 
+                    xmlns:xctk2="clr-namespace:ColorPickerLib.Converters;assembly=ColorPickerLib" 
+                    xmlns:converters="clr-namespace:RobotEditor.Converters" 
+                    xmlns:converters1="http://metro.mahapps.com/winfx/xaml/shared">
     <converters1:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <AlternationConverter x:Key="AlternationConverter" />
     <converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
-    <DataTemplate x:Key="{DataTemplateKey {x:Type gui:EditorOptions}}" DataType="{x:Type gui:EditorOptions}">
+    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:EditorOptions}}" DataType="{x:Type textEditor:EditorOptions}">
         <TabControl>
-            <TabItem DataContext="{x:Static gui:GlobalOptions.Instance}" Header="{Binding Title}">
+            <TabItem DataContext="{x:Static textEditor:GlobalOptions.Instance}" Header="{Binding Title}">
                 <TreeView ItemsSource="{Binding}">
                     <TreeViewItem Header="Flyout">
                         <StackPanel Orientation="Horizontal">
@@ -20,7 +24,7 @@
                     </TreeViewItem>
                 </TreeView>
             </TabItem>
-            <TabItem Header="Text Editor Options" DataContext="{x:Static gui:EditorOptions.Instance}">
+            <TabItem Header="Text Editor Options" DataContext="{x:Static textEditor:EditorOptions.Instance}">
                 <TabItem.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Margin" Value="10,0" />

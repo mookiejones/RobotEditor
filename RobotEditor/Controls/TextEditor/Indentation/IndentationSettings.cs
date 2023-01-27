@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Indentation
 {
     internal sealed class IndentationSettings
     {

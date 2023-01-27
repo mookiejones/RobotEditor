@@ -3,7 +3,7 @@ using System.ComponentModel;
 using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Controls.AngleConverter.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.AngleConverter
 {
     [Localizable(false)]
     public sealed class Line3D : IGeometricElement3D, IFormattable
@@ -29,7 +29,7 @@ namespace RobotEditor.Classes
 
         public Point3D GetPoint(double u)
         {
-            var vec = new Vector3D(u*Direction);
+            var vec = new Vector3D(u * Direction);
             return Origin + vec;
         }
 

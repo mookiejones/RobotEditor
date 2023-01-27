@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using RobotEditor.Enums;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Languages.Data
 {
     public sealed class CartesianItems : List<CartesianTypes>
     {

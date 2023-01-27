@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-
-using RobotEditor.Classes;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;
@@ -18,6 +16,7 @@ using AvalonDock.Layout;
 using AvalonDock.Layout.Serialization;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
+using RobotEditor.Controls;
 
 namespace RobotEditor
 {

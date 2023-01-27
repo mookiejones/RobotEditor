@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.Windows;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.IconBar
 {
     public sealed class IconBarManager : IBookmarkMargin
     {

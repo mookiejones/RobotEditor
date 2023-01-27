@@ -1,4 +1,4 @@
-﻿namespace RobotEditor.Classes
+﻿namespace RobotEditor.Model
 {
     public sealed class ShiftClass
     {

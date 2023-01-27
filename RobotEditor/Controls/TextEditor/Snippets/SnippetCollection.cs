@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Snippets;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Snippets
 {
     public sealed class SnippetCollection : List<Snippet>
     {

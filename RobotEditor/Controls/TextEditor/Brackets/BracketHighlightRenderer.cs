@@ -2,8 +2,9 @@ using System;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+using RobotEditor.Classes;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Brackets
 {
     public sealed class BracketHighlightRenderer : IBackgroundRenderer
     {
@@ -32,7 +33,7 @@ namespace RobotEditor.Classes
                 var backgroundGeometryBuilder = new BackgroundGeometryBuilder
                 {
                     CornerRadius = 1.0,
-                    AlignToWholePixels=true
+                    AlignToWholePixels = true
                 };
                 backgroundGeometryBuilder.AddSegment(textview, new TextSegment
                 {

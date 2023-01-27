@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
+using RobotEditor.Controls.TextEditor;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Controls.TextEditor.Formatting
 {
     public class DefaultFormattingStrategy : IFormattingStrategy
     {
@@ -46,8 +47,8 @@ namespace RobotEditor.Classes
             {
                 var location = editor.Document.OffsetToPosition(editor.SelectionStart);
                 var location2 = editor.Document.OffsetToPosition(editor.SelectionStart + editor.SelectionLength);
-                var num = (location2.Column == 1 && location2.Line > location.Line)
-                    ? (location2.Line - 1)
+                var num = location2.Column == 1 && location2.Line > location.Line
+                    ? location2.Line - 1
                     : location2.Line;
                 var list = new List<IEditorDocumentLine>();
                 var flag = true;
@@ -117,7 +118,7 @@ namespace RobotEditor.Classes
                 {
                     num += editor.SelectionStart;
                 }
-                var num2 = (num >= 0)
+                var num2 = num >= 0
                     ? selectedText.IndexOf(commentEnd, num + commentStart.Length - editor.SelectionStart,
                         StringComparison.Ordinal)
                     : selectedText.IndexOf(commentEnd, StringComparison.Ordinal);

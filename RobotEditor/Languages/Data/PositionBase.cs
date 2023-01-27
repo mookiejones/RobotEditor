@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using RobotEditor.Interfaces;
 
-namespace RobotEditor.Classes
+namespace RobotEditor.Languages.Data
 {
     public sealed class PositionBase : IPosition
     {
@@ -66,7 +66,7 @@ namespace RobotEditor.Classes
             try
             {
                 text = PositionalValues.Aggregate(text,
-                    (string current, PositionValue v) => current + string.Format("{0} {1},", v.Name, v.Value));
+                    (current, v) => current + string.Format("{0} {1},", v.Name, v.Value));
                 result = text.Substring(0, text.Length - 1);
             }
             catch

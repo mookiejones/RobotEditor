@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RobotEditor.Classes;
 using RobotEditor.Enums;
+using RobotEditor.Languages.Data;
 
 namespace RobotEditor.ViewModel
 {
