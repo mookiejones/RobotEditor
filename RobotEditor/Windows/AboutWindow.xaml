@@ -1,0 +1,39 @@
+﻿<Window x:Class="RobotEditor.Windows.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
+        Title="AboutWindow" Height="531" Width="430" Padding="10" ResizeMode="NoResize">
+    <Window.Background>
+        <LinearGradientBrush MappingMode="Absolute" StartPoint="0,0" EndPoint="0,180">
+            <GradientStop Color="#FFDEDEDE" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+    <StackPanel Orientation="Vertical">
+       
+        <Label Height="225">
+            <Image Source="/Resources\Editor.png" Height="48" Width="48" />
+        </Label>
+        <TextBlock Text="{Binding Copyright}" />
+        <TabControl>
+            <TabItem Header="{Binding Name, StringFormat=About {0}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Version" VerticalAlignment="Stretch" />
+                    <TextBlock Grid.Column="1" Background="#FF808080" Text="{Binding Version}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Text="{Binding Info}" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Content="Close" VerticalAlignment="Bottom" Click="CloseClick" />
+    </StackPanel>
+</Window>

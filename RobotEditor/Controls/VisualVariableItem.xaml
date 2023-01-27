@@ -1,0 +1,69 @@
+﻿<DataGrid x:Class="RobotEditor.Controls.VisualVariableItem"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+          mc:Ignorable="d"
+          IsReadOnly="True" ColumnHeaderStyle="{DynamicResource DataGridHeaderGlassEffect}"
+          Style="{DynamicResource DataGridStyle}" ToolTipOpening="ToolTip_Opening"
+          MouseDoubleClick="OnMouseDoubleClick"
+          d:DesignHeight="300" d:DesignWidth="300">
+    <DataGrid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RobotEditor;component/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ToolTip x:Key="tooltip" Background="#FFF8F8FF" BorderThickness="0" BorderBrush="#FF000000">
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}" />
+                            <TextBlock Margin="10,0" TextBlock.FontWeight="Bold" Text="{Binding Name}" />
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Value}" />
+                        <TextBlock Text="{Binding Path}" />
+                    </StackPanel>
+                </GroupBox>
+            </ToolTip>
+        </ResourceDictionary>
+    </DataGrid.Resources>
+    <DataGrid.Columns>
+        <DataGridTemplateColumn Width="Auto" IsReadOnly="True">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <Image Height="16" Width="16" ToolTip="{StaticResource tooltip}" Source="{Binding Icon}" />
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="Auto" IsReadOnly="True" Header="Name">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock ToolTip="{StaticResource tooltip}" Text="{Binding Name}" />
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="Auto" IsReadOnly="True" Header="Type">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock ToolTip="{StaticResource tooltip}" Text="{Binding Type}" />
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="Auto" IsReadOnly="True" Header="Value">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock ToolTip="{StaticResource tooltip}" Text="{Binding Value}" />
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="*" IsReadOnly="True" Header="Path">
+            <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <TextBlock ToolTip="{StaticResource tooltip}" Text="{Binding Path}" />
+                </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+    </DataGrid.Columns>
+</DataGrid>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Dictionary>
+  <Words>
+    <Unrecognized>
+      <Word>knokker</Word>
+    </Unrecognized>
+    <Recognized>
+      <Word>Foldings</Word>
+      <Word>v</Word>
+      <Word>v1</Word>
+      <Word>v2</Word>
+      <Word>v3</Word>
+      <Word>v4</Word>
+      <Word>vec</Word>
+      <Word>deftp</Word>
+    </Recognized>
+    <Deprecated>
+      <Term PreferredAlternate=""></Term>
+    </Deprecated>
+    <Compound>
+      <Term CompoundAlternate=""></Term>
+    </Compound>
+    <DiscreteExceptions>
+      <Term></Term>
+    </DiscreteExceptions>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>FTP</Acronym>
+      <Acronym>KFD</Acronym>
+      <Acronym>ABB</Acronym>
+      <Acronym>EXT</Acronym>
+      <Acronym>mi</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

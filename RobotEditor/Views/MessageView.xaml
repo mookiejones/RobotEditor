@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="RobotEditor.Views.MessageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
+             xmlns:interfaces="clr-namespace:RobotEditor.Interfaces"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModel:MessageViewModel }"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <DataGrid Height="Auto" IsReadOnly="True" Width="Auto"
+                    
+                  Style="{StaticResource DataGridStyle}"
+                  ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Image Grid.RowSpan="3" Source="{Binding Icon}" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding SelectedMessage.Title, StringFormat=Title     {0}}" />
+                                    <Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" />
+                                    <Separator />
+                                    <TextBlock Grid.Column="1" Grid.Row="2"
+                                               Text="{Binding SelectedMessage.Description, StringFormat=Description     {0}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Clear" Command="{Binding ClearMessagesCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="16" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="16" Width="16" Source="{Binding Icon}"
+                                   d:DataContext="{d:DesignInstance interfaces:IMessage }" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                <DataGridTextColumn Width="*" Header="Message" Binding="{Binding Description}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

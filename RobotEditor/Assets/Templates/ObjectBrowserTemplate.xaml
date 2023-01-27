@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:pr="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:vm="clr-namespace:editor.ViewModel"
+                    xmlns:controls="clr-namespace:RobotEditor.Controls"
+                    xmlns:views="clr-namespace:RobotEditor.Views">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RobotEditor;component/Templates/GenericTemplate.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Templates/ExtendedGridSplitterTemplate.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Styles/Styles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <DataTemplate x:Key="{DataTemplateKey {x:Type vm:ObjectBrowserViewModel}}" DataType="{x:Type vm:ObjectBrowserViewModel}">
+        <views:ObjectBrowserView/>
+    </DataTemplate>
+</ResourceDictionary>

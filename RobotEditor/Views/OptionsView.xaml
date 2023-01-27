@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="RobotEditor.Views.OptionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:gui="clr-namespace:RobotEditor.Classes"
+             mc:Ignorable="d"
+             xmlns:converters="clr-namespace:RobotEditor.Converters" xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" xmlns:xctk2="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
+        <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem DataContext="{x:Static gui:GlobalOptions.Instance}" Header="{Binding Title}">
+                <TreeView ItemsSource="{Binding}">
+                    <TreeViewItem Header="Flyout">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Opacity" />
+                            <xctk1:DoubleUpDown  MaxValue="1" MinValue="0" Value="{Binding FlyoutOpacity}" />
+                        </StackPanel>
+                    </TreeViewItem>
+                </TreeView>
+            </TabItem>
+            <TabItem Header="Text Editor Options" DataContext="{x:Static gui:EditorOptions.Instance}">
+                <TabItem.Resources>
+                    <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+                        <Setter Property="FrameworkElement.Margin" Value="10,0" />
+                        <Setter Property="UIElement.IsHitTestVisible" Value="False" />
+                        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True" />
+                    </Style>
+                    <Style x:Key="{x:Type xctk2:ColorPicker}" TargetType="{x:Type xctk2:ColorPicker}">
+                        <Setter Property="FrameworkElement.Margin" Value="10,0" />
+                        <Setter Property="xctk2:ColorPicker.ShowAvailableColors" Value="True" />
+                        <Setter Property="xctk2:ColorPicker.DisplayColorAndName" Value="True" />
+                    </Style>
+                </TabItem.Resources>
+                <StackPanel Orientation="Vertical" Margin="10,0">
+                    <CheckBox Content="Allow Scrolling Below Document"
+                              IsChecked="{Binding AllowScrollingBelowDocument}" />
+                    <CheckBox Content="Convert Tabs to spaces." IsChecked="{Binding ConvertTabsToSpaces}" />
+                    <CheckBox Content="Cut/Copy Whole Line" IsChecked="{Binding CutCopyWholeLine}" />
+                    <CheckBox Content="Enable Animations" IsChecked="{Binding EnableAnimations}" />
+                    <CheckBox Content="Enable Email Hyperlinks" IsChecked="{Binding EnableEmailHyperlinks}" />
+                    <CheckBox Content="Enable Folding" IsChecked="{Binding EnableFolding}" />
+                    <GroupBox>
+                        <GroupBox.Header>
+                            <CheckBox Content="Enable Hyperlinks" IsChecked="{Binding EnableHyperlinks}" />
+                        </GroupBox.Header>
+                        <CheckBox Content="Require Control Button For Hyperlinks"
+                                  IsEnabled="{Binding EnableHyperlinks}"
+                                  IsChecked="{Binding RequireControlModifierForHyperlinkClick}" />
+                    </GroupBox>
+                    <GroupBox Header="Timestamp">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Format" />
+                            <TextBox Grid.Row="0" Grid.Column="1"
+                                     Text="{Binding TimestampFormat, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="Sample" Grid.Row="1" Grid.Column="0" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TimestampSample}" />
+                        </Grid>
+                    </GroupBox>
+                    <CheckBox Content="Enable Rectangular Selection" IsChecked="{Binding EnableRectangularSelection}" />
+                    <CheckBox Content="Enable Text Drag/Drop" IsChecked="{Binding EnableTextDragDrop}" />
+                    <CheckBox Content="Enable Virtual Space" IsChecked="{Binding EnableVirtualSpace}" />
+                    <CheckBox Content="Highlight current line" IsChecked="{Binding HighlightCurrentLine}" />
+                    <CheckBox Content="Allow Zooming With Mouse Wheel" IsChecked="{Binding MouseWheelZoom}" />
+                    <CheckBox Content="Show Box For Control Characters"
+                              IsChecked="{Binding ShowBoxForControlCharacters}" />
+                    <GroupBox Header="Highlight current line">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Selected Line Color" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding HighlightedLineColor}" />
+                            </StackPanel>
+                            <TextBox Text="{Binding WordWrapIndentation}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <CheckBox Content="Show End of Line" IsChecked="{Binding ShowEndOfLine}" />
+                    <CheckBox Content="Show Line Numbers" IsChecked="{Binding ShowLineNumbers}" />
+                    <CheckBox Content="Show Spaces" IsChecked="{Binding ShowSpaces}" />
+                    <CheckBox Content="Wrap words" IsChecked="{Binding WrapWords}" />
+                    <GroupBox Header="Editor Colors">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Line Numbers" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding LineNumbersFontColor}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Font Color" />
+                                <xctk2:ColorPicker Tag="Font Color" SelectedColor="{Binding FontColor}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Background Color" />
+                                <xctk2:ColorPicker Tag="Background Color" SelectedColor="{Binding BackgroundColor}" />
+                            </StackPanel>
+                            <GroupBox Header="Fold ToolTip">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Background Color" />
+                                        <xctk2:ColorPicker Tag="Background Color"
+                                                          SelectedColor="{Binding FoldToolTipBackgroundColor}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Border Color" />
+                                        <xctk2:ColorPicker Tag="Background Color"
+                                                          SelectedColor="{Binding FoldToolTipBackgroundBorderColor}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="BorderThickness Color" />
+                                        <xctk1:DoubleUpDown Value="{Binding FoldToolTipBorderThickness}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Selected Text">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Font Color" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedFontColor}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Background Color" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedTextBackground}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="Border Color" />
+                                <xctk2:ColorPicker SelectedColor="{Binding SelectedBorderColor}" />
+                                <TextBlock Text="Border Thickness" />
+                                <xctk1:DoubleUpDown   Value="{Binding SelectedBorderThickness}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

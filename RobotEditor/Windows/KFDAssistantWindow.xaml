@@ -1,0 +1,19 @@
+﻿<Window x:Class="RobotEditor.Windows.KFDAssistantWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RobotEditor.Dialogs" Height="300" Width="300">
+    <Grid>
+        <ListView>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" />
+                    <GridViewColumn Header="ShortName" />
+                    <GridViewColumn Header="Shortcut" />
+                    <GridViewColumn Header="Unit" />
+                    <GridViewColumn Header="Enable" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DataGrid />
+    </Grid>
+</Window>

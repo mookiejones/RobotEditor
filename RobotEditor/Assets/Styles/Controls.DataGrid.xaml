@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behaviors="clr-namespace:RobotEditor.UI.Behaviors">
+
+
+     
+    
+    
+    <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        
+        <Setter Property="GridLinesVisibility" Value="All" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="CanUserReorderColumns" Value="True" />
+        <Setter Property="CanUserResizeColumns" Value="True" />
+        <Setter Property="CanUserSortColumns" Value="True" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
+    </Style>
+     
+    
+    <Style x:Key="CellEditStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TextColumnStyle" TargetType="{x:Type FrameworkElement}">
+        <Setter Property="TextElement.FontSize" Value="10"/>
+
+    </Style>
+    <Style x:Key="TextHeaderStyle" TargetType="{x:Type FrameworkElement}">
+        <Setter Property="TextElement.FontSize" Value="10"/>
+
+    </Style>
+    <Style x:Key="ObjectBrowserHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+        <Setter Property="FontSize" Value="10"/>
+    </Style>
+
+    <Style x:Key="ObjectBrowserCellStyle" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+        <Setter Property="FontSize" Value="10"/>
+    </Style>
+    <Style x:Key="ObjectBrowserDataGrid" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource DataGridStyle}">
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="behaviors:DataGridHelper.TextColumnStyle" Value="{StaticResource TextColumnStyle}"/>
+        <Setter Property="behaviors:DataGridHelper.TextHeaderStyle" Value="{StaticResource ObjectBrowserHeaderStyle}"/>
+    </Style>
+</ResourceDictionary>
+    
+    

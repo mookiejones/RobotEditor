@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <MenuItem x:Key="KUKAMenu">
+        <MenuItem Header="CleanDat" />
+        <MenuItem Header="RenamePositions" />
+        <MenuItem Header="ReverseOrder" />
+        <MenuItem Header="PositionTransformation" />
+        <MenuItem Header="Mirror" />
+        <MenuItem Header="Adjust Status/Turn" />
+        <MenuItem Header="Sort DataList" />
+        <MenuItem Header="View I/O List" />
+    </MenuItem>
+    <MenuItem x:Key="ABBMenu" />
+    <MenuItem x:Key="FanucMenu" />
+    <MenuItem x:Key="KawasakiMenu" />
+    <MenuItem x:Key="NachiMenu" />
+</ResourceDictionary>

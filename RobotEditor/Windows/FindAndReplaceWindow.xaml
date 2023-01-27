@@ -1,0 +1,6 @@
+﻿<Window x:Class="RobotEditor.Windows.FindAndReplaceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FindAndReplaceWindow" Height="300" Width="300">
+    <Grid />
+</Window>

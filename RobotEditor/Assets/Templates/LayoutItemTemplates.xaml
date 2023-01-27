@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      
+                    >
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+    <Style x:Key="ToolStyle" TargetType="{x:Type LayoutAnchorableItem}">
+        <Setter Property="Title" Value="{Binding Model.Title}" />
+        <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
+        <Setter Property="Visibility"
+                Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}" />
+        <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+        <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
+        <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
+    </Style>
+    <Style x:Key="FileStyle" TargetType="{x:Type LayoutItem}">        
+        <Setter Property="CloseCommand" Value="{Binding Main.CloseCommand, Source={StaticResource Locator}}"/>
+        <Setter Property="Title" Value="{Binding Model.Title}" />
+        <Setter Property="ToolTip" Value="{Binding Model.FilePath}" />
+        <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
+        <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+    </Style>
+</ResourceDictionary>

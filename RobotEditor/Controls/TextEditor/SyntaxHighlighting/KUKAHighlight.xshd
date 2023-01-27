@@ -1,0 +1,199 @@
+﻿<SyntaxDefinition name = "KUKA" extensions = ".src;.dat;.kfd;.sub" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="#808080" />
+  <Color name="String" foreground="#841F27" />
+  <Color name="Numbers" foreground="Red" fontStyle="italic" exampleText="0,1,2,3,4,5"  />
+  <Color name="MethodCall" foreground="MidnightBlue" fontWeight="normal" exampleText="o.ToString();"/>
+  <Color name="Declarations" foreground="Blue" fontStyle="normal" fontWeight="normal"/>
+  <Color name="Punctuation" foreground="#808080" fontWeight="normal" fontStyle="normal" exampleText="a(b.c);" />
+  <Color name="Motion" foreground="Red" fontWeight="bold" fontStyle="normal" exampleText="a(b.c);" />
+  <Color name="Logic" foreground="Blue" fontWeight="normal" fontStyle="normal" exampleText="a(b.c);" />
+  <Color name="Variable" foreground="Orange" fontWeight="bold" fontStyle="normal" exampleText="a(b.c);" />
+  <Color name="VariableType" foreground="Blue" fontWeight="normal" fontStyle="normal" exampleText="a(b.c);" />
+  <Color name="Keyword" foreground="Blue" fontWeight="bold" fontStyle="normal" exampleText="a(b.c);" />
+  <RuleSet ignoreCase="true">
+      <Span color="Comment" begin=";" />
+      <Span color="String" >
+        <Begin>"</Begin>
+        <End>"</End>
+      </Span>
+
+    <!-- Regular Expressions go on top so they are bypassed from the Code completion Process-->
+
+    <!--Numbers-->
+      <Rule color="Numbers">
+        \b0[xX][0-9a-fA-F]+  # hex number
+        |    \b
+        (    \d+(\.[0-9]+)?   #number with optional floating point
+        |    \.[0-9]+         #or just starting with floating point
+        )
+        ([eE][+-]?[0-9]+)? # optional exponent
+      </Rule>
+    <Rule color="Declarations">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+	
+    <!-- Mark previous rule-->
+    <Rule color="MethodCall">
+      \b
+      [\d\w_]+  # an identifier
+      (?=\s*\() # followed by (
+    </Rule>
+   	  <Keywords color="Punctuation">
+				<Word>?</Word>
+				<Word>,</Word>
+				<Word>.</Word>
+				<Word>;</Word>
+				<Word>(</Word>
+				<Word>)</Word>
+				<Word>[</Word>
+				<Word>]</Word>
+				<Word>{</Word>
+				<Word>}</Word>
+				<Word>+</Word>
+				<Word>-</Word>
+				<Word>/</Word>
+				<Word>%</Word>
+				<Word>*</Word>
+       			<Word>&lt;</Word>
+       			<Word>&gt;</Word>
+				<Word>^</Word>
+				<Word>=</Word>
+				<Word>~</Word>
+				<Word>!</Word>
+				<Word>|</Word>
+		  	</Keywords>
+		
+      
+      <Keywords color="Motion">
+        <Word>PTP</Word>
+        <Word>PTP_REL</Word>
+        <Word>LIN</Word>
+        <Word>LIN_REL</Word>
+        <Word>CIRC</Word>
+       </Keywords>
+
+       <Keywords color="Logic">
+        <Word>FOR</Word>
+        <Word>ENDFOR></Word>
+        <Word>ENDSWITCH</Word>
+        <Word>ENDWHILE</Word>
+        <Word>CASE</Word>
+        <Word>EXIT</Word>
+        <Word>DEFAULT</Word>
+        <Word>TRUE</Word>
+        <Word>FALSE</Word>
+        <Word>FOR TO</Word>
+        <Word>GOTO</Word>
+        <Word>LOOP</Word>
+        <Word>REPEAT</Word>
+        <Word>return</Word>
+        <Word>SWITCH</Word>
+        <Word>UNTIL</Word>
+        <Word>WHEN</Word>
+        <Word>while</Word>
+        <Word>Else</Word>
+        <Word>IF</Word>
+        <Word>THEN</Word>
+        <Word>DO</Word>
+         <Word>INTERRUPT</Word>
+         <Word>ENDIF</Word>
+      </Keywords>
+      
+       <Keywords color="Variable">
+        <Word>ANIN</Word>
+        <Word>ANOUT</Word>
+        <Word>BRAKE</Word>
+        <Word>CCLOSE</Word>
+        <Word>CHANNEL</Word>
+        <Word>$POS_ACT</Word>
+        <Word>CONFIRM</Word>
+        <Word>CONTINUE</Word>
+        <Word>COPEN</Word>
+        <Word>CREAD</Word>
+        <Word>DECL</Word>
+        <Word>DIGIN</Word>
+        <Word>DISTANCE</Word>
+        <Word>ENUM</Word>
+        <Word>EXT</Word>
+        <Word>EXTFCT</Word>
+        <Word>HALT</Word>
+        <Word>IMPORT</Word>
+        <Word>PATH</Word>
+        <Word>PULSE</Word>
+        <Word>RESUME</Word>
+        <Word>SIGNAL</Word>
+        <Word>SREAD</Word>
+        <Word>STRUC</Word>
+        <Word>SWRITE</Word>
+        <Word>TRIGGER</Word>
+        <Word>WAIT</Word>
+        <Word>WAIT SEC</Word>
+        <Word>STRDECLEN</Word>
+        <Word>STRLEN</Word>
+        <Word>STRCLEAR</Word>
+        <Word>STRADD</Word>
+        <Word>STRFIND</Word>
+        <Word>STRCOMP</Word>
+        <Word>STRCOPY</Word>
+        <Word>GET_SIG_INF</Word>
+         <Word>$POS_ACT</Word>
+      </Keywords>
+     
+       <Keywords color="VariableType">
+        <Word>AXIS</Word>
+        <Word>BOOL</Word>
+        <Word>CHAR</Word>
+        <Word>E6AXIS</Word>
+        <Word>E6POS</Word>
+        <Word>FRAME</Word>
+        <Word>INT</Word>
+        <Word>REAL</Word>
+        <Word>POS</Word>
+        <Word>SIGINF</Word>
+      </Keywords>
+    
+       <Keywords color="Keyword">
+        <Word>car</Word>
+        <Word>cdr</Word>
+        <Word>cons</Word>
+        <Word>not</Word>
+        <Word>defun</Word>
+        <Word>cond</Word>
+        <Word>atom</Word>
+        <Word>nil</Word>
+        <Word>evenp</Word>
+        <Word>expon</Word>
+        <Word>PUBLIC</Word>
+        <Word>truncate</Word>
+        <Word>squash</Word>
+        <Word>setq</Word>
+        <Word>equal</Word>
+        <Word>itemx</Word>
+        <Word>base</Word>
+        <Word>null</Word>
+
+       </Keywords>
+		
+  	<Keywords color = "Declarations">
+  		    <Word>GLOBAL</Word>
+         <Word>END</Word>
+         <Word>ENDDEF</Word>
+         <Word>ENDDAT</Word>
+         <Word>ENDFCT</Word>
+  	     <Word>DEF</Word>
+  	     <Word>DEFFCT</Word>
+  	
+  	</Keywords>
+  
+  </RuleSet>
+
+  <RuleSet name="CommentMarkerSet" ignoreCase="true">
+    <Keywords foreground="#FFFF0000" fontWeight="bold" fontStyle="normal">
+      <Word>TODO</Word>
+      <Word>FIXME</Word>
+    </Keywords>
+    <Keywords foreground="#EEE0E000" fontWeight="bold" fontStyle="normal">
+      <Word>HACK</Word>
+      <Word>UNDONE</Word>
+    </Keywords>
+    <Rule foreground="#FFFF0000" fontWeight="normal" fontStyle="normal">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+  </RuleSet>
+</SyntaxDefinition>

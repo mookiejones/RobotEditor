@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="RobotEditor.Controls.FileInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:RobotEditor.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converters:GetFileIconConverter x:Key="GetFileIconConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Image Height="16" Width="16"
+               Source="{Binding Name, Converter={StaticResource GetFileIconConverter}, Mode=OneWay}"
+               Margin="0,0,10,0" />
+        <TextBlock Text="{Binding Name}" Grid.Column="1" FontSize="14">
+            <TextBlock.ToolTip>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" />
+                    <Separator />
+                    <TextBlock Text="{Binding IsReadOnly, StringFormat=Is Read Only:\= \{0\}}" />
+                    <TextBlock Text="{Binding Length, StringFormat=Size:\= \{0\}}" />
+                    <TextBlock Text="{Binding DirectoryName, StringFormat=Directory Name:\= \{0\}}" />
+                </StackPanel>
+            </TextBlock.ToolTip>
+        </TextBlock>
+    </Grid>
+</UserControl>

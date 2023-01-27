@@ -1,0 +1,276 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:RobotEditor.Views"
+                    xmlns:classes="clr-namespace:RobotEditor.Classes"
+                    xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
+                    xmlns:converters="clr-namespace:RobotEditor.Converters"
+                    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                    xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System"
+                    xmlns:controls="clr-namespace:RobotEditor.Controls"
+                    xmlns:io="clr-namespace:System.IO;assembly=mscorlib"
+                    xmlns:RobotEditor="clr-namespace:RobotEditor"
+                    xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Styles.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Brushes.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.DataGrid.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" /> 
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/ExtendedGridSplitterTemplate.xaml" />
+       
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/KUKASpecificTemplates.xaml" />
+     
+    </ResourceDictionary.MergedDictionaries>
+    <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter" />
+    <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    <converters:GetFileSystemInfosConverter x:Key="GetFileSystemInfosConverter" />
+    <converters:WidthConverter x:Key="WidthConverter" />
+    <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+    <!--<viewModel:GlobalOptionsViewModel x:Key="GlobalOptions" />-->
+
+
+    <Image x:Key="CopyImage" Source="/RobotEditor;component/Images/resources-copy.png" />
+    <Image x:Key="PasteImage" Source="/RobotEditor;component/Images/resources-paste.png" />
+    <Image x:Key="FoldingDisabled" Source="/RobotEditor;component/Images/resources-foldingDisabled.png" />
+    <Image x:Key="FoldingEnabled" Source="/RobotEditor;component/Images/resources-foldingEnabled.png" />
+    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource DataGridStyle}">
+        
+    </Style>
+    <ControlTemplate x:Key="ValidationTemplate">
+        <DockPanel>
+            <TextBlock Foreground="#FFFF0000" FontSize="20">
+                <Run Text="!" />
+            </TextBlock>
+            <AdornedElementPlaceholder />
+        </DockPanel>
+    </ControlTemplate>
+
+    <DataTemplate x:Key="SignalToolTip" DataType="ToolTip">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding Type}" />
+            <Separator />
+            <TextBlock Text="{Binding Description}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <HierarchicalDataTemplate DataType="{x:Type io:DirectoryInfo}"
+                              ItemsSource="{Binding ., Converter={StaticResource GetFileSystemInfosConverter}}">
+        <TextBlock Text='{Binding Name}' FontSize="14" />
+    </HierarchicalDataTemplate>
+
+
+    <DataTemplate x:Key="ItemsTemplate">
+        <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" BorderThickness="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Foreground="{Binding TitleForeground, Source={x:Static RobotEditor:MainWindow.Instance}}"
+                    Header="Type" Binding="{Binding Type}" />
+                <DataGridTextColumn
+                    Foreground="{Binding TitleForeground, Source={x:Static RobotEditor:MainWindow.Instance}}"
+                    Header="Description" Width="Auto" Binding="{Binding Description}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DataTemplate>
+
+    <!-- Archive File Information -->
+    <DataTemplate DataType="{x:Type viewModel:InfoFile}">
+        <controls:InfoFile />
+    </DataTemplate>
+
+    <!-- FileInfo-->
+    <DataTemplate DataType="{x:Type io:FileInfo}">
+        <controls:FileInfo />
+    </DataTemplate>
+
+
+    <!-- Goto -->
+    <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:GotoViewModel}}"
+                  DataType="{x:Type viewModel:GotoViewModel}">
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="Width" Value="75" />
+                    <Setter Property="Margin" Value="5,0" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                </Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="TabIndex" Value="1" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5" />
+                    <Setter Property="TextWrapping" Value="NoWrap" />
+                    <Setter Property="Height" Value="25" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Name="Description" HorizontalAlignment="Stretch" Margin="5" TextWrapping="Wrap"
+                       VerticalAlignment="Top" Height="20" Text="{Binding Description}" />
+            <TextBox Name="EnteredText" Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                     Text="{Binding EnteredText, ValidatesOnDataErrors=True}" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Button Name="btnOK" Content="_OK" Click="{Binding OkCommand}" />
+                <Button Name="btnCancel" Content="_Cancel" Click="{Binding CancelCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Angle Converter -->
+    <DataTemplate x:Key="AngleConverterTemplate" DataType="{x:Type viewModel:AngleConvertorViewModel}">
+        <views:AngleConverterView />
+    </DataTemplate>
+
+    <!-- Messages-->
+    <DataTemplate x:Key="MessageTemplate" DataType="{x:Type viewModel:MessageViewModel}">
+        <views:MessageView />
+    </DataTemplate>
+
+    <!-- OuputWindow Message-->
+    <DataTemplate DataType="{x:Type classes:OutputWindowMessage}">
+        <Label>
+            <StackPanel>
+                <Image Source="{Binding Icon}" />
+                <TextBlock Text="{Binding Title}" />
+                <TextBlock Text="{Binding Description}" ToolTip="Hello" />
+            </StackPanel>
+        </Label>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FunctionItemTemplate" DataType="{x:Type classes:Variable}">
+        <controls:FunctionItem />
+    </DataTemplate>
+
+    <!-- Notes -->
+    <DataTemplate x:Key="NotesWindowTemplate">
+        <TextBox TextWrapping="Wrap" Background="DarkGray" BorderThickness="1" />
+    </DataTemplate>
+
+
+    <!-- ArchiveInfo-->
+    <DataTemplate DataType="{x:Type viewModel:ArchiveInfoViewModel}">
+        <views:ArchiveInfoView />
+    </DataTemplate>
+
+
+    <DataTemplate DataType="{x:Type viewModel:IOViewModel}">
+        <views:IOView />
+    </DataTemplate>
+
+
+    <!-- FindReplace -->
+    <DataTemplate DataType="{x:Type viewModel:FindReplaceViewModel}">
+        <DataTemplate.Resources>
+            <CollectionViewSource Source="{Binding FindReplaceResults}" x:Key="items">
+                <CollectionViewSource.SortDescriptions>
+                    <componentModel:SortDescription PropertyName="File" />
+                </CollectionViewSource.SortDescriptions>
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="File" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+            <DataTemplate DataType="{x:Type regularExpressions:Group}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Index,StringFormat='Index = {0}'}" />
+                    <TextBlock Text="{Binding Value,StringFormat='Value = {0}'}" />
+                </StackPanel>
+            </DataTemplate>
+        </DataTemplate.Resources>
+        <ListBox Name="items" ItemsSource="{Binding Source={StaticResource items}}" DisplayMemberPath="File">
+            <ListBox.GroupStyle>
+                <x:Static Member="GroupStyle.Default" />
+            </ListBox.GroupStyle>
+            <ListBox.Resources>
+
+                <DataTemplate DataType="{x:Type classes:FindReplaceResult}">
+                    <Expander Header="{Binding File}">
+                        <ListBox ItemsSource="{Binding Groups}" />
+                    </Expander>
+                </DataTemplate>
+            </ListBox.Resources>
+
+        </ListBox>
+    </DataTemplate>
+
+    <!-- Local Variables-->
+    <DataTemplate x:Key="{DataTemplateKey {x:Type viewModel:LocalVariablesViewModel}}"
+                  DataType="{x:Type viewModel:LocalVariablesViewModel}" />
+
+    <!-- Generic Document -->
+    <DataTemplate x:Key="Document" DataType="{x:Type viewModel:DocumentViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Opacity" Value="0.1" />
+                    <Setter Property="Height" Value="25" />
+                    <Setter Property="FontSize" Value="10" />
+                    <Setter Property="ItemTemplate" Value="{StaticResource FunctionItemTemplate}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
+                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                      DockPanel.Dock="Top" />
+            <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top" />
+        </DockPanel>
+    </DataTemplate>
+
+    <!-- KUKA Document -->
+    <DataTemplate x:Key="Kuka" DataType="{x:Type viewModel:KukaViewModel}">
+        <DockPanel>
+            <DockPanel.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Opacity" Value="0.1" />
+                    <Setter Property="Height" Value="25" />
+                    <Setter Property="FontSize" Value="10" />
+                    <Setter Property="ItemTemplate" Value="{StaticResource FunctionItemTemplate}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Resources>
+            <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
+                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                      DockPanel.Dock="Top" />
+            <Grid DockPanel.Dock="Top">
+                <Grid.InputBindings>
+                    <KeyBinding Command="{Binding ToggleGridCommand}" CommandTarget="{Binding Grid}" Key="T"
+                                Modifiers="Control" />
+                </Grid.InputBindings>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <ContentPresenter Content="{Binding Source}" Grid.Row="0" />
+                <ContentPresenter Content="{Binding Data}" Grid.Row="2" />
+                <controls:ExtendedGridSplitter x:Name="_grid" Grid.Row="1" DataContext="{Binding Grid}" />
+            </Grid>
+        </DockPanel>
+    </DataTemplate>
+
+    <!-- Editor -->
+    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:Editor}}" DataType="{x:Type textEditor:Editor}">
+        <DockPanel>
+            <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
+                      DockPanel.Dock="Top" />
+            <ContentPresenter Content="{Binding ''}" DockPanel.Dock="Top" />
+        </DockPanel>
+    </DataTemplate>
+
+    <!-- Functions -->
+    <DataTemplate x:Key="Functions" DataType="{x:Type viewModel:FunctionViewModel}">
+        <views:FunctionView />
+    </DataTemplate>
+    <!--Object Browser Template-->
+    <DataTemplate x:Key="ObjectBrowser" DataType="{x:Type viewModel:ObjectBrowserViewModel}">
+        <views:ObjectBrowserView />
+    </DataTemplate>
+    <DataTemplate x:Key="Notes">
+        <views:NotesView />
+    </DataTemplate>
+</ResourceDictionary>

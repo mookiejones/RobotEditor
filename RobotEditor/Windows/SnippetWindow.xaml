@@ -1,0 +1,12 @@
+﻿<Window x:Class="RobotEditor.Windows.SnippetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SnippetPad" Height="300" Width="300">
+    <Grid>
+        <ListView>
+            <ListView.View>
+                <GridView />
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

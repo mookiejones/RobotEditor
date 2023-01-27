@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="RobotEditor.Controls.FunctionItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:classes="clr-namespace:RobotEditor.Classes"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:DesignInstance classes:Variable}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding Icon}" Grid.Column="0" />
+        <Label Content="{Binding Name}" Margin="5,0,0,0" HorizontalAlignment="Stretch" Grid.Column="1">
+            <Label.ToolTip>
+                <GroupBox Header="{Binding Name}" FontWeight="ExtraBold" FontSize="14" Foreground="White">
+                    <GroupBox.Resources>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontWeight" Value="Normal" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Style>
+                    </GroupBox.Resources>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Offset, StringFormat=Offset:\=\{0\}}"
+                                   Visibility="{Binding ShowOffset, Converter={StaticResource BoolToVisConverter}}" />
+                        <TextBlock Text="{Binding Returns, StringFormat=Returns:\=\{0\}}"
+                                   Visibility="{Binding ShowReturns, Converter={StaticResource BoolToVisConverter}}" />
+                        <TextBlock Text="{Binding Declaration, StringFormat=Returns:\=\{0\}}"
+                                   Visibility="{Binding ShowDeclaration, Converter={StaticResource BoolToVisConverter}}" />
+                    </StackPanel>
+                </GroupBox>
+            </Label.ToolTip>
+        </Label>
+    </Grid>
+</UserControl>

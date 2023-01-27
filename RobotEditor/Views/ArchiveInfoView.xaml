@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="RobotEditor.Views.ArchiveInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Height="25" VerticalAlignment="Top" Background="Transparent">
+            <MenuItem Header="_File" Command="{Binding ImportCommand}" />
+        </Menu>
+        <TabControl VerticalAlignment="Stretch" Grid.Row="1" VerticalContentAlignment="Stretch">
+            <TabItem Header="Archive Files">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70*" />
+                        <RowDefinition Height="30*" />
+                    </Grid.RowDefinitions>
+
+                    <TreeView ItemsSource="{Binding Root, IsAsync=True}" Background="Transparent" />
+                    <GroupBox Grid.Row="1" Header="Details" VerticalAlignment="Bottom"
+                              ToolTip="{Binding ArchiveZip.Name, StringFormat=Details for Archive File \{0\}}">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding ArchiveZip.Name, StringFormat=Name \= \{0\}}" />
+                            <TextBlock Text="{Binding ArchiveZip.BufferSize, StringFormat=Buffer Size \= \{0\}}" />
+                            <TextBlock Text="{Binding ArchiveZip.Count, StringFormat=File Count \= \{0\}}" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Archive Information" Content="{Binding Info}" />
+            <TabItem Header="IO Points">
+                <TabItem.Resources>
+                    <Style TargetType="{x:Type DataGrid}">
+                        <Setter Property="AlternatingRowBackground" Value="SkyBlue" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="AutoGenerateColumns" Value="False" />
+                    </Style>
+                </TabItem.Resources>
+                <TabControl>
+                    <TabItem Header="Digital" Visibility="{Binding DigitalVisibility}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="Digital In" ContentTemplate="{StaticResource ItemsTemplate}"
+                                      Grid.Column="0" Content="{Binding Inputs}"
+                                      Visibility="{Binding DigInVisibility}" />
+                            <GroupBox Header="Digital Out" ContentTemplate="{StaticResource ItemsTemplate}"
+                                      Grid.Column="1" Content="{Binding Outputs}"
+                                      Visibility="{Binding DigOutVisibility}" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Analog" Visibility="{Binding AnalogVisibility}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="Analog In" Grid.Column="0"
+                                      ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnIn}"
+                                      Visibility="{Binding AnInVisibility}" />
+                            <GroupBox Header="Analog Out" Grid.Column="1"
+                                      ContentTemplate="{StaticResource ItemsTemplate}" Content="{Binding AnOut}"
+                                      Visibility="{Binding AnOutVisibility}" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Counters" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Content="{Binding Counter}" Visibility="{Binding CounterVisibility}" />
+                    <TabItem Header="Timers" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Content="{Binding Timer}" Visibility="{Binding TimerVisibility}" />
+                    <TabItem Header="Flags" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Content="{Binding Flag}" Visibility="{Binding FlagVisibility}" />
+                    <TabItem Header="CycFlags" ContentTemplate="{StaticResource ItemsTemplate}"
+                             Visibility="{Binding CyclicFlagVisibility}" Content="{Binding CycFlags}" />
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Language File">
+                <TextBox Text="{Binding Database}" ScrollViewer.CanContentScroll="True"
+                         VerticalScrollBarVisibility="Auto" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

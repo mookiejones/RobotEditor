@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="RobotEditor.Controls.VisualVariableControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+                         xmlns:behaviors="clr-namespace:RobotEditor.UI.Behaviors"
+
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+           
+            <ToolTip x:Key="tooltip" Background="#FFF8F8FF" BorderThickness="0" BorderBrush="#FF000000">
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}" />
+                            <TextBlock Margin="10,0" FontWeight="Bold" Text="{Binding Name}" />
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Value}" />
+                        <TextBlock Text="{Binding Path}" />
+                    </StackPanel>
+                </GroupBox>
+            </ToolTip>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid x:Name="VisualVariable" IsReadOnly="True"                    
+                  ToolTipOpening="ToolTip_Opening" ItemsSource="{Binding}"
+                  MouseDoubleClick="OnMouseDoubleClick"
+                  Style="{StaticResource ObjectBrowserDataGrid}" 
+                          
+                  >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Height="16" Width="16" Source="{Binding Icon}"
+                                   ToolTip="{Binding Mode=OneWay, Source={StaticResource tooltip}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                <DataGridTextColumn Binding="{Binding Type}" Header="Type" />
+                <DataGridTextColumn Binding="{Binding Value}" Header="Value" />
+                <DataGridTextColumn Binding="{Binding Path}" Width="*" Header="Path" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="RobotEditor.Windows.KFDDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
+        ResizeMode="NoResize" Title="KFDDialog" Height="90" Width="{Binding Width}">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModel:KFDDialogViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Button Margin="499,58" Content="{Binding Button1Text}"
+                Visibility="{Binding Button1Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="418,58" Content="{Binding Button2Text}"
+                Visibility="{Binding Button2Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="337,58" Content="{Binding Button3Text}"
+                Visibility="{Binding Button3Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="256,58" Content="{Binding Button4Text}"
+                Visibility="{Binding Button4Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="175,58" Content="{Binding Button5Text}"
+                Visibility="{Binding Button5Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="94,58" Content="{Binding Button6Text}"
+                Visibility="{Binding Button6Visible, Converter={StaticResource BoolToVis}}" />
+        <Button Margin="13,58" Content="{Binding Button7Text}"
+                Visibility="{Binding Button7Visible, Converter={StaticResource BoolToVis}}" />
+        <Label Margin="12,9" Width="562" Height="46" Content="Label1" VerticalAlignment="Top"
+               HorizontalAlignment="Left" />
+    </Grid>
+</Window>

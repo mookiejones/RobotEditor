@@ -1,0 +1,8 @@
+﻿<Window x:Class="RobotEditor.Windows.XmlReaderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="xmlReader" Height="300" Width="300">
+    <Grid>
+        <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="True" />
+    </Grid>
+</Window>

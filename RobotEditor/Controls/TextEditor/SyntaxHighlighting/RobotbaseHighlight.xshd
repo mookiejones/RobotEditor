@@ -1,0 +1,413 @@
+﻿<SyntaxDefinition name="VBA" extensions=".bas;" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="Green" />
+  <Color name="String" foreground="Blue" />
+  <Color name="Signals" foreground="LightBlue" exampleText="b = False" />
+  <Color name="Punctuation" foreground="DarkGreen" exampleText="a(b.c);" />
+  <Color name="MethodCall" foreground="MidnightBlue" fontWeight="bold" exampleText="o.ToString();"/>
+
+  <RuleSet ignoreCase="true">
+    <Span color="Comment" begin="!" />
+    <Span color="String" >
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <!-- nested span for escape sequences -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+    <Rule foreground="DarkBlue">
+      \b0[xX][0-9a-fA-F]+  # hex number
+      |    \b
+      (    \d+(\.[0-9]+)?   #number with optional floating point
+      |    \.[0-9]+         #or just starting with floating point
+      )
+      ([eE][+-]?[0-9]+)? # optional exponent
+    </Rule>
+
+    <Keywords foreground="#FF808080" fontWeight="normal" fontStyle="normal">
+      <Word>?</Word>
+      <Word>,</Word>
+      <Word>.</Word>
+      <Word>;</Word>
+      <Word>(</Word>
+      <Word>)</Word>
+      <Word>[</Word>
+      <Word>]</Word>
+      <Word>{</Word>
+      <Word>}</Word>
+      <Word>+</Word>
+      <Word>-</Word>
+      <Word>/</Word>
+      <Word>%</Word>
+      <Word>*</Word>
+      <Word>&lt;</Word>
+      <Word>&gt;</Word>
+      <Word>^</Word>
+      <Word>=</Word>
+      <Word>~</Word>
+      <Word>|</Word>
+    </Keywords>
+    <Rule color="Punctuation">
+      [?,.;()\[\]{}+\-/%*&lt;&gt;^+~!|&amp;]+
+    </Rule>
+    <Keywords color="Signals" fontWeight="bold" fontStyle="normal">
+      <Word>InvertDO</Word>
+      <Word>IsignalDI</Word>
+      <Word>ISignalDO</Word>
+      <Word>IODisable</Word>
+      <Word>IOEnable</Word>
+      <Word>SetAO</Word>
+      <Word>SetDO</Word>
+      <Word>SetGO</Word>
+      <Word>WaitDI</Word>
+      <Word>WaitDO</Word>
+    </Keywords>
+    <Keywords foreground="#FF000000" fontWeight="bold" fontStyle="normal">
+      <Word>MoveAbsJ</Word>
+      <Word>MoveAbsJP</Word>
+      <Word>MoveAbsLP</Word>
+      <Word>MoveC</Word>
+      <Word>MoveJ</Word>
+      <Word>MoveL</Word>
+      <Word>MoveJP</Word>
+      <Word>MoveLP</Word>
+      <Word>MoveLP</Word>
+      <Word>ConfJ</Word>
+      <Word>ConfL</Word>
+      <Word>EoffsOff</Word>
+      <Word>EOffsOn</Word>
+      <Word>EoffsSet</Word>
+      <Word>ErrWrite</Word>
+      <Word>EXIT</Word>
+      <Word>ExitCycle</Word>
+      <Word>ERRNO</Word>
+    </Keywords>
+    <Keywords fontWeight="bold" foreground="Blue">
+      <Word>FOR</Word>
+      <Word>GOTO</Word>
+      <Word>AccSet</Word>
+      <Word>ActUnit</Word>
+      <Word>Add</Word>
+      <Word>Break</Word>
+      <Word>CallByVar</Word>
+      <Word>Clear</Word>
+      <Word>ClkReset</Word>
+      <Word>ClkStart</Word>
+      <Word>ClkStop</Word>
+      <Word>Close</Word>
+      <Word>IF</Word>
+      <Word>AND</Word>
+      <Word>BACKWARD</Word>
+      <Word>CASE</Word>
+      <Word>CONST</Word>
+      <Word>DIV</Word>
+      <Word>DO</Word>
+      <Word>ELSE</Word>
+      <Word>ELSEIF</Word>
+      <Word>ENDFOR</Word>
+      <Word>ENDFUNC</Word>
+      <Word>ENDIF</Word>
+      <Word>ENDMODULE</Word>
+      <Word>ENDPROC</Word>
+      <Word>ENDTEST</Word>
+      <Word>ENDTRAP</Word>
+      <Word>ENDWHILE</Word>
+      <Word>ERROR</Word>
+      <Word>FALSE</Word>
+      <Word>FOR</Word>
+      <Word>FROM</Word>
+      <Word>FUNC</Word>
+      <Word>GOTO</Word>
+      <Word>IF</Word>
+      <Word>INOUT</Word>
+      <Word>MOD</Word>
+      <Word>MODULE</Word>
+      <Word>NOSTEPIN</Word>
+      <Word>NOT</Word>
+      <Word>NOVIEW</Word>
+      <Word>OR</Word>
+      <Word>PERS</Word>
+      <Word>PROC</Word>
+      <Word>RAISE</Word>
+      <Word>READONLY</Word>
+      <Word>RETRY</Word>
+      <Word>RETURN</Word>
+      <Word>STEP</Word>
+      <Word>SYSMODULE</Word>
+      <Word>TEST</Word>
+      <Word>THEN</Word>
+      <Word>TO</Word>
+      <Word>TRAP</Word>
+      <Word>TRUE</Word>
+      <Word>TRYNEXT</Word>
+      <Word>VAR</Word>
+      <Word>VIEWONLY</Word>
+      <Word>WHILE</Word>
+      <Word>WITH</Word>
+      <Word>XOR</Word>
+    </Keywords>
+    <Keywords foreground="#FFA52A2A" fontWeight="normal">
+      <Word>ANIN</Word>
+      <Word>ANOUT</Word>
+      <Word>BRAKE</Word>
+      <Word>CCLOSE</Word>
+      <Word>CHANNEL</Word>
+      <Word>CONFIRM</Word>
+      <Word>CONTINUE</Word>
+      <Word>COPEN</Word>
+      <Word>CREAD</Word>
+      <Word>DECL</Word>
+      <Word>DIGIN</Word>
+      <Word>DISTANCE</Word>
+      <Word>ENUM</Word>
+      <Word>EXT</Word>
+      <Word>EXTFCT</Word>
+      <Word>HALT</Word>
+      <Word>IMPORT</Word>
+      <Word>INTERRUPT WHEN  DO</Word>
+      <Word>PATH</Word>
+      <Word>PULSE</Word>
+      <Word>RESUME</Word>
+      <Word>SIGNAL</Word>
+      <Word>SREAD</Word>
+      <Word>STRUC</Word>
+      <Word>SWRITE</Word>
+      <Word>TRIGGER</Word>
+      <Word>WAIT</Word>
+      <Word>WAIT SEC</Word>
+      <Word>STRDECLEN</Word>
+      <Word>STRLEN</Word>
+      <Word>STRCLEAR</Word>
+      <Word>STRADD</Word>
+      <Word>STRFIND</Word>
+      <Word>STRCOMP</Word>
+      <Word>STRCOPY</Word>
+      <Word>GET_SIG_INF</Word>
+    </Keywords>
+    <Keywords foreground="#FFFFA500" fontWeight="bold">
+      <Word>bool</Word>
+      <Word>clock</Word>
+      <Word>confdata</Word>
+      <Word>corrdescr</Word>
+      <Word>dionum</Word>
+      <Word>errnum</Word>
+      <Word>extjoint</Word>
+      <Word>intnum</Word>
+      <Word>iodev</Word>
+      <Word>jointtarget</Word>
+      <Word>loaddata</Word>
+      <Word>local</Word>
+      <Word>mecunit</Word>
+      <Word>motsetdata</Word>
+      <Word>num</Word>
+      <Word>o_jointtarget</Word>
+      <Word>orient</Word>
+      <Word>o_robtarget</Word>
+      <Word>pos</Word>
+      <Word>pose</Word>
+      <Word>progdisp</Word>
+      <Word>robjoint</Word>
+      <Word>robtarget</Word>
+      <Word>signaldi</Word>
+      <Word>signaldo</Word>
+      <Word>signalao</Word>
+      <Word>signalai</Word>
+      <Word>signalgi</Word>
+      <Word>signalgo</Word>
+      <Word>speeddata</Word>
+      <Word>string</Word>
+      <Word>symnum</Word>
+      <Word>shapedata</Word>
+      <Word>tooldata</Word>
+      <Word>triggdata</Word>
+      <Word>tunetype</Word>
+      <Word>tpnum</Word>
+      <Word>wobjdata</Word>
+      <Word>wzstationary</Word>
+      <Word>wztemporary</Word>
+      <Word>zonedata</Word>
+    </Keywords>
+    <Keywords foreground="#FF0000FF" fontWeight="bold">
+      <Word>GripLoad</Word>
+      <Word>IDelete</Word>
+      <Word>Idisable</Word>
+      <Word>IEnable</Word>
+      <Word>Incr</Word>
+      <Word>IndAMove</Word>
+      <Word>IndCMove</Word>
+      <Word>IndDMove</Word>
+      <Word>IndReset</Word>
+      <Word>IndRMove</Word>
+      <Word>Isleep</Word>
+      <Word>ITimer</Word>
+      <Word>IWatch</Word>
+      <Word>IVarValue</Word>
+      <Word>Load</Word>
+      <Word>Open</Word>
+      <Word>PdispOff</Word>
+      <Word>PDispOn</Word>
+      <Word>PDispSet</Word>
+      <Word>PulseDO</Word>
+      <Word>PathResol</Word>
+      <Word>Rewind</Word>
+      <Word>RAISE</Word>
+      <Word>Reset</Word>
+      <Word>RestoPath</Word>
+      <Word>RETRY</Word>
+      <Word>RETURN</Word>
+      <Word>SearchC</Word>
+      <Word>SearchL</Word>
+      <Word>Set</Word>
+      <Word>SingArea</Word>
+      <Word>SoftAct</Word>
+      <Word>SoftDeact</Word>
+      <Word>StartMove</Word>
+      <Word>Stop</Word>
+      <Word>StopMove</Word>
+      <Word>StorePath</Word>
+      <Word>TPShow</Word>
+      <Word>TPErase</Word>
+      <Word>TPReadFK</Word>
+      <Word>TPReadNum</Word>
+      <Word>TPWrite</Word>
+      <Word>TriggC</Word>
+      <Word>TriggEquip</Word>
+      <Word>TriggInt</Word>
+      <Word>TriggIO</Word>
+      <Word>TriggJ</Word>
+      <Word>TriggL</Word>
+      <Word>TRYNEXT</Word>
+      <Word>TuneReset</Word>
+      <Word>TuneServo</Word>
+      <Word>UnLoad</Word>
+      <Word>VelSet</Word>
+      <Word>WaitTime</Word>
+      <Word>WaitUntil</Word>
+      <Word>WHILE</Word>
+      <Word>WriteBin</Word>
+      <Word>WriteStrBin</Word>
+      <Word>WZBoxDef</Word>
+      <Word>WZCylDef</Word>
+      <Word>WZDisable</Word>
+      <Word>WZDOSet</Word>
+      <Word>WZEnable</Word>
+      <Word>WZFree</Word>
+      <Word>WZLimSup</Word>
+      <Word>WZSphDef</Word>
+      <Word>CONNECT</Word>
+      <Word>CorrClear</Word>
+      <Word>CorrCon</Word>
+      <Word>CorrDiscon</Word>
+      <Word>CorrWrite</Word>
+      <Word>clear</Word>
+      <Word>DeactUnit</Word>
+      <Word>Decr</Word>
+      <Word>Abs</Word>
+      <Word>ACos</Word>
+      <Word>ASin</Word>
+      <Word>ATan</Word>
+      <Word>ATan2</Word>
+      <Word>AND</Word>
+      <Word>AOutput</Word>
+      <Word>ArgName</Word>
+      <Word>ByteToStr</Word>
+      <Word>CDate</Word>
+      <Word>CjointT</Word>
+      <Word>ClkRead</Word>
+      <Word>Cos</Word>
+      <Word>CPos</Word>
+      <Word>CRobT</Word>
+      <Word>CTime</Word>
+      <Word>CTool</Word>
+      <Word>CWObj</Word>
+      <Word>CONNECT</Word>
+      <Word>CorrRead</Word>
+      <Word>DefDFrame</Word>
+      <Word>DefFrame</Word>
+      <Word>Dim</Word>
+      <Word>DOutput</Word>
+      <Word>DEFAULT</Word>
+      <Word>EulerZYX</Word>
+      <Word>Exp</Word>
+      <Word>GetTime</Word>
+      <Word>GOutput</Word>
+      <Word>Goutput</Word>
+      <Word>IndInpos</Word>
+      <Word>IndSpeed</Word>
+      <Word>IsPers</Word>
+      <Word>IsVar</Word>
+      <Word>MirPos</Word>
+      <Word>NumToStr</Word>
+      <Word>Offs</Word>
+      <Word>OpMode</Word>
+      <Word>OrientZYX</Word>
+      <Word>ORobT</Word>
+      <Word>PoseInv</Word>
+      <Word>PoseMult</Word>
+      <Word>PoseVect</Word>
+      <Word>Pow</Word>
+      <Word>Present</Word>
+      <Word>ReadBin</Word>
+      <Word>ReadMotor</Word>
+      <Word>ReadNum</Word>
+      <Word>ReadStr</Word>
+      <Word>RelTool</Word>
+      <Word>Round</Word>
+      <Word>RunMode</Word>
+      <Word>Sin</Word>
+      <Word>Sqrt</Word>
+      <Word>StrFind</Word>
+      <Word>StrLen</Word>
+      <Word>StrMap</Word>
+      <Word>StrMatch</Word>
+      <Word>StrMemb</Word>
+      <Word>StrOrder</Word>
+      <Word>StrPart</Word>
+      <Word>StrToByte</Word>
+      <Word>StrToVal</Word>
+      <Word>Tan</Word>
+      <Word>TestDI</Word>
+      <Word>Trunc</Word>
+      <Word>ValToStr</Word>
+      <Word>ProgInfo</Word>
+      <Word>CheckHomePos</Word>
+      <Word>WaitBreakDI</Word>
+      <Word>WaitTPBreakDI</Word>
+      <Word>WaitMsgDI</Word>
+      <Word>WaitTimeDI</Word>
+      <Word>SetParity</Word>
+      <Word>CheckParity</Word>
+      <Word>PosVergleich</Word>
+      <Word>AbsPosVergleich</Word>
+      <Word>FahreZuPos</Word>
+      <Word>SMoveL</Word>
+      <Word>SMoveJ</Word>
+      <Word>High</Word>
+      <Word>Low</Word>
+      <Word>RobSync</Word>
+      <Word>EndSync</Word>
+      <Word>SyncEvent</Word>
+      <Word>mv</Word>
+      <Word>Meldung</Word>
+    </Keywords>
+    <Rule foreground="DarkBlue" fontWeight="bold" fontStyle="normal">[\d\w_]+(?=(\s*\())</Rule>
+    <Rule foreground="DarkBlue" fontWeight="normal" fontStyle="normal">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+    <!-- Mark previous rule-->
+    <Rule color="MethodCall">
+      \b
+      [\d\w_]+  # an identifier
+      (?=\s*\() # followed by (
+    </Rule>
+  </RuleSet>
+  <RuleSet name="CommentMarkerSet" ignoreCase="true">
+    <Keywords foreground="#FFFF0000" fontWeight="bold" fontStyle="normal">
+      <Word>TODO</Word>
+      <Word>FIXME</Word>
+    </Keywords>
+    <Keywords foreground="#EEE0E000" fontWeight="bold" fontStyle="normal">
+      <Word>HACK</Word>
+      <Word>UNDONE</Word>
+    </Keywords>
+    <Rule foreground="#FFFF0000" fontWeight="normal" fontStyle="normal">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+  </RuleSet>
+</SyntaxDefinition>

@@ -1,0 +1,35 @@
+﻿<controls:MetroWindow x:Class="RobotEditor.Windows.AttributeViewerWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="AttributeViewer" Height="369" Width="217">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="12,22,0,0" Text="Version:" VerticalAlignment="Top" Height="13"
+                   Width="45" />
+        <TextBox VerticalAlignment="Top" Margin="77,19,0,0" Width="100" Height="20" Text="" />
+        <TextBlock HorizontalAlignment="Left" Margin="12,52,0,0" Text="User:" VerticalAlignment="Top" Height="13"
+                   Width="32" />
+        <TextBox Margin="77,52,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20" />
+        <TextBlock HorizontalAlignment="Left" Margin="12,84,0,0" Text="Comment:" VerticalAlignment="Top" Height="16"
+                   Width="55" />
+        <TextBox Margin="12,100,0,0" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"
+                 Height="67" />
+        <TextBlock HorizontalAlignment="Left" Margin="12,193,0,0" Text="Modul-Attributes:" VerticalAlignment="Top"
+                   Height="13" Width="99" />
+        <CheckBox Content="Visible" HorizontalAlignment="Left" VerticalAlignment="Top" Height="17" Width="56"
+                  Margin="116,192,0,0" />
+        <TextBlock HorizontalAlignment="Left" Margin="12,225,0,0" Text="File-Attributes:" VerticalAlignment="Top"
+                   Height="13" Width="70" />
+        <CheckBox Content="Read Only" HorizontalAlignment="Left" VerticalAlignment="Top" Height="17" Width="74"
+                  Margin="116,225,0,0" />
+        <CheckBox Content="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Height="17" Width="60"
+                  Margin="116,248,0,0" />
+        <TextBlock HorizontalAlignment="Stretch" TextWrapping="NoWrap" Text="Size:" VerticalAlignment="Top" Height="13"
+                   Margin="12,286,0,10" />
+        <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <Button Content="_OK" HorizontalAlignment="Left" Height="23" Margin="73,302,0,0" VerticalAlignment="Top"
+                Width="49" />
+        <Button Content="_Cancel" HorizontalAlignment="Left" Height="23" Margin="128,302,0,0" VerticalAlignment="Top"
+                Width="49" />
+    </Grid>
+</controls:MetroWindow>

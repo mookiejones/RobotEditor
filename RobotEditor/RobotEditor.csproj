@@ -1,0 +1,1213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{689D2046-E34D-4FF2-890F-410BD2F99BF9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RobotEditor</RootNamespace>
+    <AssemblyName>RobotEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\editor.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject>RobotEditor.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AvalonDock, Version=4.71.1.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Dirkster.AvalonDock.4.71.1\lib\net40\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="ColorPickerLib, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\ColorPickerLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CommunityToolkit.Mvvm, Version=8.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
+      <HintPath>packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>packages\ControlzEx.4.3.0\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=6.2.0.78, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>packages\AvalonEdit.6.2.0.78\lib\net462\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
+      <HintPath>packages\MahApps.Metro.2.0.0\lib\net47\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=2.1.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignColors.2.1.1\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.2.7.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignThemes.MahApps.0.2.7\lib\net462\MaterialDesignThemes.MahApps.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=4.7.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialDesignThemes.4.7.1\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="NumericUpDownLib, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Dirkster.NumericUpDownLib.3.3.1\lib\net40\NumericUpDownLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.Initialize.cs" />
+    <Compile Include="Converters\ThicknessToDoubleConverter.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="GlobalOptions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="Robots\DocumentBase.cs" />
+    <Compile Include="Rules\Class1.cs" />
+    <Compile Include="Selectors\MenuTemplateSelector.cs" />
+    <Compile Include="Selectors\PanesStyleSelector.cs" />
+    <Compile Include="Selectors\PanesTemplateSelector.cs" />
+    <Compile Include="Structs\Class1.cs" />
+    <Compile Include="UI\Behaviors\DataGridHelper.cs" />
+    <Compile Include="UI\Behaviors\DropFilesBehaviorExtension.cs" />
+    <Compile Include="UI\DispatcherHelper.cs" />
+    <Compile Include="UI\ISingleInstanceApp.cs" />
+    <Compile Include="UI\LayoutInitializer.cs" />
+    <Compile Include="UI\SingleInstance.cs" />
+    <Compile Include="Utilities\AppHelper.cs" />
+    <Compile Include="Utilities\FileHelper.cs" />
+    <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="Utilities\LogWriter.cs" />
+    <Compile Include="Utilities\TraceWriter.cs" />
+    <Compile Include="ViewModel\AbstractPaneViewModel.cs" />
+    <Compile Include="ViewModel\AdjustST.cs" />
+    <Compile Include="ViewModel\AngleConvertorViewModel.cs" />
+    <Compile Include="ViewModel\ArchiveInfoViewModel.cs" />
+    <Compile Include="ViewModel\CartesianPosition.cs" />
+    <Compile Include="ViewModel\DocumentViewModel.cs" />
+    <Compile Include="ViewModel\FileOptionsViewModel.cs" />
+    <Compile Include="ViewModel\FileViewModel.cs" />
+    <Compile Include="ViewModel\FindReplaceViewModel.cs" />
+    <Compile Include="ViewModel\FTPAccountWindowViewModel.cs" />
+    <Compile Include="ViewModel\FTPBrowserViewModel.cs" />
+    <Compile Include="ViewModel\FunctionViewModel.cs" />
+    <Compile Include="ViewModel\GlobalOptionsViewModel.cs" />
+    <Compile Include="ViewModel\GotoViewModel.cs" />
+    <Compile Include="ViewModel\InfoFile.cs" />
+    <Compile Include="ViewModel\IOViewModel.cs" />
+    <Compile Include="ViewModel\Item.cs" />
+    <Compile Include="ViewModel\KFDDialogViewModel.cs" />
+    <Compile Include="ViewModel\KukaViewModel.cs" />
+    <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessageViewModel.cs" />
+    <Compile Include="ViewModel\NotesViewModel.cs" />
+    <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
+    <Compile Include="ViewModel\PaneViewModel.cs" />
+    <Compile Include="ViewModel\ProgressBarViewModel.cs" />
+    <Compile Include="ViewModel\ShiftViewModel.cs" />
+    <Compile Include="ViewModel\StatusBarViewModel.cs" />
+    <Compile Include="ViewModel\SystemFunctionsViewModel.cs" />
+    <Compile Include="ViewModel\ToolItems.cs" />
+    <Compile Include="ViewModel\ToolTipViewModel.cs" />
+    <Compile Include="ViewModel\ToolViewModel.cs" />
+    <Compile Include="ViewModel\ValueBoxViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\AngleConverterView.xaml.cs">
+      <DependentUpon>AngleConverterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArchiveInfoView.xaml.cs">
+      <DependentUpon>ArchiveInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileExplorerControl.xaml.cs">
+      <DependentUpon>FileExplorerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileExplorerView.xaml.cs">
+      <DependentUpon>FileExplorerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FunctionView.xaml.cs">
+      <DependentUpon>FunctionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IOView.xaml.cs">
+      <DependentUpon>IOView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalVariablesView.xaml.cs">
+      <DependentUpon>LocalVariablesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotesView.xaml.cs">
+      <DependentUpon>NotesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ObjectBrowserView.xaml.cs">
+      <DependentUpon>ObjectBrowserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AdjustSTWindow.xaml.cs">
+      <DependentUpon>AdjustSTWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AttributeViewerWindow.xaml.cs">
+      <DependentUpon>AttributeViewerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FileExplorerWindow.xaml.cs">
+      <DependentUpon>FileExplorerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\FindAndReplaceWindow.xaml.cs">
+      <DependentUpon>FindAndReplaceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\GotoWindow.xaml.cs">
+      <DependentUpon>GotoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\KFDAssistantWindow.xaml.cs">
+      <DependentUpon>KFDAssistantWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\KFDDialogWindow.xaml.cs">
+      <DependentUpon>KFDDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RenamePositionWindow.xaml.cs">
+      <DependentUpon>RenamePositionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ReverseWindow.xaml.cs">
+      <DependentUpon>ReverseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ShiftWindow.xaml.cs">
+      <DependentUpon>ShiftWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SnippetWindow.xaml.cs">
+      <DependentUpon>SnippetWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SplashScreenWindow.xaml.cs">
+      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\XmlReaderWindow.xaml.cs">
+      <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Assets\Skins\MainSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Controls.DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Controls.Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Controls.MessageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Controls.Toolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Styles\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\EditorTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\ExplorerTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\ExtendedGridSplitterTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\KukaSpecificTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\LayoutItemTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\MenuDictionaryTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\OptionsTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\ShiftTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\StatusBarTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Templates\Templates.ObjectBrowserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FileInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FilesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FunctionItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\InfoFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\KukaControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ListFromFileBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SnippetToolTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TextEditor\Editor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VisualVariableControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VisualVariableItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Languages\LanguageTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\AngleConverter\Circle3D.cs" />
+    <Compile Include="Controls\AngleConverter\Class1.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Matrix.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Point2D.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Point3D.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Quaternion.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\SquareMatrix.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\SVD.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\TransformationMatrix3D.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Vector.cs" />
+    <Compile Include="Controls\AngleConverter\Classes\Vector2D.cs" />
+    <Compile Include="Controls\AngleConverter\Exceptions\MatrixException.cs" />
+    <Compile Include="Controls\AngleConverter\Interfaces\IGeometricElement3D.cs" />
+    <Compile Include="Controls\AngleConverter\LeastSquaresFit3D.cs" />
+    <Compile Include="Controls\AngleConverter\Line3D.cs" />
+    <Compile Include="Controls\AngleConverter\MatrixNullReference.cs" />
+    <Compile Include="Controls\AngleConverter\Plane3D.cs" />
+    <Compile Include="Controls\AngleConverter\Project3D.cs" />
+    <Compile Include="Controls\AngleConverter\Sphere3D.cs" />
+    <Compile Include="Controls\ExplorerClass.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtendedGridSplitter.cs" />
+    <Compile Include="Controls\FileInfo.xaml.cs">
+      <DependentUpon>FileInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilesControl.xaml.cs">
+      <DependentUpon>FilesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FindReplace\FindReplaceResult.cs" />
+    <Compile Include="Controls\FTP\FTPAccount.cs" />
+    <Compile Include="Controls\FTP\FTPFolder.cs" />
+    <Compile Include="Controls\FunctionItem.xaml.cs">
+      <DependentUpon>FunctionItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InfoFile.xaml.cs">
+      <DependentUpon>InfoFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KukaControl.xaml.cs">
+      <DependentUpon>KukaControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListFromFileBox.xaml.cs">
+      <DependentUpon>ListFromFileBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RecentFileList.cs" />
+    <Compile Include="Controls\SnippetToolTip.xaml.cs">
+      <DependentUpon>SnippetToolTip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Splasher.cs" />
+    <Compile Include="Controls\TextEditor\BackgroundRenderer.cs" />
+    <Compile Include="Controls\TextEditor\BlockCommentRegion.cs" />
+    <Compile Include="Controls\TextEditor\Bookmarks\BookmarkBase.cs" />
+    <Compile Include="Controls\TextEditor\Bookmarks\BookmarkImage.cs" />
+    <Compile Include="Controls\TextEditor\Bookmarks\ClassMemberBookmark.cs" />
+    <Compile Include="Controls\TextEditor\Brackets\BracketHighlightRenderer.cs" />
+    <Compile Include="Controls\TextEditor\Brackets\BracketSearchResult.cs" />
+    <Compile Include="Controls\TextEditor\Brackets\MyBracketSearcher.cs" />
+    <Compile Include="Controls\TextEditor\CaretHighlightAdorner.cs" />
+    <Compile Include="Controls\TextEditor\CompletionData.cs" />
+    <Compile Include="Controls\TextEditor\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TextEditor\EditorOptions.cs" />
+    <Compile Include="Controls\TextEditor\Extensions\ITextEditorExtensions.cs" />
+    <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
+    <Compile Include="Controls\TextEditor\Formatting\DefaultFormattingStrategy.cs" />
+    <Compile Include="Controls\TextEditor\IconBar\IconBarManager.cs" />
+    <Compile Include="Controls\TextEditor\IconBar\IconBarMargin.cs" />
+    <Compile Include="Controls\TextEditor\ImageElementGenerator.cs" />
+    <Compile Include="Controls\TextEditor\Indentation\IndentationClass.cs" />
+    <Compile Include="Controls\TextEditor\Indentation\IndentationSettings.cs" />
+    <Compile Include="Controls\TextEditor\Indentation\IndentationStrategy.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionContextInfo.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletion.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletionDataUsageCache.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionContext.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionType.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\CompletionData\ICompletionDataProvider.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\Literal.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetCollection.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetCompletionData.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetCompletionDataProvider.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetHeader.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetInfo.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetManager.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetParser.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\SnippetType.cs" />
+    <Compile Include="Controls\TextEditor\Snippets\StringHelper.cs" />
+    <Compile Include="Controls\TextEditor\StringTextBuffer.cs" />
+    <Compile Include="Controls\TextEditor\TextChangeEventArgs.cs" />
+    <Compile Include="Controls\TextEditor\TextSourceAdapter.cs" />
+    <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
+    <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
+    <Compile Include="Controls\TextEditor\Views\Msg.cs" />
+    <Compile Include="Controls\TextEditor\Views\MsgTypeToResourceConverter.cs" />
+    <Compile Include="Controls\VisualVariableControl.xaml.cs">
+      <DependentUpon>VisualVariableControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VisualVariableItem.xaml.cs">
+      <DependentUpon>VisualVariableItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ActiveEditorConverter.cs" />
+    <Compile Include="Converters\AngleToolTipConverter.cs" />
+    <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
+    <Compile Include="Converters\DoubleToStringConverter.cs" />
+    <Compile Include="Converters\DoubleToThicknessConverter.cs" />
+    <Compile Include="Converters\EnumtoInt32.cs" />
+    <Compile Include="Converters\FunctionVisibilityConverter.cs" />
+    <Compile Include="Converters\GetFileIconConverter.cs" />
+    <Compile Include="Converters\GetFileInfoSystemsConverter.cs" />
+    <Compile Include="Converters\SolidColorBrushToColorConverter.cs" />
+    <Compile Include="Converters\TextOptionsConverter.cs" />
+    <Compile Include="Converters\VariableToFunctionConverter.cs" />
+    <Compile Include="Converters\WidthConverter.cs" />
+    <Compile Include="Enums\CartesianEnum.cs" />
+    <Compile Include="Enums\CompletionItemListKeyResult.cs" />
+    <Compile Include="Enums\DefaultToolPane.cs" />
+    <Compile Include="Enums\EDITORTYPE.cs" />
+    <Compile Include="Enums\GridSplitterCollapseMode.cs" />
+    <Compile Include="Enums\MessageType.cs" />
+    <Compile Include="Enums\MsgIcon.cs" />
+    <Compile Include="Enums\Tokens.cs" />
+    <Compile Include="Enums\Typlanguage.cs" />
+    <Compile Include="Enums\WM.cs" />
+    <Compile Include="Exceptions\ExceptionDialogShowingEventArgs.cs" />
+    <Compile Include="future\CodeCommenter.cs" />
+    <Compile Include="Interfaces\IBookmark.cs" />
+    <Compile Include="Interfaces\IBookmarkMargin.cs" />
+    <Compile Include="Interfaces\IBracketSearcher.cs" />
+    <Compile Include="Interfaces\ICompletionItem.cs" />
+    <Compile Include="Interfaces\ICompletionItemList.cs" />
+    <Compile Include="Interfaces\ICompletionListWindow.cs" />
+    <Compile Include="Interfaces\ICompletionWindow.cs" />
+    <Compile Include="Interfaces\IEditor.cs" />
+    <Compile Include="Interfaces\IEditorDocument.cs" />
+    <Compile Include="Interfaces\IEditorDocumentLine.cs" />
+    <Compile Include="Interfaces\IFancyCompletionItem.cs" />
+    <Compile Include="Interfaces\IFormattingStrategy.cs" />
+    <Compile Include="Interfaces\IImage.cs" />
+    <Compile Include="Interfaces\IInsightItem.cs" />
+    <Compile Include="Interfaces\IInsightWindow.cs" />
+    <Compile Include="Interfaces\IMessage.cs" />
+    <Compile Include="Interfaces\IOptionPanel.cs" />
+    <Compile Include="Interfaces\IOptions.cs" />
+    <Compile Include="Interfaces\IPosition.cs" />
+    <Compile Include="Interfaces\ITextAnchor.cs" />
+    <Compile Include="Interfaces\ITextBuffer.cs" />
+    <Compile Include="Interfaces\ITextBufferVersion.cs" />
+    <Compile Include="Interfaces\ITextEditor.cs" />
+    <Compile Include="Interfaces\ITextEditorCaret.cs" />
+    <Compile Include="Interfaces\ITextEditorOptions.cs" />
+    <Compile Include="Interfaces\IVariable.cs" />
+    <Compile Include="Interfaces\public interface ILanguageRegex.cs" />
+    <Compile Include="Languages\ABB.cs" />
+    <Compile Include="Languages\AbstractLanguageClass.cs" />
+    <Compile Include="Languages\Data\AbstractVariableClass.cs" />
+    <Compile Include="Languages\Data\CartesianItems.cs" />
+    <Compile Include="Languages\Data\CartesianTypes.cs" />
+    <Compile Include="Languages\Data\PositionBase.cs" />
+    <Compile Include="Languages\Data\PositionValue.cs" />
+    <Compile Include="Languages\Data\Variable.cs" />
+    <Compile Include="Languages\Data\VariableBase.cs" />
+    <Compile Include="Languages\Data\VariableHelper.cs" />
+    <Compile Include="Languages\Data\VariableItem.cs" />
+    <Compile Include="Languages\DatCleaner.cs" />
+    <Compile Include="Languages\DatCleanHelper.cs" />
+    <Compile Include="Languages\Fanuc.cs" />
+    <Compile Include="Languages\ILanguageClass.cs" />
+    <Compile Include="Languages\Kawasaki.cs" />
+    <Compile Include="Languages\KrlFoldingStrategy.cs" />
+    <Compile Include="Languages\KrlRegularExpressions.cs" />
+    <Compile Include="Languages\KUKA.cs" />
+    <Compile Include="Languages\LanguageBase.cs" />
+    <Compile Include="Languages\LanguageFold.cs" />
+    <Compile Include="Languages\VBA.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\ExplorerWindowDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AngleConverterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ArchiveInfoView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FileExplorerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FileExplorerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FunctionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\IOView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LocalVariablesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MessageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NotesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ObjectBrowserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AdjustSTWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AttributeViewerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FileExplorerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FindAndReplaceWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\GotoWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\KFDAssistantWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\KFDDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\RenamePositionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ReverseWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ShiftWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SnippetWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\SplashScreenWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\XmlReaderWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Messages\ErrorMessage.cs" />
+    <Compile Include="Messages\MessageBase.cs" />
+    <Compile Include="Messages\OutputWindowMessage.cs" />
+    <Compile Include="Messages\WindowMessage.cs" />
+    <Compile Include="Model\DataItem.cs" />
+    <Compile Include="Model\DataService.cs" />
+    <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Model\ShiftClass.cs" />
+    <Compile Include="Model\Technology.cs" />
+    <Compile Include="Parsers\AbstractParser.cs" />
+    <Compile Include="Parsers\E6Parser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\ABBHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\FANUCHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\KUKAHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\NONEHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
+    <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\VBAHighlight.xshd" />
+    <None Include="packages.config" />
+    <None Include="packages\AvalonEdit.6.2.0.78\.signature.p7s" />
+    <None Include="packages\AvalonEdit.6.2.0.78\AvalonEdit.6.2.0.78.nupkg" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\.signature.p7s" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\buildTransitive\netstandard2.0\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\buildTransitive\netstandard2.1\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.1\CommunityToolkit.Mvvm.targets" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\CommunityToolkit.Mvvm.8.1.0.nupkg" />
+    <None Include="packages\CommunityToolkit.Mvvm.8.1.0\License.md" />
+    <None Include="packages\ControlzEx.4.3.0\.signature.p7s" />
+    <None Include="packages\ControlzEx.4.3.0\ControlzEx.4.3.0.nupkg" />
+    <None Include="packages\Dirkster.AvalonDock.4.71.1\.signature.p7s" />
+    <None Include="packages\Dirkster.AvalonDock.4.71.1\Dirkster.AvalonDock.4.71.1.nupkg" />
+    <None Include="packages\Dirkster.AvalonDock.4.71.1\LICENSE" />
+    <None Include="packages\Dirkster.ColorPickerLib.1.6.2\.signature.p7s" />
+    <None Include="packages\Dirkster.ColorPickerLib.1.6.2\Dirkster.ColorPickerLib.1.6.2.nupkg" />
+    <None Include="packages\Dirkster.NumericUpDownLib.3.3.1\.signature.p7s" />
+    <None Include="packages\Dirkster.NumericUpDownLib.3.3.1\Dirkster.NumericUpDownLib.3.3.1.nupkg" />
+    <None Include="packages\MahApps.Metro.2.0.0\.signature.p7s" />
+    <None Include="packages\MahApps.Metro.2.0.0\MahApps.Metro.2.0.0.nupkg" />
+    <None Include="packages\MaterialDesignColors.2.1.1\.signature.p7s" />
+    <None Include="packages\MaterialDesignColors.2.1.1\MaterialDesignColors.2.1.1.nupkg" />
+    <None Include="packages\MaterialDesignThemes.4.7.1\.signature.p7s" />
+    <None Include="packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Black.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-BlackItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Bold.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-BoldItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Italic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Light.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-LightItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Medium.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-MediumItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Regular.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-Thin.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\Roboto-ThinItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-Bold.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-BoldItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-Italic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-Light.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-LightItalic.ttf" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\build\Resources\Roboto\RobotoCondensed-Regular.ttf" />
+    <None Include="packages\MaterialDesignThemes.4.7.1\MaterialDesignThemes.4.7.1.nupkg" />
+    <None Include="packages\MaterialDesignThemes.MahApps.0.2.7\.signature.p7s" />
+    <None Include="packages\MaterialDesignThemes.MahApps.0.2.7\MaterialDesignThemes.MahApps.0.2.7.nupkg" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\.signature.p7s" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\buildTransitive\net461\Microsoft.Bcl.AsyncInterfaces.targets" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\buildTransitive\net462\_._" />
+    <None Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\Microsoft.Bcl.AsyncInterfaces.7.0.0.nupkg" />
+    <None Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\.signature.p7s" />
+    <None Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\Microsoft.Xaml.Behaviors.Wpf.1.1.39.nupkg" />
+    <None Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\tools\Install.ps1" />
+    <None Include="packages\System.Buffers.4.5.1\.signature.p7s" />
+    <None Include="packages\System.Buffers.4.5.1\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Buffers.4.5.1\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Buffers.4.5.1\ref\netcoreapp2.0\_._" />
+    <None Include="packages\System.Buffers.4.5.1\ref\uap10.0.16299\_._" />
+    <None Include="packages\System.Buffers.4.5.1\System.Buffers.4.5.1.nupkg" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\.signature.p7s" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\MonoAndroid10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\MonoTouch10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\net45\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\portable-net45+win8\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\win8\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\xamarinios10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\xamarinmac20\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\xamarintvos10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\lib\xamarinwatchos10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\MonoAndroid10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\MonoTouch10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\net45\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\portable-net45+win8\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\win8\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\xamarinios10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\xamarinmac20\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\xamarintvos10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\ref\xamarinwatchos10\_._" />
+    <None Include="packages\System.ComponentModel.Annotations.5.0.0\System.ComponentModel.Annotations.5.0.0.nupkg" />
+    <None Include="packages\System.Memory.4.5.5\.signature.p7s" />
+    <None Include="packages\System.Memory.4.5.5\lib\netcoreapp2.1\_._" />
+    <None Include="packages\System.Memory.4.5.5\ref\netcoreapp2.1\_._" />
+    <None Include="packages\System.Memory.4.5.5\System.Memory.4.5.5.nupkg" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\.signature.p7s" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\MonoAndroid10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\MonoTouch10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\netcoreapp2.0\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\uap10.0.16299\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinios10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinmac20\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarintvos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\lib\xamarinwatchos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\MonoAndroid10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\MonoTouch10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\netcoreapp2.0\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\uap10.0.16299\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinios10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinmac20\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarintvos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\ref\xamarinwatchos10\_._" />
+    <None Include="packages\System.Numerics.Vectors.4.5.0\System.Numerics.Vectors.4.5.0.nupkg" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\.signature.p7s" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\buildTransitive\netcoreapp2.0\System.Runtime.CompilerServices.Unsafe.targets" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\buildTransitive\netcoreapp3.1\_._" />
+    <None Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\System.Runtime.CompilerServices.Unsafe.6.0.0.nupkg" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\.signature.p7s" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\MonoAndroid10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\MonoTouch10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\netcoreapp2.1\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\xamarinios10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\xamarinmac20\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\xamarintvos10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\xamarinwatchos10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\MonoAndroid10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\MonoTouch10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\netcoreapp2.1\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\xamarinios10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\xamarinmac20\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\xamarintvos10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\ref\xamarinwatchos10\_._" />
+    <None Include="packages\System.Threading.Tasks.Extensions.4.5.4\System.Threading.Tasks.Extensions.4.5.4.nupkg" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="Spelling.xml" />
+    <Resource Include="Images\binoculars.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\collapsefolds.png" />
+    <Resource Include="Images\editor.ico" />
+    <Resource Include="Images\kuka.ico" />
+    <Resource Include="Images\RobotEditor.Resources.vxmethod_icon.png" />
+    <Resource Include="Images\mnuCopy.png" />
+    <Resource Include="Images\mnuCut.png" />
+    <Resource Include="Images\mnuDelete.png" />
+    <Resource Include="Images\mnuPaste.png" />
+    <Resource Include="Images\resources-comment.png" />
+    <Resource Include="Images\resources-document.png" />
+    <Resource Include="Images\resources-editdelete.png" />
+    <Resource Include="Images\resources-editor.png" />
+    <Resource Include="Images\resources-error.png" />
+    <Resource Include="Images\resources-expandfolds.png" />
+    <Resource Include="Images\resources-folder.png" />
+    <Resource Include="Images\resources-foldingdisabled.png" />
+    <Resource Include="Images\resources-foldingenabled.png" />
+    <Resource Include="Images\resources-info.png" />
+    <Resource Include="Images\resources-lineendings.png" />
+    <Resource Include="Images\resources-new_edit_find_replace.png" />
+    <Resource Include="Images\resources-objectbrowser.png" />
+    <Resource Include="Images\resources-property-blue.png" />
+    <Resource Include="Images\resources-redo.png" />
+    <Resource Include="Images\resources-refresh_yellow.png" />
+    <Resource Include="Images\resources-search.png" />
+    <Resource Include="Images\resources-showspaces.png" />
+    <Resource Include="Images\resources-splash.png" />
+    <Resource Include="Images\resources-spsfile.png" />
+    <Resource Include="Images\resources-srcfile.png" />
+    <Resource Include="Images\resources-stock_notes.png" />
+    <Resource Include="Images\resources-vxenum_icon.png" />
+    <Resource Include="Images\resources-vxevent_icon.png" />
+    <Resource Include="Images\resources-vxfield_icon.png" />
+    <Resource Include="Images\resources-vxmethod_icon.png" />
+    <Resource Include="Images\resources-vxmodule_icon.png" />
+    <Resource Include="Images\resources-vxproperty_icon.png" />
+    <Resource Include="Images\resources-vxstruct_icon.png" />
+    <Resource Include="Images\resources-vxvaluetype_icon.png" />
+    <Resource Include="Images\resources-vxxyz_icon.png" />
+    <Resource Include="Languages\CompletionItems.xml" />
+    <Resource Include="packages\AvalonEdit.6.2.0.78\images\AvalonEditNuGetPackageIcon.png" />
+    <Content Include="packages\AvalonEdit.6.2.0.78\lib\net462\ICSharpCode.AvalonEdit.dll" />
+    <Resource Include="packages\AvalonEdit.6.2.0.78\lib\net462\ICSharpCode.AvalonEdit.xml" />
+    <Content Include="packages\AvalonEdit.6.2.0.78\lib\net6.0-windows7.0\ICSharpCode.AvalonEdit.dll" />
+    <Resource Include="packages\AvalonEdit.6.2.0.78\lib\net6.0-windows7.0\ICSharpCode.AvalonEdit.xml" />
+    <Content Include="packages\AvalonEdit.6.2.0.78\lib\netcoreapp3.1\ICSharpCode.AvalonEdit.dll" />
+    <Resource Include="packages\AvalonEdit.6.2.0.78\lib\netcoreapp3.1\ICSharpCode.AvalonEdit.xml" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\analyzers\dotnet\roslyn4.0\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\analyzers\dotnet\roslyn4.3\cs\CommunityToolkit.Mvvm.SourceGenerators.dll" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.1.0\Icon.png" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\net6.0\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\net6.0\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\net6.0\CommunityToolkit.Mvvm.xml" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.0\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.0\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.0\CommunityToolkit.Mvvm.xml" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.1\CommunityToolkit.Mvvm.dll" />
+    <Content Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.1\CommunityToolkit.Mvvm.pdb" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.1\CommunityToolkit.Mvvm.xml" />
+    <Resource Include="packages\CommunityToolkit.Mvvm.8.1.0\ThirdPartyNotices.txt" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\net45\ControlzEx.dll" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\net45\ControlzEx.pdb" />
+    <Resource Include="packages\ControlzEx.4.3.0\lib\net45\ControlzEx.xml" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\net462\ControlzEx.dll" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\net462\ControlzEx.pdb" />
+    <Resource Include="packages\ControlzEx.4.3.0\lib\net462\ControlzEx.xml" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.0\ControlzEx.dll" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.0\ControlzEx.pdb" />
+    <Resource Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.0\ControlzEx.xml" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.1\ControlzEx.dll" />
+    <Content Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.1\ControlzEx.pdb" />
+    <Resource Include="packages\ControlzEx.4.3.0\lib\netcoreapp3.1\ControlzEx.xml" />
+    <Resource Include="packages\ControlzEx.4.3.0\logo-mini.png" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\AvalonDock.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\ca-ES\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\cs-CZ\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\de\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\es\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\fr\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\hu\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\it\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\ja\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\ko\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\nl-BE\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\pl\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\pt\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\ro\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\ru\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\sv\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\zh-Hans\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net40\zh-Hant\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\AvalonDock.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\ca-ES\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\cs-CZ\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\de\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\es\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\fr\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\hu\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\it\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\ja\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\ko\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\nl-BE\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\pl\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\pt\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\ro\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\ru\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\sv\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\zh-Hans\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\net5.0-windows7.0\zh-Hant\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\AvalonDock.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\ca-ES\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\cs-CZ\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\de\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\es\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\fr\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\hu\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\it\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\ja\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\ko\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\nl-BE\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\pl\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\pt\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\ro\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\ru\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\sv\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\zh-Hans\AvalonDock.resources.dll" />
+    <Content Include="packages\Dirkster.AvalonDock.4.71.1\lib\netcoreapp3.0\zh-Hant\AvalonDock.resources.dll" />
+    <Resource Include="packages\Dirkster.ColorPickerLib.1.6.2\icon.png" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\ColorPickerLib.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\cs-CZ\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\de-DE\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\es-ES\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\fr-FR\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\hi\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\id-ID\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\it-IT\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\ja-JP\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\nl-NL\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\zh-CHS\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\zh-CHT\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\ColorPickerLib.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\cs-CZ\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\de-DE\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\es-ES\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\fr-FR\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\hi\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\id-ID\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\it-IT\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\ja-JP\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\nl-NL\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\zh-CHS\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.ColorPickerLib.1.6.2\lib\netcoreapp3.0\zh-CHT\ColorPickerLib.resources.dll" />
+    <Content Include="packages\Dirkster.NumericUpDownLib.3.3.1\lib\net40\NumericUpDownLib.dll" />
+    <Content Include="packages\Dirkster.NumericUpDownLib.3.3.1\lib\netcoreapp3.0\NumericUpDownLib.dll" />
+    <Resource Include="packages\Dirkster.NumericUpDownLib.3.3.1\SyncArrow_64x.png" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net452\MahApps.Metro.dll" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net452\MahApps.Metro.pdb" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\lib\net452\MahApps.Metro.xml" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net46\MahApps.Metro.dll" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net46\MahApps.Metro.pdb" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\lib\net46\MahApps.Metro.xml" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net47\MahApps.Metro.dll" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\net47\MahApps.Metro.pdb" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\lib\net47\MahApps.Metro.xml" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.0\MahApps.Metro.dll" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.0\MahApps.Metro.pdb" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.0\MahApps.Metro.xml" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.1\MahApps.Metro.dll" />
+    <Content Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.1\MahApps.Metro.pdb" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\lib\netcoreapp3.1\MahApps.Metro.xml" />
+    <Resource Include="packages\MahApps.Metro.2.0.0\mahapps.metro.logo.png" />
+    <Resource Include="packages\MaterialDesignColors.2.1.1\images\MaterialDesignColors.Icon.png" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net462\MaterialDesignColors.dll" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net462\MaterialDesignColors.pdb" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net6.0\MaterialDesignColors.dll" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net6.0\MaterialDesignColors.pdb" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net7.0\MaterialDesignColors.dll" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\net7.0\MaterialDesignColors.pdb" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\netcoreapp3.1\MaterialDesignColors.dll" />
+    <Content Include="packages\MaterialDesignColors.2.1.1\lib\netcoreapp3.1\MaterialDesignColors.pdb" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\images\MaterialDesignThemes.Icon.png" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net462\MaterialDesignThemes.Wpf.dll" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net462\MaterialDesignThemes.Wpf.pdb" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\lib\net462\MaterialDesignThemes.Wpf.xml" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net6.0\MaterialDesignThemes.Wpf.dll" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net6.0\MaterialDesignThemes.Wpf.pdb" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\lib\net6.0\MaterialDesignThemes.Wpf.xml" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net7.0\MaterialDesignThemes.Wpf.dll" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\net7.0\MaterialDesignThemes.Wpf.pdb" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\lib\net7.0\MaterialDesignThemes.Wpf.xml" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\netcoreapp3.1\MaterialDesignThemes.Wpf.dll" />
+    <Content Include="packages\MaterialDesignThemes.4.7.1\lib\netcoreapp3.1\MaterialDesignThemes.Wpf.pdb" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\lib\netcoreapp3.1\MaterialDesignThemes.Wpf.xml" />
+    <Resource Include="packages\MaterialDesignThemes.4.7.1\tools\VisualStudioToolsManifest.xml" />
+    <Resource Include="packages\MaterialDesignThemes.MahApps.0.2.7\images\MaterialDesignThemes.MahApps.Icon.png" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net462\MaterialDesignThemes.MahApps.dll" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net462\MaterialDesignThemes.MahApps.pdb" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net6.0\MaterialDesignThemes.MahApps.dll" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net6.0\MaterialDesignThemes.MahApps.pdb" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net7.0\MaterialDesignThemes.MahApps.dll" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\net7.0\MaterialDesignThemes.MahApps.pdb" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\netcoreapp3.1\MaterialDesignThemes.MahApps.dll" />
+    <Content Include="packages\MaterialDesignThemes.MahApps.0.2.7\lib\netcoreapp3.1\MaterialDesignThemes.MahApps.pdb" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\Icon.png" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\LICENSE.TXT" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Design\Microsoft.Xaml.Behaviors.Design.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.pdb" />
+    <Resource Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net5.0-windows7.0\Design\Microsoft.Xaml.Behaviors.DesignTools.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net5.0-windows7.0\Microsoft.Xaml.Behaviors.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net5.0-windows7.0\Microsoft.Xaml.Behaviors.pdb" />
+    <Resource Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net5.0-windows7.0\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\netcoreapp3.1\Design\Microsoft.Xaml.Behaviors.DesignTools.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\netcoreapp3.1\Microsoft.Xaml.Behaviors.dll" />
+    <Content Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\netcoreapp3.1\Microsoft.Xaml.Behaviors.pdb" />
+    <Resource Include="packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\netcoreapp3.1\Microsoft.Xaml.Behaviors.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\lib\net461\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\lib\netstandard2.0\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\lib\netstandard2.0\System.Buffers.xml" />
+    <Resource Include="packages\System.Buffers.4.5.1\LICENSE.TXT" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\net45\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\ref\net45\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard1.1\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\ref\netstandard1.1\System.Buffers.xml" />
+    <Content Include="packages\System.Buffers.4.5.1\ref\netstandard2.0\System.Buffers.dll" />
+    <Resource Include="packages\System.Buffers.4.5.1\ref\netstandard2.0\System.Buffers.xml" />
+    <Resource Include="packages\System.Buffers.4.5.1\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Buffers.4.5.1\useSharedDesignerContext.txt" />
+    <Resource Include="packages\System.Buffers.4.5.1\version.txt" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\Icon.png" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\lib\netcore50\System.ComponentModel.Annotations.dll" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard1.4\System.ComponentModel.Annotations.dll" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.0\System.ComponentModel.Annotations.dll" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\LICENSE.TXT" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\net461\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\net461\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\de\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\es\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\fr\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\it\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\ja\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\ko\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\ru\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\zh-hans\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netcore50\zh-hant\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\de\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\es\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\fr\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\it\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\ja\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\ko\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\ru\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\zh-hans\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.1\zh-hant\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\de\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\es\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\fr\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\it\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\ja\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\ko\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\ru\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\zh-hans\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.3\zh-hant\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\de\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\es\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\fr\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\it\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\ja\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\ko\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\ru\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\zh-hans\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard1.4\zh-hant\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard2.0\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard2.0\System.ComponentModel.Annotations.xml" />
+    <Content Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard2.1\System.ComponentModel.Annotations.dll" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\ref\netstandard2.1\System.ComponentModel.Annotations.xml" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\useSharedDesignerContext.txt" />
+    <Resource Include="packages\System.ComponentModel.Annotations.5.0.0\version.txt" />
+    <Content Include="packages\System.Memory.4.5.5\lib\net461\System.Memory.dll" />
+    <Resource Include="packages\System.Memory.4.5.5\lib\net461\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard1.1\System.Memory.dll" />
+    <Resource Include="packages\System.Memory.4.5.5\lib\netstandard1.1\System.Memory.xml" />
+    <Content Include="packages\System.Memory.4.5.5\lib\netstandard2.0\System.Memory.dll" />
+    <Resource Include="packages\System.Memory.4.5.5\lib\netstandard2.0\System.Memory.xml" />
+    <Resource Include="packages\System.Memory.4.5.5\LICENSE.TXT" />
+    <Resource Include="packages\System.Memory.4.5.5\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Memory.4.5.5\useSharedDesignerContext.txt" />
+    <Resource Include="packages\System.Memory.4.5.5\version.txt" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard1.0\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard1.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard2.0\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\lib\netstandard2.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.xml" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\LICENSE.TXT" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net45\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\ref\net45\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\net46\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\ref\net46\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard1.0\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard1.0\System.Numerics.Vectors.xml" />
+    <Content Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard2.0\System.Numerics.Vectors.dll" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\ref\netstandard2.0\System.Numerics.Vectors.xml" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\useSharedDesignerContext.txt" />
+    <Resource Include="packages\System.Numerics.Vectors.4.5.0\version.txt" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\Icon.png" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net6.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net6.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\LICENSE.TXT" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Runtime.CompilerServices.Unsafe.6.0.0\useSharedDesignerContext.txt" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\netstandard1.0\System.Threading.Tasks.Extensions.dll" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\netstandard1.0\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\netstandard2.0\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.xml" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\LICENSE.TXT" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\THIRD-PARTY-NOTICES.TXT" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\useSharedDesignerContext.txt" />
+    <Resource Include="packages\System.Threading.Tasks.Extensions.4.5.4\version.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets'))" />
+  </Target>
+  <Import Project="packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
+</Project>

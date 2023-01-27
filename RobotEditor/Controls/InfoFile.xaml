@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="RobotEditor.Controls.InfoFile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="IsReadOnly" Value="True" />
+            </Style>
+        </StackPanel.Resources>
+        <!-- General -->
+        <GroupBox Header="General">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Archive Name" Grid.Row="0" Grid.Column="0" />
+                <TextBlock Text="Config Type" Grid.Row="1" Grid.Column="0" />
+                <TextBlock Text="Disk No" Grid.Row="2" Grid.Column="0" />
+                <TextBlock Text="ID" Grid.Row="3" Grid.Column="0" />
+                <TextBlock Text="Date" Grid.Row="4" Grid.Column="0" />
+                <TextBox Text="{Binding ArchiveName}" Grid.Column="1" Grid.Row="0" />
+                <TextBox Text="{Binding ArchiveConfigType}" Grid.Column="1" Grid.Row="1" />
+                <TextBox Text="{Binding ArchiveDiskNo}" Grid.Column="1" Grid.Row="2" />
+                <TextBox Text="{Binding ArchiveID}" Grid.Column="1" Grid.Row="3" />
+                <TextBox Text="{Binding ArchiveDate}" Grid.Column="1" Grid.Row="4" />
+            </Grid>
+        </GroupBox>
+        <!-- Roboter -->
+        <GroupBox Header="Roboter">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Robot Name" Grid.Row="0" Grid.Column="0" />
+                <TextBlock Text="Serial" Grid.Row="1" Grid.Column="0" />
+                <TextBox Text="{Binding RobotName}" Grid.Column="1" Grid.Row="0" />
+                <TextBox Text="{Binding RobotSerial}" Grid.Column="1" Grid.Row="1" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Version">
+            <TextBox Text="{Binding KSSVersion}" />
+        </GroupBox>
+        <!-- TechPacks -->
+        <GroupBox Header="TechPacks" VerticalAlignment="Stretch">
+            <ListView ItemsSource="{Binding Technologies}" MinHeight="100" VerticalAlignment="Stretch">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Technology Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Version">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Version}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

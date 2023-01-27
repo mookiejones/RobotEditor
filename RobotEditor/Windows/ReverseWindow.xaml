@@ -1,0 +1,25 @@
+﻿<Window x:Class="RobotEditor.Windows.ReverseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ReverseWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="Keep structure for" Grid.Row="0" Margin="10,10,10,0">
+            <StackPanel>
+                <CheckBox Content="'Switch' Block" IsChecked="True" Margin="10,2" />
+                <CheckBox Content="'For' Block" IsChecked="True" Margin="10,2" />
+                <CheckBox Content="'Repeat' Block" IsChecked="True" Margin="10,2" />
+                <CheckBox Content="'While' Block" IsChecked="True" Margin="10,2" />
+                <CheckBox Content="'Loop' Block" IsChecked="True" Margin="10,2" />
+                <CheckBox Content="'If' Block" IsChecked="True" Margin="10,2" />
+            </StackPanel>
+        </GroupBox>
+        <Button Content="_OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Row="1"
+                Margin="119,0,0,0" />
+        <Button Content="_Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Row="1"
+                Margin="209,0,0,0" />
+    </Grid>
+</Window>

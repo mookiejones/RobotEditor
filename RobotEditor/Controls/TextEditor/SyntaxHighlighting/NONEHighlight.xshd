@@ -1,0 +1,9 @@
+﻿<SyntaxDefinition name="NONEHIGHLIGHT" extensions=".mookie" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="Green" />
+  <Color name="String" foreground="Blue" />
+  <Color name="Signals" foreground="LightBlue" exampleText="b = False" />
+  <Color name="Punctuation" foreground="DarkGreen" exampleText="a(b.c);" />
+  <Color name="MethodCall" foreground="MidnightBlue" fontWeight="bold" exampleText="o.ToString();"/>
+
+
+</SyntaxDefinition>

@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:vm="clr-namespace:RobotEditor.ViewModel"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <DataTemplate DataType="{x:Type vm:ShiftViewModel}">
+        <Grid x:Name="Grid">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="25" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <GroupBox DataContext="{Binding OldValues}" Grid.Column="0" Header="{Binding Header}" />
+            <GroupBox DataContext="{Binding NewValues}" Grid.Column="1" Header="{Binding Header}" />
+            <GroupBox DataContext="{Binding DiffValues}" Grid.Column="2" Header="{Binding Header}" />
+            <Button Grid.Row="1" Grid.Column="1" Content="_Cancel" Width="75" Height="20" />
+            <Button Grid.Row="1" Grid.Column="2" Content="_OK" Height="20" Width="75" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CartesianPosition}">
+
+        <GroupBox Padding="5" Header="{Binding Header}">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Grid.Column" Value="0" />
+                        <Setter Property="TextAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="TextAlignment" Value="Center" />
+                        <Setter Property="Width" Value="100" />
+                        <Setter Property="Grid.Column" Value="1" />
+                        <Setter Property="Height" Value="25" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="X" />
+                <TextBlock Grid.Row="1" Text="Y" />
+                <TextBlock Grid.Row="2" Text="Z" />
+                <TextBox Grid.Row="0"
+                         Text="{Binding X, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=LostFocus}" />
+                <TextBox Grid.Row="1"
+                         Text="{Binding Y, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=LostFocus}" />
+                <TextBox Grid.Row="2"
+                         Text="{Binding Z, Mode=TwoWay, StringFormat=\{0:F2\}, UpdateSourceTrigger=LostFocus}" />
+            </Grid>
+        </GroupBox>
+    </DataTemplate>
+</ResourceDictionary>
