@@ -2,7 +2,7 @@
 {
     public enum CartesianEnum
     {
-// ReSharper disable UnusedMember.Global
+        // ReSharper disable UnusedMember.Global
         // ReSharper disable InconsistentNaming
         ABB_Quaternion,
         Roll_Pitch_Yaw,

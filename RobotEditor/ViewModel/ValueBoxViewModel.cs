@@ -1,15 +1,14 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using RobotEditor.Enums;
 using RobotEditor.Languages.Data;
+using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace RobotEditor.ViewModel
 {
     public class ValueBoxViewModel : ObservableObject
     {
-        private readonly CartesianItems _selectionitems = new CartesianItems();
         private Visibility _boxVisibility = Visibility.Visible;
         private string _header = string.Empty;
         private bool _isReadOnly;
@@ -24,7 +23,7 @@ namespace RobotEditor.ViewModel
             get => _v1;
             set
             {
-                SetProperty(ref _v1, value);
+                _ = SetProperty(ref _v1, value);
                 RaiseItemsChanged();
             }
         }
@@ -34,7 +33,7 @@ namespace RobotEditor.ViewModel
             get => _v2;
             set
             {
-                SetProperty(ref _v2, value);
+                _ = SetProperty(ref _v2, value);
                 RaiseItemsChanged();
             }
         }
@@ -44,7 +43,7 @@ namespace RobotEditor.ViewModel
             get => _v3;
             set
             {
-                SetProperty(ref _v3, value);
+                _ = SetProperty(ref _v3, value);
                 RaiseItemsChanged();
             }
         }
@@ -54,18 +53,18 @@ namespace RobotEditor.ViewModel
             get => _v4;
             set
             {
-                SetProperty(ref _v4, value);
+                _ = SetProperty(ref _v4, value);
                 RaiseItemsChanged();
             }
         }
 
-        public bool IsReadOnly { get =>_isReadOnly; set=>SetProperty(ref _isReadOnly,value); }
+        public bool IsReadOnly { get => _isReadOnly; set => SetProperty(ref _isReadOnly, value); }
 
-        public string Header { get =>_header; set=>SetProperty(ref _header,value); }
+        public string Header { get => _header; set => SetProperty(ref _header, value); }
 
-        public Visibility BoxVisibility { get =>_boxVisibility; set=>SetProperty(ref _boxVisibility,value); }
+        public Visibility BoxVisibility { get => _boxVisibility; set => SetProperty(ref _boxVisibility, value); }
 
-        public CartesianItems SelectionItems => _selectionitems;
+        public CartesianItems SelectionItems { get; } = new CartesianItems();
 
         public CartesianEnum SelectedItem
         {
@@ -81,7 +80,10 @@ namespace RobotEditor.ViewModel
 
         public event ItemsChangedEventHandler ItemsChanged;
 
-        private void RaiseItemsChanged() => ItemsChanged?.Invoke(this, (ItemsChangedEventArgs)new EventArgs());
+        private void RaiseItemsChanged()
+        {
+            ItemsChanged?.Invoke(this, (ItemsChangedEventArgs)new EventArgs());
+        }
 
         private void CheckVisibility()
         {

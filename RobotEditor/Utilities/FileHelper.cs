@@ -15,7 +15,10 @@ namespace RobotEditor.Utilities
         /// <param name="fi"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static FileInfo GetFileInfo(this FileInfo fi, string path) => null;
+        public static FileInfo GetFileInfo(this FileInfo fi, string path)
+        {
+            return null;
+        }
 
         /// <summary>
         /// 
@@ -83,7 +86,10 @@ namespace RobotEditor.Utilities
         /// 
         /// </summary>
         /// <param name="path"></param>
-        public static void DeleteIfExisting(string path) => DeleteIfExisting(path, true);
+        public static void DeleteIfExisting(string path)
+        {
+            DeleteIfExisting(path, true);
+        }
 
         /// <summary>
         /// 

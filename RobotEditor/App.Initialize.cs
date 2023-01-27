@@ -14,7 +14,7 @@ namespace RobotEditor
         public IServiceProvider Services { get; }
 
         public App()
-            
+
         {
             Services = ConfigureServices();
             Ioc.Default.ConfigureServices(Services);
@@ -25,17 +25,17 @@ namespace RobotEditor
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            var services = new ServiceCollection();
+            ServiceCollection services = new ServiceCollection();
             // Services
-            services.AddSingleton<IDataService,DataService>();
+            _ = services.AddSingleton<IDataService, DataService>();
 
             // ViewModels
-            services.AddSingleton<MainViewModel>();
-            services.AddSingleton<MessageViewModel>();
+            _ = services.AddSingleton<MainViewModel>();
+            _ = services.AddSingleton<MessageViewModel>();
 
-            services.AddSingleton<StatusBarViewModel>();
-            services.AddSingleton<ObjectBrowserViewModel>();
-            
+            _ = services.AddSingleton<StatusBarViewModel>();
+            _ = services.AddSingleton<ObjectBrowserViewModel>();
+
             return services.BuildServiceProvider();
         }
     }

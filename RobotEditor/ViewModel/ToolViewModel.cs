@@ -17,6 +17,6 @@ namespace RobotEditor.ViewModel
         public int Width { get; set; }
         public string Name { get; private set; }
 
-        public bool IsVisible { get =>_isVisible; set=>SetProperty(ref _isVisible,value); }
+        public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
     }
 }

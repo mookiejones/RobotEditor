@@ -1,5 +1,5 @@
-﻿using System;
-using RobotEditor.Controls.AngleConverter.Classes;
+﻿using RobotEditor.Controls.AngleConverter.Classes;
+using System;
 
 namespace RobotEditor.Controls.AngleConverter.Interfaces
 {

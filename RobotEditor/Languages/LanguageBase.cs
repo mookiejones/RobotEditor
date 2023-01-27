@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
@@ -10,6 +6,10 @@ using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
 using RobotEditor.Languages.Data;
 using RobotEditor.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
 namespace RobotEditor.Languages
@@ -39,15 +39,9 @@ namespace RobotEditor.Languages
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex
-        {
-            get { throw new NotImplementedException(); }
-        }
+        protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
         internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
@@ -62,20 +56,26 @@ namespace RobotEditor.Languages
 
         public override Regex EnumRegex => new Regex(string.Empty);
 
-        public override void Initialize(string filename) => Initialize();
-
-        public override string CommentChar
+        public override void Initialize(string filename)
         {
-            get { throw new NotImplementedException(); }
+            Initialize();
         }
+
+        public override string CommentChar => throw new NotImplementedException();
 
         public override Regex SignalRegex => new Regex(string.Empty);
 
         public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file) => false;
+        protected override bool IsFileValid(FileInfo file)
+        {
+            return false;
+        }
 
-        public override DocumentViewModel GetFile(string filename) => new DocumentViewModel(filename);
+        public override DocumentViewModel GetFile(string filename)
+        {
+            return new DocumentViewModel(filename);
+        }
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
@@ -83,15 +83,15 @@ namespace RobotEditor.Languages
             {
                 throw new ArgumentNullException("doc");
             }
-            var array = Regex.Split(section.Title, "�");
-            var offset = section.StartOffset + array[0].Length;
-            var length = section.Length - array[0].Length;
+            string[] array = Regex.Split(section.Title, "�");
+            int offset = section.StartOffset + array[0].Length;
+            int length = section.Length - array[0].Length;
             return doc.GetText(offset, length);
         }
 
         public override string ExtractXYZ(string positionstring)
         {
-            var positionBase = new PositionBase(positionstring);
+            PositionBase positionBase = new PositionBase(positionstring);
             return positionBase.ExtractFromMatch();
         }
     }

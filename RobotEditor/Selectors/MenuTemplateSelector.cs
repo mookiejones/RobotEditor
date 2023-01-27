@@ -13,7 +13,7 @@ namespace RobotEditor.Selectors
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (container is FrameworkElement frameworkElement && item != null && item is Task)
+            if (container is FrameworkElement && item != null && item is Task)
             {
             }
             return null;

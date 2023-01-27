@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using RobotEditor.Controls.TextEditor;
+using System;
+using System.Collections.Generic;
 
 namespace RobotEditor.future
 {
     public class CodeCommenter
     {
         private static readonly List<char> Whitespaces = new List<char>
-		{
-			' ',
-			'\t'
-		};
-        private string commentMarker = ";";
+        {
+            ' ',
+            '\t'
+        };
+
         public bool AllowMultipleComments
         {
             get;
@@ -23,11 +23,7 @@ namespace RobotEditor.future
             get;
             set;
         }
-        public string CommentMarker
-        {
-            get => commentMarker;
-            set => commentMarker = value;
-        }
+        public string CommentMarker { get; set; } = ";";
         public CommentMode Mode
         {
             get;
@@ -38,14 +34,14 @@ namespace RobotEditor.future
             Mode = mode;
             CommentCarretLineIfNoSelection = true;
         }
-        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
+        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine)
+        {
+            return CommentLine(kukaTextEditor.Document, documentLine);
+        }
+
         public bool CommentLine(TextDocument document, DocumentLine documentLine)
         {
-            if (Mode == CommentMode.BeginOfLine)
-            {
-                return CommentAtBeginOfLine(document, documentLine);
-            }
-            return CommentAtBeginOfText(document, documentLine);
+            return Mode == CommentMode.BeginOfLine ? CommentAtBeginOfLine(document, documentLine) : CommentAtBeginOfText(document, documentLine);
         }
         public bool CommentLines(Editor kukaTextEditor, int startLine, int endLine)
         {
@@ -57,10 +53,10 @@ namespace RobotEditor.future
             {
                 throw new ArgumentException("The start line must be smaller than the end line");
             }
-            var flag = false;
-            for (var i = startLine; i <= endLine; i++)
+            bool flag = false;
+            for (int i = startLine; i <= endLine; i++)
             {
-                var documentLine = kukaTextEditor.Document.Lines[i - 1];
+                DocumentLine documentLine = kukaTextEditor.Document.Lines[i - 1];
                 flag |= CommentLine(kukaTextEditor.Document, documentLine);
             }
             return flag;
@@ -71,8 +67,8 @@ namespace RobotEditor.future
             {
                 throw new ArgumentNullException("kukaTextEditor");
             }
-            var flag = false;
-            foreach (var current in documentLines)
+            bool flag = false;
+            foreach (DocumentLine current in documentLines)
             {
                 flag |= CommentLine(kukaTextEditor.Document, current);
             }
@@ -87,15 +83,15 @@ namespace RobotEditor.future
             bool result;
             using (kukaTextEditor.Document.RunUpdate())
             {
-                var flag = false;
+                bool flag = false;
                 if (kukaTextEditor.SelectionLength > 0)
                 {
-                    var lineByOffset = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
-                    var lineByOffset2 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart + kukaTextEditor.SelectionLength);
-                    for (var i = lineByOffset.LineNumber - 1; i <= lineByOffset2.LineNumber - 1; i++)
+                    DocumentLine lineByOffset = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
+                    DocumentLine lineByOffset2 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart + kukaTextEditor.SelectionLength);
+                    for (int i = lineByOffset.LineNumber - 1; i <= lineByOffset2.LineNumber - 1; i++)
                     {
-                        var documentLine = kukaTextEditor.Document.Lines[i];
-                        CommentLine(kukaTextEditor.Document, documentLine);
+                        DocumentLine documentLine = kukaTextEditor.Document.Lines[i];
+                        _ = CommentLine(kukaTextEditor.Document, documentLine);
                         flag = true;
                     }
                     result = flag;
@@ -104,7 +100,7 @@ namespace RobotEditor.future
                 {
                     if (CommentCarretLineIfNoSelection)
                     {
-                        var lineByOffset3 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
+                        DocumentLine lineByOffset3 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
                         result = CommentLine(kukaTextEditor.Document, lineByOffset3);
                     }
                     else
@@ -124,14 +120,14 @@ namespace RobotEditor.future
             bool result;
             using (kukaTextEditor.Document.RunUpdate())
             {
-                var flag = false;
+                bool flag = false;
                 if (kukaTextEditor.SelectionLength > 0)
                 {
-                    var lineByOffset = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
-                    var lineByOffset2 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart + kukaTextEditor.SelectionLength);
-                    for (var i = lineByOffset.LineNumber - 1; i <= lineByOffset2.LineNumber - 1; i++)
+                    DocumentLine lineByOffset = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
+                    DocumentLine lineByOffset2 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart + kukaTextEditor.SelectionLength);
+                    for (int i = lineByOffset.LineNumber - 1; i <= lineByOffset2.LineNumber - 1; i++)
                     {
-                        var documentLine = kukaTextEditor.Document.Lines[i];
+                        DocumentLine documentLine = kukaTextEditor.Document.Lines[i];
                         flag |= UncommentLine(kukaTextEditor, documentLine);
                     }
                     result = flag;
@@ -140,7 +136,7 @@ namespace RobotEditor.future
                 {
                     if (CommentCarretLineIfNoSelection)
                     {
-                        var lineByOffset3 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
+                        DocumentLine lineByOffset3 = kukaTextEditor.Document.GetLineByOffset(kukaTextEditor.SelectionStart);
                         result = UncommentLine(kukaTextEditor, lineByOffset3);
                     }
                     else
@@ -161,23 +157,23 @@ namespace RobotEditor.future
             {
                 throw new ArgumentNullException("documentLine");
             }
-            var text = kukaTextEditor.Document.GetText(documentLine);
-            var num = text.IndexOf(commentMarker, StringComparison.Ordinal);
+            string text = kukaTextEditor.Document.GetText(documentLine);
+            int num = text.IndexOf(CommentMarker, StringComparison.Ordinal);
             if (num <= -1)
             {
                 return false;
             }
-            var num2 = 0;
-            var text2 = text;
-            for (var i = 0; i < text2.Length; i++)
+            int num2 = 0;
+            string text2 = text;
+            for (int i = 0; i < text2.Length; i++)
             {
-                var c = text2[i];
-                if (c == commentMarker[num2])
+                char c = text2[i];
+                if (c == CommentMarker[num2])
                 {
                     num2++;
-                    if (num2 >= commentMarker.Length)
+                    if (num2 >= CommentMarker.Length)
                     {
-                        kukaTextEditor.Document.Remove(documentLine.Offset + num, commentMarker.Length);
+                        kukaTextEditor.Document.Remove(documentLine.Offset + num, CommentMarker.Length);
                         return true;
                     }
                 }
@@ -191,10 +187,14 @@ namespace RobotEditor.future
             }
             return false;
         }
-        private static bool IsWhitespace(char letter) => Whitespaces.Contains(letter);
+        private static bool IsWhitespace(char letter)
+        {
+            return Whitespaces.Contains(letter);
+        }
+
         private bool CommentAtBeginOfLine(TextDocument document, DocumentLine documentLine)
         {
-            var text = document.GetText(documentLine).TrimStart(Whitespaces.ToArray());
+            string text = document.GetText(documentLine).TrimStart(Whitespaces.ToArray());
             if (string.IsNullOrEmpty(text))
             {
                 return false;
@@ -208,21 +208,21 @@ namespace RobotEditor.future
         }
         private bool CommentAtBeginOfText(TextDocument document, DocumentLine documentLine)
         {
-            var text = document.GetText(documentLine);
+            string text = document.GetText(documentLine);
             if (string.IsNullOrEmpty(text))
             {
                 return false;
             }
-            if (!AllowMultipleComments && text.TrimStart(Whitespaces.ToArray()).StartsWith(commentMarker))
+            if (!AllowMultipleComments && text.TrimStart(Whitespaces.ToArray()).StartsWith(CommentMarker))
             {
                 return false;
             }
-            var num = documentLine.Offset;
-            var text2 = text;
-            var i = 0;
+            int num = documentLine.Offset;
+            string text2 = text;
+            int i = 0;
             while (i < text2.Length)
             {
-                var letter = text2[i];
+                char letter = text2[i];
                 if (IsWhitespace(letter))
                 {
                     num++;

@@ -1,4 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using RobotEditor.Controls;
+using RobotEditor.Enums;
+using RobotEditor.Messages;
+using RobotEditor.UI;
+using RobotEditor.ViewModel;
+using RobotEditor.Windows;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,17 +15,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using RobotEditor.Enums;
-using RobotEditor.Messages;
-using RobotEditor.ViewModel;
-using RobotEditor.Windows;
-
 using MessageBox = System.Windows.MessageBox;
-
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging;
-using RobotEditor.UI;
-using RobotEditor.Controls;
 
 namespace RobotEditor
 {
@@ -33,11 +31,11 @@ namespace RobotEditor
         //{
         //    DispatcherHelper.Initialize();
         //}
- 
+
         public bool SignalExternalCommandLineArgs(IEnumerable<string> args)
         {
-            MainWindow.Activate();
-            var main = Ioc.Default.GetRequiredService<MainViewModel>();
+            _ = MainWindow.Activate();
+            MainViewModel main = Ioc.Default.GetRequiredService<MainViewModel>();
             main.LoadFile(args);
             return true;
         }
@@ -49,12 +47,12 @@ namespace RobotEditor
             // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
             if (Environment.Version < new Version(4, 0, 30319))
             {
-                MessageBox.Show(String.Format(RobotEditor.Properties.Resources.CheckEnvironment,
+                _ = MessageBox.Show(string.Format(RobotEditor.Properties.Resources.CheckEnvironment,
                     Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
                 return false;
             }
             // Work around a WPF issue when %WINDIR% is set to an incorrect path
-            var windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
+            string windir = Environment.GetFolderPath(Environment.SpecialFolder.Windows,
                 Environment.SpecialFolderOption.DoNotVerify);
             if (Environment.GetEnvironmentVariable("WINDIR") != windir)
             {
@@ -65,14 +63,17 @@ namespace RobotEditor
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            var msg = new ErrorMessage("App", e.Exception, MessageType.Error);
-            WeakReferenceMessenger.Default.Send(msg);
+            ErrorMessage msg = new ErrorMessage("App", e.Exception, MessageType.Error);
+            _ = WeakReferenceMessenger.Default.Send(msg);
 
             Console.Write(e);
             e.Handled = true;
         }
 
-        protected override void OnExit(ExitEventArgs e) => base.OnExit(e);
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+        }
 
         [Localizable(false)]
         protected override void OnStartup(StartupEventArgs e)
@@ -85,8 +86,14 @@ namespace RobotEditor
             Control.CheckForIllegalCrossThreadCalls = true;
 #endif
             if (!CheckEnvironment())
+            {
                 return;
-            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique)) return;
+            }
+
+            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique))
+            {
+                return;
+            }
             //    Application = new App();
 
             //    Application.InitializeComponent();
@@ -109,7 +116,7 @@ namespace RobotEditor
 
             if (e.Args.Length > 0)
             {
-                foreach (var v in e.Args)
+                foreach (string v in e.Args)
                 {
                 }
                 Debugger.Break();
@@ -118,7 +125,7 @@ namespace RobotEditor
                 Shutdown();
             }
 
-            var task = new JumpTask
+            JumpTask task = new JumpTask
             {
                 Title = "Check for Updates",
                 Arguments = "/update",
@@ -128,9 +135,9 @@ namespace RobotEditor
                 ApplicationPath = Assembly.GetEntryAssembly().CodeBase
             };
 
-            var asm = Assembly.GetExecutingAssembly();
+            Assembly asm = Assembly.GetExecutingAssembly();
 
-            var version = new JumpTask
+            JumpTask version = new JumpTask
             {
                 CustomCategory = "Version",
                 Title = asm.GetName().Version.ToString(),
@@ -138,7 +145,7 @@ namespace RobotEditor
                 IconResourceIndex = 0
             };
 
-            var jumpList = new JumpList();
+            JumpList jumpList = new JumpList();
             jumpList.JumpItems.Add(version);
             jumpList.ShowFrequentCategory = true;
             jumpList.ShowRecentCategory = true;

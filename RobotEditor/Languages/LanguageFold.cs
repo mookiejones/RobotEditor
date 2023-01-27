@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using ICSharpCode.AvalonEdit.Folding;
+﻿using ICSharpCode.AvalonEdit.Folding;
 using RobotEditor.ViewModel;
+using System;
+using System.ComponentModel;
 
 namespace RobotEditor.Languages
 {
@@ -18,9 +18,9 @@ namespace RobotEditor.Languages
             Start = start;
             End = end;
             Text = text;
-            var text2 = text;
-            var num = text2.IndexOf("\r\n", StringComparison.Ordinal);
-            var num2 = text2.IndexOf('%');
+            string text2 = text;
+            int num = text2.IndexOf("\r\n", StringComparison.Ordinal);
+            int num2 = text2.IndexOf('%');
             if (num2 > -1)
             {
                 text2 = text2.Substring(0, num2);

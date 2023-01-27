@@ -1,7 +1,7 @@
-using System;
-using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
+using System;
+using System.Windows.Media;
 
 namespace RobotEditor.Controls.TextEditor.Brackets
 {
@@ -15,11 +15,7 @@ namespace RobotEditor.Controls.TextEditor.Brackets
 
         public BracketHighlightRenderer(TextView textView)
         {
-            if (textView == null)
-            {
-                throw new ArgumentNullException("textView");
-            }
-            _textView = textView;
+            _textView = textView ?? throw new ArgumentNullException("textView");
             _textView.BackgroundRenderers.Add(this);
         }
 
@@ -29,7 +25,7 @@ namespace RobotEditor.Controls.TextEditor.Brackets
         {
             if (_result != null)
             {
-                var backgroundGeometryBuilder = new BackgroundGeometryBuilder
+                BackgroundGeometryBuilder backgroundGeometryBuilder = new BackgroundGeometryBuilder
                 {
                     CornerRadius = 1.0,
                     AlignToWholePixels = true
@@ -45,7 +41,7 @@ namespace RobotEditor.Controls.TextEditor.Brackets
                     StartOffset = _result.ClosingBracketOffset,
                     Length = _result.ClosingBracketLength
                 });
-                var geometry = backgroundGeometryBuilder.CreateGeometry();
+                Geometry geometry = backgroundGeometryBuilder.CreateGeometry();
                 if (_borderPen == null)
                 {
                     UpdateColors(DefaultBackground, DefaultBackground);

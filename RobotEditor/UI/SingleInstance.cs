@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Channels.Ipc;
-using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
-using System.Windows.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace RobotEditor.UI
 {
@@ -68,8 +68,9 @@ namespace RobotEditor.UI
         private static IList<string> GetCommandLineArgs(string uniqueApplicationName)
         {
             if (AppDomain.CurrentDomain.ActivationContext == null)
+            {
                 return Environment.GetCommandLineArgs()?.ToList() ?? new string[0].ToList();
-
+            }
             else
             {
                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), uniqueApplicationName);
@@ -144,7 +145,9 @@ namespace RobotEditor.UI
         private static void ActivateFirstInstance(IList<string> args)
         {
             if (Application.Current == null)
+            {
                 return;
+            }
 
             TApplication tApplication = (TApplication)Application.Current;
             _ = tApplication.SignalExternalCommandLineArgs(args);
@@ -152,10 +155,16 @@ namespace RobotEditor.UI
 
         private class IpcRemoteService : MarshalByRefObject
         {
-            public void InvokeFirstInstance(IList<string> args) => _ = (Application.Current?.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+            public void InvokeFirstInstance(IList<string> args)
+            {
+                _ = (Application.Current?.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                         new DispatcherOperationCallback(ActivateFirstInstanceCallback), args));
+            }
 
-            public override object InitializeLifetimeService() => null;
+            public override object InitializeLifetimeService()
+            {
+                return null;
+            }
         }
     }
 }

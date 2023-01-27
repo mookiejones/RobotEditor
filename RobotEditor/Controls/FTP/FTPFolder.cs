@@ -10,7 +10,7 @@ namespace RobotEditor.Controls.FTP
         [DebuggerStepThrough]
         public static string SafeFolderName(string path)
         {
-            var array = path.Split(new[]
+            string[] array = path.Split(new[]
             {
                 '/'
             });

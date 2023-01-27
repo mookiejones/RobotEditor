@@ -1,12 +1,12 @@
-using System;
-using System.ComponentModel;
-using System.Windows.Media;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using RobotEditor.Interfaces;
 using RobotEditor.ViewModel;
+using System;
+using System.ComponentModel;
+using System.Windows.Media;
 
 namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
 {
@@ -45,9 +45,9 @@ namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            var text = instance.ActiveEditor.TextBox.FindWord();
-            var offset = completionSegment.Offset - text.Length;
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            string text = instance.ActiveEditor.TextBox.FindWord();
+            int offset = completionSegment.Offset - text.Length;
             textArea.Document.Replace(offset, text.Length, Text);
         }
     }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using RobotEditor.Controls.TextEditor;
+﻿using RobotEditor.Controls.TextEditor;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.ViewModel;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace RobotEditor.Robots
 {
@@ -34,14 +34,19 @@ namespace RobotEditor.Robots
 
         public void SelectText(IVariable variable)
         {
-            if (variable.Name == null) throw new ArgumentNullException(nameof(variable));
+            if (variable.Name == null)
+            {
+                throw new ArgumentNullException(nameof(variable));
+            }
 
             //TODO Need to find out if this will work from Global Variables. Only Tested so far for Local Variable Window
 
             // Is Offset of textbox greater than desired value?
-            var enoughLines = TextBox.Text.Length >= variable.Offset;
+            bool enoughLines = TextBox.Text.Length >= variable.Offset;
             if (enoughLines)
+            {
                 TextBox.SelectText(variable);
+            }
         }
 
         private void InitializeControl()

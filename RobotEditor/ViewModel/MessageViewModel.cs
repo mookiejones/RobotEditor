@@ -1,13 +1,13 @@
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;
 using RobotEditor.Utilities;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace RobotEditor.ViewModel
 {
@@ -42,7 +42,7 @@ namespace RobotEditor.ViewModel
         {
             get => _selectedMessage;
 
-            set => SetProperty(ref _selectedMessage, value); 
+            set => SetProperty(ref _selectedMessage, value);
         }
         #endregion
 
@@ -51,7 +51,10 @@ namespace RobotEditor.ViewModel
 
         #endregion
 
-        void RaiseMessageAdded() => MessageAdded?.Invoke(this, new EventArgs());
+        private void RaiseMessageAdded()
+        {
+            MessageAdded?.Invoke(this, new EventArgs());
+        }
 
         #region Constructor
         public MessageViewModel() : base("Output Window")
@@ -61,14 +64,20 @@ namespace RobotEditor.ViewModel
             Messages = new ObservableCollection<IMessage>();
             Instance = this;
 
-            WeakReferenceMessenger.Default.Register<Exception>(this,  GetException);
+            WeakReferenceMessenger.Default.Register<Exception>(this, GetException);
         }
 
-        private void GetException(object sender,Exception obj) => throw new NotImplementedException();
+        private void GetException(object sender, Exception obj)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
-        public static void Add(IMessage msg) => Add(msg.Title, msg.Description, msg.Icon);
+        public static void Add(IMessage msg)
+        {
+            Add(msg.Title, msg.Description, msg.Icon);
+        }
 
         public void Add(string title, string message, MsgIcon icon, bool forceactivate = true)
         {
@@ -88,19 +97,26 @@ namespace RobotEditor.ViewModel
             Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = img });
 
             if (forceactivate)
+            {
                 RaiseMessageAdded();
+            }
         }
 
-
-        void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+        private void HandleMouseOver(object param)
+        {
+            SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
+        }
 
         /// <summary>
         /// Create MessageBox window and displays
         /// </summary>
         /// <param name="message"></param>
-        public static void ShowMessage(string message) => System.Windows.MessageBox.Show(message);
+        public static void ShowMessage(string message)
+        {
+            _ = System.Windows.MessageBox.Show(message);
+        }
 
-        void ClearItems()
+        private void ClearItems()
         {
             Messages.Clear();//=new ObservableCollection<OutputWindowMessage>();
 
@@ -109,8 +125,8 @@ namespace RobotEditor.ViewModel
 
         public static void AddError(string message, Exception ex)
         {
-            var trace = new System.Diagnostics.StackTrace();
-            var msg = new OutputWindowMessage
+            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
+            OutputWindowMessage msg = new OutputWindowMessage
             {
                 Title = "Internal Error",
                 Icon = ImageHelper.LoadBitmap(Global.ImgError),
@@ -128,7 +144,9 @@ namespace RobotEditor.ViewModel
             Instance.Messages.Add(new OutputWindowMessage { Title = title, Description = message, Icon = icon });
 
             if (forceactivate)
+            {
                 Instance.RaiseMessageAdded();
+            }
         }
 
         #region Commands

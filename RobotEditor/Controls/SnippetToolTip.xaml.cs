@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using RobotEditor.Controls.TextEditor.Snippets;
+﻿using RobotEditor.Controls.TextEditor.Snippets;
+using System.Windows.Controls;
 
 namespace RobotEditor.Controls
 {

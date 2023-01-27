@@ -6,7 +6,7 @@ namespace RobotEditor.ViewModel
     {
         #region Text
 
-         
+
 
         private string _text = string.Empty;
 

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RobotEditor.Interfaces;
+using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
-using CommunityToolkit.Mvvm.ComponentModel;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Languages.Data
 {
@@ -14,7 +14,7 @@ namespace RobotEditor.Languages.Data
 
         public static Match FindMatches(Regex matchstring, string filename)
         {
-            var text = File.ReadAllText(filename);
+            string text = File.ReadAllText(filename);
             Match result;
             if (string.IsNullOrEmpty(matchstring.ToString()))
             {
@@ -22,7 +22,7 @@ namespace RobotEditor.Languages.Data
             }
             else
             {
-                var match = matchstring.Match(text.ToLower());
+                Match match = matchstring.Match(text.ToLower());
                 result = match;
             }
             return result;

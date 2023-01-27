@@ -1,7 +1,7 @@
-using System;
 using RobotEditor.Controls.AngleConverter;
 using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Enums;
+using System;
 
 namespace RobotEditor.ViewModel
 {
@@ -31,9 +31,9 @@ namespace RobotEditor.ViewModel
 
         public static CartesianEnum CartesianType { get; set; }
 
-        public ValueBoxViewModel InputItems { get =>_inputItems; set=>SetProperty(ref _inputItems,value); }
+        public ValueBoxViewModel InputItems { get => _inputItems; set => SetProperty(ref _inputItems, value); }
 
-        public ValueBoxViewModel OutputItems { get =>_outputItems; set=>SetProperty(ref _outputItems,value); }
+        public ValueBoxViewModel OutputItems { get => _outputItems; set => SetProperty(ref _outputItems, value); }
 
         private double EPSILON
         {
@@ -43,7 +43,7 @@ namespace RobotEditor.ViewModel
 
         public string Error => null;
 
-        public string Matrix { get =>_matrix; set=>SetProperty(ref _matrix,value); }
+        public string Matrix { get => _matrix; set => SetProperty(ref _matrix, value); }
 
         public void Convert()
         {
@@ -52,9 +52,9 @@ namespace RobotEditor.ViewModel
                 if (!_isConverting)
                 {
                     _isConverting = true;
-                    var result = new Vector3D();
-                    var num = 0.0;
-                    var quaternion = new Quaternion();
+                    Vector3D result = new Vector3D();
+                    double num = 0.0;
+                    Quaternion quaternion = new Quaternion();
                     switch (InputItems.SelectedItem)
                     {
                         case CartesianEnum.ABB_Quaternion:
@@ -78,7 +78,7 @@ namespace RobotEditor.ViewModel
                     switch (OutputItems.SelectedItem)
                     {
                         case CartesianEnum.ABB_Quaternion:
-                            quaternion = (Quaternion) _rotationMatrix;
+                            quaternion = (Quaternion)_rotationMatrix;
                             result = quaternion.Vector;
                             num = quaternion.Scalar;
 
@@ -100,9 +100,9 @@ namespace RobotEditor.ViewModel
                             result = _rotationMatrix.ABG;
                             break;
                     }
-                    var text = quaternion.ToString();
+                    string text = quaternion.ToString();
 
-//                    var text = quaternion.ToString("F3");
+                    //                    var text = quaternion.ToString("F3");
                     if (Matrix != null && Matrix != text)
                     {
                         Matrix = text;

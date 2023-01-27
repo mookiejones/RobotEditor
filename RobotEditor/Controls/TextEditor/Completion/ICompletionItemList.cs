@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
+﻿using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
+using System.Collections.Generic;
 
 namespace RobotEditor.Controls.TextEditor.Completion
 {

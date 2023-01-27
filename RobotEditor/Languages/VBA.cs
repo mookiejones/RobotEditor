@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using RobotEditor.Controls.TextEditor.Folding;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
 using RobotEditor.ViewModel;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
 namespace RobotEditor.Languages
@@ -55,7 +55,10 @@ namespace RobotEditor.Languages
 
         public override Regex EnumRegex => new Regex("( enum )", RegexOptions.IgnoreCase);
 
-        public override void Initialize(string filename) => base.Initialize();
+        public override void Initialize(string filename)
+        {
+            base.Initialize();
+        }
 
         public override string CommentChar => "'";
 
@@ -63,25 +66,34 @@ namespace RobotEditor.Languages
 
         public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file) => false;
+        protected override bool IsFileValid(FileInfo file)
+        {
+            return false;
+        }
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var array = Regex.Split(section.Title, "æ");
-            var offset = section.StartOffset + array[0].Length;
-            var length = section.Length - (array[0].Length + array[1].Length);
+            string[] array = Regex.Split(section.Title, "æ");
+            int offset = section.StartOffset + array[0].Length;
+            int length = section.Length - (array[0].Length + array[1].Length);
             return doc.GetText(offset, length);
         }
 
-        public override string ExtractXYZ(string positionstring) => string.Empty;
+        public override string ExtractXYZ(string positionstring)
+        {
+            return string.Empty;
+        }
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+        public override DocumentViewModel GetFile(string filepath)
+        {
+            return new DocumentViewModel(filepath);
+        }
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
             private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                var list = new List<NewFolding>();
+                List<NewFolding> list = new List<NewFolding>();
                 list.AddRange(CreateFoldingHelper(document, "public function", "end function", true));
                 list.AddRange(CreateFoldingHelper(document, "private function", "end function", true));
                 list.AddRange(CreateFoldingHelper(document, "public sub", "end sub", true));

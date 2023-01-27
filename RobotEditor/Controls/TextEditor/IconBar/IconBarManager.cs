@@ -1,9 +1,9 @@
+using RobotEditor.Controls.TextEditor.Bookmarks;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using RobotEditor.Controls.TextEditor.Bookmarks;
 
 namespace RobotEditor.Controls.TextEditor.IconBar
 {
@@ -20,9 +20,15 @@ namespace RobotEditor.Controls.TextEditor.IconBar
 
         public IList<IBookmark> Bookmarks => _bookmarks;
 
-        public void Redraw() => RedrawRequested?.Invoke(this, EventArgs.Empty);
+        public void Redraw()
+        {
+            RedrawRequested?.Invoke(this, EventArgs.Empty);
+        }
 
-        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => Redraw();
+        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Redraw();
+        }
 
         public void AddBookMark(UIElement item)
         {

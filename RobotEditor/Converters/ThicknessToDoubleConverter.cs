@@ -12,25 +12,23 @@ namespace RobotEditor.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Thickness)
+            if (value is Thickness thickness)
             {
-                Thickness thickness = (Thickness)value;
                 ThicknessSideType thicknessSideType = TakeThicknessSide;
-                if (parameter is ThicknessSideType)
+                if (parameter is ThicknessSideType thicknessSideType2)
                 {
-                    ThicknessSideType thicknessSideType2 = (ThicknessSideType)parameter;
                     thicknessSideType = thicknessSideType2;
                 }
 
                 switch (thicknessSideType)
                 {
-                    case ThicknessSideType.Left:return thickness.Left;
+                    case ThicknessSideType.Left: return thickness.Left;
                     case ThicknessSideType.Top: return thickness.Top;
                     case ThicknessSideType.Right: return thickness.Right;
                     case ThicknessSideType.Bottom: return thickness.Bottom;
                     default: return 0.0;
                 }
-               
+
             }
 
             return 0.0;

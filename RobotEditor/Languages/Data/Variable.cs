@@ -1,6 +1,6 @@
-﻿using System.Windows.Media.Imaging;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using RobotEditor.Interfaces;
+using System.Windows.Media.Imaging;
 
 namespace RobotEditor.Languages.Data
 {

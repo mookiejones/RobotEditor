@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Snippets;
+﻿using ICSharpCode.AvalonEdit.Snippets;
+using System.Collections.Generic;
 
 namespace RobotEditor.Controls.TextEditor.Snippets
 {

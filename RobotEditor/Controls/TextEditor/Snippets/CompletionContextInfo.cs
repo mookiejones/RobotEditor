@@ -1,5 +1,5 @@
-using System.Windows.Input;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
+using System.Windows.Input;
 
 namespace RobotEditor.Controls.TextEditor.Snippets
 {

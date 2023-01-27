@@ -1,10 +1,10 @@
+using RobotEditor.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Languages.Data
 {
@@ -31,15 +31,15 @@ namespace RobotEditor.Languages.Data
             try
             {
                 _values = new ObservableCollection<PositionValue>();
-                var array = RawValue.Split(new[]
+                string[] array = RawValue.Split(new[]
                 {
                     '='
                 });
-                var source = array[1].Substring(1, array[1].Length - 2).Split(new[]
+                string[] source = array[1].Substring(1, array[1].Length - 2).Split(new[]
                 {
                     ','
                 });
-                foreach (var current in
+                foreach (string[] current in
                     from s in source
                     select s.Split(new[]
                     {
@@ -61,7 +61,7 @@ namespace RobotEditor.Languages.Data
         [Localizable(false)]
         public string ExtractFromMatch()
         {
-            var text = string.Empty;
+            string text = string.Empty;
             string result;
             try
             {
@@ -76,11 +76,14 @@ namespace RobotEditor.Languages.Data
             return result;
         }
 
-        public override string ToString() => RawValue;
+        public override string ToString()
+        {
+            return RawValue;
+        }
 
         private string ConvertFromHex(string value)
         {
-            var value2 = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
+            double value2 = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
             return Convert.ToString(value2);
         }
 
@@ -89,7 +92,7 @@ namespace RobotEditor.Languages.Data
             bool result;
             try
             {
-                var num = Convert.ToDouble(value);
+                double num = Convert.ToDouble(value);
                 result = true;
             }
             catch

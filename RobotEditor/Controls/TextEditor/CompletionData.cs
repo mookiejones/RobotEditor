@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Media;
-using ICSharpCode.AvalonEdit.CodeCompletion;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
+using System;
+using System.Windows.Media;
 
 namespace RobotEditor.Controls.TextEditor
 {
@@ -29,7 +29,7 @@ namespace RobotEditor.Controls.TextEditor
             {
                 return;
             }
-            var text = (!(textEditor is Editor kukaTextEditor)) ? textEditor.GetWordBeforeCaret() : kukaTextEditor.GetWordBeforeCaret(kukaTextEditor.GetWordParts());
+            string text = (!(textEditor is Editor kukaTextEditor)) ? textEditor.GetWordBeforeCaret() : kukaTextEditor.GetWordBeforeCaret(kukaTextEditor.GetWordParts());
             if (Text.StartsWith(text, StringComparison.InvariantCultureIgnoreCase) || Text.ToLowerInvariant().Contains(text.ToLowerInvariant()))
             {
                 textEditor.Document.Replace(textEditor.CaretOffset - text.Length, text.Length, Text);

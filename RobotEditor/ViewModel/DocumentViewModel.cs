@@ -1,8 +1,8 @@
-using System.IO;
-using System.Windows;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.Robots;
+using System.IO;
+using System.Windows;
 
 namespace RobotEditor.ViewModel
 {
@@ -30,7 +30,7 @@ namespace RobotEditor.ViewModel
         {
             if (IsDirty)
             {
-                var messageBoxResult =
+                MessageBoxResult messageBoxResult =
                     MessageBox.Show(string.Format("Save changes for file '{0}'?", FileName), "RobotEditor",
                         MessageBoxButton.YesNoCancel);
                 if (messageBoxResult == MessageBoxResult.Cancel)

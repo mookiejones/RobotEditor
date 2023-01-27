@@ -22,7 +22,7 @@ namespace RobotEditor.ViewModel
         {
             get => _header;
 
-            set => SetProperty(ref _header, value); 
+            set => SetProperty(ref _header, value);
         }
 
         #endregion

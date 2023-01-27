@@ -1,6 +1,6 @@
-﻿using System;
-using RobotEditor.Controls.AngleConverter.Classes;
+﻿using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 
 namespace RobotEditor.Controls.AngleConverter
 {
@@ -21,20 +21,20 @@ namespace RobotEditor.Controls.AngleConverter
 
         private Matrix CalculateJacobian(ErrorFunction errorFunction, Vector guess)
         {
-            var matrix = new Matrix(NumEquations, NumVariables);
-            for (var i = 0; i < matrix.Columns; i++)
+            Matrix matrix = new Matrix(NumEquations, NumVariables);
+            for (int i = 0; i < matrix.Columns; i++)
             {
-                var num = Math.Abs(guess[i]) >= 1.0 ? Math.Abs(guess[i]) * 1E-07 : 1E-07;
-                var vector = new Vector(guess);
+                double num = Math.Abs(guess[i]) >= 1.0 ? Math.Abs(guess[i]) * 1E-07 : 1E-07;
+                Vector vector = new Vector(guess);
                 Vector vector2;
                 int index;
                 (vector2 = vector)[index = i] = vector2[index] + num;
-                var v = errorFunction(vector);
+                Vector v = errorFunction(vector);
                 Vector vector3;
                 int index2;
-                (vector3 = vector)[index2 = i] = vector3[index2] - 2.0 * num;
-                var v2 = errorFunction(vector);
-                var vec = v - v2;
+                (vector3 = vector)[index2 = i] = vector3[index2] - (2.0 * num);
+                Vector v2 = errorFunction(vector);
+                Vector vec = v - v2;
                 matrix.SetColumn(i, vec / (2.0 * num));
             }
             return matrix;
@@ -43,7 +43,7 @@ namespace RobotEditor.Controls.AngleConverter
         private static bool IsDone(Vector delta)
         {
             bool result;
-            for (var i = 0; i < delta.Rows; i++)
+            for (int i = 0; i < delta.Rows; i++)
             {
                 if (Math.Abs(delta[i]) > 1E-07)
                 {
@@ -61,17 +61,17 @@ namespace RobotEditor.Controls.AngleConverter
             {
                 throw new MatrixException("Size of the initial guess vector is not correct");
             }
-            var vector = new Vector(initialGuess);
+            Vector vector = new Vector(initialGuess);
             NumStepsToConverge = 0;
             Vector result;
-            for (var i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
-                var matrix = CalculateJacobian(errorFunction, vector);
-                var vec = errorFunction(vector);
-                var matrix2 = matrix.Transpose();
-                var squareMatrix = new SquareMatrix(matrix2 * matrix);
-                var vec2 = matrix2 * vec;
-                var vector2 = squareMatrix.PseudoInverse() * vec2;
+                Matrix matrix = CalculateJacobian(errorFunction, vector);
+                Vector vec = errorFunction(vector);
+                Matrix matrix2 = matrix.Transpose();
+                SquareMatrix squareMatrix = new SquareMatrix(matrix2 * matrix);
+                Vector vec2 = matrix2 * vec;
+                Vector vector2 = squareMatrix.PseudoInverse() * vec2;
                 vector -= vector2;
                 if (IsDone(vector2))
                 {

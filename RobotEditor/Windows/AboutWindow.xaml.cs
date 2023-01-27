@@ -13,7 +13,7 @@ namespace RobotEditor.Windows
     {
 
         #region Properties
-        private  string Copyright => "Copyright 2023 Charles Berman";
+        private string Copyright => "Copyright 2023 Charles Berman";
 
         private string _appName => Assembly.GetExecutingAssembly().GetName().Name;
 
@@ -21,11 +21,11 @@ namespace RobotEditor.Windows
 
         private string _newVersion => Environment.Version.ToString();
 
-        private  string _osVersion => Environment.OSVersion.ToString();
+        private string _osVersion => Environment.OSVersion.ToString();
 
-        private  string _currentCulture => CultureInfo.CurrentCulture.Name;
+        private string _currentCulture => CultureInfo.CurrentCulture.Name;
 
-        private  string _workingSetMemory => GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture);
+        private string _workingSetMemory => GC.GetTotalMemory(true).ToString(CultureInfo.InvariantCulture);
 
         #endregion
         public AboutWindow()
@@ -34,18 +34,21 @@ namespace RobotEditor.Windows
             InitializeComponent();
         }
 
-        private void CloseClick(object sender, RoutedEventArgs e) => Close();
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
         public string Info
         {
             get
             {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine(" Name                : " + _appName);
-                stringBuilder.AppendLine(" .Net Version        : " + _newVersion);
-                stringBuilder.AppendLine(" OS Version          : " + _osVersion);
-                stringBuilder.AppendLine(" Current Culture     : " + _currentCulture);
-                stringBuilder.AppendLine(" Working Set Memory  : " + _workingSetMemory);
+                StringBuilder stringBuilder = new StringBuilder();
+                _ = stringBuilder.AppendLine(" Name                : " + _appName);
+                _ = stringBuilder.AppendLine(" .Net Version        : " + _newVersion);
+                _ = stringBuilder.AppendLine(" OS Version          : " + _osVersion);
+                _ = stringBuilder.AppendLine(" Current Culture     : " + _currentCulture);
+                _ = stringBuilder.AppendLine(" Working Set Memory  : " + _workingSetMemory);
                 return stringBuilder.ToString();
             }
         }

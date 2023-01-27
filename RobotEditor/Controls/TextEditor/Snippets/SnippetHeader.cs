@@ -52,7 +52,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
             Text = headerElement.ElementsValue("Text", Title);
      * */
             Shortcuts = new List<string>();
-            foreach (var current in headerElement.Elements("Shortcut"))
+            foreach (XElement current in headerElement.Elements("Shortcut"))
             {
                 if (!string.IsNullOrEmpty(current.Value) && !Shortcuts.Contains(current.Value))
                 {
@@ -60,14 +60,14 @@ namespace RobotEditor.Controls.TextEditor.Snippets
                 }
             }
             Types = new List<SnippetType>();
-            var xElement = headerElement.Elements("SnippetTypes").FirstOrDefault<XElement>();
+            XElement xElement = headerElement.Elements("SnippetTypes").FirstOrDefault<XElement>();
             if (xElement != null)
             {
-                foreach (var current2 in xElement.Elements("SnippetType"))
+                foreach (XElement current2 in xElement.Elements("SnippetType"))
                 {
                     try
                     {
-                        var item = (SnippetType)Enum.Parse(typeof(SnippetType), current2.Value);
+                        SnippetType item = (SnippetType)Enum.Parse(typeof(SnippetType), current2.Value);
                         Types.Add(item);
                     }
                     catch
@@ -78,7 +78,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
             LoadExtension(headerElement);
         }
 
-    
+
         private void LoadExtension(XElement headerElement)
         {
             if (headerElement == null)
@@ -86,21 +86,21 @@ namespace RobotEditor.Controls.TextEditor.Snippets
                 throw new ArgumentNullException("headerElement");
             }
             Extensions = new List<string>();
-            var enumerable = headerElement.Elements("Extensions");
-            foreach (var current in enumerable)
+            IEnumerable<XElement> enumerable = headerElement.Elements("Extensions");
+            foreach (XElement current in enumerable)
             {
-                var value = current.Value;
-                var array = value.Split(new char[]
+                string value = current.Value;
+                string[] array = value.Split(new char[]
                 {
                     ' '
                 });
-                var array2 = array;
-                for (var i = 0; i < array2.Length; i++)
+                string[] array2 = array;
+                for (int i = 0; i < array2.Length; i++)
                 {
-                    var text = array2[i];
+                    string text = array2[i];
                     if (!string.IsNullOrEmpty(text) && !Extensions.Contains(text))
                     {
-                        var text2 = text;
+                        string text2 = text;
                         if (!text.StartsWith("."))
                         {
                             text2 += ".";

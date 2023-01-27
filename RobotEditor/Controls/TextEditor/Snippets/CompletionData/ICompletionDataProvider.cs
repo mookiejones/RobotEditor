@@ -1,6 +1,6 @@
+using ICSharpCode.AvalonEdit.CodeCompletion;
 using System;
 using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.CodeCompletion;
 
 namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
 {

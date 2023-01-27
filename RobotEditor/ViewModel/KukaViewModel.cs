@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using RobotEditor.Controls;
 using RobotEditor.Controls.TextEditor;
 using RobotEditor.Enums;
@@ -9,6 +6,9 @@ using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.Robots;
 using RobotEditor.Utilities;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace RobotEditor.ViewModel
 {
@@ -59,7 +59,10 @@ namespace RobotEditor.ViewModel
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
 
 
-        public bool CanToggleGrid() => Grid != null;
+        public bool CanToggleGrid()
+        {
+            return Grid != null;
+        }
 
         #endregion
 
@@ -207,8 +210,8 @@ namespace RobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => TextBox = (s as Editor);
-            Data.GotFocus += (s, e) => TextBox = (s as Editor);
+            Source.GotFocus += (s, e) => TextBox = s as Editor;
+            Data.GotFocus += (s, e) => TextBox = s as Editor;
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -231,7 +234,7 @@ namespace RobotEditor.ViewModel
                         break;
                     case true:
                         Data.Text = FileLanguage.DataText;
-// ReSharper disable once AssignNullToNotNullAttribute
+                        // ReSharper disable once AssignNullToNotNullAttribute
                         Data.Filename = Path.Combine(Path.GetDirectoryName(FileName), FileLanguage.DataName);
                         Data.SetHighlighting();
                         Data.Visibility = Visibility.Visible;
@@ -255,7 +258,7 @@ namespace RobotEditor.ViewModel
             {
                 SwitchTextBox();
             }
-            var flag = TextBox.Text.Length >= var.Offset;
+            bool flag = TextBox.Text.Length >= var.Offset;
             if (flag)
             {
                 TextBox.SelectText(var);
@@ -263,7 +266,7 @@ namespace RobotEditor.ViewModel
             else
             {
                 TextBox = Data;
-                flag = (TextBox.Text.Length >= var.Offset);
+                flag = TextBox.Text.Length >= var.Offset;
                 if (flag)
                 {
                     TextBox.SelectText(var);
@@ -287,24 +290,24 @@ namespace RobotEditor.ViewModel
             FileLanguage = TextBox.FileLanguage;
             Source.FileLanguage = FileLanguage;
             Grid.IsAnimated = false;
-            var flag = Path.GetExtension(filepath) == ".dat";
+            bool flag = Path.GetExtension(filepath) == ".dat";
             IconSource = ImageHelper.LoadBitmap(Global.ImgSrc);
             Source.Filename = filepath;
             Source.SetHighlighting();
-            Source.Text = (flag ? FileLanguage.DataText : FileLanguage.SourceText);
-            if (FileLanguage is KUKA && !String.IsNullOrEmpty(FileLanguage.DataText) &&
+            Source.Text = flag ? FileLanguage.DataText : FileLanguage.SourceText;
+            if (FileLanguage is KUKA && !string.IsNullOrEmpty(FileLanguage.DataText) &&
                 Source.Text != FileLanguage.DataText)
             {
                 ShowGrid = true;
                 Data.FileLanguage = FileLanguage;
-// ReSharper disable once AssignNullToNotNullAttribute
+                // ReSharper disable once AssignNullToNotNullAttribute
                 Data.Filename = Path.Combine(Path.GetDirectoryName(filepath), FileLanguage.DataName);
                 Data.Text = FileLanguage.DataText;
                 Data.SetHighlighting();
             }
-            TextBox = ((Source.Filename == filepath) ? Source : Data);
+            TextBox = (Source.Filename == filepath) ? Source : Data;
             Grid.IsAnimated = true;
-// ReSharper disable once ExplicitCallerInfoArgument
+            // ReSharper disable once ExplicitCallerInfoArgument
             OnPropertyChanged(nameof(Title));
         }
 
@@ -320,7 +323,7 @@ namespace RobotEditor.ViewModel
         {
             if (txtBox != null && txtBox.IsModified)
             {
-                var messageBoxResult =
+                MessageBoxResult messageBoxResult =
                     MessageBox.Show(string.Format("Save changes for file '{0}'?", txtBox.Filename), "RobotEditor",
                         MessageBoxButton.YesNoCancel);
                 if (messageBoxResult != MessageBoxResult.Cancel)

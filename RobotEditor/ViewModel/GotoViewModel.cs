@@ -1,17 +1,17 @@
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RobotEditor.Controls.TextEditor;
+using System.Windows.Input;
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class GotoViewModel :  ObservableRecipient
+    public sealed class GotoViewModel : ObservableRecipient
     {
         private RelayCommand _okCommand;
 
         #region Editor
 
-       
+
 
         private Editor _editor = new Editor();
 
@@ -22,8 +22,8 @@ namespace RobotEditor.ViewModel
         public Editor Editor
         {
             get => _editor;
-            set=>SetProperty(ref _editor, value);
-            
+            set => SetProperty(ref _editor, value);
+
         }
 
         #endregion
@@ -155,7 +155,7 @@ namespace RobotEditor.ViewModel
 
         private void Accept()
         {
-            var lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
+            ICSharpCode.AvalonEdit.Document.DocumentLine lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
             Editor.CaretOffset = lineByNumber.Offset;
             Editor.TextArea.Caret.BringCaretToView();
             Editor.ScrollToLine(_selectedLine);

@@ -2,7 +2,7 @@
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class Item :  ObservableRecipient
+    public sealed class Item : ObservableRecipient
     {
         #region Index
 
@@ -106,6 +106,9 @@ namespace RobotEditor.ViewModel
             Description = description;
         }
 
-        public override string ToString() => string.Format("{0};{1}", Type, Description);
+        public override string ToString()
+        {
+            return string.Format("{0};{1}", Type, Description);
+        }
     }
 }

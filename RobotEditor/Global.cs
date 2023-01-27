@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RobotEditor.Utilities;
+using RobotEditor.ViewModel;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
-using RobotEditor.Utilities;
-using RobotEditor.ViewModel;
 
 namespace RobotEditor
 {
@@ -39,7 +39,7 @@ namespace RobotEditor
         {
             get
             {
-                var executingAssembly = Assembly.GetExecutingAssembly();
+                Assembly executingAssembly = Assembly.GetExecutingAssembly();
                 return executingAssembly.GetName().Version.ToString();
             }
         }
@@ -51,11 +51,11 @@ namespace RobotEditor
 
         public static bool DoesDirectoryExist(string filename)
         {
-            var fileInfo = new FileInfo(filename);
+            FileInfo fileInfo = new FileInfo(filename);
             bool result;
             if (fileInfo.DirectoryName != null)
             {
-                var directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
+                DirectoryInfo directoryInfo = new DirectoryInfo(fileInfo.DirectoryName);
                 try
                 {
                     if (Directory.GetDirectories(directoryInfo.Root.ToString()).Length > 0)
@@ -74,9 +74,15 @@ namespace RobotEditor
             return result;
         }
 
-        public static void WriteLog(string message) => LogWriter.WriteLog(message);
+        public static void WriteLog(string message)
+        {
+            LogWriter.WriteLog(message);
+        }
 
-        public static void ErrorHandler(string message) => ErrorHandler(message, false);
+        public static void ErrorHandler(string message)
+        {
+            ErrorHandler(message, false);
+        }
 
         private static void ErrorHandler(string message, bool showmessage)
         {

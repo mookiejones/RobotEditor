@@ -1,7 +1,6 @@
-﻿using System.Windows;
+﻿using RobotEditor.ViewModel;
+using System.Windows;
 using System.Windows.Controls;
-using AvalonDock.Layout;
-using RobotEditor.ViewModel; 
 
 namespace RobotEditor.Selectors
 {
@@ -20,29 +19,37 @@ namespace RobotEditor.Selectors
         public override DataTemplate SelectTemplate(object item,
             DependencyObject container)
         {
-            var itemAsLayoutContent = item as LayoutContent;
-
             if (item is ObjectBrowserViewModel)
+            {
                 return ObjectBrowserTemplate;
+            }
 
             if (item is KukaViewModel)
+            {
                 return KukaTemplate;
+            }
 
             if (item is NotesViewModel)
+            {
                 return NotesTemplate;
+            }
 
             if (item is FunctionViewModel)
+            {
                 return FunctionTemplate;
+            }
 
             if (item is DocumentViewModel)
+            {
                 return FileTemplate;
+            }
 
             if (item is MessageViewModel)
+            {
                 return MessageTemplate;
+            }
 
-            if (item is AngleConvertorViewModel)
-                return AngleConverterTemplate;
-            return base.SelectTemplate(item, container);
+            return item is AngleConvertorViewModel ? AngleConverterTemplate : base.SelectTemplate(item, container);
         }
     }
 }

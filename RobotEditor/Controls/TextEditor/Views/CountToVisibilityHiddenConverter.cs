@@ -24,12 +24,18 @@ namespace RobotEditor.Controls.TextEditor.Views
             {
                 int val = (int)value;
                 if (val > 0)
+                {
                     return Visibility.Visible;
+                }
                 else
                   if (parameter != null && parameter is Visibility)
+                {
                     return parameter;
+                }
                 else
+                {
                     return Visibility.Hidden;        ////return Visibility.Collapsed;
+                }
             }
 
             throw new ArgumentException("Invalid argument/return type. Expected argument: bool and return type: Visibility");
@@ -50,10 +56,7 @@ namespace RobotEditor.Controls.TextEditor.Views
             if (value is Visibility && targetType == typeof(bool))
             {
                 Visibility val = (Visibility)value;
-                if (val == Visibility.Visible)
-                    return true;
-                else
-                    return false;
+                return val == Visibility.Visible ? true : (object)false;
             }
 
             throw new ArgumentException("Invalid argument/return type. Expected argument: Visibility and return type: bool");

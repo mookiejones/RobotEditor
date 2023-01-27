@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
-using RobotEditor.Controls.TextEditor.Completion;
+﻿using RobotEditor.Controls.TextEditor.Completion;
 using RobotEditor.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace RobotEditor.Controls.TextEditor
 {

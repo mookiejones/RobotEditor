@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit;
@@ -26,6 +15,17 @@ using RobotEditor.Languages.Data;
 using RobotEditor.Messages;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 using MenuItem = System.Windows.Controls.MenuItem;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -33,7 +33,7 @@ namespace RobotEditor.Languages
 {
     public class KUKA : AbstractLanguageClass
     {
-         
+
         private RelayCommand _systemFunctionCommand;
 
         public KUKA(string file)
@@ -41,20 +41,20 @@ namespace RobotEditor.Languages
         {
             //TODO Trying out KUKAs folding Strategy
             FoldingStrategy = new RegionFoldingStrategy();
-      //      FoldingStrategy = new KrlFoldingStrategy();
+            //      FoldingStrategy = new KrlFoldingStrategy();
         }
 
-        public override void Initialize(string filename) => base.Initialize();
+        public override void Initialize(string filename)
+        {
+            base.Initialize();
+        }
 
         public ICommand SystemFunctionCommand => _systemFunctionCommand ??
                        (_systemFunctionCommand = new RelayCommand(() => FunctionGenerator.GetSystemFunctions()));
 
         internal override Typlanguage RobotType => Typlanguage.KUKA;
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
         public static string GetSystemFunctions => FunctionGenerator.GetSystemFunctions();
 
@@ -77,21 +77,21 @@ namespace RobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        internal override sealed AbstractFoldingStrategy FoldingStrategy { get; set; }
+        internal sealed override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
         public new MenuItem MenuItems
         {
             get
             {
-                var menuItem = new MenuItem
+                MenuItem menuItem = new MenuItem
                 {
                     Header = "KUKA"
                 };
-                var newItem = new MenuItem
+                MenuItem newItem = new MenuItem
                 {
                     Header = "Test 456"
                 };
-                menuItem.Items.Add(newItem);
+                _ = menuItem.Items.Add(newItem);
                 return menuItem;
             }
         }
@@ -166,9 +166,9 @@ namespace RobotEditor.Languages
 
         public FileInfo GetFileInfo(string text)
         {
-            var result = new FileInfo(text);
+            FileInfo result = new FileInfo(text);
             return result;
-//            return _fi.GetFileInfo(text);
+            //            return _fi.GetFileInfo(text);
         }
 
         protected void Dispose(bool disposing)
@@ -179,14 +179,17 @@ namespace RobotEditor.Languages
             }
         }
 
-        public static bool OnlyDatExists(string filename) => File.Exists(Path.Combine(Path.GetDirectoryName(filename),
+        public static bool OnlyDatExists(string filename)
+        {
+            return File.Exists(Path.Combine(Path.GetDirectoryName(filename),
                     Path.GetFileNameWithoutExtension(filename) + ".src"));
+        }
 
         [Localizable(false)]
         public static string SystemFileName()
         {
             string result;
-            using (var openFileDialog = new System.Windows.Forms.OpenFileDialog())
+            using (System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog())
             {
                 openFileDialog.Filter = "All File (*.*)|*.*";
                 openFileDialog.InitialDirectory = "C:\\krc\\bin\\";
@@ -200,21 +203,25 @@ namespace RobotEditor.Languages
             return result;
         }
 
-        protected override bool IsFileValid(System.IO.FileInfo file) => FileIsValid(file);
-
+        protected override bool IsFileValid(System.IO.FileInfo file)
+        {
+            return FileIsValid(file);
+        }
 
         internal bool FileIsValid(System.IO.FileInfo file)
         {
-            foreach (var ext in Ext)
+            foreach (string ext in Ext)
             {
                 if (file.Extension.ToLower() == ext)
+                {
                     return true;
+                }
             }
             return false;
         }
         private static Collection<string> GetPositionFromFile(int line, ITextEditorComponent editor)
         {
-            var collection = new Collection<string>();
+            Collection<string> collection = new Collection<string>();
             while (true)
             {
                 collection.Add(editor.Document.Lines[line].ToString());
@@ -226,8 +233,8 @@ namespace RobotEditor.Languages
 
         public static Editor ReversePath(Editor editor)
         {
-            var collection = new Collection<Collection<string>>();
-            for (var i = 0; i <= editor.Document.Lines.Count - 1; i++)
+            Collection<Collection<string>> collection = new Collection<Collection<string>>();
+            for (int i = 0; i <= editor.Document.Lines.Count - 1; i++)
             {
                 if (
                     editor.Document.Lines[i].ToString()
@@ -241,11 +248,11 @@ namespace RobotEditor.Languages
                 }
             }
             editor.Text = string.Empty;
-            for (var j = collection.Count - 1; j >= 0; j--)
+            for (int j = collection.Count - 1; j >= 0; j--)
             {
-                for (var k = 0; k < collection[j].Count; k++)
+                for (int k = 0; k < collection[j].Count; k++)
                 {
-                    var collection2 = collection[j];
+                    Collection<string> collection2 = collection[j];
                     editor.AppendText(collection2[k] + "\r\n");
                 }
             }
@@ -254,17 +261,17 @@ namespace RobotEditor.Languages
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var array = Regex.Split(section.Title, "�");
-            var text = section.TextContent.ToLower().Trim();
-            var text2 = section.TextContent.Trim();
-            var num = section.TextContent.Trim().IndexOf("%{PE}%", StringComparison.Ordinal) - "%{PE}%".Length;
-            var num2 = section.TextContent.Trim().IndexOf("\r\n", StringComparison.Ordinal);
-            var num3 = section.StartOffset + array[0].Length;
+            string[] array = Regex.Split(section.Title, "�");
+            string text = section.TextContent.ToLower().Trim();
+            string text2 = section.TextContent.Trim();
+            int num = section.TextContent.Trim().IndexOf("%{PE}%", StringComparison.Ordinal) - "%{PE}%".Length;
+            int num2 = section.TextContent.Trim().IndexOf("\r\n", StringComparison.Ordinal);
+            _ = section.StartOffset + array[0].Length;
             text2 = text2.Substring(text.IndexOf(array[0], StringComparison.Ordinal) + array[0].Length);
-            var num4 = text2.Length - array[0].Length;
+            int num4 = text2.Length - array[0].Length;
             if (num > -1)
             {
-                num4 = ((num < num2) ? num : num4);
+                num4 = (num < num2) ? num : num4;
             }
             return text2.Substring(0, num4);
         }
@@ -272,7 +279,7 @@ namespace RobotEditor.Languages
         public override DocumentViewModel GetFile(string filepath)
         {
             ImageSource iconSource = null;
-            var extension = Path.GetExtension(filepath.ToLower());
+            string extension = Path.GetExtension(filepath.ToLower());
             if (extension != null)
             {
                 if (!(extension == ".src"))
@@ -307,23 +314,29 @@ namespace RobotEditor.Languages
         {
         }
 
-        public SnippetCollection Snippets() => new SnippetCollection
+        public SnippetCollection Snippets()
+        {
+            return new SnippetCollection
             {
                 ForSnippet
             };
+        }
 
         public override string ExtractXYZ(string positionstring)
         {
-            var positionBase = new PositionBase(positionstring);
+            PositionBase positionBase = new PositionBase(positionstring);
             return positionBase.ExtractFromMatch();
         }
 
-        public static string GetDatFileName(string filename) => filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
+        public static string GetDatFileName(string filename)
+        {
+            return filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
+        }
 
         public static List<string> GetModuleFileNames(string filename)
         {
-            var str = filename.Substring(0, filename.LastIndexOf('.'));
-            var list = new List<string>();
+            string str = filename.Substring(0, filename.LastIndexOf('.'));
+            List<string> list = new List<string>();
             if (File.Exists(str + ".src"))
             {
                 list.Add(str + ".src");
@@ -339,21 +352,24 @@ namespace RobotEditor.Languages
         {
             private static string _functionFile = string.Empty;
 
-            private static string GetStruc(string filename) => RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
+            private static string GetStruc(string filename)
+            {
+                return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
+            }
 
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()
             {
-                var stringBuilder = new StringBuilder();
-                var systemFunctionsViewModel = new SystemFunctionsViewModel();
-                var window = new Window
+                StringBuilder stringBuilder = new StringBuilder();
+                SystemFunctionsViewModel systemFunctionsViewModel = new SystemFunctionsViewModel();
+                Window window = new Window
                 {
                     Content = systemFunctionsViewModel
                 };
                 string result;
                 if (window.DialogResult.HasValue && window.DialogResult.Value)
                 {
-                    var openFileDialog = new OpenFileDialog();
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
                     try
                     {
                         openFileDialog.Filter =
@@ -370,22 +386,22 @@ namespace RobotEditor.Languages
                             _functionFile = "c:\\Temp.rt";
                             if (systemFunctionsViewModel.Structures)
                             {
-                                stringBuilder.AppendFormat("{0}\r\n*** Structures  ******************\r\n{0}\r\n",
+                                _ = stringBuilder.AppendFormat("{0}\r\n*** Structures  ******************\r\n{0}\r\n",
                                     "************************************************");
-                                stringBuilder.Append(GetStruc(_functionFile));
+                                _ = stringBuilder.Append(GetStruc(_functionFile));
                             }
                             if (systemFunctionsViewModel.Programs)
                             {
-                                stringBuilder.AppendFormat("{0}\r\n*** Programs  ******************\r\n{0}\r\n",
+                                _ = stringBuilder.AppendFormat("{0}\r\n*** Programs  ******************\r\n{0}\r\n",
                                     "************************************************");
-                                stringBuilder.Append(GetRegex(_functionFile,
+                                _ = stringBuilder.Append(GetRegex(_functionFile,
                                     "(EXTFCTP|EXTDEF)([\\d\\w]*)([\\[\\]\\w\\d\\( :,]*\\))"));
                             }
                             if (systemFunctionsViewModel.Functions)
                             {
-                                stringBuilder.AppendFormat("{0}\r\n*** Functions  ******************\r\n{0}\r\n",
+                                _ = stringBuilder.AppendFormat("{0}\r\n*** Functions  ******************\r\n{0}\r\n",
                                     "************************************************");
-                                stringBuilder.Append(GetRegex(_functionFile,
+                                _ = stringBuilder.Append(GetRegex(_functionFile,
                                     "(EXTFCTP|EXTDEF)([\\d\\w]*)([\\[\\]\\w\\d\\( :,]*\\))"));
                             }
                             if (systemFunctionsViewModel.Variables)
@@ -395,8 +411,8 @@ namespace RobotEditor.Languages
                     }
                     catch (Exception ex)
                     {
-                        var msg = new ErrorMessage("GetSystemFiles", ex, MessageType.Error);
-                        WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                        ErrorMessage msg = new ErrorMessage("GetSystemFiles", ex, MessageType.Error);
+                        _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     }
                 }
                 result = stringBuilder.ToString();
@@ -405,24 +421,24 @@ namespace RobotEditor.Languages
 
             private static string RemoveFromFile(string functionFile, string matchString)
             {
-                var stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
                 string input;
-                using (var streamReader = new StreamReader(_functionFile))
+                using (StreamReader streamReader = new StreamReader(_functionFile))
                 {
                     input = streamReader.ReadToEnd();
-                    var regex = new Regex(matchString, RegexOptions.IgnoreCase);
-                    var matchCollection = regex.Matches(input);
+                    Regex regex = new Regex(matchString, RegexOptions.IgnoreCase);
+                    MatchCollection matchCollection = regex.Matches(input);
                     if (matchCollection.Count > 0)
                     {
                         foreach (Match match in matchCollection)
                         {
-                            stringBuilder.AppendLine(match.Value);
+                            _ = stringBuilder.AppendLine(match.Value);
                         }
                     }
                 }
-                var regex2 = new Regex(matchString);
-                var value = regex2.Replace(input, string.Empty);
-                using (var streamWriter = new StreamWriter(functionFile))
+                Regex regex2 = new Regex(matchString);
+                string value = regex2.Replace(input, string.Empty);
+                using (StreamWriter streamWriter = new StreamWriter(functionFile))
                 {
                     streamWriter.Write(value);
                 }
@@ -438,17 +454,17 @@ namespace RobotEditor.Languages
                 }
                 else
                 {
-                    var stringBuilder = new StringBuilder();
-                    using (var streamReader = new StreamReader(functionFile))
+                    StringBuilder stringBuilder = new StringBuilder();
+                    using (StreamReader streamReader = new StreamReader(functionFile))
                     {
-                        var input = streamReader.ReadToEnd();
-                        var regex = new Regex(matchString, RegexOptions.IgnoreCase);
-                        var matchCollection = regex.Matches(input);
+                        string input = streamReader.ReadToEnd();
+                        Regex regex = new Regex(matchString, RegexOptions.IgnoreCase);
+                        MatchCollection matchCollection = regex.Matches(input);
                         if (matchCollection.Count > 0)
                         {
                             foreach (Match match in matchCollection)
                             {
-                                stringBuilder.AppendLine(match.Value);
+                                _ = stringBuilder.AppendLine(match.Value);
                             }
                         }
                     }
@@ -463,7 +479,7 @@ namespace RobotEditor.Languages
             protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
                 firstErrorOffset = -1;
-                var list = new List<LanguageFold>();
+                List<LanguageFold> list = new List<LanguageFold>();
                 list.AddRange(CreateFoldingHelper(document, ";fold", ";endfold", true));
                 list.AddRange(CreateFoldingHelper(document, "def", "end", true));
                 list.AddRange(CreateFoldingHelper(document, "global def", "end", true));

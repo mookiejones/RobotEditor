@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
@@ -11,6 +6,11 @@ using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
 using RobotEditor.Languages.Data;
 using RobotEditor.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
 namespace RobotEditor.Languages
@@ -47,15 +47,9 @@ namespace RobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        protected override string ShiftRegex
-        {
-            get { throw new NotImplementedException(); }
-        }
+        protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile
-        {
-            get { throw new NotImplementedException(); }
-        }
+        internal override string SourceFile => throw new NotImplementedException();
 
         internal override string FunctionItems => "(\\\\.Program [\\\\d\\\\w]*[\\\\(\\\\)\\\\w\\\\d_.]*)";
 
@@ -75,33 +69,45 @@ namespace RobotEditor.Languages
         public override Regex XYZRegex => new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override void Initialize(string filename) => Initialize();
+        public override void Initialize(string filename)
+        {
+            Initialize();
+        }
 
         public override string CommentChar => ";";
 
         public override Regex SignalRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
+        protected override bool IsFileValid(FileInfo file)
+        {
+            return EXT.Any((string e) => file.Extension.ToLower() == e);
+        }
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
-            var array = Regex.Split(section.Title, "�");
-            var startOffset = section.StartOffset;
-            var length = section.Length - (array[0].Length + array[1].Length);
+            string[] array = Regex.Split(section.Title, "�");
+            int startOffset = section.StartOffset;
+            int length = section.Length - (array[0].Length + array[1].Length);
             return doc.GetText(startOffset, length);
         }
 
         public override string ExtractXYZ(string positionstring)
         {
-            var positionBase = new PositionBase(positionstring);
+            _ = new PositionBase(positionstring);
             return positionstring.Substring(positionstring.IndexOf("#[", StringComparison.Ordinal) + 2);
         }
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+        public override DocumentViewModel GetFile(string filepath)
+        {
+            return new DocumentViewModel(filepath);
+        }
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
-            public new void UpdateFoldings(FoldingManager manager, TextDocument document) => throw new NotImplementedException();
+            public new void UpdateFoldings(FoldingManager manager, TextDocument document)
+            {
+                throw new NotImplementedException();
+            }
 
             protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {
@@ -111,7 +117,7 @@ namespace RobotEditor.Languages
 
             private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                var list = new List<NewFolding>();
+                List<NewFolding> list = new List<NewFolding>();
                 list.AddRange(CreateFoldingHelper(document, ".program", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".robotdata1", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".ope_info1", ".end", false));

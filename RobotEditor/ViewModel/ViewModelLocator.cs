@@ -9,7 +9,6 @@
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
-using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace RobotEditor.ViewModel
@@ -26,7 +25,7 @@ namespace RobotEditor.ViewModel
         //static ViewModelLocator()
         //{
         //    ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
- 
+
         //    SimpleIoc.Default.Register<IDataService, DataService>();
         //    SimpleIoc.Default.Register<StatusBarViewModel>();
         //    SimpleIoc.Default.Register<ObjectBrowserViewModel>();
@@ -40,9 +39,6 @@ namespace RobotEditor.ViewModel
         /// <summary>
         ///     Gets the Main property.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
         public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
 
         /// <summary>

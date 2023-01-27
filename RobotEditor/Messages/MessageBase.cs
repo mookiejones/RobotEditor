@@ -1,11 +1,11 @@
-﻿using System.Windows.Media.Imaging;
-using RobotEditor.Enums;
+﻿using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Utilities;
+using System.Windows.Media.Imaging;
 
 namespace RobotEditor.Messages
 {
-    public class MessageBase :   IMessage
+    public class MessageBase : IMessage
     {
 
         protected MessageBase() { }
@@ -17,7 +17,7 @@ namespace RobotEditor.Messages
             ForceActivation = force;
         }
 
-        public BitmapImage Icon { get;  set; }
+        public BitmapImage Icon { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool ForceActivation { get; set; }

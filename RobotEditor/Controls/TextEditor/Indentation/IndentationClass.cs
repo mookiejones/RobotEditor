@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Indentation.CSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using ICSharpCode.AvalonEdit.Indentation.CSharp;
 
 namespace RobotEditor.Controls.TextEditor.Indentation
 {
@@ -57,20 +57,20 @@ namespace RobotEditor.Controls.TextEditor.Indentation
         [Localizable(false)]
         public void Step(IDocumentAccessor doc, IndentationSettings set)
         {
-            var text = doc.Text;
+            string text = doc.Text;
             if (!set.LeaveEmptyLines || text.Length != 0)
             {
                 text = text.TrimStart(new char[0]);
-                var stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
                 if (text.Length == 0)
                 {
                     if (!_blockComment && (!_inString || !_verbatim))
                     {
-                        stringBuilder.Append(_block.InnerIndent);
-                        stringBuilder.Append(Repeat(set.IndentString, _block.OneLineBlock));
+                        _ = stringBuilder.Append(_block.InnerIndent);
+                        _ = stringBuilder.Append(Repeat(set.IndentString, _block.OneLineBlock));
                         if (_block.Continuation)
                         {
-                            stringBuilder.Append(set.IndentString);
+                            _ = stringBuilder.Append(set.IndentString);
                         }
                         if (doc.Text != null && doc.Text != stringBuilder.ToString())
                         {
@@ -84,9 +84,9 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                     {
                         text = doc.Text.TrimStart(new char[0]);
                     }
-                    var block = _block;
-                    var blockComment = _blockComment;
-                    var flag = _inString && _verbatim;
+                    Block block = _block;
+                    bool blockComment = _blockComment;
+                    bool flag = _inString && _verbatim;
                     _lineComment = false;
                     _inChar = false;
                     _escape = false;
@@ -95,15 +95,15 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                         _inString = false;
                     }
                     _lastRealChar = '\n';
-                    var c = ' ';
-                    var c2 = text[0];
-                    for (var i = 0; i < text.Length; i++)
+                    char c = ' ';
+                    char c2 = text[0];
+                    for (int i = 0; i < text.Length; i++)
                     {
                         if (_lineComment)
                         {
                             break;
                         }
-                        var c3 = c;
+                        char c3 = c;
                         c = c2;
                         c2 = i + 1 < text.Length ? text[i + 1] : '\n';
                         if (_escape)
@@ -112,7 +112,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                         }
                         else
                         {
-                            var c4 = c;
+                            char c4 = c;
                             if (c4 <= '\'')
                             {
                                 switch (c4)
@@ -165,7 +165,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                 {
                                     if (c4 == '\\')
                                     {
-                                        if (_inString && !_verbatim || _inChar)
+                                        if ((_inString && !_verbatim) || _inChar)
                                         {
                                             _escape = true;
                                         }
@@ -201,7 +201,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                 }
                                 if (char.IsLetterOrDigit(c))
                                 {
-                                    _wordBuilder.Append(c);
+                                    _ = _wordBuilder.Append(c);
                                 }
                                 else
                                 {
@@ -357,23 +357,23 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                             {
                                 if (text[0] == '}')
                                 {
-                                    stringBuilder.Append(block.OuterIndent);
+                                    _ = stringBuilder.Append(block.OuterIndent);
                                     block.ResetOneLineBlock();
                                     block.Continuation = false;
                                 }
                                 else
                                 {
-                                    stringBuilder.Append(block.InnerIndent);
+                                    _ = stringBuilder.Append(block.InnerIndent);
                                 }
                                 if (stringBuilder.Length > 0 && block.Bracket == '(' && text[0] == ')')
                                 {
-                                    stringBuilder.Remove(stringBuilder.Length - 1, 1);
+                                    _ = stringBuilder.Remove(stringBuilder.Length - 1, 1);
                                 }
                                 else
                                 {
                                     if (stringBuilder.Length > 0 && block.Bracket == '[' && text[0] == ']')
                                     {
-                                        stringBuilder.Remove(stringBuilder.Length - 1, 1);
+                                        _ = stringBuilder.Remove(stringBuilder.Length - 1, 1);
                                     }
                                 }
                                 if (text[0] == ':')
@@ -388,7 +388,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                             text.StartsWith("case ", StringComparison.Ordinal) ||
                                             text.StartsWith(_block.LastWord + ":", StringComparison.Ordinal))
                                         {
-                                            stringBuilder.Remove(stringBuilder.Length - set.IndentString.Length,
+                                            _ = stringBuilder.Remove(stringBuilder.Length - set.IndentString.Length,
                                                 set.IndentString.Length);
                                         }
                                     }
@@ -398,7 +398,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                         {
                                             if (IsSingleStatementKeyword(_block.LastWord))
                                             {
-                                                _block.OneLineBlock = _block.OneLineBlock + 1;
+                                                _block.OneLineBlock++;
                                             }
                                         }
                                         else
@@ -420,9 +420,9 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                     {
                                         stringBuilder.Length = 0;
                                         text = doc.Text;
-                                        foreach (var current in text.TakeWhile(char.IsWhiteSpace))
+                                        foreach (char current in text.TakeWhile(char.IsWhiteSpace))
                                         {
-                                            stringBuilder.Append(current);
+                                            _ = stringBuilder.Append(current);
                                         }
                                         if (blockComment && stringBuilder.Length > 0 &&
                                             stringBuilder[stringBuilder.Length - 1] == ' ')
@@ -438,13 +438,13 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                                     {
                                         if (text[0] != ')' && block.Continuation && block.Bracket == '{')
                                         {
-                                            stringBuilder.Append(set.IndentString);
+                                            _ = stringBuilder.Append(set.IndentString);
                                         }
-                                        stringBuilder.Append(Repeat(set.IndentString, block.OneLineBlock));
+                                        _ = stringBuilder.Append(Repeat(set.IndentString, block.OneLineBlock));
                                     }
                                     if (blockComment)
                                     {
-                                        stringBuilder.Append(' ');
+                                        _ = stringBuilder.Append(' ');
                                     }
                                     if (stringBuilder.Length != doc.Text.Length - text.Length ||
                                         !doc.Text.StartsWith(stringBuilder.ToString(), StringComparison.Ordinal) ||
@@ -475,10 +475,10 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                 }
                 else
                 {
-                    var stringBuilder = new StringBuilder(text.Length * count);
-                    for (var i = 0; i < count; i++)
+                    StringBuilder stringBuilder = new StringBuilder(text.Length * count);
+                    for (int i = 0; i < count; i++)
                     {
-                        stringBuilder.Append(text);
+                        _ = stringBuilder.Append(text);
                     }
                     result = stringBuilder.ToString();
                 }
@@ -508,7 +508,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
         [Localizable(false)]
         private static bool TrimEnd(IDocumentAccessor doc)
         {
-            var text = doc.Text;
+            string text = doc.Text;
             bool result;
             if (!char.IsWhiteSpace(text[text.Length - 1]))
             {
@@ -546,7 +546,10 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                 OneLineBlock = 0;
             }
 
-            public void Indent(IndentationSettings set) => Indent(set.IndentString);
+            public void Indent(IndentationSettings set)
+            {
+                Indent(set.IndentString);
+            }
 
             public void Indent(string indentationString)
             {
@@ -558,7 +561,9 @@ namespace RobotEditor.Controls.TextEditor.Indentation
             }
 
             [Localizable(false)]
-            public override string ToString() => string.Format(CultureInfo.InvariantCulture,
+            public override string ToString()
+            {
+                return string.Format(CultureInfo.InvariantCulture,
                     "[Block StartLine={0}, LastWord='{1}', Continuation={2}, OneLineBlock={3}, PreviousOneLineBlock={4}]",
                     new object[]
                     {
@@ -568,6 +573,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                         OneLineBlock,
                         PreviousOneLineBlock
                     });
+            }
         }
     }
 }

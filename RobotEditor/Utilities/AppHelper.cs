@@ -21,8 +21,8 @@ namespace RobotEditor.Utilities
             // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
             if (Environment.Version < new Version(4, 0, 30319))
             {
-                var name = Assembly.GetExecutingAssembly().GetName().Name;
-                var version = Environment.Version;
+                string name = Assembly.GetExecutingAssembly().GetName().Name;
+                Version version = Environment.Version;
 
                 _ = MessageBox.Show(string.Format(CHECK_ENVIRONMENT, name, version));
                 return false;

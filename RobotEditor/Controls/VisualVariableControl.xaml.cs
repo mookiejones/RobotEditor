@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using RobotEditor.Interfaces;
+using RobotEditor.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using RobotEditor.Interfaces;
-using RobotEditor.ViewModel;
 
 namespace RobotEditor.Controls
 {
@@ -20,20 +20,23 @@ namespace RobotEditor.Controls
             InitializeComponent();
         }
 
-        private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
+        private void ToolTip_Opening(object sender, ToolTipEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var child = (DependencyObject) e.OriginalSource;
-            var dataGridRow = TryFindParent<DataGridRow>(child);
+            DependencyObject child = (DependencyObject)e.OriginalSource;
+            DataGridRow dataGridRow = TryFindParent<DataGridRow>(child);
             if (dataGridRow != null)
             {
-                var dataGrid = sender as DataGrid;
+                DataGrid dataGrid = sender as DataGrid;
                 if (dataGrid == null || dataGrid.CurrentCell.IsValid)
                 {
                     if (dataGrid != null)
                     {
-                        var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                        MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
                         if (dataGrid.CurrentCell.Item is IVariable variable && File.Exists(variable.Path))
                         {
                             instance.OpenFile(variable);
@@ -46,7 +49,7 @@ namespace RobotEditor.Controls
 
         public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
         {
-            var parentObject = GetParentObject(child);
+            DependencyObject parentObject = GetParentObject(child);
             T result;
             if (parentObject == null)
             {
@@ -54,7 +57,7 @@ namespace RobotEditor.Controls
             }
             else
             {
-                var parent = parentObject as T;
+                T parent = parentObject as T;
                 T resultObject;
 
                 if ((resultObject = parent) == null)
@@ -77,21 +80,16 @@ namespace RobotEditor.Controls
             {
                 if (child is ContentElement contentElement)
                 {
-                    var parent = ContentOperations.GetParent(contentElement);
-                    if (parent != null)
-                    {
-                        result = parent;
-                    }
-                    else
-                    {
-                        result = ((contentElement is FrameworkContentElement frameworkContentElement) ? frameworkContentElement.Parent : null);
-                    }
+                    DependencyObject parent = ContentOperations.GetParent(contentElement);
+                    result = parent != null
+                        ? parent
+                        : (contentElement is FrameworkContentElement frameworkContentElement) ? frameworkContentElement.Parent : null;
                 }
                 else
                 {
                     if (child is FrameworkElement frameworkElement)
                     {
-                        var parent = frameworkElement.Parent;
+                        DependencyObject parent = frameworkElement.Parent;
                         if (parent != null)
                         {
                             result = parent;

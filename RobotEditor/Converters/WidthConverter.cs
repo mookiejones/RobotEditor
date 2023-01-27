@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RobotEditor.Enums;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
-using RobotEditor.Enums;
 
 namespace RobotEditor.Converters
 {
@@ -15,14 +15,14 @@ namespace RobotEditor.Converters
             object result;
             if (value is GridView)
             {
-                var gridView = value as GridView;
+                GridView gridView = value as GridView;
                 result = gridView;
             }
             else
             {
                 if (value is CartesianEnum)
                 {
-                    switch ((CartesianEnum) value)
+                    switch ((CartesianEnum)value)
                     {
                         case CartesianEnum.ABB_Quaternion:
                         case CartesianEnum.Axis_Angle:
@@ -39,6 +39,9 @@ namespace RobotEditor.Converters
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

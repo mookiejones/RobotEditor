@@ -16,19 +16,22 @@ namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
         }
         private class SaveItemsComparer : IComparer<KeyValuePair<string, UsageStruct>>
         {
-            public int Compare(KeyValuePair<string, UsageStruct> x, KeyValuePair<string, UsageStruct> y) => -(x.Value.Uses / (double)x.Value.ShowCount).CompareTo(y.Value.Uses / (double)y.Value.ShowCount);
+            public int Compare(KeyValuePair<string, UsageStruct> x, KeyValuePair<string, UsageStruct> y)
+            {
+                return -(x.Value.Uses / (double)x.Value.ShowCount).CompareTo(y.Value.Uses / (double)y.Value.ShowCount);
+            }
         }
         private const long magic = 7306916068411589443L;
         private const short version = 1;
         private const int MinUsesForSave = 2;
         private static Dictionary<string, UsageStruct> dict;
-        private static bool dataUsageCacheEnabled = true;
-        public static bool DataUsageCacheEnabled
+
+        public static bool DataUsageCacheEnabled { get; set; } = true;
+        public static void ResetCache()
         {
-            get => dataUsageCacheEnabled;
-            set => dataUsageCacheEnabled = value;
+            dict = new Dictionary<string, UsageStruct>();
         }
-        public static void ResetCache() => dict = new Dictionary<string, UsageStruct>();
+
         public static double GetPriority(string dotnetName, bool incrementShowCount)
         {
             if (!DataUsageCacheEnabled)
@@ -39,12 +42,11 @@ namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
             {
                 dict = new Dictionary<string, UsageStruct>();
             }
-            UsageStruct value;
-            if (!dict.TryGetValue(dotnetName, out value))
+            if (!dict.TryGetValue(dotnetName, out UsageStruct value))
             {
                 return 0.0;
             }
-            var num = value.Uses / (double)value.ShowCount;
+            double num = value.Uses / (double)value.ShowCount;
             if (value.Uses < 2)
             {
                 num *= 0.2;
@@ -66,8 +68,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
             {
                 dict = new Dictionary<string, UsageStruct>();
             }
-            UsageStruct value;
-            if (!dict.TryGetValue(dotnetName, out value))
+            if (!dict.TryGetValue(dotnetName, out UsageStruct value))
             {
                 value = new UsageStruct(0, 2);
             }

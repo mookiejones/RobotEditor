@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -25,6 +13,18 @@ using RobotEditor.Messages;
 using RobotEditor.Model;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using FileInfo = System.IO.FileInfo;
 
 namespace RobotEditor.Languages
@@ -78,19 +78,19 @@ namespace RobotEditor.Languages
         }
 
 
-        private string flename;
+        private readonly string flename;
 
 
         protected virtual void Initialize()
         {
 
-            var filename = flename;
+            string filename = flename;
             DataText = string.Empty;
             SourceText = string.Empty;
-            var directoryName = Path.GetDirectoryName(filename);
-            var flag = directoryName != null && Directory.Exists(directoryName);
-            var extension = Path.GetExtension(filename);
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+            string directoryName = Path.GetDirectoryName(filename);
+            bool flag = directoryName != null && Directory.Exists(directoryName);
+            string extension = Path.GetExtension(filename);
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
             if (this is KUKA && extension == ".sub")
             {
                 SourceName = Path.GetFileName(filename);
@@ -140,7 +140,10 @@ namespace RobotEditor.Languages
             get => _filename;
             set
             {
-                if (_filename == value) return;
+                if (_filename == value)
+                {
+                    return;
+                }
 
                 _filename = value;
                 OnPropertyChanged(nameof(FileName));
@@ -176,7 +179,7 @@ namespace RobotEditor.Languages
 
         #region Files
 
-        private ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
+        private readonly ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
 
 
 #pragma warning disable 649
@@ -259,7 +262,7 @@ namespace RobotEditor.Languages
         private MenuItem GetMenuItems()
         {
             return new MenuItem();
-            var resourceDictionary = new ResourceDictionary
+            ResourceDictionary resourceDictionary = new ResourceDictionary
             {
                 Source = new Uri("/RobotEditor;component/Assets/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
             };
@@ -271,8 +274,8 @@ namespace RobotEditor.Languages
             IEditorDocument result;
             if (!string.IsNullOrEmpty(filepath))
             {
-                var extension = Path.GetExtension(filepath);
-                var text = extension.ToLower();
+                string extension = Path.GetExtension(filepath);
+                string text = extension.ToLower();
                 switch (text)
                 {
                     case ".as":
@@ -310,58 +313,47 @@ namespace RobotEditor.Languages
 
         private static IEditorDocument GetKukaViewModel(string filepath)
         {
-            var fileInfo = new FileInfo(filepath);
-            var name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+            FileInfo fileInfo = new FileInfo(filepath);
+            string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
             Debug.Assert(name != null, "file != null");
             Debug.Assert(fileInfo.DirectoryName != null, "dir != null");
             name = Path.Combine(fileInfo.DirectoryName, name);
-            var src = new FileInfo(name + ".src");
-            var dat = new FileInfo(name + ".dat");
+            FileInfo src = new FileInfo(name + ".src");
+            FileInfo dat = new FileInfo(name + ".dat");
 
-            IEditorDocument result;
-            if (src.Exists && dat.Exists)
-            {
-                result = new KukaViewModel(src.FullName, new KUKA(src.FullName));
-            }
-            else
-            {
-                result = new DocumentViewModel(filepath, new KUKA(filepath));
-            }
+            IEditorDocument result = src.Exists && dat.Exists
+                ? new KukaViewModel(src.FullName, new KUKA(src.FullName))
+                : (IEditorDocument)new DocumentViewModel(filepath, new KUKA(filepath));
             return result;
         }
 
         public virtual string CommentReplaceString(string text)
         {
-            var pattern = string.Format("^([ ]*)([{0}]*)([^\r\n]*)", CommentChar);
-            var regex = new Regex(pattern);
-            var match = regex.Match(text);
-            string result;
-            if (match.Success)
-            {
-                result = match.Groups[1] + match.Groups[3].ToString();
-            }
-            else
-            {
-                result = text;
-            }
+            string pattern = string.Format("^([ ]*)([{0}]*)([^\r\n]*)", CommentChar);
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(text);
+            string result = match.Success ? match.Groups[1] + match.Groups[3].ToString() : text;
             return result;
         }
 
         public virtual int CommentOffset(string text)
         {
-            var regex = new Regex("(^[\\s]+)");
-            var match = regex.Match(text);
-            var result = match.Success ? match.Groups[1].Length : 0;
+            Regex regex = new Regex("(^[\\s]+)");
+            Match match = regex.Match(text);
+            int result = match.Success ? match.Groups[1].Length : 0;
             return result;
         }
 
-        public virtual bool IsLineCommented(string text) => text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
+        public virtual bool IsLineCommented(string text)
+        {
+            return text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
+        }
 
         private static bool IsValidFold(string text, string s, string e)
         {
             text = text.Trim();
-            var flag = text.StartsWith(s);
-            var flag2 = text.StartsWith(e);
+            bool flag = text.StartsWith(s);
+            bool flag2 = text.StartsWith(e);
             bool result;
             if (!(flag | flag2))
             {
@@ -369,16 +361,16 @@ namespace RobotEditor.Languages
             }
             else
             {
-                var text2 = flag ? s : e;
+                string text2 = flag ? s : e;
                 if (text.Substring(text.IndexOf(text2, StringComparison.Ordinal) + text2.Length).Length == 0)
                 {
                     result = true;
                 }
                 else
                 {
-                    var value = text.Substring(text.IndexOf(text2, StringComparison.Ordinal) + text2.Length, 1);
-                    var c = Convert.ToChar(value);
-                    var flag3 = char.IsLetterOrDigit(c);
+                    string value = text.Substring(text.IndexOf(text2, StringComparison.Ordinal) + text2.Length, 1);
+                    char c = Convert.ToChar(value);
+                    bool flag3 = char.IsLetterOrDigit(c);
                     result = !flag3;
                 }
             }
@@ -388,17 +380,17 @@ namespace RobotEditor.Languages
         protected static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold,
             string endFold, bool defaultclosed)
         {
-            var list = new List<LanguageFold>();
-            var stack = new Stack<int>();
+            List<LanguageFold> list = new List<LanguageFold>();
+            Stack<int> stack = new Stack<int>();
             endFold = endFold.ToLower();
-            var num = 0;
+            int num = 0;
             if (document is TextDocument textDocument)
             {
-                foreach (var current in textDocument.Lines)
+                foreach (DocumentLine current in textDocument.Lines)
                 {
-                    var lineByNumber = textDocument.GetLineByNumber(current.LineNumber);
-                    var text = textDocument.GetText(lineByNumber.Offset, lineByNumber.Length).ToLower();
-                    var text2 = text.TrimStart(new char[0]);
+                    DocumentLine lineByNumber = textDocument.GetLineByNumber(current.LineNumber);
+                    string text = textDocument.GetText(lineByNumber.Offset, lineByNumber.Length).ToLower();
+                    string text2 = text.TrimStart(new char[0]);
                     try
                     {
                         if (IsValidFold(text, startFold, endFold))
@@ -420,7 +412,7 @@ namespace RobotEditor.Languages
                                         }
                                         else
                                         {
-                                            var array = text.ToCharArray(endFold.Length, 1);
+                                            char[] array = text.ToCharArray(endFold.Length, 1);
                                             flag = !char.IsLetterOrDigit(array[0]);
                                         }
                                     }
@@ -430,11 +422,11 @@ namespace RobotEditor.Languages
                                     }
                                     if (flag)
                                     {
-                                        var num2 = stack.Pop();
-                                        var end = lineByNumber.Offset + text.Length;
-                                        var text3 = textDocument.GetText(num2 + startFold.Length + 1,
+                                        int num2 = stack.Pop();
+                                        int end = lineByNumber.Offset + text.Length;
+                                        string text3 = textDocument.GetText(num2 + startFold.Length + 1,
                                             lineByNumber.Offset - num2 - endFold.Length);
-                                        var item = new LanguageFold(num2, end, text3, startFold, endFold, defaultclosed);
+                                        LanguageFold item = new LanguageFold(num2, end, text3, startFold, endFold, defaultclosed);
                                         list.Add(item);
                                     }
                                 }
@@ -458,8 +450,8 @@ namespace RobotEditor.Languages
             ShiftClass result;
             if (doc is KukaViewModel)
             {
-                var kukaViewModel = doc as KukaViewModel;
-                var shiftClass = new ShiftClass
+                KukaViewModel kukaViewModel = doc as KukaViewModel;
+                ShiftClass shiftClass = new ShiftClass
                 {
                     Source = ShiftProgram(kukaViewModel.Source, shift)
                 };
@@ -471,7 +463,7 @@ namespace RobotEditor.Languages
             }
             else
             {
-                var shiftClass = new ShiftClass
+                ShiftClass shiftClass = new ShiftClass
                 {
                     Source = ShiftProgram(doc.TextBox, shift)
                 };
@@ -482,25 +474,25 @@ namespace RobotEditor.Languages
 
         private string ShiftProgram(Editor doc, ShiftViewModel shift)
         {
-            var stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            var num = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.X);
-            var num2 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
-            var num3 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
-            var regex = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
-            var matchCollection = regex.Matches(doc.Text);
-            var count = matchCollection.Count;
-            var num4 = 0.0;
-            var num5 = (double)(count > 0 ? 100 / count : count);
+            double num = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.X);
+            double num2 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
+            double num3 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
+            Regex regex = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
+            MatchCollection matchCollection = regex.Matches(doc.Text);
+            int count = matchCollection.Count;
+            double num4 = 0.0;
+            double num5 = count > 0 ? 100 / count : count;
             foreach (Match match in regex.Matches(doc.Text))
             {
                 // ReSharper disable UnusedVariable
                 num4 += num5;
-                var num6 = Convert.ToDouble(match.Groups[3].Value) + num;
+                double num6 = Convert.ToDouble(match.Groups[3].Value) + num;
 
-                var num7 = Convert.ToDouble(match.Groups[4].Value) + num2;
+                double num7 = Convert.ToDouble(match.Groups[4].Value) + num2;
 
-                var num8 = Convert.ToDouble(match.Groups[5].Value) + num3;
+                double num8 = Convert.ToDouble(match.Groups[5].Value) + num3;
                 // ReSharper restore UnusedVariable
                 switch (RobotType)
                 {
@@ -518,14 +510,14 @@ namespace RobotEditor.Languages
             return doc.Text;
         }
 
-        private object locker = new object();
+        private readonly object locker = new object();
         //TODO Split this up for a robot by robot basis
         private const string TargetDirectory = "KRC";
 
         public void GetRootDirectory(string dir)
         {
             //Search Backwards from current point to root directory
-            var dd = new DirectoryInfo(dir);
+            DirectoryInfo dd = new DirectoryInfo(dir);
 
             // Cannot Parse Directory
             if (dd.Name == dd.Root.Name)
@@ -536,7 +528,7 @@ namespace RobotEditor.Languages
             try
             {
 
-                var directories = dd.GetDirectories("KRC", SearchOption.AllDirectories);
+                DirectoryInfo[] directories = dd.GetDirectories("KRC", SearchOption.AllDirectories);
 
                 while (dd.Parent != null && !_rootFound && dd.Parent.Name != TargetDirectory)
                 {
@@ -544,30 +536,45 @@ namespace RobotEditor.Languages
                 }
 
 
-                if (_rootFound) return;
+                if (_rootFound)
+                {
+                    return;
+                }
 
                 if (dd.Parent != null)
+                {
                     if (dd.Parent.Parent != null)
+                    {
                         if (dd.Parent.Parent.Parent != null)
+                        {
                             _rootName = dd.Parent != null && dd.Parent.Parent.Name != "C"
                                 ? dd.Parent.Parent.FullName
                                 : dd.Parent.Parent.Parent.FullName;
+                        }
+                    }
+                }
 
-                var r = new DirectoryInfo(_rootName);
+                DirectoryInfo r = new DirectoryInfo(_rootName);
 
                 DirectoryInfo[] f = r.GetDirectories();
 
 
-                if (f.Length < 1) return;
+                if (f.Length < 1)
+                {
+                    return;
+                }
+
                 if (f[0].Name == "C" && f[1].Name == "KRC")
+                {
                     _rootName = r.FullName;
+                }
 
                 _rootFound = true;
 
                 GetRootFiles(_rootName);
                 FileCount = Files.Count;
                 GetVariables();
-                GetVariables(Files);
+                _ = GetVariables(Files);
                 _allVariables.AddRange(Functions);
                 _allVariables.AddRange(Fields);
                 _allVariables.AddRange(Positions);
@@ -589,9 +596,12 @@ namespace RobotEditor.Languages
                 {
                     try
                     {
-                        var file = new FileInfo(f);
+                        FileInfo file = new FileInfo(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
+                        {
                             _kukaCon = file.FullName;
+                        }
+
                         _files.Add(file);
                     }
                     catch (Exception e)
@@ -627,7 +637,10 @@ namespace RobotEditor.Languages
                 _bw.ReportProgress(i);
             }
         }
-        private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e) => BWProgress = e.ProgressPercentage;
+        private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            BWProgress = e.ProgressPercentage;
+        }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -640,7 +653,7 @@ namespace RobotEditor.Languages
             // Dispose of Background worker
             _bw = null;
             //TODO Open Variable Monitor
-            var main = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel main = Ioc.Default.GetRequiredService<MainViewModel>();
             main.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
         }
@@ -656,15 +669,15 @@ namespace RobotEditor.Languages
         }
         private VariableMembers GetVariableMembers(FileInfo fi)
         {
-            var result = new VariableMembers();
+            VariableMembers result = new VariableMembers();
             result.FindVariables(fi.FullName, this);
             return result;
         }
         private Task<VariableMembers> GetVariableMembers(string filename)
         {
-            var task = Task.Factory.StartNew(() =>
+            Task<VariableMembers> task = Task.Factory.StartNew(() =>
             {
-                var result = new VariableMembers();
+                VariableMembers result = new VariableMembers();
                 result.FindVariables(filename, this);
                 return result;
             });
@@ -675,16 +688,15 @@ namespace RobotEditor.Languages
         }
         private VariableMembers GetVariables(IEnumerable<FileInfo> files)
         {
-            var variableMembers = new VariableMembers();
+            VariableMembers variableMembers = new VariableMembers();
 
-            var validFiles = files
+            List<VariableMembers> validFiles = files
                 .Where(IsFileValid)
                 .Select(GetVariableMembers)
                 .ToList();
-            var num = 0;
 
 
-            foreach (var file in validFiles)
+            foreach (VariableMembers file in validFiles)
             {
                 variableMembers.Functions.AddRange(file.Structures.ToList());
                 variableMembers.Structures.AddRange(file.Structures.ToList());
@@ -704,7 +716,7 @@ namespace RobotEditor.Languages
             OnPropertyChanged(nameof(Positions));
             BWProgressVisibility = Visibility.Collapsed;
 
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.EnableIO = File.Exists(_kukaCon);
             IOModel = new IOViewModel(_kukaCon);
             return variableMembers;
@@ -760,18 +772,18 @@ namespace RobotEditor.Languages
 
         private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
-            var list = new List<IVariable>();
+            List<IVariable> list = new List<IVariable>();
 
             IEnumerable<IVariable> result;
             try
             {
-                var input = File.ReadAllText(filepath);
+                string input = File.ReadAllText(filepath);
                 if (string.IsNullOrEmpty(matchstring.ToString()))
                 {
                     result = list;
                     return result;
                 }
-                var match = matchstring.Match(input);
+                Match match = matchstring.Match(input);
                 while (match.Success)
                 {
                     list.Add(new Variable
@@ -789,8 +801,8 @@ namespace RobotEditor.Languages
             }
             catch (Exception ex)
             {
-                var msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
-                WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                ErrorMessage msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
+                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             result = list;
             return result;

@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 
 namespace RobotEditor.ViewModel
@@ -12,7 +11,7 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string FilePathPropertyName = "FilePath";
 
-        private string _filePath = String.Empty;
+        private string _filePath = string.Empty;
 
         /// <summary>
         ///     Sets and gets the FilePath property.
@@ -57,15 +56,7 @@ namespace RobotEditor.ViewModel
         {
             get
             {
-                string result;
-                if (FilePath == null)
-                {
-                    result = "Noname" + (IsDirty ? "*" : "");
-                }
-                else
-                {
-                    result = Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
-                }
+                string result = FilePath == null ? "Noname" + (IsDirty ? "*" : "") : Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
                 return result;
             }
         }

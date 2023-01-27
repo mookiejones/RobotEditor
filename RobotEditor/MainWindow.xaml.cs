@@ -1,22 +1,22 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
+﻿using AvalonDock.Layout;
+using AvalonDock.Layout.Serialization;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using RobotEditor.Controls;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Messages;
 using RobotEditor.Properties;
 using RobotEditor.ViewModel;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Forms;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
-using AvalonDock.Layout;
-using AvalonDock.Layout.Serialization;
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging;
-using RobotEditor.Controls;
 
 namespace RobotEditor
 {
@@ -36,7 +36,7 @@ namespace RobotEditor
         {
             Instance = this;
             InitializeComponent();
-         //   ThemeManager.Current.ChangeTheme(Application.Current, "Light");
+            //   ThemeManager.Current.ChangeTheme(Application.Current, "Light");
             KeyDown += (s, e) => StatusBarViewModel.Instance.ManageKeys(s, e);
         }
 
@@ -45,11 +45,11 @@ namespace RobotEditor
         private void LoadItems()
         {
             LoadOpenFiles();
-            var layoutDocumentPane =
+            LayoutDocumentPane layoutDocumentPane =
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
             if (layoutDocumentPane != null && layoutDocumentPane.ChildrenCount == 0)
             {
-                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.AddNewFile();
             }
             ProcessArgs();
@@ -57,38 +57,44 @@ namespace RobotEditor
 
         private static void OpenFile(string filename)
         {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            instance.Open(filename);
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            _ = instance.Open(filename);
         }
 
         private static void LoadOpenFiles()
         {
-            var array = Settings.Default.OpenDocuments.Split(new[] {';'});
-            for (var i = 0; i < array.Length - 1; i++)
+            string[] array = Settings.Default.OpenDocuments.Split(new[] { ';' });
+            for (int i = 0; i < array.Length - 1; i++)
+            {
                 if (File.Exists(array[i]))
+                {
                     OpenFile(array[i]);
+                }
+            }
         }
 
         private static void ProcessArgs()
         {
-            var commandLineArgs = Environment.GetCommandLineArgs();
-            for (var i = 1; i < commandLineArgs.Length; i++)
+            string[] commandLineArgs = Environment.GetCommandLineArgs();
+            for (int i = 1; i < commandLineArgs.Length; i++)
+            {
                 OpenFile(commandLineArgs[i]);
+            }
         }
 
         [Localizable(false)]
         private void DropFiles(object sender, DragEventArgs e)
         {
-            var array = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            string[] array = (string[])e.Data.GetData(DataFormats.FileDrop);
 
 
-            foreach (var msg in array.Select(text => new WindowMessage("File Dropped",  text, MessageType.Information)))
+            foreach (WindowMessage msg in array.Select(text => new WindowMessage("File Dropped", text, MessageType.Information)))
             {
-                WeakReferenceMessenger.Default.Send(msg);
+                _ = WeakReferenceMessenger.Default.Send(msg);
             }
         }
 
-        void onDragEnter(object sender, DragEventArgs e)
+        private void onDragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -102,7 +108,7 @@ namespace RobotEditor
 
         public static void CallLater(TimeSpan delay, Action method)
         {
-            var delayMilliseconds = (int) delay.TotalMilliseconds;
+            int delayMilliseconds = (int)delay.TotalMilliseconds;
             if (delayMilliseconds < 0)
             {
                 throw new ArgumentOutOfRangeException("delay", delay, Properties.Resources.ValueMustBePositive);
@@ -113,7 +119,7 @@ namespace RobotEditor
             }
             SafeThreadAsyncCall(delegate
             {
-                var t = new Timer
+                Timer t = new Timer
                 {
                     Interval = Math.Max(1, delayMilliseconds)
                 };
@@ -130,25 +136,25 @@ namespace RobotEditor
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             Settings.Default.OpenDocuments = string.Empty;
-            var layoutDocumentPane =
+            LayoutDocumentPane layoutDocumentPane =
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
             if (layoutDocumentPane != null)
             {
-                foreach (var current in
+                foreach (DocumentViewModel current in
                     from doc in layoutDocumentPane.Children
                     select doc.Content as DocumentViewModel
                     into d
                     where d != null && d.FilePath != null
                     select d)
                 {
-                    var settings = Settings.Default;
+                    Settings settings = Settings.Default;
 
                     settings.OpenDocuments = settings.OpenDocuments + current.FilePath + ';';
                 }
             }
             Settings.Default.Save();
             SaveLayout();
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             instance.IsClosing = true;
             App.Application?.Shutdown();
         }
@@ -160,14 +166,14 @@ namespace RobotEditor
             //  LoadLayout();
 
 
-            var msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
-            WeakReferenceMessenger.Default.Send<IMessage>(msg);
+            WindowMessage msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
+            _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
         }
 
         private void SaveLayout()
         {
-            var xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
-            using (var streamWriter = new StreamWriter(Global.DockConfig))
+            XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
+            using (StreamWriter streamWriter = new StreamWriter(Global.DockConfig))
             {
                 xmlLayoutSerializer.Serialize(streamWriter);
             }
@@ -178,7 +184,7 @@ namespace RobotEditor
         {
             if (File.Exists(Global.DockConfig))
             {
-                var xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
+                XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
                 using (new StreamReader(Global.DockConfig))
                 {
                     xmlLayoutSerializer.Deserialize(Global.DockConfig);
@@ -188,20 +194,20 @@ namespace RobotEditor
 
         public void CloseWindow(object param)
         {
-            var ad = param as IEditorDocument;
-            var layoutDocumentPane =
+            IEditorDocument ad = param as IEditorDocument;
+            LayoutDocumentPane layoutDocumentPane =
                 DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
             if (layoutDocumentPane != null)
             {
-                using (var enumerator = (
+                using (System.Collections.Generic.IEnumerator<LayoutContent> enumerator = (
                     from c in layoutDocumentPane.Children
                     where c.Content.Equals(ad)
                     select c).GetEnumerator())
                 {
                     if (enumerator.MoveNext())
                     {
-                        var current = enumerator.Current;
-                        layoutDocumentPane.Children.Remove(current);
+                        LayoutContent current = enumerator.Current;
+                        _ = layoutDocumentPane.Children.Remove(current);
                     }
                 }
             }

@@ -5,13 +5,11 @@ namespace RobotEditor.Exceptions
 {
     public class ExceptionDialogShowingEventArgs : CancelEventArgs
     {
-        private readonly Exception exception;
-
         internal ExceptionDialogShowingEventArgs(Exception exception)
         {
-            this.exception = exception;
+            this.Exception = exception;
         }
 
-        public Exception Exception => exception;
+        public Exception Exception { get; }
     }
 }

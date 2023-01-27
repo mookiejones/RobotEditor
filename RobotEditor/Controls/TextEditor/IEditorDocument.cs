@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Media;
-using RobotEditor.Controls.TextEditor;
+﻿using RobotEditor.Controls.TextEditor;
 using RobotEditor.Languages;
+using System.Windows;
+using System.Windows.Media;
 
 namespace RobotEditor.Interfaces
 {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace RobotEditor.Utilities
 {
@@ -11,8 +11,8 @@ namespace RobotEditor.Utilities
     {
         public static BitmapImage LoadBitmap(Bitmap img)
         {
-            var bitmapImage = new BitmapImage();
-            using (var memoryStream = new MemoryStream())
+            BitmapImage bitmapImage = new BitmapImage();
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 img.Save(memoryStream, ImageFormat.Jpeg);
                 bitmapImage.BeginInit();
@@ -24,7 +24,7 @@ namespace RobotEditor.Utilities
 
         public static ImageSource GetIcon(string fileName)
         {
-            var bitmapImage = new BitmapImage();
+            BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(fileName);
             bitmapImage.EndInit();
@@ -36,7 +36,7 @@ namespace RobotEditor.Utilities
             BitmapImage result;
 
 #if DEBUG
-            var file = new System.IO.FileInfo(fileName);
+            FileInfo file = new System.IO.FileInfo(fileName);
             if (!file.Exists)
             {
                 Console.WriteLine(file);
@@ -46,8 +46,8 @@ namespace RobotEditor.Utilities
             {
                 if (File.Exists(fileName))
                 {
-                    var fileInfo = new System.IO.FileInfo(fileName);
-                    var bitmapImage = new BitmapImage(new Uri(fileInfo.FullName));
+                    FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(fileInfo.FullName));
                     bitmapImage.Freeze();
                     result = bitmapImage;
                     return result;

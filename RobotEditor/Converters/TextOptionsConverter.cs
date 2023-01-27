@@ -13,13 +13,16 @@ namespace RobotEditor.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is EditorOptions result)
+            {
                 return result;
+            }
+
             Debug.WriteLine("TextOptions Converter Failed {0}", new[]
               {
                     value
                 });
             return Binding.DoNothing;
-            
+
             return result;
         }
 

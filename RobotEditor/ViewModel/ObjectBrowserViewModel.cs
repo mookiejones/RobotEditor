@@ -1,11 +1,11 @@
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Utilities;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RobotEditor.ViewModel
 {
@@ -24,15 +24,15 @@ namespace RobotEditor.ViewModel
             set
             {
                 _selectedVariable = value;
-                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
                 instance.OpenFile(value);
                 OnPropertyChanged(nameof(SelectedVariable));
             }
         }
 
-        public int Progress { get =>_progress; set=>SetProperty(ref _progress,value); }
+        public int Progress { get => _progress; set => SetProperty(ref _progress, value); }
 
-        public int ProgressMax { get =>_progressMax; set=>SetProperty(ref _progressMax,value); }
+        public int ProgressMax { get => _progressMax; set => SetProperty(ref _progressMax, value); }
 
         #endregion
 
@@ -45,12 +45,12 @@ namespace RobotEditor.ViewModel
 
         private string GetDirectory()
         {
-            var folderBrowserDialog = new FolderBrowserDialog
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = @"Select Root Directory for Instance"
             };
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            var filename = instance.ActiveEditor.TextBox.Filename;
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            string filename = instance.ActiveEditor.TextBox.Filename;
             if (Directory.Exists(filename))
             {
                 folderBrowserDialog.SelectedPath = Path.GetDirectoryName(filename);
@@ -63,14 +63,14 @@ namespace RobotEditor.ViewModel
         private void Initialize()
         {
             ContentId = ToolContentId;
-            IconSource=ImageHelper.GetIcon(Global.IconObjectBrowser);
+            IconSource = ImageHelper.GetIcon(Global.IconObjectBrowser);
             //  IconSource = Utilities.GetIcon("pack://application:,,/Images/resources-objectbrowser.png");
             DefaultPane = DefaultToolPane.Bottom;
         }
 
         public ReadOnlyCollection<IVariable> GetVarForFile(string filename)
         {
-            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             ReadOnlyCollection<IVariable> result;
             if (!(instance.ActiveEditor is KukaViewModel kukaViewModel))
             {
@@ -78,8 +78,8 @@ namespace RobotEditor.ViewModel
             }
             else
             {
-                var variables = kukaViewModel.Data.Variables;
-                var list = (
+                ReadOnlyObservableCollection<IVariable> variables = kukaViewModel.Data.Variables;
+                System.Collections.Generic.List<IVariable> list = (
                     from p in variables
                     where p.Type == "e6pos"
                     select p).ToList<IVariable>();

@@ -27,11 +27,11 @@ namespace RobotEditor.ViewModel
             DefaultPane = DefaultToolPane.Right;
         }
 
-        public CartesianPosition OldValues { get =>_oldvalues; set=>SetProperty(ref _oldvalues,value); }
+        public CartesianPosition OldValues { get => _oldvalues; set => SetProperty(ref _oldvalues, value); }
 
-        public CartesianPosition NewValues { get =>_newvalues; set=>SetProperty(ref _newvalues,value); }
+        public CartesianPosition NewValues { get => _newvalues; set => SetProperty(ref _newvalues, value); }
 
-        public CartesianPosition DiffValues { get =>_diffvalues; set=>SetProperty(ref _diffvalues,value); }
+        public CartesianPosition DiffValues { get => _diffvalues; set => SetProperty(ref _diffvalues, value); }
 
         public static ShiftViewModel Instance
         {

@@ -17,7 +17,7 @@
 
         public override int GetHashCode()
         {
-            var num = 0;
+            int num = 0;
             if (CommentStart != null)
             {
                 num += 1000000007 * CommentStart.GetHashCode();
@@ -27,7 +27,7 @@
                 num += 1000000009 * CommentEnd.GetHashCode();
             }
             num += 1000000021 * StartOffset.GetHashCode();
-            return num + 1000000033 * EndOffset.GetHashCode();
+            return num + (1000000033 * EndOffset.GetHashCode());
         }
 
         public override bool Equals(object obj)

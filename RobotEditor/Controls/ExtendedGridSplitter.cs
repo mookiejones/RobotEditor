@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RobotEditor.Enums;
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,16 +7,15 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using RobotEditor.Enums;
 
 namespace RobotEditor.Controls
 {
-    [Localizable(false), TemplatePart(Name = "HorizontalGridSplitterHandle", Type = typeof (ToggleButton)),
-     TemplatePart(Name = "LabelHandle", Type = typeof (ToggleButton)),
-     TemplatePart(Name = "SwitchArrows", Type = typeof (ToggleButton)),
-     TemplatePart(Name = "VerticalGridSplitterHandle", Type = typeof (ToggleButton)),
-     TemplatePart(Name = "HorizontalTemplate", Type = typeof (FrameworkElement)),
-     TemplatePart(Name = "VerticalTemplate", Type = typeof (FrameworkElement))]
+    [Localizable(false), TemplatePart(Name = "HorizontalGridSplitterHandle", Type = typeof(ToggleButton)),
+     TemplatePart(Name = "LabelHandle", Type = typeof(ToggleButton)),
+     TemplatePart(Name = "SwitchArrows", Type = typeof(ToggleButton)),
+     TemplatePart(Name = "VerticalGridSplitterHandle", Type = typeof(ToggleButton)),
+     TemplatePart(Name = "HorizontalTemplate", Type = typeof(FrameworkElement)),
+     TemplatePart(Name = "VerticalTemplate", Type = typeof(FrameworkElement))]
     public class ExtendedGridSplitter : GridSplitter
     {
         private const string ElementLabelName = "LabelHandle";
@@ -31,37 +31,37 @@ namespace RobotEditor.Controls
         private static ToggleButton _elementVerticalGridSplitterButton;
 
         public static readonly DependencyProperty CollapseModeProperty = DependencyProperty.Register("CollapseMode",
-            typeof (GridSplitterCollapseMode), typeof (ExtendedGridSplitter),
+            typeof(GridSplitterCollapseMode), typeof(ExtendedGridSplitter),
             new PropertyMetadata(GridSplitterCollapseMode.None, OnCollapseModePropertyChanged));
 
         public static readonly DependencyProperty HorizontalHandleStyleProperty =
-            DependencyProperty.Register("HorizontalHandleStyle", typeof (Style), typeof (ExtendedGridSplitter), null);
+            DependencyProperty.Register("HorizontalHandleStyle", typeof(Style), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty FocusColorProperty = DependencyProperty.Register("FocusColor",
-            typeof (Color), typeof (ExtendedGridSplitter), null);
+            typeof(Color), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty UnfocusColorProperty = DependencyProperty.Register("UnfocusColor",
-            typeof (Color), typeof (ExtendedGridSplitter), null);
+            typeof(Color), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty LabelStyleProperty = DependencyProperty.Register("LabelStyle",
-            typeof (Style), typeof (ExtendedGridSplitter), null);
+            typeof(Style), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty SwitchArrowStyleProperty =
-            DependencyProperty.Register("SwitchArrowStyle", typeof (Style), typeof (ExtendedGridSplitter), null);
+            DependencyProperty.Register("SwitchArrowStyle", typeof(Style), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty VerticalHandleStyleProperty =
-            DependencyProperty.Register("VerticalHandleStyle", typeof (Style), typeof (ExtendedGridSplitter), null);
+            DependencyProperty.Register("VerticalHandleStyle", typeof(Style), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty IsAnimatedProperty = DependencyProperty.Register("IsAnimated",
-            typeof (bool), typeof (ExtendedGridSplitter), null);
+            typeof(bool), typeof(ExtendedGridSplitter), null);
 
         public static readonly DependencyProperty IsCollapsedProperty = DependencyProperty.Register("IsCollapsed",
-            typeof (bool), typeof (ExtendedGridSplitter), new PropertyMetadata(OnIsCollapsedPropertyChanged));
+            typeof(bool), typeof(ExtendedGridSplitter), new PropertyMetadata(OnIsCollapsedPropertyChanged));
 
         private static Grid _parentGrid;
 
         private static readonly DependencyProperty RowHeightAnimationProperty =
-            DependencyProperty.Register("RowHeightAnimation", typeof (double), typeof (ExtendedGridSplitter),
+            DependencyProperty.Register("RowHeightAnimation", typeof(double), typeof(ExtendedGridSplitter),
                 new PropertyMetadata(RowHeightAnimationChanged));
 
         private RowDefinition _animatingRow;
@@ -72,7 +72,7 @@ namespace RobotEditor.Controls
 
         public ExtendedGridSplitter()
         {
-            base.DefaultStyleKey = typeof (ExtendedGridSplitter);
+            base.DefaultStyleKey = typeof(ExtendedGridSplitter);
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.HorizontalContentAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Center;
@@ -151,7 +151,7 @@ namespace RobotEditor.Controls
 
         private static void OnIsCollapsedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var isCollapsed = (bool)e.NewValue;
+            bool isCollapsed = (bool)e.NewValue;
             if (d is ExtendedGridSplitter extendedGridSplitter)
             {
                 extendedGridSplitter.OnIsCollapsedChanged(isCollapsed);
@@ -160,7 +160,7 @@ namespace RobotEditor.Controls
 
         private static void OnCollapseModePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var collapseMode = (GridSplitterCollapseMode)e.NewValue;
+            GridSplitterCollapseMode collapseMode = (GridSplitterCollapseMode)e.NewValue;
             if (d is ExtendedGridSplitter extendedGridSplitter)
             {
                 extendedGridSplitter.OnCollapseModeChanged(collapseMode);
@@ -171,9 +171,9 @@ namespace RobotEditor.Controls
         {
             base.OnApplyTemplate();
             _elementHorizontalGridSplitterButton =
-                (GetTemplateChild("HorizontalGridSplitterHandle") as ToggleButton);
-            _elementVerticalGridSplitterButton = (GetTemplateChild("VerticalGridSplitterHandle") as ToggleButton);
-            _elementGridSplitterBackground = (GetTemplateChild("GridSplitterBackground") as Rectangle);
+                GetTemplateChild("HorizontalGridSplitterHandle") as ToggleButton;
+            _elementVerticalGridSplitterButton = GetTemplateChild("VerticalGridSplitterHandle") as ToggleButton;
+            _elementGridSplitterBackground = GetTemplateChild("GridSplitterBackground") as Rectangle;
             if (_elementHorizontalGridSplitterButton != null)
             {
                 _elementHorizontalGridSplitterButton.Checked += GridSplitterButtonChecked;
@@ -230,7 +230,7 @@ namespace RobotEditor.Controls
             }
             if (_gridCollapseDirection == GridCollapseDirection.Rows)
             {
-                var num = (int) GetValue(Grid.RowProperty);
+                int num = (int)GetValue(Grid.RowProperty);
                 if (CollapseMode == GridSplitterCollapseMode.Previous)
                 {
                     if (grid != null)
@@ -269,7 +269,7 @@ namespace RobotEditor.Controls
 
         public void Expand()
         {
-            var grid = Parent as Grid;
+            Grid grid = Parent as Grid;
             if (grid != null)
             {
                 _parentGrid = grid;
@@ -285,10 +285,7 @@ namespace RobotEditor.Controls
                 }
                 else
                 {
-                    if (grid != null)
-                    {
-                        grid.RowDefinitions[2].SetValue(RowDefinition.HeightProperty, _savedGridLength);
-                    }
+                    grid?.RowDefinitions[2].SetValue(RowDefinition.HeightProperty, _savedGridLength);
                 }
             }
             else
@@ -302,18 +299,21 @@ namespace RobotEditor.Controls
                 }
                 else
                 {
-                    if (grid != null)
-                    {
-                        grid.RowDefinitions[0].SetValue(RowDefinition.HeightProperty, _savedGridLength);
-                    }
+                    grid?.RowDefinitions[0].SetValue(RowDefinition.HeightProperty, _savedGridLength);
                 }
             }
             IsCollapsed = false;
         }
 
-        protected virtual void OnCollapsed(EventArgs e) => Collapsed?.Invoke(this, e);
+        protected virtual void OnCollapsed(EventArgs e)
+        {
+            Collapsed?.Invoke(this, e);
+        }
 
-        protected virtual void OnExpanded(EventArgs e) => Expanded?.Invoke(this, e);
+        protected virtual void OnExpanded(EventArgs e)
+        {
+            Expanded?.Invoke(this, e);
+        }
 
         private void GridSplitterButtonChecked(object sender, RoutedEventArgs e)
         {
@@ -348,13 +348,13 @@ namespace RobotEditor.Controls
 
         private void AnimateCollapse(object definition)
         {
-            var doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            var storyboard = new Storyboard();
+            Storyboard storyboard = new Storyboard();
             storyboard.Children.Add(doubleAnimation);
-            _animatingRow = (RowDefinition) definition;
+            _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);
             Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("RowHeightAnimation", new object[0]));
             doubleAnimation.From = _animatingRow.ActualHeight;
@@ -364,13 +364,13 @@ namespace RobotEditor.Controls
 
         private void AnimateExpand(object definition)
         {
-            var doubleAnimation = new DoubleAnimation
+            DoubleAnimation doubleAnimation = new DoubleAnimation
             {
                 Duration = new Duration(TimeSpan.FromMilliseconds(200.0))
             };
-            var storyboard = new Storyboard();
+            Storyboard storyboard = new Storyboard();
             storyboard.Children.Add(doubleAnimation);
-            _animatingRow = (RowDefinition) definition;
+            _animatingRow = (RowDefinition)definition;
             Storyboard.SetTarget(doubleAnimation, this);
             Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("RowHeightAnimation", new object[0]));
             doubleAnimation.From = _animatingRow.ActualHeight;

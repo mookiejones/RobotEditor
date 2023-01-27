@@ -2,11 +2,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class GlobalOptionsViewModel :  ObservableRecipient
+    public sealed class GlobalOptionsViewModel : ObservableRecipient
     {
         #region FileOptions
 
-      
+
         private FileOptionsViewModel _fileOptions = new FileOptionsViewModel();
 
         /// <summary>
@@ -16,8 +16,8 @@ namespace RobotEditor.ViewModel
         public FileOptionsViewModel FileOptions
         {
             get => _fileOptions;
-            set=>SetProperty(ref _fileOptions, value);
-             
+            set => SetProperty(ref _fileOptions, value);
+
         }
 
         #endregion

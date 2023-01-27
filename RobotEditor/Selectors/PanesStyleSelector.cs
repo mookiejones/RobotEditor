@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using RobotEditor.Interfaces;
+﻿using RobotEditor.Interfaces;
 using RobotEditor.ViewModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace RobotEditor.Selectors
 {
@@ -19,14 +19,7 @@ namespace RobotEditor.Selectors
             }
             else
             {
-                if (item is IEditorDocument)
-                {
-                    result = FileStyle;
-                }
-                else
-                {
-                    result = base.SelectStyle(item, container);
-                }
+                result = item is IEditorDocument ? FileStyle : base.SelectStyle(item, container);
             }
             return result;
         }

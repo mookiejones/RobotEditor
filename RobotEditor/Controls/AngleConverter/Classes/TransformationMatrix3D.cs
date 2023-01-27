@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 using System.Collections.ObjectModel;
-using RobotEditor.Controls.AngleConverter.Exceptions;
 
 namespace RobotEditor.Controls.AngleConverter.Classes
 {
@@ -10,7 +10,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         private TransformationMatrix3D()
             : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -23,10 +23,10 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrix is not the correct size to convert to a TransformationMatrix3D");
             }
-            var squareMatrix = new SquareMatrix(3);
-            for (var i = 0; i < 3; i++)
+            SquareMatrix squareMatrix = new SquareMatrix(3);
+            for (int i = 0; i < 3; i++)
             {
-                for (var j = 0; j < 3; j++)
+                for (int j = 0; j < 3; j++)
                 {
                     squareMatrix[i, j] = mat[i, j];
                 }
@@ -35,9 +35,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrix does not contain a valid rotation");
             }
-            for (var k = 0; k < 4; k++)
+            for (int k = 0; k < 4; k++)
             {
-                for (var l = 0; l < 4; l++)
+                for (int l = 0; l < 4; l++)
                 {
                     base[k, l] = mat[k, l];
                 }
@@ -54,7 +54,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         public TransformationMatrix3D(Vector3D trans)
             : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -64,7 +64,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         public TransformationMatrix3D(Vector3D trans, RotationMatrix3D rot)
             : base(4)
         {
-            for (var i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 base[i, i] = 1.0;
             }
@@ -76,10 +76,10 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         {
             get
             {
-                var rotationMatrix3D = new RotationMatrix3D();
-                for (var i = 0; i < 3; i++)
+                RotationMatrix3D rotationMatrix3D = new RotationMatrix3D();
+                for (int i = 0; i < 3; i++)
                 {
-                    for (var j = 0; j < 3; j++)
+                    for (int j = 0; j < 3; j++)
                     {
                         rotationMatrix3D[i, j] = base[i, j];
                     }
@@ -88,9 +88,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
             set
             {
-                for (var i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                 {
-                    for (var j = 0; j < 3; j++)
+                    for (int j = 0; j < 3; j++)
                     {
                         base[i, j] = value[i, j];
                     }
@@ -109,91 +109,109 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
+        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c)
+        {
+            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
+        }
 
         public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1,
-            double z2) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
+            double z2)
+        {
+            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
+        }
 
-        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
+        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w)
+        {
+            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
+        }
 
         public static TransformationMatrix3D Identity()
         {
-            var transformationMatrix3D = new TransformationMatrix3D();
-            for (var i = 0; i < 4; i++)
+            TransformationMatrix3D transformationMatrix3D = new TransformationMatrix3D();
+            for (int i = 0; i < 4; i++)
             {
                 transformationMatrix3D[i, i] = 1.0;
             }
             return transformationMatrix3D;
         }
 
-        public new TransformationMatrix3D Inverse() => new TransformationMatrix3D(base.Inverse());
+        public new TransformationMatrix3D Inverse()
+        {
+            return new TransformationMatrix3D(base.Inverse());
+        }
 
-        public static TransformationMatrix3D NaN() => new TransformationMatrix3D(NaN(4));
+        public static TransformationMatrix3D NaN()
+        {
+            return new TransformationMatrix3D(NaN(4));
+        }
 
         public static Collection<Point3D> operator *(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            var collection = new Collection<Point3D>();
-            foreach (var current in points)
+            Collection<Point3D> collection = new Collection<Point3D>();
+            foreach (Point3D current in points)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
 
         public static Collection<Point3D> Multiply(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            var collection = new Collection<Point3D>();
-            foreach (var current in points)
+            Collection<Point3D> collection = new Collection<Point3D>();
+            foreach (Point3D current in points)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
 
         public static Collection<Vector3D> operator *(TransformationMatrix3D transform, Collection<Vector3D> vectors)
         {
-            var collection = new Collection<Vector3D>();
-            foreach (var current in vectors)
+            Collection<Vector3D> collection = new Collection<Vector3D>();
+            foreach (Vector3D current in vectors)
             {
-                collection.Add(transform*current);
+                collection.Add(transform * current);
             }
             return collection;
         }
 
         public static Point3D operator *(TransformationMatrix3D mat, Point3D pt)
         {
-            var vec = new Vector3D(pt.X, pt.Y, pt.Z);
-            var vector3D = mat*vec;
+            Vector3D vec = new Vector3D(pt.X, pt.Y, pt.Z);
+            Vector3D vector3D = mat * vec;
             return new Point3D(vector3D.X, vector3D.Y, vector3D.Z);
         }
 
         public static TransformationMatrix3D operator *(TransformationMatrix3D m1, TransformationMatrix3D m2)
         {
-            return new TransformationMatrix3D(m1*m2);
+            return new TransformationMatrix3D(m1 * m2);
         }
 
         public static Vector3D operator *(TransformationMatrix3D mat, Vector3D vec)
         {
-            var vec2 = new Vector(4, new[]
+            Vector vec2 = new Vector(4, new[]
             {
                 vec[0],
                 vec[1],
                 vec[2],
                 1.0
             });
-            Matrix matrix = mat*vec2;
+            Matrix matrix = mat * vec2;
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
 
-        public string ToString(string format) => ToString(format, null);
+        public string ToString(string format)
+        {
+            return ToString(format, null);
+        }
 
         public override string ToString(string format, IFormatProvider formatProvider)
         {
             string result;
             if (format.ToUpperInvariant().StartsWith("RPY"))
             {
-                var translation = Translation;
-                var rPY = Rotation.RPY;
+                Vector3D translation = Translation;
+                Vector3D rPY = Rotation.RPY;
                 result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[]
                 {
                     translation.X,
@@ -208,8 +226,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 if (format.ToUpperInvariant().StartsWith("ABC"))
                 {
-                    var translation2 = Translation;
-                    var aBC = Rotation.ABC;
+                    Vector3D translation2 = Translation;
+                    Vector3D aBC = Rotation.ABC;
                     result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[]
                     {
                         translation2.X,
@@ -224,8 +242,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                 {
                     if (format.ToUpperInvariant().StartsWith("QUATERNION"))
                     {
-                        var translation3 = Translation;
-                        var quaternion = (Quaternion) Rotation;
+                        Vector3D translation3 = Translation;
+                        Quaternion quaternion = (Quaternion)Rotation;
                         result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}", new object[]
                         {
                             translation3.X,
@@ -241,8 +259,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                     {
                         if (format.ToUpperInvariant().StartsWith("ABBQUATERNION"))
                         {
-                            var translation4 = Translation;
-                            var quaternion2 = (Quaternion) Rotation;
+                            Vector3D translation4 = Translation;
+                            Quaternion quaternion2 = (Quaternion)Rotation;
                             result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F3}, {4:F3}, {5:F3}, {6:F3}",
                                 new object[]
                                 {
@@ -259,8 +277,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                         {
                             if (format.ToUpperInvariant().StartsWith("ABG"))
                             {
-                                var translation5 = Translation;
-                                var aBG = Rotation.ABG;
+                                Vector3D translation5 = Translation;
+                                Vector3D aBG = Rotation.ABG;
                                 result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}", new object[]
                                 {
                                     translation5.X,
@@ -275,8 +293,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                             {
                                 if (format.ToUpperInvariant().StartsWith("EULERZYZ"))
                                 {
-                                    var translation6 = Translation;
-                                    var eulerZYZ = Rotation.EulerZYZ;
+                                    Vector3D translation6 = Translation;
+                                    Vector3D eulerZYZ = Rotation.EulerZYZ;
                                     result = string.Format("{0:F2}, {1:F2}, {2:F2}, {3:F2}, {4:F2}, {5:F2}",
                                         new object[]
                                         {

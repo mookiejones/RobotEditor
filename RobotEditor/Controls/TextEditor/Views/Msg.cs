@@ -11,8 +11,8 @@
         /// </summary>
         public Msg()
         {
-            this.Message = string.Empty;
-            this.CategoryOfMsg = MsgCategory.Error;
+            Message = string.Empty;
+            CategoryOfMsg = MsgCategory.Error;
         }
 
         /// <summary>
@@ -23,8 +23,8 @@
         public Msg(string strMsg, MsgCategory type = MsgCategory.Error)
           : this()
         {
-            this.Message = ((strMsg == null ? string.Empty : strMsg).Length == 0 ? "<Unknown Internal Problem>" : strMsg);
-            this.CategoryOfMsg = type;
+            Message = (strMsg ?? string.Empty).Length == 0 ? "<Unknown Internal Problem>" : strMsg;
+            CategoryOfMsg = type;
         }
 
         /// <summary>
@@ -33,10 +33,13 @@
         /// <param name="copyThis"></param>
         public Msg(Msg copyThis)
         {
-            if (copyThis == null) return;
+            if (copyThis == null)
+            {
+                return;
+            }
 
-            this.CategoryOfMsg = copyThis.CategoryOfMsg;
-            this.Message = copyThis.Message;
+            CategoryOfMsg = copyThis.CategoryOfMsg;
+            Message = copyThis.Message;
         }
         #endregion constructor
 
@@ -91,7 +94,7 @@
         {
             get
             {
-                switch (this.CategoryOfMsg)
+                switch (CategoryOfMsg)
                 {
                     case MsgCategory.Information:
                         return "Information";

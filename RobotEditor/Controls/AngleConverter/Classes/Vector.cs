@@ -1,5 +1,5 @@
-using System;
 using RobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 
 namespace RobotEditor.Controls.AngleConverter.Classes
 {
@@ -23,7 +23,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             if (mat.Rows == 1)
             {
                 Size = mat.Columns;
-                for (var i = 0; i < mat.Columns; i++)
+                for (int i = 0; i < mat.Columns; i++)
                 {
                     this[i] = mat[0, i];
                 }
@@ -56,9 +56,15 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             set => SetSize(value, 1);
         }
 
-        public override bool Equals(object obj) => base.Equals(obj);
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
-        public override int GetHashCode() => base.GetHashCode();
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
         public static double Dot(Vector vec1, Vector vec2)
         {
@@ -66,31 +72,34 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Vectors are not of equal size");
             }
-            Matrix matrix = vec1.Transpose()*vec2;
+            Matrix matrix = vec1.Transpose() * vec2;
             return matrix[0, 0];
         }
 
         public double Length()
         {
-            var num = 0.0;
-            for (var i = 0; i < Size; i++)
+            double num = 0.0;
+            for (int i = 0; i < Size; i++)
             {
-                num += this[i]*this[i];
+                num += this[i] * this[i];
             }
             return Math.Sqrt(num);
         }
 
         public void Normalise()
         {
-            var num = Length();
-            for (var i = 0; i < Size; i++)
+            double num = Length();
+            for (int i = 0; i < Size; i++)
             {
                 int index;
-                this[index = i] = this[index]/num;
+                this[index = i] = this[index] / num;
             }
         }
 
-        public Vector Normalised() => new Vector(this / Length());
+        public Vector Normalised()
+        {
+            return new Vector(this / Length());
+        }
 
         public static Vector operator +(Vector v1, Vector v2)
         {
@@ -102,7 +111,10 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec + scalar);
         }
 
-        public static Vector Add(Vector vec, double scalar) => new Vector(vec + scalar);
+        public static Vector Add(Vector vec, double scalar)
+        {
+            return new Vector(vec + scalar);
+        }
 
         public static Vector operator +(double scalar, Vector vec)
         {
@@ -111,26 +123,32 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Vector operator /(Vector vec, double scalar)
         {
-            return new Vector(vec/scalar);
+            return new Vector(vec / scalar);
         }
 
-        public static Vector Divide(Vector vec, double scalar) => new Vector(vec / scalar);
+        public static Vector Divide(Vector vec, double scalar)
+        {
+            return new Vector(vec / scalar);
+        }
 
         public static Vector operator *(Matrix mat, Vector vec)
         {
-            return new Vector(mat*vec);
+            return new Vector(mat * vec);
         }
 
         public static Vector operator *(Vector vec, double scalar)
         {
-            return new Vector(vec*scalar);
+            return new Vector(vec * scalar);
         }
 
-        public static Vector Multiply(Vector vec, double scalar) => new Vector(vec * scalar);
+        public static Vector Multiply(Vector vec, double scalar)
+        {
+            return new Vector(vec * scalar);
+        }
 
         public static Vector operator *(double scalar, Vector vec)
         {
-            return new Vector(scalar*vec);
+            return new Vector(scalar * vec);
         }
 
         public static Vector operator -(Vector v1, Vector v2)
@@ -138,14 +156,20 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(v1 - v2);
         }
 
-        public static Vector Subtract(Vector v1, Vector v2) => new Vector(v1 - v2);
+        public static Vector Subtract(Vector v1, Vector v2)
+        {
+            return new Vector(v1 - v2);
+        }
 
         public static bool operator ==(Vector v1, Vector v2)
         {
             return v1 == v2;
         }
 
-        public static bool Equals(Vector v1, Vector v2) => v1 == v2;
+        public static bool Equals(Vector v1, Vector v2)
+        {
+            return v1 == v2;
+        }
 
         public static bool operator !=(Vector v1, Vector v2)
         {
@@ -162,6 +186,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(-v);
         }
 
-        public static Vector Negate(Vector v) => new Vector(-v);
+        public static Vector Negate(Vector v)
+        {
+            return new Vector(-v);
+        }
     }
 }

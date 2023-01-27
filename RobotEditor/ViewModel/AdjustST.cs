@@ -22,8 +22,8 @@ namespace RobotEditor.ViewModel
         public ToolItems ToolItems
         {
             get => _toolItems;
-            set=>SetProperty(ref _toolItems, value);
-             
+            set => SetProperty(ref _toolItems, value);
+
         }
 
         #endregion

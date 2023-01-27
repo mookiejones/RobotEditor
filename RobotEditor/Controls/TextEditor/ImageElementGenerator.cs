@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ICSharpCode.AvalonEdit.Rendering;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using ICSharpCode.AvalonEdit.Rendering;
 
 namespace RobotEditor.Controls.TextEditor
 {
@@ -16,37 +16,33 @@ namespace RobotEditor.Controls.TextEditor
 
         public ImageElementGenerator(string basePath)
         {
-            if (basePath == null)
-            {
-                throw new ArgumentNullException("basePath");
-            }
-            _basePath = basePath;
+            _basePath = basePath ?? throw new ArgumentNullException("basePath");
         }
 
         private Match FindMatch(int startOffset)
         {
-            var endOffset = CurrentContext.VisualLine.LastDocumentLine.EndOffset;
-            var document = CurrentContext.Document;
-            var text = document.GetText(startOffset, endOffset - startOffset);
+            int endOffset = CurrentContext.VisualLine.LastDocumentLine.EndOffset;
+            ICSharpCode.AvalonEdit.Document.TextDocument document = CurrentContext.Document;
+            string text = document.GetText(startOffset, endOffset - startOffset);
             return ImageRegex.Match(text);
         }
 
         public override int GetFirstInterestedOffset(int startOffset)
         {
-            var match = FindMatch(startOffset);
+            Match match = FindMatch(startOffset);
             return match.Success ? startOffset + match.Index : -1;
         }
 
         public override VisualLineElement ConstructElement(int offset)
         {
-            var match = FindMatch(offset);
+            Match match = FindMatch(offset);
             VisualLineElement result;
             if (match.Success && match.Index == 0)
             {
-                var bitmapImage = LoadBitmap(match.Groups[1].Value);
+                BitmapImage bitmapImage = LoadBitmap(match.Groups[1].Value);
                 if (bitmapImage != null)
                 {
-                    var element = new Image
+                    Image element = new Image
                     {
                         Source = bitmapImage,
                         Width = bitmapImage.PixelWidth,
@@ -65,10 +61,10 @@ namespace RobotEditor.Controls.TextEditor
             BitmapImage result;
             try
             {
-                var text = Path.Combine(_basePath, fileName);
+                string text = Path.Combine(_basePath, fileName);
                 if (File.Exists(text))
                 {
-                    var bitmapImage = new BitmapImage(new Uri(text));
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(text));
                     bitmapImage.Freeze();
                     result = bitmapImage;
                     return result;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace RobotEditor.Windows
@@ -18,8 +17,8 @@ namespace RobotEditor.Windows
         {
             if (sender is Button button)
             {
-                var text = button.Content.ToString();
-                if (!String.IsNullOrEmpty(text))
+                string text = button.Content.ToString();
+                if (!string.IsNullOrEmpty(text))
                 {
                     if (text != "_OK")
                     {

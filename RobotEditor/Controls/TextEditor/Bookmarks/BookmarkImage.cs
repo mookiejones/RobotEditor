@@ -7,16 +7,15 @@ namespace RobotEditor.Controls.TextEditor.Bookmarks
     public sealed class BookmarkImage : IImage
     {
         private readonly IImage _baseimage = null;
-        private readonly BitmapImage _bitmap;
 
         public BookmarkImage(BitmapImage bitmap)
         {
-            _bitmap = bitmap;
+            Bitmap = bitmap;
         }
 
         public ImageSource ImageSource => _baseimage.ImageSource;
 
-        public BitmapImage Bitmap => _bitmap;
+        public BitmapImage Bitmap { get; }
 
         public Icon Icon => _baseimage.Icon;
     }

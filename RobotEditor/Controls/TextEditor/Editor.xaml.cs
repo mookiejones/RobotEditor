@@ -1,21 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Security.Principal;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
@@ -40,6 +23,23 @@ using RobotEditor.Messages;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
 using RobotEditor.Windows;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Security.Principal;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace RobotEditor.Controls.TextEditor
 {
@@ -51,10 +51,10 @@ namespace RobotEditor.Controls.TextEditor
     {
         #region Constants
 
-/*
-        private const int LogicListFontSizeMax = 50;
-        private const int LogicListFontSizeMin = 10;
-*/
+        /*
+                private const int LogicListFontSizeMax = 50;
+                private const int LogicListFontSizeMin = 10;
+        */
         private const double Epsilon = 1E-08;
 
         #endregion
@@ -71,7 +71,10 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         #endregion
 
@@ -80,7 +83,7 @@ namespace RobotEditor.Controls.TextEditor
         public IList<ICompletionDataProvider> CompletionDataProviders { get; set; }
 
         public static readonly DependencyProperty CompletionWindowProperty =
-            DependencyProperty.Register("CompletionWindow", typeof (CompletionWindow), typeof (Editor));
+            DependencyProperty.Register("CompletionWindow", typeof(CompletionWindow), typeof(Editor));
 
         private readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
 
@@ -102,18 +105,18 @@ namespace RobotEditor.Controls.TextEditor
         private static BitmapImage _imgEnum;
         private static BitmapImage _imgSignal;
         // ReSharper disable once UnassignedField.Compiler
-        private static BitmapImage _imgField;
+        private static readonly BitmapImage _imgField;
         private static BitmapImage _imgXyz;
 
         private AbstractLanguageClass _filelanguage;
 
         #endregion
 
-        public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof (string),
-            typeof (Editor), new PropertyMetadata((obj, args) =>
+        public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
+            typeof(Editor), new PropertyMetadata((obj, args) =>
             {
-                var target = (Editor) obj;
-                target.Text = (string) args.NewValue;
+                Editor target = (Editor)obj;
+                target.Text = (string)args.NewValue;
             }));
 
         private void ChangeCommandBindings()
@@ -124,9 +127,9 @@ namespace RobotEditor.Controls.TextEditor
                 if (current.Command == AvalonEditCommands.DeleteLine)
                 {
                     RoutedCommand command = new RoutedCommand("DeleteLine", typeof(Editor), new InputGestureCollection
-			{
-				new KeyGesture(Key.L, ModifierKeys.Control)
-			});
+            {
+                new KeyGesture(Key.L, ModifierKeys.Control)
+            });
                     current.Command = command;
                     break;
                 }
@@ -150,7 +153,7 @@ namespace RobotEditor.Controls.TextEditor
             }
             finally
             {
-                this.InvokeModifiedChanged(false);
+                InvokeModifiedChanged(false);
             }
         }
         public event EventHandler IsModifiedChanged;
@@ -167,8 +170,11 @@ namespace RobotEditor.Controls.TextEditor
             set => SetValue(CompletionWindowProperty, value);
         }
 
-        public IList<ICompletionData> CompletionData { get; // ReSharper disable once UnusedAutoPropertyAccessor.Local
-            private set; }
+        public IList<ICompletionData> CompletionData
+        {
+            get; // ReSharper disable once UnusedAutoPropertyAccessor.Local
+            private set;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -273,9 +279,15 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteVariableDoubleClickCommand,
                     CanExecuteVariableDoubleClickCommand));
 
-        private void ExecuteVariableDoubleClickCommand(object parameter) => SelectText((IVariable)parameter);
+        private void ExecuteVariableDoubleClickCommand(object parameter)
+        {
+            SelectText((IVariable)parameter);
+        }
 
-        private bool CanExecuteVariableDoubleClickCommand(object parameter) => true;
+        private bool CanExecuteVariableDoubleClickCommand(object parameter)
+        {
+            return true;
+        }
 
         #endregion
 
@@ -290,9 +302,15 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteUndoCommand,
                     CanExecuteUndoCommand));
 
-        private void ExecuteUndoCommand() => Undo();
+        private void ExecuteUndoCommand()
+        {
+            _ = Undo();
+        }
 
-        private bool CanExecuteUndoCommand() => true; //CanUndo();
+        private bool CanExecuteUndoCommand()
+        {
+            return true; //CanUndo();
+        }
 
         #endregion
 
@@ -307,9 +325,15 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteRedoCommand,
                     CanExecuteRedoCommand));
 
-        private void ExecuteRedoCommand(object parameter) => Redo();
+        private void ExecuteRedoCommand(object parameter)
+        {
+            _ = Redo();
+        }
 
-        private bool CanExecuteRedoCommand(object parameter) => true; //CanRedo();
+        private bool CanExecuteRedoCommand(object parameter)
+        {
+            return true; //CanRedo();
+        }
 
         #endregion
 
@@ -360,7 +384,10 @@ namespace RobotEditor.Controls.TextEditor
                        ?? (_gotoCommand = new RelayCommand(Goto, CanGoto));
 
 
-        public bool CanGoto() => !String.IsNullOrEmpty(Text);
+        public bool CanGoto()
+        {
+            return !string.IsNullOrEmpty(Text);
+        }
 
         #endregion
 
@@ -374,10 +401,15 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand
                        ?? (_openAllFoldsCommand = new RelayCommand(ExecuteOpenAllFoldsCommand, CanChangeFoldStatus));
 
-        private void ExecuteOpenAllFoldsCommand() => ChangeFoldStatus(true);
+        private void ExecuteOpenAllFoldsCommand()
+        {
+            ChangeFoldStatus(true);
+        }
 
-
-        private bool CanChangeFoldStatus() => _foldingManager != null && _foldingManager.AllFoldings.Any();
+        private bool CanChangeFoldStatus()
+        {
+            return _foldingManager != null && _foldingManager.AllFoldings.Any();
+        }
 
         #endregion
 
@@ -391,7 +423,10 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ToggleCommentCommand => _toggleCommentCommand
                        ?? (_toggleCommentCommand = new RelayCommand(ToggleComment, CanToggleComment));
 
-        public bool CanToggleComment() => !string.IsNullOrEmpty(FileLanguage.CommentChar);
+        public bool CanToggleComment()
+        {
+            return !string.IsNullOrEmpty(FileLanguage.CommentChar);
+        }
 
         #endregion
 
@@ -405,7 +440,10 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ToggleFoldsCommand => _toggleFoldsCommand
                        ?? (_toggleFoldsCommand = new RelayCommand(ToggleFolds, CanToggleFolds));
 
-        public bool CanToggleFolds() => _foldingManager != null && _foldingManager.AllFoldings.Any();
+        public bool CanToggleFolds()
+        {
+            return _foldingManager != null && _foldingManager.AllFoldings.Any();
+        }
 
         #endregion
 
@@ -432,9 +470,15 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteCloseAllFoldsCommand,
                     CanExecuteCloseAllFoldsCommand));
 
-        private void ExecuteCloseAllFoldsCommand(object parameter) => ChangeFoldStatus(true);
+        private void ExecuteCloseAllFoldsCommand(object parameter)
+        {
+            ChangeFoldStatus(true);
+        }
 
-        private bool CanExecuteCloseAllFoldsCommand(object parameter) => _foldingManager != null && _foldingManager.AllFoldings.Any();
+        private bool CanExecuteCloseAllFoldsCommand(object parameter)
+        {
+            return _foldingManager != null && _foldingManager.AllFoldings.Any();
+        }
 
         #endregion
 
@@ -448,7 +492,10 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand AddTimeStampCommand => _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
                     ExecuteAddTimeStampCommand));
 
-        private void ExecuteAddTimeStampCommand() => AddTimeStamp(true);
+        private void ExecuteAddTimeStampCommand()
+        {
+            AddTimeStamp(true);
+        }
 
         #endregion
 
@@ -462,9 +509,15 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand FindCommand => _findCommand
                        ?? (_findCommand = new RelayCommand(ExecuteFindCommand, CanFind));
 
-        private void ExecuteFindCommand() => ChangeFoldStatus(true);
+        private void ExecuteFindCommand()
+        {
+            ChangeFoldStatus(true);
+        }
 
-        public bool CanFind() => _foldingManager != null && _foldingManager.AllFoldings.Any();
+        public bool CanFind()
+        {
+            return _foldingManager != null && _foldingManager.AllFoldings.Any();
+        }
 
         #endregion
 
@@ -490,7 +543,10 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ShowDefinitionsCommand => _showDefinitionsCommand
                        ?? (_showDefinitionsCommand = new RelayCommand(ShowDefinitions, CanShowDefinitions));
 
-        public bool CanShowDefinitions() => _foldingManager != null;
+        public bool CanShowDefinitions()
+        {
+            return _foldingManager != null;
+        }
 
         #endregion
 
@@ -504,10 +560,15 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand CutCommand => _cutCommand
                        ?? (_cutCommand = new RelayCommand(ExecuteCutCommand, CanCut));
 
-        private void ExecuteCutCommand() => Cut();
+        private void ExecuteCutCommand()
+        {
+            Cut();
+        }
 
-
-        public bool CanCut() => Text.Length > 0;
+        public bool CanCut()
+        {
+            return Text.Length > 0;
+        }
 
         #endregion
 
@@ -522,9 +583,15 @@ namespace RobotEditor.Controls.TextEditor
                        ?? (_copyCommand = new RelayCommand(ExecuteCopy, CanCopy));
 
 
-        public void ExecuteCopy() => Copy();
+        public void ExecuteCopy()
+        {
+            Copy();
+        }
 
-        public bool CanCopy() => Text.Length > 0;
+        public bool CanCopy()
+        {
+            return Text.Length > 0;
+        }
 
         #endregion
 
@@ -563,9 +630,15 @@ namespace RobotEditor.Controls.TextEditor
                     ExecutePasteCommand,
                     CanExecutePasteCommand));
 
-        private void ExecutePasteCommand() => Paste();
+        private void ExecutePasteCommand()
+        {
+            Paste();
+        }
 
-        private bool CanExecutePasteCommand() => Clipboard.ContainsText();
+        private bool CanExecutePasteCommand()
+        {
+            return Clipboard.ContainsText();
+        }
 
         #endregion
 
@@ -575,30 +648,30 @@ namespace RobotEditor.Controls.TextEditor
         ///     Add Time Stamp to TextBox
         /// </summary>
         /// <param name="b"></param>
-// ReSharper disable UnusedParameter.Local
+        // ReSharper disable UnusedParameter.Local
         private void AddTimeStamp(bool b)
-// ReSharper restore UnusedParameter.Local
+        // ReSharper restore UnusedParameter.Local
         {
-            var item = new SnippetTextElement
+            SnippetTextElement item = new SnippetTextElement
             {
                 Text = "\r\n; * "
             };
-            var item2 = new SnippetTextElement
+            SnippetTextElement item2 = new SnippetTextElement
             {
                 Text = "By : "
             };
-            var current = WindowsIdentity.GetCurrent();
+            WindowsIdentity current = WindowsIdentity.GetCurrent();
             if (current != null)
             {
-                var item3 = new SnippetReplaceableTextElement
+                SnippetReplaceableTextElement item3 = new SnippetReplaceableTextElement
                 {
                     Text = current.Name
                 };
-                var item4 = new SnippetTextElement
+                SnippetTextElement item4 = new SnippetTextElement
                 {
-                    Text = DateTime.Now.ToString(((EditorOptions) Options).TimestampFormat)
+                    Text = DateTime.Now.ToString(((EditorOptions)Options).TimestampFormat)
                 };
-                var snippet = new Snippet
+                Snippet snippet = new Snippet
                 {
                     Elements =
                     {
@@ -617,14 +690,14 @@ namespace RobotEditor.Controls.TextEditor
 
         private void OpenFunctionItem(object parameter)
         {
-            var var = (IVariable) ((ListViewItem) parameter).Content;
+            IVariable var = (IVariable)((ListViewItem)parameter).Content;
             SelectText(var);
         }
 
         private void InitializeMyControl()
         {
             TextArea.LeftMargins.Insert(0, _iconBarMargin);
-            SearchPanel.Install(TextArea);
+            _ = SearchPanel.Install(TextArea);
             TextArea.TextEntered += TextEntered;
             TextArea.Caret.PositionChanged += CaretPositionChanged;
             DataContext = this;
@@ -638,7 +711,7 @@ namespace RobotEditor.Controls.TextEditor
 // ReSharper disable UnusedParameter.Local
         private void HighlightBrackets(object sender, EventArgs e)
         {
-            var highlight = _bracketSearcher.SearchBracket(Document, TextArea.Caret.Offset);
+            BracketSearchResult highlight = _bracketSearcher.SearchBracket(Document, TextArea.Caret.Offset);
             _bracketRenderer.SetHighlight(highlight);
         }
 
@@ -647,14 +720,14 @@ namespace RobotEditor.Controls.TextEditor
         private void CaretPositionChanged(object sender, EventArgs e)
         {
             UpdateLineTransformers();
-            if (sender is Caret caret)
+            if (sender is Caret)
             {
                 OnPropertyChanged("Line");
                 OnPropertyChanged("Column");
                 OnPropertyChanged("Offset");
-                FileSave = ((!string.IsNullOrEmpty(Filename))
+                FileSave = (!string.IsNullOrEmpty(Filename))
                     ? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture)
-                    : string.Empty);
+                    : string.Empty;
             }
             HighlightBrackets(sender, e);
         }
@@ -689,10 +762,10 @@ namespace RobotEditor.Controls.TextEditor
             }
             else
             {
-                var modifiers = Keyboard.Modifiers;
+                ModifierKeys modifiers = Keyboard.Modifiers;
                 if (modifiers == ModifierKeys.Control)
                 {
-                    var key = e.Key;
+                    Key key = e.Key;
                     if (key == Key.O)
                     {
                         if (!string.IsNullOrEmpty(FileLanguage.CommentChar))
@@ -708,7 +781,7 @@ namespace RobotEditor.Controls.TextEditor
 
         private void AddBookMark(int lineNumber, BitmapImage img)
         {
-            var image = new BookmarkImage(img);
+            BookmarkImage image = new BookmarkImage(img);
             _iconBarManager.Bookmarks.Add(new ClassMemberBookmark(lineNumber, image));
         }
 
@@ -718,7 +791,7 @@ namespace RobotEditor.Controls.TextEditor
             if (!string.IsNullOrEmpty(matchstring.ToString()))
             {
                 // Was To lower invariant
-                var match = matchstring.Match(Text);
+                Match match = matchstring.Match(Text);
 
                 while (match.Success)
                 {
@@ -732,7 +805,7 @@ namespace RobotEditor.Controls.TextEditor
                         Path = Filename,
                         Icon = img
                     });
-                    var lineByOffset = Document.GetLineByOffset(match.Index);
+                    DocumentLine lineByOffset = Document.GetLineByOffset(match.Index);
                     AddBookMark(lineByOffset.LineNumber, img);
                     match = match.NextMatch();
                 }
@@ -764,19 +837,29 @@ namespace RobotEditor.Controls.TextEditor
         private void CreateImages()
         {
             if (_imgMethod == null)
+            {
                 _imgMethod = ImageHelper.LoadBitmap(Global.ImgMethod);
+            }
 
             if (_imgStruct == null)
+            {
                 _imgMethod = ImageHelper.LoadBitmap(Global.ImgStruct);
+            }
 
             if (_imgEnum == null)
+            {
                 _imgEnum = ImageHelper.LoadBitmap(Global.ImgEnum);
+            }
 
             if (_imgSignal == null)
+            {
                 _imgSignal = ImageHelper.LoadBitmap(Global.ImgSignal);
+            }
 
             if (_imgXyz == null)
+            {
                 _imgXyz = ImageHelper.LoadBitmap(Global.ImgXyz);
+            }
         }
 
         private void FindBookmarkMembers()
@@ -816,18 +899,18 @@ namespace RobotEditor.Controls.TextEditor
         {
             try
             {
-                var flag = Convert.ToBoolean(param);
-                var lineByOffset = Document.GetLineByOffset(SelectionStart);
-                var lineByOffset2 = Document.GetLineByOffset(SelectionStart + SelectionLength);
-                var num = 0;
+                bool flag = Convert.ToBoolean(param);
+                DocumentLine lineByOffset = Document.GetLineByOffset(SelectionStart);
+                DocumentLine lineByOffset2 = Document.GetLineByOffset(SelectionStart + SelectionLength);
+                int num = 0;
                 using (Document.RunUpdate())
                 {
-                    var documentLine = lineByOffset;
+                    DocumentLine documentLine = lineByOffset;
                     while (documentLine.LineNumber < lineByOffset2.LineNumber + 1)
                     {
-                        var line = GetLine(documentLine.LineNumber);
-                        var regex = new Regex("(^[\\s]+)");
-                        var match = regex.Match(line);
+                        string line = GetLine(documentLine.LineNumber);
+                        Regex regex = new Regex("(^[\\s]+)");
+                        Match match = regex.Match(line);
                         if (match.Success)
                         {
                             num = match.Groups[1].Length;
@@ -838,7 +921,7 @@ namespace RobotEditor.Controls.TextEditor
                         }
                         else
                         {
-                            num = ((num > 1) ? (num - 1) : num);
+                            num = (num > 1) ? (num - 1) : num;
                             if (num >= 1)
                             {
                                 Document.Replace(documentLine.Offset, line.Length, line.Substring(1));
@@ -850,8 +933,8 @@ namespace RobotEditor.Controls.TextEditor
             }
             catch (Exception ex)
             {
-                var msg = new ErrorMessage("Editor.ChangeIndent", ex);
-                WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                ErrorMessage msg = new ErrorMessage("Editor.ChangeIndent", ex);
+                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
@@ -859,14 +942,14 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (FileLanguage != null)
             {
-                var lineByOffset = Document.GetLineByOffset(SelectionStart);
-                var lineByOffset2 = Document.GetLineByOffset(SelectionStart + SelectionLength);
+                DocumentLine lineByOffset = Document.GetLineByOffset(SelectionStart);
+                DocumentLine lineByOffset2 = Document.GetLineByOffset(SelectionStart + SelectionLength);
                 using (Document.RunUpdate())
                 {
-                    var documentLine = lineByOffset;
+                    DocumentLine documentLine = lineByOffset;
                     while (documentLine.LineNumber < lineByOffset2.LineNumber + 1)
                     {
-                        var line = GetLine(documentLine.LineNumber);
+                        string line = GetLine(documentLine.LineNumber);
                         if (FileLanguage.IsLineCommented(line))
                         {
                             Document.Insert(FileLanguage.CommentOffset(line) + documentLine.Offset,
@@ -874,7 +957,7 @@ namespace RobotEditor.Controls.TextEditor
                         }
                         else
                         {
-                            var text = FileLanguage.CommentReplaceString(line);
+                            string text = FileLanguage.CommentReplaceString(line);
                             Document.Replace(documentLine.Offset, line.Length, text);
                         }
                         documentLine = documentLine.NextLine;
@@ -883,7 +966,10 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        private bool CanSave() => File.Exists(Filename) ? IsModified : IsModified;
+        private bool CanSave()
+        {
+            return File.Exists(Filename) ? IsModified : IsModified;
+        }
 
         private void Replace()
         {
@@ -893,13 +979,13 @@ namespace RobotEditor.Controls.TextEditor
 
         private void Goto()
         {
-            var dataContext = new GotoViewModel(this);
-            var gotoDialog = new GotoWindow
+            GotoViewModel dataContext = new GotoViewModel(this);
+            GotoWindow gotoDialog = new GotoWindow
             {
                 DataContext = dataContext
             };
-// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-            gotoDialog.ShowDialog().GetValueOrDefault();
+            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+            _ = gotoDialog.ShowDialog().GetValueOrDefault();
         }
 
         private bool IsFileLocked(System.IO.FileInfo file)
@@ -916,16 +1002,13 @@ namespace RobotEditor.Controls.TextEditor
                 }
                 catch (IOException ex)
                 {
-                    var msg = new ErrorMessage("File is locked!", ex);
-                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                    ErrorMessage msg = new ErrorMessage("File is locked!", ex);
+                    _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                     return true;
                 }
                 finally
                 {
-                    if (fileStream != null)
-                    {
-                        fileStream.Close();
-                    }
+                    fileStream?.Close();
                 }
             }
             return false;
@@ -933,41 +1016,41 @@ namespace RobotEditor.Controls.TextEditor
 
         private string GetFilename()
         {
-            var ofd = new SaveFileDialog {Title = "Save As", Filter = "All _files(*.*)|*.*"};
+            SaveFileDialog ofd = new SaveFileDialog { Title = "Save As", Filter = "All _files(*.*)|*.*" };
 
-            if (!String.IsNullOrEmpty(Filename))
+            if (!string.IsNullOrEmpty(Filename))
             {
                 ofd.FileName = Filename;
-                ofd.Filter += String.Format("|Current Type (*{0})|*{0}", Path.GetExtension(Filename));
+                ofd.Filter += string.Format("|Current Type (*{0})|*{0}", Path.GetExtension(Filename));
                 ofd.FilterIndex = 2;
                 ofd.DefaultExt = Path.GetExtension(Filename);
             }
 
             // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-            var result = ofd.ShowDialog().GetValueOrDefault();
+            bool result = ofd.ShowDialog().GetValueOrDefault();
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
             return result ? ofd.FileName : string.Empty;
         }
 
         public void SaveAs()
         {
-            var filename = GetFilename();
+            string filename = GetFilename();
             if (!string.IsNullOrEmpty(filename))
             {
                 Filename = filename;
-                var flag = IsFileLocked(new System.IO.FileInfo(Filename));
+                bool flag = IsFileLocked(new System.IO.FileInfo(Filename));
                 if (!flag)
                 {
                     File.WriteAllText(Filename, Text);
                     RaisePropertyChanged("Title");
 
-                    var msg = new OutputWindowMessage
+                    OutputWindowMessage msg = new OutputWindowMessage
                     {
                         Title = "File Saved",
-                        Description = Filename, 
+                        Description = Filename,
                     };
 
-                    WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                    _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 }
             }
         }
@@ -976,7 +1059,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (string.IsNullOrEmpty(Filename))
             {
-                var filename = GetFilename();
+                string filename = GetFilename();
                 if (string.IsNullOrEmpty(filename))
                 {
                     return;
@@ -998,7 +1081,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             base.OnOptionChanged(e);
             Console.WriteLine(e.PropertyName);
-            var propertyName = e.PropertyName;
+            string propertyName = e.PropertyName;
             if (propertyName != null)
             {
                 if (propertyName == "EnableFolding")
@@ -1020,15 +1103,15 @@ namespace RobotEditor.Controls.TextEditor
             }
             catch (Exception ex)
             {
-                var msg = new ErrorMessage(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
+                ErrorMessage msg = new ErrorMessage(string.Format("Could not load Syntax Highlighting for {0}", Filename), ex,
                     MessageType.Error);
-                WeakReferenceMessenger.Default.Send<IMessage>(msg);
+                _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
         }
 
         private void Complete(char newChar)
         {
-            
+
         }
         public string DocumentType { get; set; }
         public bool UseCodeCompletion { get; set; }
@@ -1036,7 +1119,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (!base.IsReadOnly && e.Text.Length == 1)
             {
-                var newChar = e.Text[0];
+                char newChar = e.Text[0];
                 if (UseCodeCompletion)
                 {
                     Complete(newChar);
@@ -1047,21 +1130,21 @@ namespace RobotEditor.Controls.TextEditor
                 return;
             }
 
-            string wordBeforeCaret = this.GetWordBeforeCaret(this.GetWordParts());
+            string wordBeforeCaret = this.GetWordBeforeCaret(GetWordParts());
 
-            if (SnippetManager.HasSnippetsFor(wordBeforeCaret, this.DocumentType))
+            if (SnippetManager.HasSnippetsFor(wordBeforeCaret, DocumentType))
             {
                 insightWindow = new InsightWindow(base.TextArea)
                 {
                     Content = "Press tab to enter snippet",
                     Background = Brushes.Linen
                 };
-                this.insightWindow.Show();
+                insightWindow.Show();
                 return;
             }
             if (FileLanguage != null && !(FileLanguage is LanguageBase))
             {
-                var text = FindWord();
+                string text = FindWord();
                 if (IsModified || IsModified)
                 {
                     UpdateFolds();
@@ -1072,14 +1155,14 @@ namespace RobotEditor.Controls.TextEditor
                 }
             }
         }
-      
+
 
         private InsightWindow insightWindow;
         private void ShowCompletionWindow(string currentword)
         {
             CompletionWindow = new CompletionWindow(TextArea);
-            var completionItems = GetCompletionItems();
-            foreach (var current in completionItems)
+            IEnumerable<ICompletionData> completionItems = GetCompletionItems();
+            foreach (ICompletionData current in completionItems)
             {
                 CompletionWindow.CompletionList.CompletionData.Add(current);
             }
@@ -1094,7 +1177,7 @@ namespace RobotEditor.Controls.TextEditor
 
         private IEnumerable<ICompletionData> GetCompletionItems()
         {
-            var list = new List<ICompletionData>();
+            List<ICompletionData> list = new List<ICompletionData>();
             list.AddRange(HighlightList());
             list.AddRange(ObjectBrowserCompletionList());
             return list.ToArray();
@@ -1102,8 +1185,8 @@ namespace RobotEditor.Controls.TextEditor
 
         private IEnumerable<ICompletionData> HighlightList()
         {
-            var items = new List<CodeCompletion>();
-            foreach (var current in
+            List<CodeCompletion> items = new List<CodeCompletion>();
+            foreach (CodeCompletion current in
                 from rule in SyntaxHighlighting.MainRuleSet.Rules
                 select rule.Regex.ToString()
                 into parseString
@@ -1117,12 +1200,12 @@ namespace RobotEditor.Controls.TextEditor
                 })
                 into spl
                 from item in
-                    from t in spl
-                    where !string.IsNullOrEmpty(t)
-                    select new CodeCompletion(t.Replace("\\b", ""))
+                from t in spl
+                where !string.IsNullOrEmpty(t)
+                select new CodeCompletion(t.Replace("\\b", ""))
                     into item
-                    where !items.Contains(item) && char.IsLetter(item.Text, 0)
-                    select item
+                where !items.Contains(item) && char.IsLetter(item.Text, 0)
+                select item
                 select item)
             {
                 items.Add(current);
@@ -1130,13 +1213,16 @@ namespace RobotEditor.Controls.TextEditor
             return items.ToArray();
         }
 
-        private IEnumerable<ICompletionData> ObjectBrowserCompletionList() => (
+        private IEnumerable<ICompletionData> ObjectBrowserCompletionList()
+        {
+            return (
                 from v in FileLanguage.Fields
                 where v.Type != "def" && v.Type != "deffct"
                 select new CodeCompletion(v.Name)
                 {
                     Image = v.Icon
                 }).ToArray<ICompletionData>();
+        }
 
         private void TextEditor_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -1155,12 +1241,12 @@ namespace RobotEditor.Controls.TextEditor
 
         public void ReplaceAll()
         {
-            var regexPattern = FindReplaceViewModel.Instance.RegexPattern;
-            var match = regexPattern.Match(Text);
+            Regex regexPattern = FindReplaceViewModel.Instance.RegexPattern;
+            Match match = regexPattern.Match(Text);
             while (match.Success)
             {
-                Document.GetLineByOffset(match.Index);
-                regexPattern.Replace(FindReplaceViewModel.Instance.LookFor, FindReplaceViewModel.Instance.ReplaceWith,
+                _ = Document.GetLineByOffset(match.Index);
+                _ = regexPattern.Replace(FindReplaceViewModel.Instance.LookFor, FindReplaceViewModel.Instance.ReplaceWith,
                     match.Index);
                 match = match.NextMatch();
             }
@@ -1174,10 +1260,10 @@ namespace RobotEditor.Controls.TextEditor
 
         public void FindText()
         {
-            var num = Text.IndexOf(FindReplaceViewModel.Instance.LookFor, CaretOffset, StringComparison.Ordinal);
+            int num = Text.IndexOf(FindReplaceViewModel.Instance.LookFor, CaretOffset, StringComparison.Ordinal);
             if (num > -1)
             {
-                Document.GetLineByOffset(num);
+                _ = Document.GetLineByOffset(num);
                 JumpTo(new Variable
                 {
                     Offset = num
@@ -1194,14 +1280,14 @@ namespace RobotEditor.Controls.TextEditor
 
         private void JumpTo(IVariable i)
         {
-            var location = Document.GetLocation(Convert.ToInt32(i.Offset));
+            TextLocation location = Document.GetLocation(Convert.ToInt32(i.Offset));
             ScrollTo(location.Line, location.Column);
             SelectionStart = Convert.ToInt32(i.Offset);
             SelectionLength = i.Value.Length;
-            Focus();
+            _ = Focus();
             if (EditorOptions.Instance.EnableAnimations)
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(DisplayCaretHighlightAnimation));
+                _ = Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(DisplayCaretHighlightAnimation));
             }
         }
 
@@ -1209,10 +1295,10 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (TextArea != null)
             {
-                var adornerLayer = AdornerLayer.GetAdornerLayer(TextArea.TextView);
+                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(TextArea.TextView);
                 if (adornerLayer != null)
                 {
-                    var adorner = new CaretHighlightAdorner(TextArea);
+                    CaretHighlightAdorner adorner = new CaretHighlightAdorner(TextArea);
                     adornerLayer.Add(adorner);
                 }
             }
@@ -1226,14 +1312,14 @@ namespace RobotEditor.Controls.TextEditor
                 {
                     throw new ArgumentNullException("var");
                 }
-                var lineByOffset = Document.GetLineByOffset(var.Offset);
+                DocumentLine lineByOffset = Document.GetLineByOffset(var.Offset);
                 TextArea.Caret.BringCaretToView();
                 CaretOffset = lineByOffset.Offset;
                 ScrollToLine(lineByOffset.LineNumber);
-                var foldingsAt = _foldingManager.GetFoldingsAt(lineByOffset.Offset);
+                ReadOnlyCollection<FoldingSection> foldingsAt = _foldingManager.GetFoldingsAt(lineByOffset.Offset);
                 if (foldingsAt.Count > 0)
                 {
-                    var foldingSection = foldingsAt[0];
+                    FoldingSection foldingSection = foldingsAt[0];
                     foldingSection.IsFolded = false;
                 }
                 FindText(var.Offset, var.Name);
@@ -1243,7 +1329,7 @@ namespace RobotEditor.Controls.TextEditor
 
         private void FindText(int startOffset, string text)
         {
-            var selectionStart = Text.IndexOf(text, startOffset, StringComparison.OrdinalIgnoreCase);
+            int selectionStart = Text.IndexOf(text, startOffset, StringComparison.OrdinalIgnoreCase);
             SelectionStart = selectionStart;
             SelectionLength = text.Length;
         }
@@ -1257,7 +1343,10 @@ namespace RobotEditor.Controls.TextEditor
             SelectionStart = Text.IndexOf(text, CaretOffset, StringComparison.Ordinal);
         }
 
-        public void ShowFindDialog() => FindAndReplaceWindow.Instance.ShowDialog();
+        public void ShowFindDialog()
+        {
+            _ = FindAndReplaceWindow.Instance.ShowDialog();
+        }
 
         private void EditorPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -1284,7 +1373,7 @@ namespace RobotEditor.Controls.TextEditor
         [Localizable(false)]
         private void UpdateFolds()
         {
-            var flag = Options is EditorOptions editorOptions && editorOptions.EnableFolding;
+            bool flag = Options is EditorOptions editorOptions && editorOptions.EnableFolding;
             if (SyntaxHighlighting == null)
             {
                 _foldingStrategy = null;
@@ -1336,7 +1425,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (!(DocumentViewModel.Instance.FileLanguage is LanguageBase) || !(Path.GetExtension(Filename) == ".xml"))
             {
-                foreach (var current in _foldingManager.AllFoldings)
+                foreach (FoldingSection current in _foldingManager.AllFoldings)
                 {
                     current.Title = DocumentViewModel.Instance.FileLanguage.FoldTitle(current, Document);
                 }
@@ -1345,15 +1434,15 @@ namespace RobotEditor.Controls.TextEditor
 
         private string GetLine(int idx)
         {
-            var lineByNumber = Document.GetLineByNumber(idx);
+            DocumentLine lineByNumber = Document.GetLineByNumber(idx);
             return Document.GetText(lineByNumber.Offset, lineByNumber.Length);
         }
 
         public string FindWord()
         {
-            var line = GetLine(TextArea.Caret.Line);
-            var text = line;
-            var anyOf = new[]
+            string line = GetLine(TextArea.Caret.Line);
+            string text = line;
+            char[] anyOf = new[]
             {
                 ' ',
                 '=',
@@ -1366,12 +1455,12 @@ namespace RobotEditor.Controls.TextEditor
                 '\r',
                 '\n'
             };
-            var num = line.IndexOfAny(anyOf, TextArea.Caret.Column - 1);
+            int num = line.IndexOfAny(anyOf, TextArea.Caret.Column - 1);
             if (num > -1)
             {
                 text = line.Substring(0, num);
             }
-            var num2 = text.LastIndexOfAny(anyOf) + 1;
+            int num2 = text.LastIndexOfAny(anyOf) + 1;
             if (num2 > -1)
             {
                 text = text.Substring(num2).Trim();
@@ -1381,8 +1470,8 @@ namespace RobotEditor.Controls.TextEditor
 
         private bool GetCurrentFold(TextViewPosition loc)
         {
-            var offset = Document.GetOffset(loc.Location);
-            var foldingsAt = _foldingManager.GetFoldingsAt(offset);
+            int offset = Document.GetOffset(loc.Location);
+            ReadOnlyCollection<FoldingSection> foldingsAt = _foldingManager.GetFoldingsAt(offset);
             bool result;
             if (foldingsAt.Count == 0)
             {
@@ -1392,7 +1481,7 @@ namespace RobotEditor.Controls.TextEditor
             {
                 _toolTip = new ToolTip
                 {
-                    Style = (Style) FindResource("FoldToolTipStyle"),
+                    Style = (Style)FindResource("FoldToolTipStyle"),
                     DataContext = foldingsAt,
                     PlacementTarget = this,
                     IsOpen = true
@@ -1406,7 +1495,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (_foldingManager != null)
             {
-                var positionFromPoint = GetPositionFromPoint(e.GetPosition(this));
+                TextViewPosition? positionFromPoint = GetPositionFromPoint(e.GetPosition(this));
                 if (positionFromPoint.HasValue)
                 {
                     e.Handled = GetCurrentFold(positionFromPoint.Value);
@@ -1418,7 +1507,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (_foldingManager != null)
             {
-                var foldingSection =
+                FoldingSection foldingSection =
                     _foldingManager.GetNextFolding(TextArea.Document.GetOffset(TextArea.Caret.Line,
                         TextArea.Caret.Column));
                 if (foldingSection == null ||
@@ -1437,7 +1526,7 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (_foldingManager != null)
             {
-                foreach (var current in _foldingManager.AllFoldings)
+                foreach (FoldingSection current in _foldingManager.AllFoldings)
                 {
                     current.IsFolded = !current.IsFolded;
                 }
@@ -1446,7 +1535,7 @@ namespace RobotEditor.Controls.TextEditor
 
         private void ChangeFoldStatus(bool isFolded)
         {
-            foreach (var current in _foldingManager.AllFoldings)
+            foreach (FoldingSection current in _foldingManager.AllFoldings)
             {
                 current.IsFolded = isFolded;
             }
@@ -1456,14 +1545,17 @@ namespace RobotEditor.Controls.TextEditor
         {
             if (_foldingManager != null)
             {
-                foreach (var current in _foldingManager.AllFoldings)
+                foreach (FoldingSection current in _foldingManager.AllFoldings)
                 {
-                    current.IsFolded = (current.Tag is NewFolding);
+                    current.IsFolded = current.Tag is NewFolding;
                 }
             }
         }
 
-        private void RaisePropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        private void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         /*
                 private void SetWatcher()
@@ -1477,7 +1569,7 @@ namespace RobotEditor.Controls.TextEditor
 
         private void Reload()
         {
-            var messageBoxResult = MessageBox.Show("Are you sure you want to reload file?", "Reload file",
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to reload file?", "Reload file",
                 MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
             if (messageBoxResult == MessageBoxResult.OK | !IsModified)
             {
@@ -1486,57 +1578,57 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-/*
-        [Localizable(false)]
-        private void InsertSnippet()
-        {
-            var snippetReplaceableTextElement = new SnippetReplaceableTextElement {Text = "i"};
-            var snippet = new Snippet
-            {
-                Elements =
+        /*
+                [Localizable(false)]
+                private void InsertSnippet()
                 {
-                    new SnippetTextElement
+                    var snippetReplaceableTextElement = new SnippetReplaceableTextElement {Text = "i"};
+                    var snippet = new Snippet
                     {
-                        Text = "for "
-                    },
-                    new SnippetReplaceableTextElement
-                    {
-                        Text = "item"
-                    },
-                    new SnippetTextElement
-                    {
-                        Text = " in range("
-                    },
-                    new SnippetReplaceableTextElement
-                    {
-                        Text = "from"
-                    },
-                    new SnippetTextElement
-                    {
-                        Text = ", "
-                    },
-                    new SnippetReplaceableTextElement
-                    {
-                        Text = "to"
-                    },
-                    new SnippetTextElement
-                    {
-                        Text = ", "
-                    },
-                    new SnippetReplaceableTextElement
-                    {
-                        Text = "step"
-                    },
-                    new SnippetTextElement
-                    {
-                        Text = "):backN\t"
-                    },
-                    new SnippetSelectionElement()
+                        Elements =
+                        {
+                            new SnippetTextElement
+                            {
+                                Text = "for "
+                            },
+                            new SnippetReplaceableTextElement
+                            {
+                                Text = "item"
+                            },
+                            new SnippetTextElement
+                            {
+                                Text = " in range("
+                            },
+                            new SnippetReplaceableTextElement
+                            {
+                                Text = "from"
+                            },
+                            new SnippetTextElement
+                            {
+                                Text = ", "
+                            },
+                            new SnippetReplaceableTextElement
+                            {
+                                Text = "to"
+                            },
+                            new SnippetTextElement
+                            {
+                                Text = ", "
+                            },
+                            new SnippetReplaceableTextElement
+                            {
+                                Text = "step"
+                            },
+                            new SnippetTextElement
+                            {
+                                Text = "):backN\t"
+                            },
+                            new SnippetSelectionElement()
+                        }
+                    };
+                    snippet.Insert(TextArea);
                 }
-            };
-            snippet.Insert(TextArea);
-        }
-*/
+        */
 
         private void TextEditorGotFocus(object sender, RoutedEventArgs e)
         {
@@ -1545,26 +1637,33 @@ namespace RobotEditor.Controls.TextEditor
             OnPropertyChanged("Column");
             OnPropertyChanged("Offset");
             OnPropertyChanged("RobotType");
-            FileSave = ((!string.IsNullOrEmpty(Filename))
+            FileSave = (!string.IsNullOrEmpty(Filename))
                 ? File.GetLastWriteTime(Filename).ToString(CultureInfo.InvariantCulture)
-                : string.Empty);
+                : string.Empty;
         }
 
-        protected internal virtual char[] GetWordParts() => new char[0];
+        protected internal virtual char[] GetWordParts()
+        {
+            return new char[0];
+        }
     }
 
     public static class DocumentUtilitites
     {
-        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
+        public static int FindNextWordEnd(this TextDocument document, int offset)
+        {
+            return document.FindNextWordEnd(offset, new List<char>());
+        }
+
         public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
                 if (num >= document.TextLength)
                 {
                     return -1;
                 }
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
                 {
                     return num;
@@ -1574,13 +1673,13 @@ namespace RobotEditor.Controls.TextEditor
         }
         public static int FindNextWordStart(this TextDocument document, int offset)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
                 if (num >= document.TextLength)
                 {
                     return 0;
                 }
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWhitespaceOrNewline(charAt))
                 {
                     return num;
@@ -1590,9 +1689,9 @@ namespace RobotEditor.Controls.TextEditor
         }
         public static int FindNextWordStartRelativeTo(this TextDocument document, int offset)
         {
-            for (var num = offset; num != -1; num++)
+            for (int num = offset; num != -1; num++)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWhitespaceOrNewline(charAt))
                 {
                     return num - offset;
@@ -1602,9 +1701,9 @@ namespace RobotEditor.Controls.TextEditor
         }
         public static int FindPrevWordStart(this TextDocument document, int offset)
         {
-            for (var num = offset - 1; num != -1; num--)
+            for (int num = offset - 1; num != -1; num--)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt))
                 {
                     return num + 1;
@@ -1614,18 +1713,16 @@ namespace RobotEditor.Controls.TextEditor
         }
         public static ISegment GetLineWithoutIndent(this TextDocument document, int lineNumber)
         {
-            var lineByNumber = document.GetLineByNumber(lineNumber);
-            var whitespaceAfter = TextUtilities.GetWhitespaceAfter(document, lineByNumber.Offset);
-            if (whitespaceAfter.Length == 0)
-            {
-                return lineByNumber;
-            }
-            return new TextSegment
-            {
-                StartOffset = lineByNumber.Offset + whitespaceAfter.Length,
-                EndOffset = lineByNumber.EndOffset,
-                Length = lineByNumber.Length - whitespaceAfter.Length
-            };
+            DocumentLine lineByNumber = document.GetLineByNumber(lineNumber);
+            ISegment whitespaceAfter = TextUtilities.GetWhitespaceAfter(document, lineByNumber.Offset);
+            return whitespaceAfter.Length == 0
+                ? lineByNumber
+                : (ISegment)new TextSegment
+                {
+                    StartOffset = lineByNumber.Offset + whitespaceAfter.Length,
+                    EndOffset = lineByNumber.EndOffset,
+                    Length = lineByNumber.Length - whitespaceAfter.Length
+                };
         }
         public static string GetWordBeforeCaret(this Editor editor)
         {
@@ -1633,13 +1730,9 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = editor.Document.FindPrevWordStart(offset);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = editor.Document.FindPrevWordStart(offset);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
         public static string GetWordBeforeCaret(this Editor editor, char[] allowedChars)
         {
@@ -1647,13 +1740,9 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
         public static string GetStringBeforeCaret(this Editor editor)
         {
@@ -1661,18 +1750,18 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var line = editor.TextArea.Caret.Line;
+            int line = editor.TextArea.Caret.Line;
             if (line < 1)
             {
                 return string.Empty;
             }
-            var offset = editor.TextArea.Caret.Offset;
+            int offset = editor.TextArea.Caret.Offset;
             if (line > editor.Document.LineCount)
             {
                 return string.Empty;
             }
-            var lineByNumber = editor.Document.GetLineByNumber(line);
-            var length = offset - lineByNumber.Offset;
+            DocumentLine lineByNumber = editor.Document.GetLineByNumber(line);
+            int length = offset - lineByNumber.Offset;
             return editor.Document.GetText(lineByNumber.Offset, length);
         }
         public static string GetWordBeforeOffset(this Editor editor, int offset, char[] allowedChars)
@@ -1681,12 +1770,8 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
         public static string GetTokenBeforeOffset(this Editor editor, int offset)
         {
@@ -1694,21 +1779,17 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = -1;
-            for (var i = offset - 1; i > -1; i--)
+            int num = -1;
+            for (int i = offset - 1; i > -1; i--)
             {
-                var charAt = editor.Document.GetCharAt(i);
+                char charAt = editor.Document.GetCharAt(i);
                 if (charAt == ' ' || charAt == '\n' || charAt == '\r' || charAt == '\t')
                 {
                     num = i + 1;
                     break;
                 }
             }
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, offset - num);
+            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
         }
         public static string GetWordUnderCaret(this Editor editor, char[] allowedChars)
         {
@@ -1716,22 +1797,14 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            var num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
         public static string GetFirstWordInLine(this Editor editor, int lineNumber)
         {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            return editor.Document.GetFirstWordInLine(lineNumber);
+            return editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
         }
         public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
         {
@@ -1739,18 +1812,14 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("document");
             }
-            var offset = document.GetOffset(lineNumber, 0);
-            var num = document.FindNextWordStart(offset);
+            int offset = document.GetOffset(lineNumber, 0);
+            int num = document.FindNextWordStart(offset);
             if (num < 0)
             {
                 return string.Empty;
             }
-            var num2 = document.FindNextWordEnd(num);
-            if (num2 < 0)
-            {
-                return string.Empty;
-            }
-            return document.GetText(num, num2 - num);
+            int num2 = document.FindNextWordEnd(num);
+            return num2 < 0 ? string.Empty : document.GetText(num, num2 - num);
         }
         public static string GetWordUnderCaret(this Editor editor)
         {
@@ -1758,14 +1827,10 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var offset = editor.TextArea.Caret.Offset;
-            var num = editor.Document.FindPrevWordStart(offset);
-            var num2 = editor.Document.FindNextWordEnd(offset);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int offset = editor.TextArea.Caret.Offset;
+            int num = editor.Document.FindPrevWordStart(offset);
+            int num2 = editor.Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
         public static string GetWordUnderOffset(this Editor editor, int offset)
         {
@@ -1773,13 +1838,9 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = editor.Document.FindPrevWordStart(offset);
-            var num2 = editor.Document.FindNextWordEnd(offset);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int num = editor.Document.FindPrevWordStart(offset);
+            int num2 = editor.Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
         public static string GetWordUnderOffset(this Editor editor, int offset, char[] allowedChars)
         {
@@ -1787,19 +1848,15 @@ namespace RobotEditor.Controls.TextEditor
             {
                 throw new ArgumentNullException("editor");
             }
-            var num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            var num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            if (num < 0 || num2 == 0 || num2 < num)
-            {
-                return string.Empty;
-            }
-            return editor.Document.GetText(num, num2 - num);
+            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
+            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
         private static int FindPrevWordStart(TextDocument document, int offset, IList<char> allowedChars)
         {
-            for (var num = offset - 1; num != -1; num--)
+            for (int num = offset - 1; num != -1; num--)
             {
-                var charAt = document.GetCharAt(num);
+                char charAt = document.GetCharAt(num);
                 if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
                 {
                     return num + 1;
@@ -1807,15 +1864,22 @@ namespace RobotEditor.Controls.TextEditor
             }
             return 0;
         }
-        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
+        public static bool IsWhitespaceOrNewline(char ch)
+        {
+            return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
+        }
+
+        private static bool IsWordPart(char ch)
+        {
+            return char.IsLetterOrDigit(ch) || ch == '_';
+        }
     }
     public static class FileExtended
     {
         public static bool AreEqual(string path1, string path2)
         {
-            var fullName = new System.IO.FileInfo(path1).FullName;
-            var fullName2 = new System.IO.FileInfo(path2).FullName;
+            string fullName = new System.IO.FileInfo(path1).FullName;
+            string fullName2 = new System.IO.FileInfo(path2).FullName;
             return fullName.Equals(fullName2, StringComparison.InvariantCultureIgnoreCase);
         }
         public static string CopyIfExisting(string sourcePath, string targetPath)
@@ -1838,21 +1902,25 @@ namespace RobotEditor.Controls.TextEditor
                     throw new InvalidOperationException("Target path should not be null.");
                 }
             }
-            Directory.CreateDirectory(text);
+            _ = Directory.CreateDirectory(text);
             File.Copy(sourcePath, targetPath, true);
             return targetPath;
         }
         public static void CopyIfExisting(string sourceDirectory, string pattern, string targetDirectory)
         {
-            var files = Directory.GetFiles(sourceDirectory, pattern);
-            for (var i = 0; i < files.Length; i++)
+            string[] files = Directory.GetFiles(sourceDirectory, pattern);
+            for (int i = 0; i < files.Length; i++)
             {
-                var sourcePath = files[i];
-                FileExtended.CopyIfExisting(sourcePath, targetDirectory);
+                string sourcePath = files[i];
+                _ = FileExtended.CopyIfExisting(sourcePath, targetDirectory);
             }
         }
-        public static void DeleteIfExisting(string path) => FileExtended.DeleteIfExisting(path, true);
-        public static void DeleteIfExisting( string path, bool force)
+        public static void DeleteIfExisting(string path)
+        {
+            FileExtended.DeleteIfExisting(path, true);
+        }
+
+        public static void DeleteIfExisting(string path, bool force)
         {
             if (path == null)
             {
@@ -1867,7 +1935,7 @@ namespace RobotEditor.Controls.TextEditor
                 File.SetAttributes(path, FileAttributes.Normal);
             }
             File.Delete(path);
-            for (var i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 if (!File.Exists(path))
                 {
@@ -1882,30 +1950,24 @@ namespace RobotEditor.Controls.TextEditor
             {
                 return;
             }
-            var files = Directory.GetFiles(directory, pattern);
-            for (var i = 0; i < files.Length; i++)
+            string[] files = Directory.GetFiles(directory, pattern);
+            for (int i = 0; i < files.Length; i++)
             {
-                var path = files[i];
+                string path = files[i];
                 FileExtended.DeleteIfExisting(path);
             }
         }
         public static string GetName(string path)
         {
-            var fileName = Path.GetFileName(path);
-            if (fileName == null)
-            {
-                throw new InvalidOperationException("Could not acquire filename from " + path);
-            }
-            return fileName;
+            string fileName = Path.GetFileName(path);
+            return fileName == null ? throw new InvalidOperationException("Could not acquire filename from " + path) : fileName;
         }
         public static string GetNameWithoutExtension(string path)
         {
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-            if (fileNameWithoutExtension == null)
-            {
-                throw new InvalidOperationException("Could not acquire filename from " + path);
-            }
-            return fileNameWithoutExtension;
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            return fileNameWithoutExtension == null
+                ? throw new InvalidOperationException("Could not acquire filename from " + path)
+                : fileNameWithoutExtension;
         }
         public static void MakeWriteable(string path)
         {
@@ -1916,18 +1978,18 @@ namespace RobotEditor.Controls.TextEditor
         }
         public static void Move(string sourcePath, string targetPath)
         {
-            var directoryName = Path.GetDirectoryName(targetPath);
+            string directoryName = Path.GetDirectoryName(targetPath);
             if (directoryName == null)
             {
                 return;
             }
             if (!Directory.Exists(directoryName))
             {
-                Directory.CreateDirectory(directoryName);
+                _ = Directory.CreateDirectory(directoryName);
             }
             File.Move(sourcePath, targetPath);
         }
     }
 
-   
+
 }

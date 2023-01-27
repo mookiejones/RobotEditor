@@ -1,7 +1,7 @@
+using RobotEditor.Controls.AngleConverter.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using RobotEditor.Controls.AngleConverter.Interfaces;
 
 namespace RobotEditor.Controls.AngleConverter.Classes
 {
@@ -56,23 +56,30 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 format = "F2";
             }
-            if (!format.ToUpper().StartsWith("F"))
-            {
-                throw new FormatException("Invalid Format Specifier");
-            }
-            return string.Format("[{0}, {1}, {2}]", X.ToString(format), Y.ToString(format), Z.ToString(format));
+            return !format.ToUpper().StartsWith("F")
+                ? throw new FormatException("Invalid Format Specifier")
+                : string.Format("[{0}, {1}, {2}]", X.ToString(format), Y.ToString(format), Z.ToString(format));
         }
 
-        private bool Equals(Point3D other) => Equals(_position, other._position);
+        private bool Equals(Point3D other)
+        {
+            return Equals(_position, other._position);
+        }
 
-        public override bool Equals(object obj) => !ReferenceEquals(null, obj) &&
+        public override bool Equals(object obj)
+        {
+            return obj is object &&
                    (ReferenceEquals(this, obj) || (obj is Point3D && Equals((Point3D)obj)));
+        }
 
-        public override int GetHashCode() => (_position != null) ? _position.GetHashCode() : 0;
+        public override int GetHashCode()
+        {
+            return (_position != null) ? _position.GetHashCode() : 0;
+        }
 
         public static Point3D Centroid(Collection<Point3D> points)
         {
-            var leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
             return leastSquaresFit3D.Centroid(points);
         }
 
@@ -81,12 +88,15 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return Add(point, vec);
         }
 
-        public static Point3D Add(Point3D point, Vector3D vec) => new Point3D
+        public static Point3D Add(Point3D point, Vector3D vec)
         {
-            X = point.X + vec.X,
-            Y = point.Y + vec.Y,
-            Z = point.Z + vec.Z
-        };
+            return new Point3D
+            {
+                X = point.X + vec.X,
+                Y = point.Y + vec.Y,
+                Z = point.Z + vec.Z
+            };
+        }
 
         public static explicit operator Vector3D(Point3D point)
         {
@@ -95,28 +105,28 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Collection<Point3D> operator *(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
-            var collection = new Collection<Point3D>();
-            foreach (var current in transforms)
+            Collection<Point3D> collection = new Collection<Point3D>();
+            foreach (TransformationMatrix3D current in transforms)
             {
-                collection.Add(current*point);
+                collection.Add(current * point);
             }
             return collection;
         }
 
         public static Collection<Point3D> Multiply(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
-            var collection = new Collection<Point3D>();
-            foreach (var current in transforms)
+            Collection<Point3D> collection = new Collection<Point3D>();
+            foreach (TransformationMatrix3D current in transforms)
             {
-                collection.Add(current*point);
+                collection.Add(current * point);
             }
             return collection;
         }
 
         public static Point3D operator *(RotationMatrix3D mat, Point3D pt)
         {
-            var vec = new Vector3D(pt.X, pt.Y, pt.Z);
-            return new Point3D(new Vector3D(mat*vec));
+            Vector3D vec = new Vector3D(pt.X, pt.Y, pt.Z);
+            return new Point3D(new Vector3D(mat * vec));
         }
 
         public static Vector3D operator -(Point3D p1, Point3D p2)
@@ -124,14 +134,20 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
         }
 
-        public static Vector3D Subtract(Point3D p1, Point3D p2) => new Vector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
+        public static Vector3D Subtract(Point3D p1, Point3D p2)
+        {
+            return new Vector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
+        }
 
         public static bool operator ==(Point3D p1, Point3D p2)
         {
             return p1 == p2;
         }
 
-        public static bool Equals(Point3D p1, Point3D p2) => p1 == p2;
+        public static bool Equals(Point3D p1, Point3D p2)
+        {
+            return p1 == p2;
+        }
 
         public static bool operator !=(Point3D p1, Point3D p2)
         {
@@ -139,6 +155,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         }
 
         [Localizable(false)]
-        public override string ToString() => string.Format("[{0:F2}, {1:F2}, {2:F2}]", X, Y, Z);
+        public override string ToString()
+        {
+            return string.Format("[{0:F2}, {1:F2}, {2:F2}]", X, Y, Z);
+        }
     }
 }

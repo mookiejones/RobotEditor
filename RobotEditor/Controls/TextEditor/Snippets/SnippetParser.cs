@@ -1,8 +1,8 @@
+using ICSharpCode.AvalonEdit.Snippets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using ICSharpCode.AvalonEdit.Snippets;
 
 namespace RobotEditor.Controls.TextEditor.Snippets
 {
@@ -55,15 +55,15 @@ namespace RobotEditor.Controls.TextEditor.Snippets
     {
         public static Snippet BuildSnippet(XElement element)
         {
-            var snippet = new Snippet();
-            var decarations = GetDecarations(element);
-            var dictionary =
+            Snippet snippet = new Snippet();
+            Dictionary<string, Declaration> decarations = GetDecarations(element);
+            Dictionary<string, SnippetReplaceableTextElement> dictionary =
                 new Dictionary<string, SnippetReplaceableTextElement>();
-            var text = GetTheCode(element);
+            string text = GetTheCode(element);
             while (text.ContainsDeclaration(decarations))
             {
-                var theNextId = text.GetTheNextId(decarations);
-                var text2 = text.Substring(0, text.IndexOf(theNextId, System.StringComparison.Ordinal));
+                string theNextId = text.GetTheNextId(decarations);
+                string text2 = text.Substring(0, text.IndexOf(theNextId, System.StringComparison.Ordinal));
                 if (!string.IsNullOrEmpty(text2))
                 {
                     snippet.Elements.Add(new SnippetTextElement
@@ -94,7 +94,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
                         }
                         else
                         {
-                            var snippetReplaceableTextElement = new SnippetReplaceableTextElement
+                            SnippetReplaceableTextElement snippetReplaceableTextElement = new SnippetReplaceableTextElement
                             {
                                 Text = decarations[theNextId].Default
                             };
@@ -116,13 +116,13 @@ namespace RobotEditor.Controls.TextEditor.Snippets
 
         private static Dictionary<string, Declaration> GetDecarations(XElement element)
         {
-            var dictionary = new Dictionary<string, Declaration>(Declaration.Defaults);
-            var xElement = element.Elements("Declarations").FirstOrDefault<XElement>();
+            Dictionary<string, Declaration> dictionary = new Dictionary<string, Declaration>(Declaration.Defaults);
+            XElement xElement = element.Elements("Declarations").FirstOrDefault<XElement>();
             if (xElement != null)
             {
-                foreach (var current in xElement.Elements("Literal"))
+                foreach (XElement current in xElement.Elements("Literal"))
                 {
-                    var literal = new Literal(current);
+                    Literal literal = new Literal(current);
                     dictionary.Add(literal.Id, literal);
                 }
             }
@@ -131,12 +131,8 @@ namespace RobotEditor.Controls.TextEditor.Snippets
 
         private static string GetTheCode(XElement element)
         {
-            var xElement = element.Element("Code");
-            if (xElement != null)
-            {
-                return xElement.Value;
-            }
-            throw new XmlException("The element 'Code' is required on element '" + element + "'");
+            XElement xElement = element.Element("Code");
+            return xElement != null ? xElement.Value : throw new XmlException("The element 'Code' is required on element '" + element + "'");
         }
     }
 }

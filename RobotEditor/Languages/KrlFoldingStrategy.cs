@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using RobotEditor.Controls.TextEditor.Folding;
+using System.Collections.Generic;
 
 namespace RobotEditor.Languages
 {
@@ -27,25 +27,25 @@ namespace RobotEditor.Languages
             FoldFunctions = foldFunctions;
         }
 
-      
+
         protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
         {
-            var list = new List<NewFolding>();
+            List<NewFolding> list = new List<NewFolding>();
             firstErrorOffset = -1;
-            var stack = new Stack<DocumentLine>();
-            var stack2 = new Stack<DocumentLine>();
-            var flag = false;
-            foreach (var current in document.Lines)
+            Stack<DocumentLine> stack = new Stack<DocumentLine>();
+            Stack<DocumentLine> stack2 = new Stack<DocumentLine>();
+            bool flag = false;
+            foreach (DocumentLine current in document.Lines)
             {
-                var input = document.GetText(current).ToLower().TrimEnd(new[]
-				{
-					' ',
-					'\t'
-				}).TrimStart(new[]
-				{
-					' ',
-					'\t'
-				});
+                string input = document.GetText(current).ToLower().TrimEnd(new[]
+                {
+                    ' ',
+                    '\t'
+                }).TrimStart(new[]
+                {
+                    ' ',
+                    '\t'
+                });
                 if (FoldFunctions && KrlRegularExpressions.DefLineRegex.IsMatch(input))
                 {
                     stack.Push(current);
@@ -53,17 +53,17 @@ namespace RobotEditor.Languages
                 }
                 if (FoldFunctions && KrlRegularExpressions.EndDefLineRegex.IsMatch(input) && stack.Count > 0)
                 {
-                    var endOffset = current.EndOffset;
-                    var documentLine = stack.Pop();
-                    var name = document.GetText(documentLine).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					}).TrimEnd(new[]
-					{
-						' ',
-						'\t'
-					});
+                    int endOffset = current.EndOffset;
+                    DocumentLine documentLine = stack.Pop();
+                    string name = document.GetText(documentLine).TrimStart(new[]
+                    {
+                        ' ',
+                        '\t'
+                    }).TrimEnd(new[]
+                    {
+                        ' ',
+                        '\t'
+                    });
                     list.Add(new NewFolding(documentLine.Offset, endOffset)
                     {
                         Name = name
@@ -76,23 +76,23 @@ namespace RobotEditor.Languages
                 }
                 if (KrlRegularExpressions.FoldEndLineRegex.IsMatch(input) && stack2.Count > 0 && (flag | !FoldFunctions))
                 {
-                    var endOffset = current.EndOffset;
-                    var documentLine2 = stack2.Pop();
-                    var text = document.GetText(documentLine2).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					}).TrimEnd(new[]
-					{
-						' ',
-						'\t'
-					}).ToUpper();
+                    int endOffset = current.EndOffset;
+                    DocumentLine documentLine2 = stack2.Pop();
+                    string text = document.GetText(documentLine2).TrimStart(new[]
+                    {
+                        ' ',
+                        '\t'
+                    }).TrimEnd(new[]
+                    {
+                        ' ',
+                        '\t'
+                    }).ToUpper();
                     text = text.Replace(";FOLD", string.Empty).TrimStart(new[]
-					{
-						' ',
-						'\t'
-					});
-                    var num = text.IndexOf(';');
+                    {
+                        ' ',
+                        '\t'
+                    });
+                    int num = text.IndexOf(';');
                     if (num > 0)
                     {
                         text = text.Remove(num);

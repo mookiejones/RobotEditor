@@ -2,7 +2,7 @@
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class SystemFunctionsViewModel :  ObservableRecipient
+    public sealed class SystemFunctionsViewModel : ObservableRecipient
     {
         #region Structures
 

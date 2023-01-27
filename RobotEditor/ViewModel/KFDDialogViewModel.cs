@@ -2,7 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class KFDDialogViewModel :  ObservableRecipient
+    public sealed class KFDDialogViewModel : ObservableRecipient
     {
         private int _answer;
         private bool _b1Visible = true;
@@ -60,36 +60,36 @@ namespace RobotEditor.ViewModel
             }
         }
 
-        public string Button1Text { get =>_button1Text; set=>SetProperty(ref _button1Text,value); }
+        public string Button1Text { get => _button1Text; set => SetProperty(ref _button1Text, value); }
 
-        public string Button2Text { get =>_button2Text; set=>SetProperty(ref _button2Text,value); }
+        public string Button2Text { get => _button2Text; set => SetProperty(ref _button2Text, value); }
 
-        public string Button3Text { get =>_button3Text; set=>SetProperty(ref _button3Text,value); }
+        public string Button3Text { get => _button3Text; set => SetProperty(ref _button3Text, value); }
 
-        public string Button4Text { get =>_button4Text; set=>SetProperty(ref _button4Text,value); }
+        public string Button4Text { get => _button4Text; set => SetProperty(ref _button4Text, value); }
 
-        public string Button5Text { get =>_button5Text; set=>SetProperty(ref _button5Text,value); }
+        public string Button5Text { get => _button5Text; set => SetProperty(ref _button5Text, value); }
 
-        public string Button6Text { get =>_button6Text; set=>SetProperty(ref _button6Text,value); }
+        public string Button6Text { get => _button6Text; set => SetProperty(ref _button6Text, value); }
 
-        public string Button7Text { get =>_button7Text; set=>SetProperty(ref _button7Text,value); }
+        public string Button7Text { get => _button7Text; set => SetProperty(ref _button7Text, value); }
 
-        public bool Button1Visible { get =>_b1Visible; set=>SetProperty(ref _b1Visible,value); }
+        public bool Button1Visible { get => _b1Visible; set => SetProperty(ref _b1Visible, value); }
 
-        public bool Button2Visible { get =>_b2Visible; set=>SetProperty(ref _b2Visible,value); }
+        public bool Button2Visible { get => _b2Visible; set => SetProperty(ref _b2Visible, value); }
 
-        public bool Button3Visible { get =>_b3Visible; set=>SetProperty(ref _b3Visible,value); }
+        public bool Button3Visible { get => _b3Visible; set => SetProperty(ref _b3Visible, value); }
 
-        public bool Button4Visible { get =>_b4Visible; set=>SetProperty(ref _b4Visible,value); }
+        public bool Button4Visible { get => _b4Visible; set => SetProperty(ref _b4Visible, value); }
 
-        public bool Button5Visible { get =>_b5Visible; set=>SetProperty(ref _b5Visible,value); }
+        public bool Button5Visible { get => _b5Visible; set => SetProperty(ref _b5Visible, value); }
 
-        public bool Button6Visible { get =>_b6Visible; set=>SetProperty(ref _b6Visible,value); }
+        public bool Button6Visible { get => _b6Visible; set => SetProperty(ref _b6Visible, value); }
 
-        public bool Button7Visible { get =>_b7Visible; set=>SetProperty(ref _b7Visible,value); }
+        public bool Button7Visible { get => _b7Visible; set => SetProperty(ref _b7Visible, value); }
 
-        public int Width { get =>_width; set=>SetProperty(ref _width,value); }
+        public int Width { get => _width; set => SetProperty(ref _width, value); }
 
-        public int Answer { get =>_answer; set=>SetProperty(ref _answer,value); }
+        public int Answer { get => _answer; set => SetProperty(ref _answer, value); }
     }
 }

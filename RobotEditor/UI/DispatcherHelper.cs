@@ -20,9 +20,9 @@ namespace RobotEditor.UI
         /// <see cref="Initialize" /> method has been called on the UI thread.
         /// </summary>
         // ReSharper disable InconsistentNaming
- 
+
         public static Dispatcher UIDispatcher
- 
+
         // ReSharper restore InconsistentNaming
         {
             get;
@@ -50,15 +50,15 @@ namespace RobotEditor.UI
             }
 
             CheckDispatcher();
- 
+
             if (UIDispatcher.CheckAccess())
- 
+
             {
                 action();
             }
             else
             {
-                UIDispatcher.BeginInvoke(action);
+                _ = UIDispatcher.BeginInvoke(action);
             }
         }
 
@@ -66,11 +66,11 @@ namespace RobotEditor.UI
         {
             if (UIDispatcher == null)
             {
-                var error = new StringBuilder("The DispatcherHelper is not initialized.");
-                error.AppendLine();
+                StringBuilder error = new StringBuilder("The DispatcherHelper is not initialized.");
+                _ = error.AppendLine();
 
 
-                error.Append("Call DispatcherHelper.Initialize() in the static App constructor.");
+                _ = error.Append("Call DispatcherHelper.Initialize() in the static App constructor.");
 
                 throw new InvalidOperationException(error.ToString());
             }
@@ -110,6 +110,9 @@ namespace RobotEditor.UI
         /// <summary>
         /// Resets the class by deleting the <see cref="UIDispatcher"/>
         /// </summary>
-        public static void Reset() => UIDispatcher = null;
+        public static void Reset()
+        {
+            UIDispatcher = null;
+        }
     }
 }

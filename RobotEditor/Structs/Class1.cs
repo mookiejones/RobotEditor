@@ -6,21 +6,16 @@ namespace RobotEditor.Structs
     public struct Location : IComparable<Location>, IEquatable<Location>
     {
         public static readonly Location Empty = new Location(-1, -1);
-        private int _x;
         private int _y;
 
-        
+
         public Location(int column, int line)
         {
-            _x = column;
+            X = column;
             _y = line;
         }
 
-        public int X
-        {
-            get => _x;
-            set => _x = value;
-        }
+        public int X { get; set; }
 
         public int Y
         {
@@ -51,45 +46,50 @@ namespace RobotEditor.Structs
             }
             else
             {
-                if (this < other)
-                {
-                    result = -1;
-                }
-                else
-                {
-                    result = 1;
-                }
+                result = this < other ? -1 : 1;
             }
             return result;
         }
 
-        public bool Equals(Location other) => this == other;
+        public bool Equals(Location other)
+        {
+            return this == other;
+        }
 
         [Localizable(false)]
-        public override string ToString() => string.Format("(Line {1}, Col {0})", X, Y);
+        public override string ToString()
+        {
+            return string.Format("(Line {1}, Col {0})", X, Y);
+        }
 
-        public override int GetHashCode() => 87 * X.GetHashCode() ^ Y.GetHashCode();
+        public override int GetHashCode()
+        {
+            return (87 * X.GetHashCode()) ^ Y.GetHashCode();
+        }
 
-        public override bool Equals(object obj) => obj is Location && (Location)obj == this;
+        public override bool Equals(object obj)
+        {
+            return obj is Location && (Location)obj == this;
+        }
 
         public static bool operator ==(Location a, Location b)
         {
-            return a.X == b._x && a.Y == b._y;
+            return a.X == b.X && a.Y == b._y;
         }
 
         public static bool operator !=(Location a, Location b)
         {
-            return a.X != b._x || a.Y != b._y;
+            return a.X != b.X || a.Y != b._y;
         }
 
         public static bool operator <(Location a, Location b)
         {
-            return a.Y < b._y || (a.Y == b._y && a.X < b._x);
+            return a.Y < b._y || (a.Y == b._y && a.X < b.X);
         }
 
         public static bool operator >(Location a, Location b)
         {
-            return a.Y > b._y || (a.Y == b._y && a.X > b._x);
+            return a.Y > b._y || (a.Y == b._y && a.X > b.X);
         }
 
         public static bool operator <=(Location a, Location b)

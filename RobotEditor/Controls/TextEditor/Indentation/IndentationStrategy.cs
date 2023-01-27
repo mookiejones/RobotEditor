@@ -1,9 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using ICSharpCode.AvalonEdit;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
+using System;
+using System.ComponentModel;
 
 namespace RobotEditor.Controls.TextEditor.Indentation
 {
@@ -40,12 +40,12 @@ namespace RobotEditor.Controls.TextEditor.Indentation
             {
                 throw new ArgumentNullException("document");
             }
-            var set = new IndentationSettings
+            IndentationSettings set = new IndentationSettings
             {
                 IndentString = IndentationString,
                 LeaveEmptyLines = keepEmptyLines
             };
-            var indentationClass = new IndentationClass();
+            IndentationClass indentationClass = new IndentationClass();
             indentationClass.Reformat(document, set);
         }
 
@@ -55,16 +55,19 @@ namespace RobotEditor.Controls.TextEditor.Indentation
 
         public override void IndentLine(TextDocument document, DocumentLine line)
         {
-            var lineNumber = line.LineNumber;
-            var textDocumentAccessor = new TextDocumentAccessor(document, lineNumber, lineNumber);
+            int lineNumber = line.LineNumber;
+            TextDocumentAccessor textDocumentAccessor = new TextDocumentAccessor(document, lineNumber, lineNumber);
             Indent(textDocumentAccessor, false);
-            var text = textDocumentAccessor.Text;
+            string text = textDocumentAccessor.Text;
             if (text.Length == 0)
             {
                 base.IndentLine(document, line);
             }
         }
 
-        public override void IndentLines(TextDocument document, int beginLine, int endLine) => Indent(new TextDocumentAccessor(document, beginLine, endLine), true);
+        public override void IndentLines(TextDocument document, int beginLine, int endLine)
+        {
+            Indent(new TextDocumentAccessor(document, beginLine, endLine), true);
+        }
     }
 }

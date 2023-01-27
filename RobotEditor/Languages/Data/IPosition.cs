@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using RobotEditor.Languages.Data;
+﻿using RobotEditor.Languages.Data;
+using System.Collections.Generic;
 
 namespace RobotEditor.Interfaces
 {

@@ -24,10 +24,13 @@ namespace RobotEditor.Utilities
         [Localizable(false)]
         public static void WriteLog(string message, Color color)
         {
-            var path = string.Format("{0}{1}", Global.StartupPath, "\\KRC Editor.log");
+            string path = string.Format("{0}{1}", Global.StartupPath, "\\KRC Editor.log");
             File.AppendAllText(path, message + "/r/n", Encoding.Default);
         }
 
-        public static void WriteLog(string message) => WriteLog(message, Colors.Gray);
+        public static void WriteLog(string message)
+        {
+            WriteLog(message, Colors.Gray);
+        }
     }
 }

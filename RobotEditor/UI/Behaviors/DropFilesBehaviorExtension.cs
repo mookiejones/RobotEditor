@@ -16,7 +16,10 @@ namespace RobotEditor.UI.Behaviors
         private static void OnPropChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(d is FrameworkElement fe))
+            {
                 throw new InvalidOperationException();
+            }
+
             if ((bool)e.NewValue)
             {
                 fe.AllowDrop = true;
@@ -41,19 +44,26 @@ namespace RobotEditor.UI.Behaviors
 
         private static void OnDrop(object sender, DragEventArgs e)
         {
-            var dataContext = ((FrameworkElement)sender).DataContext;
+            object dataContext = ((FrameworkElement)sender).DataContext;
             if (!(dataContext is IFilesDropped filesDropped))
             {
                 if (dataContext != null)
+                {
                     Trace.TraceError($"Binding error, '{dataContext.GetType().Name}' doesn't implement '{nameof(IFilesDropped)}'.");
+                }
+
                 return;
             }
 
             if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
                 return;
+            }
 
             if (e.Data.GetData(DataFormats.FileDrop) is string[] files)
+            {
                 filesDropped.OnFilesDropped(files);
+            }
         }
 
         /// <summary>
@@ -61,14 +71,20 @@ namespace RobotEditor.UI.Behaviors
         /// </summary>
         /// <param name="element"></param>
         /// <param name="value"></param>
-        public static void SetIsEnabled(DependencyObject element, bool value) => element.SetValue(IsEnabledProperty, value);
+        public static void SetIsEnabled(DependencyObject element, bool value)
+        {
+            element.SetValue(IsEnabledProperty, value);
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public static bool GetIsEnabled(DependencyObject element) => (bool)element.GetValue(IsEnabledProperty);
+        public static bool GetIsEnabled(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsEnabledProperty);
+        }
     }
 
     public interface IFilesDropped

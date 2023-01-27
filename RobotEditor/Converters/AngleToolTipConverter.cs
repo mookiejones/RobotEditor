@@ -1,8 +1,8 @@
-﻿using System;
+﻿using RobotEditor.Enums;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
-using RobotEditor.Enums;
 
 namespace RobotEditor.Converters
 {
@@ -14,88 +14,88 @@ namespace RobotEditor.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             object result;
-            switch ((CartesianEnum) value)
+            switch ((CartesianEnum)value)
             {
                 case CartesianEnum.ABB_Quaternion:
-                {
-                    _title = "ABB Quaternion";
-                    var text = parameter.ToString();
-                    if (!String.IsNullOrEmpty(text))
                     {
-                        if (text == "V1")
+                        _title = "ABB Quaternion";
+                        string text = parameter.ToString();
+                        if (!string.IsNullOrEmpty(text))
                         {
-                            result = _title + " Q1";
-                            return result;
+                            if (text == "V1")
+                            {
+                                result = _title + " Q1";
+                                return result;
+                            }
+                            if (text == "V2")
+                            {
+                                result = _title + " Q2";
+                                return result;
+                            }
+                            if (text == "V3")
+                            {
+                                result = _title + " Q3";
+                                return result;
+                            }
+                            if (text == "V4")
+                            {
+                                result = _title + " Q4";
+                                return result;
+                            }
                         }
-                        if (text == "V2")
-                        {
-                            result = _title + " Q2";
-                            return result;
-                        }
-                        if (text == "V3")
-                        {
-                            result = _title + " Q3";
-                            return result;
-                        }
-                        if (text == "V4")
-                        {
-                            result = _title + " Q4";
-                            return result;
-                        }
+                        break;
                     }
-                    break;
-                }
                 case CartesianEnum.Roll_Pitch_Yaw:
-                {
-                    _title = "Roll Pitch Yaw";
-                    var text = parameter.ToString();
-                    if (text != null)
                     {
-                        if (text == "V1")
+                        _title = "Roll Pitch Yaw";
+                        string text = parameter.ToString();
+                        if (text != null)
                         {
-                            result = _title + " R. Rotation around X.";
-                            return result;
+                            if (text == "V1")
+                            {
+                                result = _title + " R. Rotation around X.";
+                                return result;
+                            }
+                            if (text == "V2")
+                            {
+                                result = _title + " P. Rotation around Y.";
+                                return result;
+                            }
+                            if (text == "V3")
+                            {
+                                result = _title + " Y. Rotation around Z.";
+                                return result;
+                            }
                         }
-                        if (text == "V2")
-                        {
-                            result = _title + " P. Rotation around Y.";
-                            return result;
-                        }
-                        if (text == "V3")
-                        {
-                            result = _title + " Y. Rotation around Z.";
-                            return result;
-                        }
+                        break;
                     }
-                    break;
-                }
                 case CartesianEnum.Axis_Angle:
                     result = "Axis Angle";
                     return result;
                 case CartesianEnum.Kuka_ABC:
-                {
-                    _title = "Kuka ABC";
-                    var text = parameter.ToString();
-                    if (!String.IsNullOrEmpty(text))
                     {
-                        if (text == "V1")
+                        _title = "Kuka ABC";
+                        string text = parameter.ToString();
+                        if (!string.IsNullOrEmpty(text))
                         {
-                            result = _title + " A. Rotation around Z.";
-                            return result;
+                            if (text == "V1")
+                            {
+                                result = _title + " A. Rotation around Z.";
+                                return result;
+                            }
+                            if (text == "V2")
+                            {
+                                result = _title + " B. Rotation around Y.";
+                                return result;
+                            }
+                            if (text == "V3")
+                            {
+                                result = _title + " C. Rotation around X.";
+                                return result;
+                            }
                         }
-                        if (text == "V2")
-                        {
-                            result = _title + " B. Rotation around Y.";
-                            return result;
-                        }
-                        if (text == "V3")
-                        {
-                            result = _title + " C. Rotation around X.";
-                            return result;
-                        }
+                        break;
                     }
-                    break;
-                }
                 case CartesianEnum.Euler_ZYZ:
                     result = "Euler ZYZ";
                     return result;
@@ -107,6 +107,9 @@ namespace RobotEditor.Converters
             return result;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

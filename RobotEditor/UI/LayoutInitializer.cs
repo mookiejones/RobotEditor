@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using AvalonDock.Layout;
+﻿using AvalonDock.Layout;
 using RobotEditor.Enums;
 using RobotEditor.ViewModel;
+using System.ComponentModel;
+using System.Linq;
 
 namespace RobotEditor.UI
 {
@@ -19,14 +19,15 @@ namespace RobotEditor.UI
         public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow,
             ILayoutContainer destinationContainer)
         {
-            var destPane = destinationContainer as LayoutAnchorablePane;
+            LayoutAnchorablePane destPane = destinationContainer as LayoutAnchorablePane;
 
             if (destinationContainer != null &&
                 destinationContainer.FindParent<LayoutFloatingWindow>() != null)
+            {
                 return false;
+            }
 
-
-            var content = anchorableToShow.Content;
+            object content = anchorableToShow.Content;
             bool result;
             if (destinationContainer != null && destinationContainer.FindParent<LayoutFloatingWindow>() != null)
             {
@@ -34,15 +35,15 @@ namespace RobotEditor.UI
             }
             else
             {
-                var layoutAnchorablePane =
+                LayoutAnchorablePane layoutAnchorablePane =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "BottomPane");
-                var layoutAnchorablePane2 =
+                LayoutAnchorablePane layoutAnchorablePane2 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "LeftPane");
-                var layoutAnchorablePane3 =
+                LayoutAnchorablePane layoutAnchorablePane3 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault(d => d.Name == "RightPane");
@@ -73,7 +74,7 @@ namespace RobotEditor.UI
                         }
                         break;
                 }
-                var layoutAnchorablePane4 =
+                LayoutAnchorablePane layoutAnchorablePane4 =
                     layout.Descendents()
                         .OfType<LayoutAnchorablePane>()
                         .FirstOrDefault((d) => d.Name == "ToolsPane");
@@ -111,7 +112,10 @@ namespace RobotEditor.UI
         }
 
         public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow,
-            ILayoutContainer destinationContainer) => false;
+            ILayoutContainer destinationContainer)
+        {
+            return false;
+        }
 
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {

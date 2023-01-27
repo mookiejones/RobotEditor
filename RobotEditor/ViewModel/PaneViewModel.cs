@@ -1,5 +1,5 @@
-﻿using System.Windows.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Media;
 
 namespace RobotEditor.ViewModel
 {
@@ -10,16 +10,16 @@ namespace RobotEditor.ViewModel
         private bool _isSelected;
         private string _title;
 
-        public string Title { get =>_title; set=>SetProperty(ref _title,value); }
-        
+        public string Title { get => _title; set => SetProperty(ref _title, value); }
+
 
         public ImageSource IconSource { get; set; }
 
-        public string ContentId { get =>_contentId; set=>SetProperty(ref _contentId,value); }
-        
+        public string ContentId { get => _contentId; set => SetProperty(ref _contentId, value); }
 
-        public bool IsSelected { get =>_isSelected; set=>SetProperty(ref _isSelected,value); }
 
-        public bool IsActive { get =>_isActive; set=>SetProperty(ref _isActive,value); }
+        public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
+
+        public new bool IsActive { get => _isActive; set => SetProperty(ref _isActive, value); }
     }
 }

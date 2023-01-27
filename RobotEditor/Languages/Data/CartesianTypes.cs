@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using RobotEditor.Enums;
+﻿using RobotEditor.Enums;
+using System.ComponentModel;
 
 namespace RobotEditor.Languages.Data
 {

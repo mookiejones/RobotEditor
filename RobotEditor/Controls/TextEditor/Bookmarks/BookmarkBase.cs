@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-using ICSharpCode.AvalonEdit.Document;
+﻿using ICSharpCode.AvalonEdit.Document;
 using RobotEditor.Interfaces;
+using System;
+using System.Windows.Input;
 using ITextAnchor = RobotEditor.Interfaces.ITextAnchor;
 
 namespace RobotEditor.Controls.TextEditor.Bookmarks
@@ -86,9 +86,9 @@ namespace RobotEditor.Controls.TextEditor.Bookmarks
         {
             if (_document != null)
             {
-                var num = Math.Max(1, Math.Min(_location.Line, _document.TotalNumberOfLines));
-                var length = _document.GetLine(num).Length;
-                var offset = _document.PositionToOffset(num, Math.Max(1, Math.Min(_location.Column, length + 1)));
+                int num = Math.Max(1, Math.Min(_location.Line, _document.TotalNumberOfLines));
+                int length = _document.GetLine(num).Length;
+                int offset = _document.PositionToOffset(num, Math.Max(1, Math.Min(_location.Column, length + 1)));
                 Anchor = _document.CreateAnchor(offset);
                 Anchor.MovementType = AnchorMovementType.AfterInsertion;
                 Anchor.Deleted += AnchorDeleted;
@@ -112,12 +112,15 @@ namespace RobotEditor.Controls.TextEditor.Bookmarks
             {
                 if (_document.GetService(typeof(IBookmarkMargin)) is IBookmarkMargin bookmarkMargin)
                 {
-                    bookmarkMargin.Bookmarks.Remove(this);
+                    _ = bookmarkMargin.Bookmarks.Remove(this);
                 }
             }
         }
 
-        protected virtual void OnDocumentChanged(EventArgs e) => DocumentChanged?.Invoke(this, e);
+        protected virtual void OnDocumentChanged(EventArgs e)
+        {
+            DocumentChanged?.Invoke(this, e);
+        }
 
         protected virtual void Redraw()
         {

@@ -24,14 +24,19 @@ namespace RobotEditor.Controls.TextEditor.Views
         {
             // Check input parameter types
             if (value == null)
+            {
                 return Binding.DoNothing;
-
+            }
 
             if (!(value is Msg.MsgCategory category))
+            {
                 throw new ArgumentException("Invalid argument. Expected argument: ViewModel.Base.Msg.MsgType");
+            }
 
             if (targetType != typeof(System.Windows.Media.ImageSource))
+            {
                 throw new ArgumentException("Invalid return type. Expected return type: System.Windows.Media.ImageSource");
+            }
 
             string resourceUri = "Images/MessageIcons/Unknown.png";
             switch (category)
@@ -84,10 +89,7 @@ namespace RobotEditor.Controls.TextEditor.Views
             if (value is Visibility && targetType == typeof(bool))
             {
                 Visibility val = (Visibility)value;
-                if (val == Visibility.Visible)
-                    return true;
-                else
-                    return false;
+                return val == Visibility.Visible ? true : (object)false;
             }
 
             throw new ArgumentException("Invalid argument/return type. Expected argument: Visibility and return type: bool");

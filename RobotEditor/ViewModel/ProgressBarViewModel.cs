@@ -2,7 +2,7 @@
 
 namespace RobotEditor.ViewModel
 {
-    public sealed class ProgressBarViewModel :  ObservableRecipient
+    public sealed class ProgressBarViewModel : ObservableRecipient
     {
         #region Minimum
 

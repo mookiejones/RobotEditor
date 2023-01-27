@@ -14,17 +14,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
             get;
             private set;
         }
-        public string Filename
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(Path))
-                {
-                    return string.Empty;
-                }
-                return System.IO.Path.GetFileName(Path);
-            }
-        }
+        public string Filename => string.IsNullOrEmpty(Path) ? string.Empty : System.IO.Path.GetFileName(Path);
         public SnippetHeader Header
         {
             get;

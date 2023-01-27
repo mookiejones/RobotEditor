@@ -1,5 +1,5 @@
-﻿using System;
-using RobotEditor.Enums;
+﻿using RobotEditor.Enums;
+using System;
 
 namespace RobotEditor.Messages
 {

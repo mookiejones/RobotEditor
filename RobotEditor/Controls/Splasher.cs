@@ -8,18 +8,12 @@ namespace RobotEditor.Controls
 
         public static void ShowSplash()
         {
-            if (Splash != null)
-            {
-                Splash.Show();
-            }
+            Splash?.Show();
         }
 
         public static void CloseSplash()
         {
-            if (Splash != null)
-            {
-                Splash.Close();
-            }
+            Splash?.Close();
         }
     }
 }

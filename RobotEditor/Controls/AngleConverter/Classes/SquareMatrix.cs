@@ -1,5 +1,5 @@
-using System;
 using RobotEditor.Controls.AngleConverter.Exceptions;
+using System;
 
 namespace RobotEditor.Controls.AngleConverter.Classes
 {
@@ -20,9 +20,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                 throw new MatrixException("Matrix is not square. Cannot cast to a SquareMatrix");
             }
             Size = mat.Rows;
-            for (var i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                for (var j = 0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     base[i, j] = mat[i, j];
                 }
@@ -52,10 +52,10 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public double Determinant()
         {
-            var squareMatrix = new SquareMatrix(this);
-            var num = squareMatrix.MakeRowEchelon();
+            SquareMatrix squareMatrix = new SquareMatrix(this);
+            double num = squareMatrix.MakeRowEchelon();
             double result;
-            for (var i = 0; i < Size; i++)
+            for (int i = 0; i < Size; i++)
             {
                 if (squareMatrix.IsRowZero(i))
                 {
@@ -69,8 +69,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static SquareMatrix Identity(int size)
         {
-            var squareMatrix = new SquareMatrix(size);
-            for (var i = 0; i < size; i++)
+            SquareMatrix squareMatrix = new SquareMatrix(size);
+            for (int i = 0; i < size; i++)
             {
                 squareMatrix[i, i] = 1.0;
             }
@@ -79,27 +79,27 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public SquareMatrix Inverse()
         {
-            var matrix = base.Augment(Identity(Size));
-            matrix.MakeRowEchelon();
-            var squareMatrix = new SquareMatrix(Size);
-            var squareMatrix2 = new SquareMatrix(Size);
-            for (var i = 0; i < Size; i++)
+            Matrix matrix = base.Augment(Identity(Size));
+            _ = matrix.MakeRowEchelon();
+            SquareMatrix squareMatrix = new SquareMatrix(Size);
+            SquareMatrix squareMatrix2 = new SquareMatrix(Size);
+            for (int i = 0; i < Size; i++)
             {
                 squareMatrix.SetColumn(i, matrix.GetColumn(i));
                 squareMatrix2.SetColumn(i, matrix.GetColumn(i + Size));
             }
-            for (var j = 0; j < squareMatrix.Rows; j++)
+            for (int j = 0; j < squareMatrix.Rows; j++)
             {
                 if (squareMatrix.IsRowZero(j))
                 {
                     throw new MatrixException("Matrix is singular");
                 }
             }
-            for (var k = Size - 1; k > 0; k--)
+            for (int k = Size - 1; k > 0; k--)
             {
-                for (var l = k - 1; l >= 0; l--)
+                for (int l = k - 1; l >= 0; l--)
                 {
-                    var scalar = -squareMatrix[l, k];
+                    double scalar = -squareMatrix[l, k];
                     squareMatrix.AddRowTimesScalar(l, k, scalar);
                     squareMatrix2.AddRowTimesScalar(l, k, scalar);
                 }
@@ -119,9 +119,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                 }
                 Matrix matrix = Inverse();
                 Matrix matrix2 = Transpose();
-                for (var i = 0; i < Size; i++)
+                for (int i = 0; i < Size; i++)
                 {
-                    for (var j = 0; j < Size; j++)
+                    for (int j = 0; j < Size; j++)
                     {
                         if (Math.Abs(matrix[i, j] - matrix2[i, j]) > 0.001)
                         {
@@ -145,24 +145,24 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
             l.SetColumn(0, base.GetColumn(0));
             u.SetRow(0, base.GetRow(0));
-            u.MultiplyRow(0, 1.0/base[0, 0]);
-            for (var i = 1; i < Size; i++)
+            u.MultiplyRow(0, 1.0 / base[0, 0]);
+            for (int i = 1; i < Size; i++)
             {
-                var array = new Vector[Size];
-                var array2 = new Vector[Size];
-                for (var j = 1; j < Size; j++)
+                Vector[] array = new Vector[Size];
+                Vector[] array2 = new Vector[Size];
+                for (int j = 1; j < Size; j++)
                 {
                     array[j] = new Vector(i);
                     array2[j] = new Vector(i);
-                    var row = l.GetRow(j);
-                    var column = u.GetColumn(j);
-                    for (var k = 0; k < i; k++)
+                    Vector row = l.GetRow(j);
+                    Vector column = u.GetColumn(j);
+                    for (int k = 0; k < i; k++)
                     {
                         array[j][k] = row[k];
                         array2[j][k] = column[k];
                     }
                 }
-                for (var m = i; m < Size; m++)
+                for (int m = i; m < Size; m++)
                 {
                     l[m, i] = base[m, i] - Vector.Dot(array[m], array2[i]);
                     if (m == i)
@@ -175,7 +175,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                         {
                             throw new MatrixException("Unable to decompose matrix");
                         }
-                        u[i, m] = (base[i, m] - Vector.Dot(array[i], array2[m]))/l[i, i];
+                        u[i, m] = (base[i, m] - Vector.Dot(array[i], array2[m])) / l[i, i];
                     }
                 }
             }
@@ -183,14 +183,14 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public SquareMatrix Minor(int i, int j)
         {
-            var squareMatrix = new SquareMatrix(Size - 1);
-            var num = 0;
-            for (var k = 0; k < base.Rows; k++)
+            SquareMatrix squareMatrix = new SquareMatrix(Size - 1);
+            int num = 0;
+            for (int k = 0; k < base.Rows; k++)
             {
                 if (k != i)
                 {
-                    var num2 = 0;
-                    for (var l = 0; l < base.Columns; l++)
+                    int num2 = 0;
+                    for (int l = 0; l < base.Columns; l++)
                     {
                         if (l != j)
                         {
@@ -204,28 +204,34 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return squareMatrix;
         }
 
-        public static SquareMatrix NaN(int size) => new SquareMatrix(NaN(size, size));
+        public static SquareMatrix NaN(int size)
+        {
+            return new SquareMatrix(NaN(size, size));
+        }
 
         public SquareMatrix Power(int power)
         {
             Matrix matrix = new SquareMatrix(this);
-            for (var i = 1; i < power; i++)
+            for (int i = 1; i < power; i++)
             {
-                matrix = this*matrix;
+                matrix = this * matrix;
             }
             return new SquareMatrix(matrix);
         }
 
         public double Trace()
         {
-            var num = 0.0;
-            for (var i = 0; i < Size; i++)
+            double num = 0.0;
+            for (int i = 0; i < Size; i++)
             {
                 num += base[i, i];
             }
             return num;
         }
 
-        public new SquareMatrix Transpose() => new SquareMatrix(base.Transpose());
+        public new SquareMatrix Transpose()
+        {
+            return new SquareMatrix(base.Transpose());
+        }
     }
 }

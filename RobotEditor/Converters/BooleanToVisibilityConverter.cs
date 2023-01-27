@@ -13,9 +13,9 @@ namespace RobotEditor.Converters
         [Localizable(false)]
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType == typeof (Visibility))
+            if (targetType == typeof(Visibility))
             {
-                var flag = System.Convert.ToBoolean(value, culture);
+                bool flag = System.Convert.ToBoolean(value, culture);
                 if (InvertVisibility)
                 {
                     flag = !flag;
@@ -25,6 +25,9 @@ namespace RobotEditor.Converters
             throw new InvalidOperationException("Converter can only convert to value of type Visibility.");
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (Visibility)value == Visibility.Visible;
+        }
     }
 }
