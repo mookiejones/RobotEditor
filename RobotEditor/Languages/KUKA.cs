@@ -222,7 +222,7 @@ namespace RobotEditor.Languages
             return collection;
         }
 
-        public static Editor ReversePath(Editor editor)
+        public static AvalonEditor ReversePath(AvalonEditor editor)
         {
             Collection<Collection<string>> collection = new Collection<Collection<string>>();
             for (int i = 0; i <= editor.Document.Lines.Count - 1; i++)

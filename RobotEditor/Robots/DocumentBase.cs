@@ -54,7 +54,7 @@ namespace RobotEditor.Robots
             TextBox.FileLanguage = FileLanguage;
             Load(ContentId);
 
-            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = s as Editor; };
+            TextBox.GotFocus += delegate (object s, RoutedEventArgs e) { TextBox = s as AvalonEditor; };
             TextBox.TextChanged += (s, e) => TextChanged(s);
             TextBox.IsModified = false;
             if (ContentId != null)
@@ -67,7 +67,7 @@ namespace RobotEditor.Robots
 
         protected void TextChanged(object sender)
         {
-            TextBox = sender as Editor;
+            TextBox = sender as AvalonEditor;
             if (TextBox != null)
             {
                 FileLanguage.RawText = TextBox.Text;
@@ -75,7 +75,7 @@ namespace RobotEditor.Robots
             OnPropertyChanged(nameof(Title));
         }
 
-        internal void Save(Editor txtBox)
+        internal void Save(AvalonEditor txtBox)
         {
             if (txtBox.Filename == null)
             {
@@ -111,13 +111,13 @@ namespace RobotEditor.Robots
         /// </summary>
         private const string TextBoxPropertyName = "TextBox";
 
-        private Editor _textBox = new Editor();
+        private AvalonEditor _textBox = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the TextBox property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor TextBox
+        public AvalonEditor TextBox
         {
             get => _textBox;
 

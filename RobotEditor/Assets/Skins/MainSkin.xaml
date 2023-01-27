@@ -13,11 +13,12 @@
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Styles.xaml" />
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Brushes.xaml" />
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.DataGrid.xaml" />
-        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" /> 
-        <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/ExtendedGridSplitterTemplate.xaml" />
-       
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" />
+
         <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/KUKASpecificTemplates.xaml" />
-     
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.AvalonEditor.xaml" />
+
     </ResourceDictionary.MergedDictionaries>
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -253,7 +254,7 @@
     </DataTemplate>
 
     <!-- Editor -->
-    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:Editor}}" DataType="{x:Type textEditor:Editor}">
+    <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:AvalonEditor}}" DataType="{x:Type textEditor:AvalonEditor}">
         <DockPanel>
             <ComboBox Height="30" ItemsSource="{Binding Variables}" SelectedItem="{Binding SelectedVariable}"
                       DockPanel.Dock="Top" />

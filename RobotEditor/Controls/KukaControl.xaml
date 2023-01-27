@@ -40,8 +40,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <textEditor:Editor Grid.Row="0" Document="{Binding Source}" />
-            <textEditor:Editor Grid.Row="2" Document="{Binding Data}" />
+            <textEditor:AvalonEditor Grid.Row="0" Document="{Binding Source}" />
+            <textEditor:AvalonEditor Grid.Row="2" Document="{Binding Data}" />
             <controls:ExtendedGridSplitter x:Name="_grid" Grid.Row="1" DataContext="{Binding Grid}" />
         </Grid>
     </DockPanel>

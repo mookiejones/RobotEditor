@@ -13,13 +13,13 @@ namespace RobotEditor.ViewModel
 
 
 
-        private Editor _editor = new Editor();
+        private AvalonEditor _editor = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Editor property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Editor
+        public AvalonEditor Editor
         {
             get => _editor;
             set => SetProperty(ref _editor, value);
@@ -142,7 +142,7 @@ namespace RobotEditor.ViewModel
 
         // ReSharper restore ExplicitCallerInfoArgument
 
-        public GotoViewModel(Editor editor)
+        public GotoViewModel(AvalonEditor editor)
         {
             Editor = editor;
         }

@@ -1,24 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
-using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Search;
 using ICSharpCode.AvalonEdit.Snippets;
-using Microsoft.Win32;
+using ICSharpCode.AvalonEdit;
 using RobotEditor.Controls.TextEditor.Bookmarks;
 using RobotEditor.Controls.TextEditor.Brackets;
 using RobotEditor.Controls.TextEditor.Folding;
 using RobotEditor.Controls.TextEditor.IconBar;
-using RobotEditor.Controls.TextEditor.Snippets;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
+using RobotEditor.Controls.TextEditor.Snippets;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
-using RobotEditor.Languages;
 using RobotEditor.Languages.Data;
+using RobotEditor.Languages;
 using RobotEditor.Messages;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
@@ -31,23 +29,22 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
+using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using ICSharpCode.AvalonEdit.Editing;
+using Microsoft.Win32;
+using System.Windows.Media;
 
 namespace RobotEditor.Controls.TextEditor
 {
-    /// <summary>
-    ///     Interaction logic for Editor.xaml
-    /// </summary>
-    /// 
-    public partial class Editor : INotifyPropertyChanged
+    public partial class AvalonEditor:ICSharpCode.AvalonEdit.TextEditor
     {
 
         #region Constants
@@ -75,7 +72,7 @@ namespace RobotEditor.Controls.TextEditor
         public IList<ICompletionDataProvider> CompletionDataProviders { get; set; }
 
         public static readonly DependencyProperty CompletionWindowProperty =
-            DependencyProperty.Register("CompletionWindow", typeof(CompletionWindow), typeof(Editor));
+            DependencyProperty.Register("CompletionWindow", typeof(CompletionWindow), typeof(AvalonEditor));
 
         private readonly MyBracketSearcher _bracketSearcher = new MyBracketSearcher();
 
@@ -105,10 +102,13 @@ namespace RobotEditor.Controls.TextEditor
         #endregion
 
         public static DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
-            typeof(Editor), new PropertyMetadata((obj, args) =>
+            typeof(AvalonEditor), new PropertyMetadata((obj, args) =>
             {
-                Editor target = (Editor)obj;
-                target.Text = (string)args.NewValue;
+                if(obj is AvalonEditor target)
+                {
+                    target.Text = (string)args.NewValue;
+                }
+
             }));
 
         private void ChangeCommandBindings()
@@ -118,7 +118,7 @@ namespace RobotEditor.Controls.TextEditor
             {
                 if (current.Command == AvalonEditCommands.DeleteLine)
                 {
-                    RoutedCommand command = new RoutedCommand("DeleteLine", typeof(Editor), new InputGestureCollection
+                    RoutedCommand command = new RoutedCommand("DeleteLine", typeof(AvalonEditor), new InputGestureCollection
             {
                 new KeyGesture(Key.L, ModifierKeys.Control)
             });
@@ -128,13 +128,22 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        public Editor()
+        public new EditorOptions Options { get => EditorOptions.Instance; set
+            {
+                EditorOptions.Instance = value;
+                base.Options = value;
+                OnPropertyChanged(nameof(Options));
+            }
+        }
+
+        public AvalonEditor()
         {
             try
             {
                 _toolTip = new ToolTip();
                 ChangeCommandBindings();
-                InitializeComponent();
+                CreateKeyBindings();
+              
                 CompletionDataProviders = new List<ICompletionDataProvider>()
                 {
                     new SnippetCompletionDataProvider()
@@ -142,11 +151,24 @@ namespace RobotEditor.Controls.TextEditor
                 _iconBarMargin = new IconBarMargin(_iconBarManager = new IconBarManager());
                 InitializeMyControl();
                 MouseHoverStopped += (s, e) => _toolTip.IsOpen = false;
+                MouseHover += Mouse_OnHover;
+                PreviewMouseWheel += EditorPreviewMouseWheel;
+                GotFocus += TextEditorGotFocus;
+                PreviewKeyDown += TextEditor_PreviewKeyDown;
             }
             finally
             {
                 InvokeModifiedChanged(false);
             }
+        }
+
+        private void CreateKeyBindings()
+        {
+            InputBindings.Add(new KeyBinding(GotoCommand, new KeyGesture(Key.G, ModifierKeys.Control)));
+            InputBindings.Add(new KeyBinding(ApplicationCommands.Find, new KeyGesture(Key.F, ModifierKeys.Control)));
+            InputBindings.Add(new KeyBinding(ReplaceCommand, new KeyGesture(Key.R, ModifierKeys.Control)));
+            InputBindings.Add(new KeyBinding(ReloadCommand, new KeyGesture(Key.R,ModifierKeys.Alt)));
+            InputBindings.Add(new KeyBinding(AddTimeStampCommand, new KeyGesture(Key.D, ModifierKeys.Control)));
         }
         public event EventHandler IsModifiedChanged;
         public void InvokeModifiedChanged(bool isNowModified)
@@ -1555,334 +1577,4 @@ namespace RobotEditor.Controls.TextEditor
 
         protected internal virtual char[] GetWordParts() => new char[0];
     }
-
-    public static class DocumentUtilitites
-    {
-        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
-
-        public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
-        {
-            for (int num = offset; num != -1; num++)
-            {
-                if (num >= document.TextLength)
-                {
-                    return -1;
-                }
-                char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
-                {
-                    return num;
-                }
-            }
-            return -1;
-        }
-        public static int FindNextWordStart(this TextDocument document, int offset)
-        {
-            for (int num = offset; num != -1; num++)
-            {
-                if (num >= document.TextLength)
-                {
-                    return 0;
-                }
-                char charAt = document.GetCharAt(num);
-                if (!IsWhitespaceOrNewline(charAt))
-                {
-                    return num;
-                }
-            }
-            return 0;
-        }
-        public static int FindNextWordStartRelativeTo(this TextDocument document, int offset)
-        {
-            for (int num = offset; num != -1; num++)
-            {
-                char charAt = document.GetCharAt(num);
-                if (!IsWhitespaceOrNewline(charAt))
-                {
-                    return num - offset;
-                }
-            }
-            return 0;
-        }
-        public static int FindPrevWordStart(this TextDocument document, int offset)
-        {
-            for (int num = offset - 1; num != -1; num--)
-            {
-                char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt))
-                {
-                    return num + 1;
-                }
-            }
-            return 0;
-        }
-        public static ISegment GetLineWithoutIndent(this TextDocument document, int lineNumber)
-        {
-            DocumentLine lineByNumber = document.GetLineByNumber(lineNumber);
-            ISegment whitespaceAfter = TextUtilities.GetWhitespaceAfter(document, lineByNumber.Offset);
-            return whitespaceAfter.Length == 0
-                ? lineByNumber
-                : (ISegment)new TextSegment
-                {
-                    StartOffset = lineByNumber.Offset + whitespaceAfter.Length,
-                    EndOffset = lineByNumber.EndOffset,
-                    Length = lineByNumber.Length - whitespaceAfter.Length
-                };
-        }
-        public static string GetWordBeforeCaret(this Editor editor)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int offset = editor.TextArea.Caret.Offset;
-            int num = editor.Document.FindPrevWordStart(offset);
-            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
-        }
-        public static string GetWordBeforeCaret(this Editor editor, char[] allowedChars)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int offset = editor.TextArea.Caret.Offset;
-            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
-        }
-        public static string GetStringBeforeCaret(this Editor editor)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int line = editor.TextArea.Caret.Line;
-            if (line < 1)
-            {
-                return string.Empty;
-            }
-            int offset = editor.TextArea.Caret.Offset;
-            if (line > editor.Document.LineCount)
-            {
-                return string.Empty;
-            }
-            DocumentLine lineByNumber = editor.Document.GetLineByNumber(line);
-            int length = offset - lineByNumber.Offset;
-            return editor.Document.GetText(lineByNumber.Offset, length);
-        }
-        public static string GetWordBeforeOffset(this Editor editor, int offset, char[] allowedChars)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
-        }
-        public static string GetTokenBeforeOffset(this Editor editor, int offset)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int num = -1;
-            for (int i = offset - 1; i > -1; i--)
-            {
-                char charAt = editor.Document.GetCharAt(i);
-                if (charAt == ' ' || charAt == '\n' || charAt == '\r' || charAt == '\t')
-                {
-                    num = i + 1;
-                    break;
-                }
-            }
-            return num < 0 ? string.Empty : editor.Document.GetText(num, offset - num);
-        }
-        public static string GetWordUnderCaret(this Editor editor, char[] allowedChars)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int offset = editor.TextArea.Caret.Offset;
-            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
-        }
-        public static string GetFirstWordInLine(this Editor editor, int lineNumber) => editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
-        public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
-        {
-            if (document == null)
-            {
-                throw new ArgumentNullException("document");
-            }
-            int offset = document.GetOffset(lineNumber, 0);
-            int num = document.FindNextWordStart(offset);
-            if (num < 0)
-            {
-                return string.Empty;
-            }
-            int num2 = document.FindNextWordEnd(num);
-            return num2 < 0 ? string.Empty : document.GetText(num, num2 - num);
-        }
-        public static string GetWordUnderCaret(this Editor editor)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int offset = editor.TextArea.Caret.Offset;
-            int num = editor.Document.FindPrevWordStart(offset);
-            int num2 = editor.Document.FindNextWordEnd(offset);
-            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
-        }
-        public static string GetWordUnderOffset(this Editor editor, int offset)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int num = editor.Document.FindPrevWordStart(offset);
-            int num2 = editor.Document.FindNextWordEnd(offset);
-            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
-        }
-        public static string GetWordUnderOffset(this Editor editor, int offset, char[] allowedChars)
-        {
-            if (editor == null)
-            {
-                throw new ArgumentNullException("editor");
-            }
-            int num = FindPrevWordStart(editor.Document, offset, allowedChars);
-            int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
-            return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
-        }
-        private static int FindPrevWordStart(TextDocument document, int offset, IList<char> allowedChars)
-        {
-            for (int num = offset - 1; num != -1; num--)
-            {
-                char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
-                {
-                    return num + 1;
-                }
-            }
-            return 0;
-        }
-        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-
-        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
-    }
-    public static class FileExtended
-    {
-        public static bool AreEqual(string path1, string path2)
-        {
-            string fullName = new System.IO.FileInfo(path1).FullName;
-            string fullName2 = new System.IO.FileInfo(path2).FullName;
-            return fullName.Equals(fullName2, StringComparison.InvariantCultureIgnoreCase);
-        }
-        public static string CopyIfExisting(string sourcePath, string targetPath)
-        {
-            if (!File.Exists(sourcePath))
-            {
-                throw new ArgumentException("File must exist.", "sourcePath");
-            }
-            string text;
-            if (Directory.Exists(targetPath))
-            {
-                text = targetPath;
-                targetPath = Path.Combine(targetPath, FileExtended.GetName(sourcePath));
-            }
-            else
-            {
-                text = Path.GetDirectoryName(targetPath);
-                if (text == null)
-                {
-                    throw new InvalidOperationException("Target path should not be null.");
-                }
-            }
-            _ = Directory.CreateDirectory(text);
-            File.Copy(sourcePath, targetPath, true);
-            return targetPath;
-        }
-        public static void CopyIfExisting(string sourceDirectory, string pattern, string targetDirectory)
-        {
-            string[] files = Directory.GetFiles(sourceDirectory, pattern);
-            for (int i = 0; i < files.Length; i++)
-            {
-                string sourcePath = files[i];
-                _ = FileExtended.CopyIfExisting(sourcePath, targetDirectory);
-            }
-        }
-        public static void DeleteIfExisting(string path) => FileExtended.DeleteIfExisting(path, true);
-
-        public static void DeleteIfExisting(string path, bool force)
-        {
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-            if (!File.Exists(path))
-            {
-                return;
-            }
-            if (force)
-            {
-                File.SetAttributes(path, FileAttributes.Normal);
-            }
-            File.Delete(path);
-            for (int i = 0; i < 10; i++)
-            {
-                if (!File.Exists(path))
-                {
-                    return;
-                }
-                Thread.Sleep(20);
-            }
-        }
-        public static void DeleteIfExisting(string directory, string pattern)
-        {
-            if (!Directory.Exists(directory))
-            {
-                return;
-            }
-            string[] files = Directory.GetFiles(directory, pattern);
-            for (int i = 0; i < files.Length; i++)
-            {
-                string path = files[i];
-                FileExtended.DeleteIfExisting(path);
-            }
-        }
-        public static string GetName(string path)
-        {
-            string fileName = Path.GetFileName(path);
-            return fileName == null ? throw new InvalidOperationException("Could not acquire filename from " + path) : fileName;
-        }
-        public static string GetNameWithoutExtension(string path)
-        {
-            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-            return fileNameWithoutExtension == null
-                ? throw new InvalidOperationException("Could not acquire filename from " + path)
-                : fileNameWithoutExtension;
-        }
-        public static void MakeWriteable(string path)
-        {
-            if (!string.IsNullOrEmpty(path) && File.Exists(path))
-            {
-                File.SetAttributes(path, FileAttributes.Normal);
-            }
-        }
-        public static void Move(string sourcePath, string targetPath)
-        {
-            string directoryName = Path.GetDirectoryName(targetPath);
-            if (directoryName == null)
-            {
-                return;
-            }
-            if (!Directory.Exists(directoryName))
-            {
-                _ = Directory.CreateDirectory(directoryName);
-            }
-            File.Move(sourcePath, targetPath);
-        }
-    }
-
-
 }

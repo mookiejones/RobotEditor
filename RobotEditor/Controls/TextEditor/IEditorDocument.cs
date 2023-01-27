@@ -9,7 +9,7 @@ namespace RobotEditor.Interfaces
     {
         Visibility Visibility { get; set; }
         AbstractLanguageClass FileLanguage { get; set; }
-        Editor TextBox { get; set; }
+        AvalonEditor TextBox { get; set; }
         string FilePath { get; set; }
         ImageSource IconSource { get; set; }
         string FileName { get; }

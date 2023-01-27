@@ -25,11 +25,11 @@ namespace RobotEditor.Controls.TextEditor
         }
         public virtual void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
-            if (!(textArea.GetService(typeof(Editor)) is Editor textEditor))
+            if (!(textArea.GetService(typeof(AvalonEditor)) is AvalonEditor textEditor))
             {
                 return;
             }
-            string text = (!(textEditor is Editor kukaTextEditor)) ? textEditor.GetWordBeforeCaret() : kukaTextEditor.GetWordBeforeCaret(kukaTextEditor.GetWordParts());
+            string text = (!(textEditor is AvalonEditor kukaTextEditor)) ? textEditor.GetWordBeforeCaret() : kukaTextEditor.GetWordBeforeCaret(kukaTextEditor.GetWordParts());
             if (Text.StartsWith(text, StringComparison.InvariantCultureIgnoreCase) || Text.ToLowerInvariant().Contains(text.ToLowerInvariant()))
             {
                 textEditor.Document.Replace(textEditor.CaretOffset - text.Length, text.Length, Text);

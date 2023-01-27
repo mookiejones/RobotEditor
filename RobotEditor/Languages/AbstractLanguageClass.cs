@@ -469,7 +469,7 @@ namespace RobotEditor.Languages
             return result;
         }
 
-        private string ShiftProgram(Editor doc, ShiftViewModel shift)
+        private string ShiftProgram(AvalonEditor doc, ShiftViewModel shift)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();

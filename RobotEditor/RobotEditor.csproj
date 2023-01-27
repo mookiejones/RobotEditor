@@ -187,6 +187,9 @@
     <Compile Include="App.Initialize.cs" />
     <Compile Include="Controls\AngleConverter\Distance3D.cs" />
     <Compile Include="Controls\AngleConverter\NRSolver.cs" />
+    <Compile Include="Controls\TextEditor\AvalonEditor.cs" />
+    <Compile Include="Controls\TextEditor\DocumentUtilitites.cs" />
+    <Compile Include="Controls\TextEditor\FileExtended.cs" />
     <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
     <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
     <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
@@ -296,9 +299,6 @@
       <DependentUpon>SnippetToolTip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TextEditor\CompletionData.cs" />
-    <Compile Include="Controls\TextEditor\Editor.xaml.cs">
-      <DependentUpon>Editor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TextEditor\Extensions\ITextEditorExtensions.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionContextInfo.cs" />
     <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletionDataUsageCache.cs" />
@@ -438,6 +438,10 @@
     <Compile Include="Windows\XmlReaderWindow.xaml.cs">
       <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Assets\Styles\Controls.AvalonEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Assets\Styles\Controls.DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -486,10 +490,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TextEditor\Editor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\VisualVariableControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -511,10 +511,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\Styles\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\EditorTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

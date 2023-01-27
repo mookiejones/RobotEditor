@@ -3,10 +3,40 @@
                     xmlns:converters="clr-namespace:RobotEditor.Converters"
                     
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor">
+                    xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"
+                    xmlns:completiondata="clr-namespace:RobotEditor.Controls.TextEditor.Snippets.CompletionData" xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
-    <Style x:Key="{x:Type textEditor:Editor}" TargetType="{x:Type textEditor:Editor}">
+
+
+    <DataTemplate x:Key="CodeCompletion" DataType="{x:Type completiondata:CodeCompletion}">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Background="#FFFFA500" Text="{Binding Text}" />
+            <TextBlock Background="#FFFF0000" Text="{Binding Description}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <Style x:Key="{x:Type textEditor:AvalonEditor}" TargetType="{x:Type textEditor:AvalonEditor}">
+        <Setter Property="Options" Value="{x:Static textEditor:EditorOptions.Instance}"/>
+        <Setter Property="HorizontalAlignment" Value="Auto"/>
+        <Setter Property="VerticalAlignment" Value="Auto"/>
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="Cut" InputGestureText="Ctrl+X" Command="{Binding CutCommand}" Icon="{wpf:PackIcon Kind=ContentCut}"/>
+                    <MenuItem Header="Copy" InputGestureText="Ctrl+C" Command="{Binding CopyCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentCopy}"/>
+                    <MenuItem Header="_Paste" InputGestureText="Ctrl+V" Command="{Binding PasteCommand, Mode=OneWay}" Icon="{wpf:PackIcon Kind=ContentPaste}"/>
+                    <Separator />
+                    <MenuItem Header="Open all Folds" InputGestureText="Ctrl+M,O" IsTextSearchCaseSensitive="True"
+                      Command="{Binding OpenAllFoldsCommand, Mode=OneWay}" />
+                    <MenuItem Header="Close all Folds" InputGestureText="Ctrl,+M,L"
+                      Command="{Binding CloseAllFoldsCommand, Mode=OneWay}" />
+                    <Separator />
+                    <MenuItem Header="Add Timestamp" Command="{Binding AddTimeStampCommand, Mode=OneWay}" />
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+
         <Setter Property="Background"
                 Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderBrush"
@@ -20,6 +50,8 @@
         <Setter Property="BorderThickness"
                 Value="{Binding BorderThickness, Source={x:Static textEditor:EditorOptions.Instance}}" />
     </Style>
+
+
     <Style x:Key="{x:Type avalonedit:TextArea}" TargetType="{x:Type avalonedit:TextArea}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SelectionBrush"
@@ -52,6 +84,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style x:Key="FoldToolTipStyle" TargetType="{x:Type ToolTip}">
         <Setter Property="Opacity" Value="1" />
         <Setter Property="Template">

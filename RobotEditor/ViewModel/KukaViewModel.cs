@@ -104,13 +104,13 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string SourcePropertyName = "Source";
 
-        private Editor _source = new Editor();
+        private AvalonEditor _source = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Source property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Source
+        public AvalonEditor Source
         {
             get => _source;
 
@@ -138,13 +138,13 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string DataPropertyName = "Data";
 
-        private Editor _data = new Editor();
+        private AvalonEditor _data = new AvalonEditor();
 
         /// <summary>
         ///     Sets and gets the Data property.
         ///     Changes to that property's value raise the PropertyChanged event.
         /// </summary>
-        public Editor Data
+        public AvalonEditor Data
         {
             get => _data;
 
@@ -207,8 +207,8 @@ namespace RobotEditor.ViewModel
             FileLanguage = lang;
             Source.FileLanguage = FileLanguage;
             Data.FileLanguage = FileLanguage;
-            Source.GotFocus += (s, e) => TextBox = s as Editor;
-            Data.GotFocus += (s, e) => TextBox = s as Editor;
+            Source.GotFocus += (s, e) => TextBox = s as AvalonEditor;
+            Data.GotFocus += (s, e) => TextBox = s as AvalonEditor;
             Source.TextChanged += (s, e) => TextChanged(s);
             Data.TextChanged += (s, e) => TextChanged(s);
             Source.IsModified = false;
@@ -224,7 +224,7 @@ namespace RobotEditor.ViewModel
                     case false:
                         if (Data == null)
                         {
-                            Data = new Editor();
+                            Data = new AvalonEditor();
                         }
                         Data.Visibility = Visibility.Collapsed;
                         Grid.Visibility = Visibility.Collapsed;
@@ -316,7 +316,7 @@ namespace RobotEditor.ViewModel
             Grid.IsAnimated = true;
         }
 
-        private void CheckClose(Editor txtBox)
+        private void CheckClose(AvalonEditor txtBox)
         {
             if (txtBox != null && txtBox.IsModified)
             {
