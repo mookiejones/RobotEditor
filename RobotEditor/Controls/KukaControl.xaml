@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ResourceDictionary Source="/RobotEditor;component/Styles/Styles.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Styles.xaml" />
     </UserControl.Resources>
     <DockPanel>
         <DockPanel.Resources>

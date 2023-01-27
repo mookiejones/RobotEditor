@@ -18,9 +18,7 @@
 
     <Style x:Key="{x:Type textEditor:AvalonEditor}" TargetType="{x:Type textEditor:AvalonEditor}">
         <Setter Property="Options" Value="{x:Static textEditor:EditorOptions.Instance}"/>
-        <Setter Property="HorizontalAlignment" Value="Auto"/>
-        <Setter Property="VerticalAlignment" Value="Auto"/>
-        <Setter Property="ContextMenu">
+         <Setter Property="ContextMenu">
             <Setter.Value>
                 <ContextMenu>
                     <MenuItem Header="Cut" InputGestureText="Ctrl+X" Command="{Binding CutCommand}" Icon="{wpf:PackIcon Kind=ContentCut}"/>

@@ -41,6 +41,7 @@ using System.Windows.Controls;
 using ICSharpCode.AvalonEdit.Editing;
 using Microsoft.Win32;
 using System.Windows.Media;
+using System.Runtime.CompilerServices;
 
 namespace RobotEditor.Controls.TextEditor
 {
@@ -1582,5 +1583,88 @@ namespace RobotEditor.Controls.TextEditor
         }
 
         protected internal virtual char[] GetWordParts() => new char[0];
+
+
+
+
+
+        public  string GetWordBeforeCaret( char[] allowedChars)
+        {
+         
+            int offset = TextArea.Caret.Offset;
+
+            int num = Document.FindPrevWordStart( offset, allowedChars);
+            return num < 0 ? string.Empty : Document.GetText(num, offset - num);
+        }
+
+        public  string GetStringBeforeCaret()
+        {
+           
+            int line = TextArea.Caret.Line;
+            if (line < 1)
+            {
+                return string.Empty;
+            }
+            int offset = TextArea.Caret.Offset;
+            if (line >  Document.LineCount)
+            {
+                return string.Empty;
+            }
+            DocumentLine lineByNumber = Document.GetLineByNumber(line);
+            int length = offset - lineByNumber.Offset;
+            return Document.GetText(lineByNumber.Offset, length);
+        }
+
+
+        public  string GetWordBeforeOffset( int offset, char[] allowedChars)
+        {
+            
+            int num = Document.FindPrevWordStart( offset, allowedChars);
+            return num < 0 ? string.Empty : Document.GetText(num, offset - num);
+        }
+        public  string GetTokenBeforeOffset(int offset)
+        {
+            int num = -1;
+            for (int i = offset - 1; i > -1; i--)
+            {
+                char charAt =   Document.GetCharAt(i);
+                if (charAt == ' ' || charAt == '\n' || charAt == '\r' || charAt == '\t')
+                {
+                    num = i + 1;
+                    break;
+                }
+            }
+            return num < 0 ? string.Empty : Document.GetText(num, offset - num);
+        }
+        public string GetWordUnderCaret(  char[] allowedChars)
+        {            
+            int offset = TextArea.Caret.Offset;
+            int num = Document.FindPrevWordStart( offset, allowedChars);
+            int num2 = Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : Document.GetText(num, num2 - num);
+        }
+        public string GetFirstWordInLine(int lineNumber) => Document.GetFirstWordInLine(lineNumber);
+
+        public string GetWordUnderCaret()
+        {
+            
+            int offset = TextArea.Caret.Offset;
+            int num = Document.FindPrevWordStart(offset);
+            int num2 = Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : Document.GetText(num, num2 - num);
+        }
+        public  string GetWordUnderOffset(int offset)
+        {           
+            int num = Document.FindPrevWordStart(offset);
+            int num2 = Document.FindNextWordEnd(offset);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : Document.GetText(num, num2 - num);
+        }
+        public string GetWordUnderOffset(  int offset, char[] allowedChars)
+        {
+            int num = Document.FindPrevWordStart( offset, allowedChars);
+            int num2 = Document.FindNextWordEnd(offset, allowedChars);
+            return num < 0 || num2 == 0 || num2 < num ? string.Empty : Document.GetText(num, num2 - num);
+        }
+
     }
 }

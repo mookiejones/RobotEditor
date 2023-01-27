@@ -14,7 +14,7 @@
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Brushes.xaml" />
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.DataGrid.xaml" />
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" />
-        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.Menu.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.MessageView.xaml" />
 
         <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/KUKASpecificTemplates.xaml" />
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.AvalonEditor.xaml" />
@@ -28,8 +28,6 @@
     <!--<viewModel:GlobalOptionsViewModel x:Key="GlobalOptions" />-->
 
 
-    <Image x:Key="CopyImage" Source="/RobotEditor;component/Images/resources-copy.png" />
-    <Image x:Key="PasteImage" Source="/RobotEditor;component/Images/resources-paste.png" />
     <Image x:Key="FoldingDisabled" Source="/RobotEditor;component/Images/resources-foldingDisabled.png" />
     <Image x:Key="FoldingEnabled" Source="/RobotEditor;component/Images/resources-foldingEnabled.png" />
     <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource DataGridStyle}">
