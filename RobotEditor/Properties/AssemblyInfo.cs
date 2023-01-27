@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DMC Automation")]
 [assembly: AssemblyProduct("DMC FileLanguage Editor")]
-[assembly: AssemblyCopyright("Copyright © Mookie 2012 - 2014")]
+[assembly: AssemblyCopyright("Copyright © Mookie 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

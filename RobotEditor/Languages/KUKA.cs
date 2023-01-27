@@ -44,10 +44,7 @@ namespace RobotEditor.Languages
             //      FoldingStrategy = new KrlFoldingStrategy();
         }
 
-        public override void Initialize(string filename)
-        {
-            base.Initialize();
-        }
+        public override void Initialize(string filename) => base.Initialize();
 
         public ICommand SystemFunctionCommand => _systemFunctionCommand ??
                        (_systemFunctionCommand = new RelayCommand(() => FunctionGenerator.GetSystemFunctions()));
@@ -179,11 +176,8 @@ namespace RobotEditor.Languages
             }
         }
 
-        public static bool OnlyDatExists(string filename)
-        {
-            return File.Exists(Path.Combine(Path.GetDirectoryName(filename),
+        public static bool OnlyDatExists(string filename) => File.Exists(Path.Combine(Path.GetDirectoryName(filename),
                     Path.GetFileNameWithoutExtension(filename) + ".src"));
-        }
 
         [Localizable(false)]
         public static string SystemFileName()
@@ -203,10 +197,7 @@ namespace RobotEditor.Languages
             return result;
         }
 
-        protected override bool IsFileValid(System.IO.FileInfo file)
-        {
-            return FileIsValid(file);
-        }
+        protected override bool IsFileValid(System.IO.FileInfo file) => FileIsValid(file);
 
         internal bool FileIsValid(System.IO.FileInfo file)
         {
@@ -314,13 +305,10 @@ namespace RobotEditor.Languages
         {
         }
 
-        public SnippetCollection Snippets()
-        {
-            return new SnippetCollection
+        public SnippetCollection Snippets() => new SnippetCollection
             {
                 ForSnippet
             };
-        }
 
         public override string ExtractXYZ(string positionstring)
         {
@@ -328,10 +316,7 @@ namespace RobotEditor.Languages
             return positionBase.ExtractFromMatch();
         }
 
-        public static string GetDatFileName(string filename)
-        {
-            return filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
-        }
+        public static string GetDatFileName(string filename) => filename.Substring(0, filename.LastIndexOf('.')) + ".dat";
 
         public static List<string> GetModuleFileNames(string filename)
         {
@@ -352,10 +337,7 @@ namespace RobotEditor.Languages
         {
             private static string _functionFile = string.Empty;
 
-            private static string GetStruc(string filename)
-            {
-                return RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
-            }
+            private static string GetStruc(string filename) => RemoveFromFile(filename, "((?<!_)STRUC [\\w\\s,\\[\\]]*)");
 
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public static string GetSystemFunctions()

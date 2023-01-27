@@ -98,10 +98,7 @@ namespace RobotEditor.Parsers
             return result;
         }
 
-        public PeekToken Peek()
-        {
-            return Peek(new PeekToken(_index, new Token(Tokens.UNDEFINED, string.Empty)));
-        }
+        public PeekToken Peek() => Peek(new PeekToken(_index, new Token(Tokens.UNDEFINED, string.Empty)));
 
         public PeekToken Peek(PeekToken peekToken)
         {

@@ -19,9 +19,6 @@ namespace RobotEditor.Languages
     [Localizable(false)]
     public sealed class ABB : AbstractLanguageClass
     {
-        // ReSharper disable once UnusedMember.Local
-        private const RegexOptions Ro = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
         public ABB(string file)
             : base(file)
         {
@@ -60,10 +57,7 @@ namespace RobotEditor.Languages
         public override Regex XYZRegex => new Regex("^[PERS ]*(robtarget|jointtarget) ([\\w\\d_]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override void Initialize(string filename)
-        {
-            Initialize();
-        }
+        public override void Initialize(string filename) => Initialize();
 
         public override string CommentChar => "!";
 
@@ -74,10 +68,7 @@ namespace RobotEditor.Languages
                     new CodeCompletion("Item1")
                 };
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return EXT.Any(e => file.Extension.ToLower(CultureInfo.InvariantCulture) == e);
-        }
+        protected override bool IsFileValid(FileInfo file) => EXT.Any(e => file.Extension.ToLower(CultureInfo.InvariantCulture) == e);
 
         public override string ExtractXYZ(string positionstring)
         {

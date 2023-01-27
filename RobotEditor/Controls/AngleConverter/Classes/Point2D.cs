@@ -36,37 +36,22 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             set => Position[1] = value;
         }
 
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            return string.Format("{0}, {1}", X.ToString(format, CultureInfo.InvariantCulture),
+        public string ToString(string format, IFormatProvider formatProvider) => string.Format("{0}, {1}", X.ToString(format, CultureInfo.InvariantCulture),
                 Y.ToString(format, CultureInfo.InvariantCulture));
-        }
 
-        private bool Equals(Point2D other)
-        {
-            return Equals(Position, other.Position);
-        }
+        private bool Equals(Point2D other) => Equals(Position, other.Position);
 
-        public override bool Equals(object obj)
-        {
-            return obj is object &&
+        public override bool Equals(object obj) => obj is object &&
                    (ReferenceEquals(this, obj) || (obj.GetType() == base.GetType() && Equals((Point2D)obj)));
-        }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         public static bool operator ==(Point2D p1, Point2D p2)
         {
             return p1 == p2;
         }
 
-        public static bool Equals(Point2D p1, Point2D p2)
-        {
-            return p1 == p2;
-        }
+        public static bool Equals(Point2D p1, Point2D p2) => p1 == p2;
 
         public static bool operator !=(Point2D p1, Point2D p2)
         {
@@ -83,15 +68,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
         }
 
-        public static Vector2D Subtract(Point2D p1, Point2D p2)
-        {
-            return new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
-        }
+        public static Vector2D Subtract(Point2D p1, Point2D p2) => new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
 
         [Localizable(false)]
-        public override string ToString()
-        {
-            return string.Format("{0:F2}, {1:F2}", X, Y);
-        }
+        public override string ToString() => string.Format("{0:F2}, {1:F2}", X, Y);
     }
 }

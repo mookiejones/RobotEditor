@@ -55,10 +55,7 @@ namespace RobotEditor.Languages
 
         public override Regex EnumRegex => new Regex("( enum )", RegexOptions.IgnoreCase);
 
-        public override void Initialize(string filename)
-        {
-            base.Initialize();
-        }
+        public override void Initialize(string filename) => base.Initialize();
 
         public override string CommentChar => "'";
 
@@ -66,10 +63,7 @@ namespace RobotEditor.Languages
 
         public override Regex XYZRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return false;
-        }
+        protected override bool IsFileValid(FileInfo file) => false;
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
@@ -79,15 +73,9 @@ namespace RobotEditor.Languages
             return doc.GetText(offset, length);
         }
 
-        public override string ExtractXYZ(string positionstring)
-        {
-            return string.Empty;
-        }
+        public override string ExtractXYZ(string positionstring) => string.Empty;
 
-        public override DocumentViewModel GetFile(string filepath)
-        {
-            return new DocumentViewModel(filepath);
-        }
+        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {

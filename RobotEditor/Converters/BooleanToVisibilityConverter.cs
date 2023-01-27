@@ -25,9 +25,6 @@ namespace RobotEditor.Converters
             throw new InvalidOperationException("Converter can only convert to value of type Visibility.");
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (Visibility)value == Visibility.Visible;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible;
     }
 }

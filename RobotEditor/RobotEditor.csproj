@@ -51,7 +51,8 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <LangVersion>7.0</LangVersion>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>RobotEditor.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,6 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.0</LangVersion>
+    <CodeAnalysisRuleSet>RobotEditor.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>RobotEditor.App</StartupObject>
@@ -73,13 +75,13 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>F36E4874721869C05E3F7257EFF6D15647106888</ManifestCertificateThumbprint>
@@ -249,6 +251,7 @@
     <Compile Include="Utilities\FileHelper.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
     <Compile Include="Controls\TextEditor\TextSourceAdapter.cs" />
+    <Compile Include="Utilities\StringEx.cs" />
     <Compile Include="Utilities\TraceWriter.cs" />
     <Compile Include="Languages\Data\Variable.cs" />
     <Compile Include="Languages\Data\VariableBase.cs" />
@@ -752,6 +755,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -769,6 +773,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="RobotEditor.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Flyouts\" />

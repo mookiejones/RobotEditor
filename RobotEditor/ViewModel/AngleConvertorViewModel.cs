@@ -35,12 +35,6 @@ namespace RobotEditor.ViewModel
 
         public ValueBoxViewModel OutputItems { get => _outputItems; set => SetProperty(ref _outputItems, value); }
 
-        private double EPSILON
-        {
-            get => 4.94065645841247E-324;
-            set => throw new NotImplementedException();
-        }
-
         public string Error => null;
 
         public string Matrix { get => _matrix; set => SetProperty(ref _matrix, value); }

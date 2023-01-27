@@ -26,34 +26,16 @@ namespace RobotEditor.Controls.TextEditor
 
         public string Text => TextSource.Text;
 
-        public virtual ITextBuffer CreateSnapshot()
-        {
-            return new TextSourceAdapter(TextSource.CreateSnapshot());
-        }
+        public virtual ITextBuffer CreateSnapshot() => new TextSourceAdapter(TextSource.CreateSnapshot());
 
-        public ITextBuffer CreateSnapshot(int offset, int length)
-        {
-            return new TextSourceAdapter(TextSource.CreateSnapshot(offset, length));
-        }
+        public ITextBuffer CreateSnapshot(int offset, int length) => new TextSourceAdapter(TextSource.CreateSnapshot(offset, length));
 
-        public TextReader CreateReader()
-        {
-            return TextSource.CreateReader();
-        }
+        public TextReader CreateReader() => TextSource.CreateReader();
 
-        public TextReader CreateReader(int offset, int length)
-        {
-            return TextSource.CreateSnapshot(offset, length).CreateReader();
-        }
+        public TextReader CreateReader(int offset, int length) => TextSource.CreateSnapshot(offset, length).CreateReader();
 
-        public char GetCharAt(int offset)
-        {
-            return TextSource.GetCharAt(offset);
-        }
+        public char GetCharAt(int offset) => TextSource.GetCharAt(offset);
 
-        public string GetText(int offset, int length)
-        {
-            return TextSource.GetText(offset, length);
-        }
+        public string GetText(int offset, int length) => TextSource.GetText(offset, length);
     }
 }

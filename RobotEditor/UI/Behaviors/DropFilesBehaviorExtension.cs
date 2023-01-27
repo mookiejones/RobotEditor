@@ -71,20 +71,14 @@ namespace RobotEditor.UI.Behaviors
         /// </summary>
         /// <param name="element"></param>
         /// <param name="value"></param>
-        public static void SetIsEnabled(DependencyObject element, bool value)
-        {
-            element.SetValue(IsEnabledProperty, value);
-        }
+        public static void SetIsEnabled(DependencyObject element, bool value) => element.SetValue(IsEnabledProperty, value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public static bool GetIsEnabled(DependencyObject element)
-        {
-            return (bool)element.GetValue(IsEnabledProperty);
-        }
+        public static bool GetIsEnabled(DependencyObject element) => (bool)element.GetValue(IsEnabledProperty);
     }
 
     public interface IFilesDropped

@@ -70,10 +70,7 @@ namespace RobotEditor
             e.Handled = true;
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-        }
+        protected override void OnExit(ExitEventArgs e) => base.OnExit(e);
 
         [Localizable(false)]
         protected override void OnStartup(StartupEventArgs e)

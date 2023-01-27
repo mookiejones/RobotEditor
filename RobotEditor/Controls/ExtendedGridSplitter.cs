@@ -18,14 +18,6 @@ namespace RobotEditor.Controls
      TemplatePart(Name = "VerticalTemplate", Type = typeof(FrameworkElement))]
     public class ExtendedGridSplitter : GridSplitter
     {
-        private const string ElementLabelName = "LabelHandle";
-        private const string ElementSwitcharrowHandleName = "SwitchArrows";
-        private const string ElementHorizontalHandleName = "HorizontalGridSplitterHandle";
-        private const string ElementVerticalHandleName = "VerticalGridSplitterHandle";
-        private const string ElementHorizontalTemplateName = "HorizontalTemplate";
-        private const string ElementVerticalTemplateName = "VerticalTemplate";
-        private const string ElementGridsplitterBackground = "GridSplitterBackground";
-        private const double AnimationTimeMillis = 200.0;
         public static bool Animating = false;
         private static ToggleButton _elementHorizontalGridSplitterButton;
         private static ToggleButton _elementVerticalGridSplitterButton;
@@ -305,15 +297,9 @@ namespace RobotEditor.Controls
             IsCollapsed = false;
         }
 
-        protected virtual void OnCollapsed(EventArgs e)
-        {
-            Collapsed?.Invoke(this, e);
-        }
+        protected virtual void OnCollapsed(EventArgs e) => Collapsed?.Invoke(this, e);
 
-        protected virtual void OnExpanded(EventArgs e)
-        {
-            Expanded?.Invoke(this, e);
-        }
+        protected virtual void OnExpanded(EventArgs e) => Expanded?.Invoke(this, e);
 
         private void GridSplitterButtonChecked(object sender, RoutedEventArgs e)
         {

@@ -34,15 +34,9 @@ namespace RobotEditor.future
             Mode = mode;
             CommentCarretLineIfNoSelection = true;
         }
-        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine)
-        {
-            return CommentLine(kukaTextEditor.Document, documentLine);
-        }
+        public bool CommentLine(Editor kukaTextEditor, DocumentLine documentLine) => CommentLine(kukaTextEditor.Document, documentLine);
 
-        public bool CommentLine(TextDocument document, DocumentLine documentLine)
-        {
-            return Mode == CommentMode.BeginOfLine ? CommentAtBeginOfLine(document, documentLine) : CommentAtBeginOfText(document, documentLine);
-        }
+        public bool CommentLine(TextDocument document, DocumentLine documentLine) => Mode == CommentMode.BeginOfLine ? CommentAtBeginOfLine(document, documentLine) : CommentAtBeginOfText(document, documentLine);
         public bool CommentLines(Editor kukaTextEditor, int startLine, int endLine)
         {
             if (endLine > kukaTextEditor.Document.LineCount)
@@ -187,10 +181,7 @@ namespace RobotEditor.future
             }
             return false;
         }
-        private static bool IsWhitespace(char letter)
-        {
-            return Whitespaces.Contains(letter);
-        }
+        private static bool IsWhitespace(char letter) => Whitespaces.Contains(letter);
 
         private bool CommentAtBeginOfLine(TextDocument document, DocumentLine documentLine)
         {

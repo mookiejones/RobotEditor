@@ -51,26 +51,14 @@ namespace RobotEditor.Structs
             return result;
         }
 
-        public bool Equals(Location other)
-        {
-            return this == other;
-        }
+        public bool Equals(Location other) => this == other;
 
         [Localizable(false)]
-        public override string ToString()
-        {
-            return string.Format("(Line {1}, Col {0})", X, Y);
-        }
+        public override string ToString() => string.Format("(Line {1}, Col {0})", X, Y);
 
-        public override int GetHashCode()
-        {
-            return (87 * X.GetHashCode()) ^ Y.GetHashCode();
-        }
+        public override int GetHashCode() => (87 * X.GetHashCode()) ^ Y.GetHashCode();
 
-        public override bool Equals(object obj)
-        {
-            return obj is Location && (Location)obj == this;
-        }
+        public override bool Equals(object obj) => obj is Location && (Location)obj == this;
 
         public static bool operator ==(Location a, Location b)
         {

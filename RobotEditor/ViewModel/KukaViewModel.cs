@@ -59,10 +59,7 @@ namespace RobotEditor.ViewModel
                        ?? (_toggleGridCommand = new RelayCommand(ToggleGrid, CanToggleGrid));
 
 
-        public bool CanToggleGrid()
-        {
-            return Grid != null;
-        }
+        public bool CanToggleGrid() => Grid != null;
 
         #endregion
 

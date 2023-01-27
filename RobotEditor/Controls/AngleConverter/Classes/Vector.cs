@@ -56,15 +56,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             set => SetSize(value, 1);
         }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
+        public override bool Equals(object obj) => base.Equals(obj);
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         public static double Dot(Vector vec1, Vector vec2)
         {
@@ -96,10 +90,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public Vector Normalised()
-        {
-            return new Vector(this / Length());
-        }
+        public Vector Normalised() => new Vector(this / Length());
 
         public static Vector operator +(Vector v1, Vector v2)
         {
@@ -111,10 +102,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec + scalar);
         }
 
-        public static Vector Add(Vector vec, double scalar)
-        {
-            return new Vector(vec + scalar);
-        }
+        public static Vector Add(Vector vec, double scalar) => new Vector(vec + scalar);
 
         public static Vector operator +(double scalar, Vector vec)
         {
@@ -126,10 +114,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec / scalar);
         }
 
-        public static Vector Divide(Vector vec, double scalar)
-        {
-            return new Vector(vec / scalar);
-        }
+        public static Vector Divide(Vector vec, double scalar) => new Vector(vec / scalar);
 
         public static Vector operator *(Matrix mat, Vector vec)
         {
@@ -141,10 +126,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec * scalar);
         }
 
-        public static Vector Multiply(Vector vec, double scalar)
-        {
-            return new Vector(vec * scalar);
-        }
+        public static Vector Multiply(Vector vec, double scalar) => new Vector(vec * scalar);
 
         public static Vector operator *(double scalar, Vector vec)
         {
@@ -156,20 +138,14 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(v1 - v2);
         }
 
-        public static Vector Subtract(Vector v1, Vector v2)
-        {
-            return new Vector(v1 - v2);
-        }
+        public static Vector Subtract(Vector v1, Vector v2) => new Vector(v1 - v2);
 
         public static bool operator ==(Vector v1, Vector v2)
         {
             return v1 == v2;
         }
 
-        public static bool Equals(Vector v1, Vector v2)
-        {
-            return v1 == v2;
-        }
+        public static bool Equals(Vector v1, Vector v2) => v1 == v2;
 
         public static bool operator !=(Vector v1, Vector v2)
         {
@@ -186,9 +162,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(-v);
         }
 
-        public static Vector Negate(Vector v)
-        {
-            return new Vector(-v);
-        }
+        public static Vector Negate(Vector v) => new Vector(-v);
     }
 }

@@ -8,7 +8,7 @@
     <TabControl VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
 
         <TabItem Header="Language File">
-            <TextBox Text="{Binding DataBase}" ScrollViewer.CanContentScroll="True"
+            <TextBox Text="{Binding Database}" ScrollViewer.CanContentScroll="True"
                      VerticalScrollBarVisibility="Auto" />
         </TabItem>
         <TabItem Header="IO Points">

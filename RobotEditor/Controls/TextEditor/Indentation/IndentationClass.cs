@@ -546,10 +546,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                 OneLineBlock = 0;
             }
 
-            public void Indent(IndentationSettings set)
-            {
-                Indent(set.IndentString);
-            }
+            public void Indent(IndentationSettings set) => Indent(set.IndentString);
 
             public void Indent(string indentationString)
             {
@@ -561,9 +558,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
             }
 
             [Localizable(false)]
-            public override string ToString()
-            {
-                return string.Format(CultureInfo.InvariantCulture,
+            public override string ToString() => string.Format(CultureInfo.InvariantCulture,
                     "[Block StartLine={0}, LastWord='{1}', Continuation={2}, OneLineBlock={3}, PreviousOneLineBlock={4}]",
                     new object[]
                     {
@@ -573,7 +568,6 @@ namespace RobotEditor.Controls.TextEditor.Indentation
                         OneLineBlock,
                         PreviousOneLineBlock
                     });
-            }
         }
     }
 }

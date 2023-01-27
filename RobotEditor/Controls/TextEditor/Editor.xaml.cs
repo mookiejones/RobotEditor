@@ -49,13 +49,8 @@ namespace RobotEditor.Controls.TextEditor
     /// 
     public partial class Editor : INotifyPropertyChanged
     {
-        #region Constants
 
-        /*
-                private const int LogicListFontSizeMax = 50;
-                private const int LogicListFontSizeMin = 10;
-        */
-        private const double Epsilon = 1E-08;
+        #region Constants
 
         #endregion
 
@@ -71,10 +66,7 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
 
@@ -279,15 +271,9 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteVariableDoubleClickCommand,
                     CanExecuteVariableDoubleClickCommand));
 
-        private void ExecuteVariableDoubleClickCommand(object parameter)
-        {
-            SelectText((IVariable)parameter);
-        }
+        private void ExecuteVariableDoubleClickCommand(object parameter) => SelectText((IVariable)parameter);
 
-        private bool CanExecuteVariableDoubleClickCommand(object parameter)
-        {
-            return true;
-        }
+        private bool CanExecuteVariableDoubleClickCommand(object parameter) => true;
 
         #endregion
 
@@ -302,15 +288,9 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteUndoCommand,
                     CanExecuteUndoCommand));
 
-        private void ExecuteUndoCommand()
-        {
-            _ = Undo();
-        }
+        private void ExecuteUndoCommand() => _ = Undo();
 
-        private bool CanExecuteUndoCommand()
-        {
-            return true; //CanUndo();
-        }
+        private bool CanExecuteUndoCommand() => true; //CanUndo();
 
         #endregion
 
@@ -325,15 +305,9 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteRedoCommand,
                     CanExecuteRedoCommand));
 
-        private void ExecuteRedoCommand(object parameter)
-        {
-            _ = Redo();
-        }
+        private void ExecuteRedoCommand(object parameter) => _ = Redo();
 
-        private bool CanExecuteRedoCommand(object parameter)
-        {
-            return true; //CanRedo();
-        }
+        private bool CanExecuteRedoCommand(object parameter) => true; //CanRedo();
 
         #endregion
 
@@ -384,10 +358,7 @@ namespace RobotEditor.Controls.TextEditor
                        ?? (_gotoCommand = new RelayCommand(Goto, CanGoto));
 
 
-        public bool CanGoto()
-        {
-            return !string.IsNullOrEmpty(Text);
-        }
+        public bool CanGoto() => !string.IsNullOrEmpty(Text);
 
         #endregion
 
@@ -401,15 +372,9 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand OpenAllFoldsCommand => _openAllFoldsCommand
                        ?? (_openAllFoldsCommand = new RelayCommand(ExecuteOpenAllFoldsCommand, CanChangeFoldStatus));
 
-        private void ExecuteOpenAllFoldsCommand()
-        {
-            ChangeFoldStatus(true);
-        }
+        private void ExecuteOpenAllFoldsCommand() => ChangeFoldStatus(true);
 
-        private bool CanChangeFoldStatus()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        private bool CanChangeFoldStatus() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion
 
@@ -423,10 +388,7 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ToggleCommentCommand => _toggleCommentCommand
                        ?? (_toggleCommentCommand = new RelayCommand(ToggleComment, CanToggleComment));
 
-        public bool CanToggleComment()
-        {
-            return !string.IsNullOrEmpty(FileLanguage.CommentChar);
-        }
+        public bool CanToggleComment() => !string.IsNullOrEmpty(FileLanguage.CommentChar);
 
         #endregion
 
@@ -440,10 +402,7 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ToggleFoldsCommand => _toggleFoldsCommand
                        ?? (_toggleFoldsCommand = new RelayCommand(ToggleFolds, CanToggleFolds));
 
-        public bool CanToggleFolds()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        public bool CanToggleFolds() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion
 
@@ -470,15 +429,9 @@ namespace RobotEditor.Controls.TextEditor
                     ExecuteCloseAllFoldsCommand,
                     CanExecuteCloseAllFoldsCommand));
 
-        private void ExecuteCloseAllFoldsCommand(object parameter)
-        {
-            ChangeFoldStatus(true);
-        }
+        private void ExecuteCloseAllFoldsCommand(object parameter) => ChangeFoldStatus(true);
 
-        private bool CanExecuteCloseAllFoldsCommand(object parameter)
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        private bool CanExecuteCloseAllFoldsCommand(object parameter) => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion
 
@@ -492,10 +445,7 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand AddTimeStampCommand => _addTimeStampCommand ?? (_addTimeStampCommand = new RelayCommand(
                     ExecuteAddTimeStampCommand));
 
-        private void ExecuteAddTimeStampCommand()
-        {
-            AddTimeStamp(true);
-        }
+        private void ExecuteAddTimeStampCommand() => AddTimeStamp(true);
 
         #endregion
 
@@ -509,15 +459,9 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand FindCommand => _findCommand
                        ?? (_findCommand = new RelayCommand(ExecuteFindCommand, CanFind));
 
-        private void ExecuteFindCommand()
-        {
-            ChangeFoldStatus(true);
-        }
+        private void ExecuteFindCommand() => ChangeFoldStatus(true);
 
-        public bool CanFind()
-        {
-            return _foldingManager != null && _foldingManager.AllFoldings.Any();
-        }
+        public bool CanFind() => _foldingManager != null && _foldingManager.AllFoldings.Any();
 
         #endregion
 
@@ -543,10 +487,7 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand ShowDefinitionsCommand => _showDefinitionsCommand
                        ?? (_showDefinitionsCommand = new RelayCommand(ShowDefinitions, CanShowDefinitions));
 
-        public bool CanShowDefinitions()
-        {
-            return _foldingManager != null;
-        }
+        public bool CanShowDefinitions() => _foldingManager != null;
 
         #endregion
 
@@ -560,15 +501,9 @@ namespace RobotEditor.Controls.TextEditor
         public RelayCommand CutCommand => _cutCommand
                        ?? (_cutCommand = new RelayCommand(ExecuteCutCommand, CanCut));
 
-        private void ExecuteCutCommand()
-        {
-            Cut();
-        }
+        private void ExecuteCutCommand() => Cut();
 
-        public bool CanCut()
-        {
-            return Text.Length > 0;
-        }
+        public bool CanCut() => Text.Length > 0;
 
         #endregion
 
@@ -583,15 +518,9 @@ namespace RobotEditor.Controls.TextEditor
                        ?? (_copyCommand = new RelayCommand(ExecuteCopy, CanCopy));
 
 
-        public void ExecuteCopy()
-        {
-            Copy();
-        }
+        public void ExecuteCopy() => Copy();
 
-        public bool CanCopy()
-        {
-            return Text.Length > 0;
-        }
+        public bool CanCopy() => Text.Length > 0;
 
         #endregion
 
@@ -630,15 +559,9 @@ namespace RobotEditor.Controls.TextEditor
                     ExecutePasteCommand,
                     CanExecutePasteCommand));
 
-        private void ExecutePasteCommand()
-        {
-            Paste();
-        }
+        private void ExecutePasteCommand() => Paste();
 
-        private bool CanExecutePasteCommand()
-        {
-            return Clipboard.ContainsText();
-        }
+        private bool CanExecutePasteCommand() => Clipboard.ContainsText();
 
         #endregion
 
@@ -966,10 +889,7 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        private bool CanSave()
-        {
-            return File.Exists(Filename) ? IsModified : IsModified;
-        }
+        private bool CanSave() => File.Exists(Filename) ? IsModified : IsModified;
 
         private void Replace()
         {
@@ -1213,16 +1133,13 @@ namespace RobotEditor.Controls.TextEditor
             return items.ToArray();
         }
 
-        private IEnumerable<ICompletionData> ObjectBrowserCompletionList()
-        {
-            return (
+        private IEnumerable<ICompletionData> ObjectBrowserCompletionList() => (
                 from v in FileLanguage.Fields
                 where v.Type != "def" && v.Type != "deffct"
                 select new CodeCompletion(v.Name)
                 {
                     Image = v.Icon
                 }).ToArray<ICompletionData>();
-        }
 
         private void TextEditor_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -1343,10 +1260,7 @@ namespace RobotEditor.Controls.TextEditor
             SelectionStart = Text.IndexOf(text, CaretOffset, StringComparison.Ordinal);
         }
 
-        public void ShowFindDialog()
-        {
-            _ = FindAndReplaceWindow.Instance.ShowDialog();
-        }
+        public void ShowFindDialog() => _ = FindAndReplaceWindow.Instance.ShowDialog();
 
         private void EditorPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -1552,10 +1466,7 @@ namespace RobotEditor.Controls.TextEditor
             }
         }
 
-        private void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private void RaisePropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /*
                 private void SetWatcher()
@@ -1642,18 +1553,12 @@ namespace RobotEditor.Controls.TextEditor
                 : string.Empty;
         }
 
-        protected internal virtual char[] GetWordParts()
-        {
-            return new char[0];
-        }
+        protected internal virtual char[] GetWordParts() => new char[0];
     }
 
     public static class DocumentUtilitites
     {
-        public static int FindNextWordEnd(this TextDocument document, int offset)
-        {
-            return document.FindNextWordEnd(offset, new List<char>());
-        }
+        public static int FindNextWordEnd(this TextDocument document, int offset) => document.FindNextWordEnd(offset, new List<char>());
 
         public static int FindNextWordEnd(this TextDocument document, int offset, IList<char> allowedChars)
         {
@@ -1802,10 +1707,7 @@ namespace RobotEditor.Controls.TextEditor
             int num2 = editor.Document.FindNextWordEnd(offset, allowedChars);
             return num < 0 || num2 == 0 || num2 < num ? string.Empty : editor.Document.GetText(num, num2 - num);
         }
-        public static string GetFirstWordInLine(this Editor editor, int lineNumber)
-        {
-            return editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
-        }
+        public static string GetFirstWordInLine(this Editor editor, int lineNumber) => editor == null ? throw new ArgumentNullException("editor") : editor.Document.GetFirstWordInLine(lineNumber);
         public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
         {
             if (document == null)
@@ -1864,15 +1766,9 @@ namespace RobotEditor.Controls.TextEditor
             }
             return 0;
         }
-        public static bool IsWhitespaceOrNewline(char ch)
-        {
-            return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-        }
+        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
 
-        private static bool IsWordPart(char ch)
-        {
-            return char.IsLetterOrDigit(ch) || ch == '_';
-        }
+        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
     }
     public static class FileExtended
     {
@@ -1915,10 +1811,7 @@ namespace RobotEditor.Controls.TextEditor
                 _ = FileExtended.CopyIfExisting(sourcePath, targetDirectory);
             }
         }
-        public static void DeleteIfExisting(string path)
-        {
-            FileExtended.DeleteIfExisting(path, true);
-        }
+        public static void DeleteIfExisting(string path) => FileExtended.DeleteIfExisting(path, true);
 
         public static void DeleteIfExisting(string path, bool force)
         {

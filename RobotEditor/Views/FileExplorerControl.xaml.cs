@@ -16,14 +16,11 @@ namespace RobotEditor.Views
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
         private readonly ExplorerClass _explorer = new ExplorerClass();
-        private readonly ContextMenuStrip _ctxFileExplorer;
         private string _filter = "*.*";
-        private readonly ImageList _imgList;
         private readonly ToolStripMenuItem _mnuCopy;
         private readonly ToolStripMenuItem _mnuCut;
         private readonly ToolStripMenuItem _mnuDelete;
         private readonly ToolStripMenuItem _mnuPaste;
-        private readonly ToolStripMenuItem _mnuRefresh;
 
         public FileExplorerControl()
         {
@@ -53,20 +50,11 @@ namespace RobotEditor.Views
         public new event KeyEventHandler OnKeyUp;
         public event TreeViewEventHandler OnAfterSelect;
 
-        private void RaiseAfterSelect(object sender, TreeViewEventArgs e)
-        {
-            OnAfterSelect?.Invoke(sender, e);
-        }
+        private void RaiseAfterSelect(object sender, TreeViewEventArgs e) => OnAfterSelect?.Invoke(sender, e);
 
-        private void RaiseKeyUp(object sender, KeyEventArgs e)
-        {
-            OnKeyUp?.Invoke(sender, e);
-        }
+        private void RaiseKeyUp(object sender, KeyEventArgs e) => OnKeyUp?.Invoke(sender, e);
 
-        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            OnMouseClick?.Invoke(sender, e);
-        }
+        private void RaiseMouseClick(object sender, TreeNodeMouseClickEventArgs e) => OnMouseClick?.Invoke(sender, e);
 
         private void CopyFile(object sender, EventArgs e)
         {

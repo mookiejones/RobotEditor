@@ -30,11 +30,8 @@
             return num + (1000000033 * EndOffset.GetHashCode());
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is BlockCommentRegion blockCommentRegion &&
+        public override bool Equals(object obj) => obj is BlockCommentRegion blockCommentRegion &&
                    CommentStart == blockCommentRegion.CommentStart && CommentEnd == blockCommentRegion.CommentEnd &&
                     StartOffset == blockCommentRegion.StartOffset && EndOffset == blockCommentRegion.EndOffset;
-        }
     }
 }

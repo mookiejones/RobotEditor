@@ -6,8 +6,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
     [Serializable]
     public class SquareMatrix : Matrix
     {
-        private const double EPSILON = 0.0001;
-
         protected SquareMatrix()
             : base(0, 0)
         {
@@ -204,10 +202,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return squareMatrix;
         }
 
-        public static SquareMatrix NaN(int size)
-        {
-            return new SquareMatrix(NaN(size, size));
-        }
+        public static SquareMatrix NaN(int size) => new SquareMatrix(NaN(size, size));
 
         public SquareMatrix Power(int power)
         {
@@ -229,9 +224,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return num;
         }
 
-        public new SquareMatrix Transpose()
-        {
-            return new SquareMatrix(base.Transpose());
-        }
+        public new SquareMatrix Transpose() => new SquareMatrix(base.Transpose());
     }
 }

@@ -179,19 +179,6 @@ namespace RobotEditor
             }
         }
 
-
-        private void LoadLayout()
-        {
-            if (File.Exists(Global.DockConfig))
-            {
-                XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
-                using (new StreamReader(Global.DockConfig))
-                {
-                    xmlLayoutSerializer.Deserialize(Global.DockConfig);
-                }
-            }
-        }
-
         public void CloseWindow(object param)
         {
             IEditorDocument ad = param as IEditorDocument;

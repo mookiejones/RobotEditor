@@ -43,23 +43,6 @@ namespace RobotEditor.ViewModel
             Initialize();
         }
 
-        private string GetDirectory()
-        {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
-            {
-                Description = @"Select Root Directory for Instance"
-            };
-            MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
-            string filename = instance.ActiveEditor.TextBox.Filename;
-            if (Directory.Exists(filename))
-            {
-                folderBrowserDialog.SelectedPath = Path.GetDirectoryName(filename);
-            }
-            return (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-                ? folderBrowserDialog.SelectedPath
-                : string.Empty;
-        }
-
         private void Initialize()
         {
             ContentId = ToolContentId;

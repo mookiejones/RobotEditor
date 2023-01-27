@@ -5,8 +5,6 @@ namespace RobotEditor.Controls.AngleConverter
 {
     public static class Project3D
     {
-        private const double EPSILON = 0.001;
-
         public static Point3D PointOntoCircle(Circle3D circle, Point3D point)
         {
             Plane3D plane = new Plane3D(circle.Origin, circle.Normal);

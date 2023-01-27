@@ -8,14 +8,7 @@ namespace RobotEditor.ViewModel
 {
     public sealed class FindReplaceViewModel : ObservableObject
     {
-        // ReSharper disable UnusedField.Compiler
-        private static readonly RelayCommand _findpreviouscommand;
-        private static readonly RelayCommand _findnextcommand;
-        private static readonly RelayCommand _replacecommand;
-        private static readonly RelayCommand _replaceallcommand;
-        private static readonly RelayCommand _highlightallcommand;
         private static FindReplaceViewModel _instance;
-        private readonly RelayCommand _findallcommand;
         private string _lookfor = string.Empty;
         private bool _matchcase;
         private bool _matchwholeword;
@@ -137,10 +130,7 @@ namespace RobotEditor.ViewModel
 
         public string SearchResult { get => _searchresult; set => SetProperty(ref _searchresult, value); }
 
-        private static void FindPrevious()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindPrevious() => throw new NotImplementedException();
 
         private static void FindNext()
         {
@@ -154,19 +144,10 @@ namespace RobotEditor.ViewModel
             instance.ActiveEditor.TextBox.ReplaceText();
         }
 
-        private static void ReplaceAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void ReplaceAll() => throw new NotImplementedException();
 
-        private static void HighlightAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void HighlightAll() => throw new NotImplementedException();
 
-        private static void FindAll()
-        {
-            throw new NotImplementedException();
-        }
+        private static void FindAll() => throw new NotImplementedException();
     }
 }

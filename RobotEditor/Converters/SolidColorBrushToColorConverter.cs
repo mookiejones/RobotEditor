@@ -7,10 +7,7 @@ namespace RobotEditor.Converters
 
     public class SolidColorBrushToColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value is SolidColorBrush solidColorBrush ? solidColorBrush.Color : (object)default(Color);
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is SolidColorBrush solidColorBrush ? solidColorBrush.Color : (object)default(Color);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

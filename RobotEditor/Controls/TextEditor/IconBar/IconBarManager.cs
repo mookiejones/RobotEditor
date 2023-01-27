@@ -20,17 +20,11 @@ namespace RobotEditor.Controls.TextEditor.IconBar
 
         public IList<IBookmark> Bookmarks => _bookmarks;
 
-        public void Redraw()
-        {
-            RedrawRequested?.Invoke(this, EventArgs.Empty);
-        }
+        public void Redraw() => RedrawRequested?.Invoke(this, EventArgs.Empty);
 
-        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Redraw();
-        }
+        private void BookmarksCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => Redraw();
 
-        public void AddBookMark(UIElement item)
+        public void AddBookmark(UIElement item)
         {
         }
     }

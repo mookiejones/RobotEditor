@@ -11,6 +11,7 @@ using RobotEditor.Controls.TextEditor.Folding;
 using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
 using RobotEditor.Languages.Data;
+using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 
@@ -88,6 +89,7 @@ namespace RobotEditor.Languages
         public override string CommentReplaceString(string text)
         {
             Regex regex = null;
+
             if (Regex.IsMatch(text, "^[\\s]*\\d*:\\s*!"))
             {
                 regex = new Regex("^([\\s\\d]*:\\s*)!([^\\r\\n]*)");

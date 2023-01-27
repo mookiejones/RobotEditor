@@ -80,10 +80,7 @@ namespace RobotEditor.ViewModel
 
         public event ItemsChangedEventHandler ItemsChanged;
 
-        private void RaiseItemsChanged()
-        {
-            ItemsChanged?.Invoke(this, (ItemsChangedEventArgs)new EventArgs());
-        }
+        private void RaiseItemsChanged() => ItemsChanged?.Invoke(this, (ItemsChangedEventArgs)new EventArgs());
 
         private void CheckVisibility()
         {

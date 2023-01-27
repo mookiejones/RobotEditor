@@ -110,9 +110,6 @@ namespace RobotEditor.UI
         /// <summary>
         /// Resets the class by deleting the <see cref="UIDispatcher"/>
         /// </summary>
-        public static void Reset()
-        {
-            UIDispatcher = null;
-        }
+        public static void Reset() => UIDispatcher = null;
     }
 }

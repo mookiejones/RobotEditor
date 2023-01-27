@@ -51,10 +51,7 @@ namespace RobotEditor.ViewModel
             WeakReferenceMessenger.Default.Register<WindowMessage>(this, GetMessage);
         }
 
-        private void GetMessage(object sender, WindowMessage obj)
-        {
-            _ = Open(obj.Description);
-        }
+        private void GetMessage(object sender, WindowMessage obj) => _ = Open(obj.Description);
 
         public string Title
         {
@@ -314,10 +311,7 @@ namespace RobotEditor.ViewModel
             OnPropertyChanged(nameof(ActiveEditor));
         }
 
-        private bool CanExecuteCloseCommand(object arg)
-        {
-            return true;
-        }
+        private bool CanExecuteCloseCommand(object arg) => true;
 
         #endregion
 
@@ -428,10 +422,7 @@ namespace RobotEditor.ViewModel
         /// </summary>
         public RelayCommand<object> ImportCommand => _importCommand ?? (_importCommand = new RelayCommand<object>(p => ImportRobot(), CanImport));
 
-        public bool CanImport(object p)
-        {
-            return !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
-        }
+        public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
 
         #endregion
 
@@ -574,10 +565,7 @@ namespace RobotEditor.ViewModel
             return result;
         }
 
-        private void ExecuteShowIO()
-        {
-            ShowIO = !ShowIO;
-        }
+        private void ExecuteShowIO() => ShowIO = !ShowIO;
 
         private void ShowFindReplace()
         {
@@ -585,10 +573,7 @@ namespace RobotEditor.ViewModel
             //findandReplaceControl.ShowDialog().GetValueOrDefault();
         }
 
-        private void ExecuteShowSettings()
-        {
-            ShowSettings = !ShowSettings;
-        }
+        private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
         private void ChangeAccent(object param)
         {
@@ -703,10 +688,7 @@ namespace RobotEditor.ViewModel
 
         }
 
-        private void Exit()
-        {
-            MainWindow.Instance.Close();
-        }
+        private void Exit() => MainWindow.Instance.Close();
 
         internal void Close(IEditorDocument fileToClose)
         {
@@ -833,10 +815,7 @@ namespace RobotEditor.ViewModel
             }
         }
 
-        public void ShowAbout()
-        {
-            _ = new AboutWindow().ShowDialog();
-        }
+        public void ShowAbout() => _ = new AboutWindow().ShowDialog();
 
         public bool UserSelectsFileToOpen(out string filePath)
         {
@@ -876,18 +855,12 @@ namespace RobotEditor.ViewModel
         }
 
         // ReSharper disable UnusedMember.Global
-        public void ErrorMessage(string msg)
-        {
-            _ = MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-        }
+        public void ErrorMessage(string msg) => _ = MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
 
         // ReSharper disable  UnusedMember.Local
         // ReSharper disable  UnusedParameter.Local
 
-        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        private void avalonDockHost_AvalonDockLoaded(object sender, EventArgs e) => throw new NotImplementedException();
     }
 
     // ReSharper enable UnusedMember.Local

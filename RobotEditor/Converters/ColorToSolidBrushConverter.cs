@@ -39,9 +39,6 @@ namespace RobotEditor.Converters
             return FallbackBrush;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (value is SolidColorBrush solidColorBrush) ? new Color?(solidColorBrush.Color) : FallbackColor;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (value is SolidColorBrush solidColorBrush) ? new Color?(solidColorBrush.Color) : FallbackColor;
     }
 }

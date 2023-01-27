@@ -8,10 +8,7 @@ namespace RobotEditor.Converters
     [Localizable(false), ValueConversion(typeof(object), typeof(string))]
     public sealed class DoubleToStringConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (value == null) ? null : System.Convert.ToDouble(value).ToString(CultureInfo.InvariantCulture);
-        }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (value == null) ? null : System.Convert.ToDouble(value).ToString(CultureInfo.InvariantCulture);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

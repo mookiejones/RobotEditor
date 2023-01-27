@@ -10,8 +10,6 @@ namespace RobotEditor.Languages
 {
     public sealed class DatCleanHelper : ToolViewModel
     {
-        private const int NItemsSelected = 0;
-        private const int NItemsTotal = 0;
         private static DatCleanHelper _instance;
         public static RelayCommand Cleandat;
         private readonly string _filename;
@@ -120,10 +118,7 @@ namespace RobotEditor.Languages
         public RelayCommand DeleteVarTypeCmd => _deleteVarTypeCmd
                        ?? (_deleteVarTypeCmd = new RelayCommand(ExecuteDeleteVarTypeCmd));
 
-        private void ExecuteDeleteVarTypeCmd()
-        {
-            Instance.DeleteVarType();
-        }
+        private void ExecuteDeleteVarTypeCmd() => Instance.DeleteVarType();
 
         #endregion
 
@@ -137,10 +132,7 @@ namespace RobotEditor.Languages
         public RelayCommand AddVarTypeCmd => _addVarTypeCmd
                        ?? (_addVarTypeCmd = new RelayCommand(ExecuteAddVarTypeCmd));
 
-        private void ExecuteAddVarTypeCmd()
-        {
-            Instance.AddVarType();
-        }
+        private void ExecuteAddVarTypeCmd() => Instance.AddVarType();
 
         #endregion
 
@@ -154,10 +146,7 @@ namespace RobotEditor.Languages
         public RelayCommand SelectAllCommand => _selectAllCommand
                        ?? (_selectAllCommand = new RelayCommand(ExecuteSelectAllCommand));
 
-        private void ExecuteSelectAllCommand()
-        {
-            Instance.SelectAll();
-        }
+        private void ExecuteSelectAllCommand() => Instance.SelectAll();
 
         #endregion
 
@@ -174,25 +163,13 @@ namespace RobotEditor.Languages
 
         #endregion
 
-        public void CleanDat()
-        {
-            throw new NotImplementedException();
-        }
+        public void CleanDat() => throw new NotImplementedException();
 
-        public void Checked()
-        {
-            throw new NotImplementedException();
-        }
+        public void Checked() => throw new NotImplementedException();
 
-        public void DeleteVarType()
-        {
-            throw new NotImplementedException();
-        }
+        public void DeleteVarType() => throw new NotImplementedException();
 
-        public void AddVarType()
-        {
-            throw new NotImplementedException();
-        }
+        public void AddVarType() => throw new NotImplementedException();
 
         private void SelectAll()
         {

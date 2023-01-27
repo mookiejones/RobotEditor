@@ -117,10 +117,7 @@ namespace RobotEditor.Controls.TextEditor.Bookmarks
             }
         }
 
-        protected virtual void OnDocumentChanged(EventArgs e)
-        {
-            DocumentChanged?.Invoke(this, e);
-        }
+        protected virtual void OnDocumentChanged(EventArgs e) => DocumentChanged?.Invoke(this, e);
 
         protected virtual void Redraw()
         {

@@ -6,9 +6,6 @@ namespace RobotEditor.Controls.AngleConverter
 {
     public sealed class NRSolver
     {
-        private const int MaxIterations = 20;
-        private const double StopCondition = 1E-07;
-
         public NRSolver(int numEquations, int numVariables)
         {
             NumEquations = numEquations;

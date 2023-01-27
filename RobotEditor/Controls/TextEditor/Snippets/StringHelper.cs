@@ -5,10 +5,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
 {
     public static class StringHelper
     {
-        public static bool ContainsDeclaration(this string code, Dictionary<string, Declaration> declarations)
-        {
-            return declarations.Values.Select(current => code.Contains(current.Id)).Any(flag => flag);
-        }
+        public static bool ContainsDeclaration(this string code, Dictionary<string, Declaration> declarations) => declarations.Values.Select(current => code.Contains(current.Id)).Any(flag => flag);
 
         public static string GetTheNextId(this string code, Dictionary<string, Declaration> declarations)
         {

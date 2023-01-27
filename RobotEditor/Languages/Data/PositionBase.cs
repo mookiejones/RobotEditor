@@ -76,30 +76,6 @@ namespace RobotEditor.Languages.Data
             return result;
         }
 
-        public override string ToString()
-        {
-            return RawValue;
-        }
-
-        private string ConvertFromHex(string value)
-        {
-            double value2 = double.Parse(value.Substring(1, value.Length - 2), NumberStyles.HexNumber);
-            return Convert.ToString(value2);
-        }
-
-        private bool IsNumeric(string value)
-        {
-            bool result;
-            try
-            {
-                double num = Convert.ToDouble(value);
-                result = true;
-            }
-            catch
-            {
-                result = false;
-            }
-            return result;
-        }
+        public override string ToString() => RawValue;
     }
 }

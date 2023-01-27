@@ -124,7 +124,7 @@ namespace RobotEditor.Languages
         public abstract void Initialize(string filename);
         protected AbstractLanguageClass(string filename)
         {
-            flename = flename;
+            flename = filename;
             Initialize(filename);
 
         }
@@ -344,10 +344,7 @@ namespace RobotEditor.Languages
             return result;
         }
 
-        public virtual bool IsLineCommented(string text)
-        {
-            return text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
-        }
+        public virtual bool IsLineCommented(string text) => text.Trim().IndexOf(CommentChar, StringComparison.Ordinal).Equals(0);
 
         private static bool IsValidFold(string text, string s, string e)
         {
@@ -480,11 +477,13 @@ namespace RobotEditor.Languages
             double num2 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
             double num3 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
             Regex regex = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
-            MatchCollection matchCollection = regex.Matches(doc.Text);
+
+            var matchCollection = doc.Text.GetMatches(ShiftRegex);
+
             int count = matchCollection.Count;
             double num4 = 0.0;
             double num5 = count > 0 ? 100 / count : count;
-            foreach (Match match in regex.Matches(doc.Text))
+            foreach (Match match in matchCollection)
             {
                 // ReSharper disable UnusedVariable
                 num4 += num5;
@@ -637,10 +636,7 @@ namespace RobotEditor.Languages
                 _bw.ReportProgress(i);
             }
         }
-        private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            BWProgress = e.ProgressPercentage;
-        }
+        private void _bw_ProgressChanged(object sender, ProgressChangedEventArgs e) => BWProgress = e.ProgressPercentage;
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -673,19 +669,7 @@ namespace RobotEditor.Languages
             result.FindVariables(fi.FullName, this);
             return result;
         }
-        private Task<VariableMembers> GetVariableMembers(string filename)
-        {
-            Task<VariableMembers> task = Task.Factory.StartNew(() =>
-            {
-                VariableMembers result = new VariableMembers();
-                result.FindVariables(filename, this);
-                return result;
-            });
 
-            return task;
-
-
-        }
         private VariableMembers GetVariables(IEnumerable<FileInfo> files)
         {
             VariableMembers variableMembers = new VariableMembers();

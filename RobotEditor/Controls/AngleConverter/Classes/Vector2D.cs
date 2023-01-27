@@ -9,23 +9,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         {
         }
 
-        private Vector2D(Matrix mat)
-            : base(2)
-        {
-            if (mat.Rows != 1 && mat.Columns != 1)
-            {
-                throw new MatrixException("Cannot convert matrix to Vector3D. It has more than one row or column");
-            }
-            if (mat.Rows == 1 && mat.Columns == 2)
-            {
-                mat = mat.Transpose();
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                base[i] = mat[i, 0];
-            }
-        }
-
         public Vector2D(Vector vec)
             : base(2)
         {
@@ -42,35 +25,23 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         {
         }
 
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
+        public override bool Equals(object obj) => base.Equals(obj);
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
 
         public static Vector2D operator +(Vector2D v1, Vector2D v2)
         {
             return new Vector2D(v1 + v2);
         }
 
-        public static Vector2D Add(Vector2D v1, Vector2D v2)
-        {
-            return new Vector2D(v1 + v2);
-        }
+        public static Vector2D Add(Vector2D v1, Vector2D v2) => new Vector2D(v1 + v2);
 
         public static bool operator ==(Vector2D v1, Vector2D v2)
         {
             return v1 == v2;
         }
 
-        public static bool Equals(Vector2D v1, Vector2D v2)
-        {
-            return v1 == v2;
-        }
+        public static bool Equals(Vector2D v1, Vector2D v2) => v1 == v2;
 
         public static bool operator !=(Vector2D v1, Vector2D v2)
         {
@@ -82,9 +53,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector2D(vec / scalar);
         }
 
-        public static Vector2D Divide(Vector2D vec, double scalar)
-        {
-            return new Vector2D(vec / scalar);
-        }
+        public static Vector2D Divide(Vector2D vec, double scalar) => new Vector2D(vec / scalar);
     }
 }

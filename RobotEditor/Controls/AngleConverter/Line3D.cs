@@ -21,11 +21,8 @@ namespace RobotEditor.Controls.AngleConverter
 
         TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            return string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider),
+        public string ToString(string format, IFormatProvider formatProvider) => string.Format("Line: Origin={0}, Direction={1}", Origin.ToString(format, formatProvider),
                 Direction.ToString(format, formatProvider));
-        }
 
         public Point3D GetPoint(double u)
         {
@@ -33,9 +30,6 @@ namespace RobotEditor.Controls.AngleConverter
             return Origin + vec;
         }
 
-        public override string ToString()
-        {
-            return string.Format("Line: Origin={0}, Direction={1}", Origin, Direction);
-        }
+        public override string ToString() => string.Format("Line: Origin={0}, Direction={1}", Origin, Direction);
     }
 }

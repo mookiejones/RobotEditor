@@ -51,10 +51,7 @@ namespace RobotEditor.ViewModel
 
         #endregion
 
-        private void RaiseMessageAdded()
-        {
-            MessageAdded?.Invoke(this, new EventArgs());
-        }
+        private void RaiseMessageAdded() => MessageAdded?.Invoke(this, new EventArgs());
 
         #region Constructor
         public MessageViewModel() : base("Output Window")
@@ -67,17 +64,11 @@ namespace RobotEditor.ViewModel
             WeakReferenceMessenger.Default.Register<Exception>(this, GetException);
         }
 
-        private void GetException(object sender, Exception obj)
-        {
-            throw new NotImplementedException();
-        }
+        private void GetException(object sender, Exception obj) => throw new NotImplementedException();
 
         #endregion
 
-        public static void Add(IMessage msg)
-        {
-            Add(msg.Title, msg.Description, msg.Icon);
-        }
+        public static void Add(IMessage msg) => Add(msg.Title, msg.Description, msg.Icon);
 
         public void Add(string title, string message, MsgIcon icon, bool forceactivate = true)
         {
@@ -102,19 +93,13 @@ namespace RobotEditor.ViewModel
             }
         }
 
-        private void HandleMouseOver(object param)
-        {
-            SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
-        }
+        private void HandleMouseOver(object param) => SelectedMessage = (OutputWindowMessage)((ListViewItem)param).Content;
 
         /// <summary>
         /// Create MessageBox window and displays
         /// </summary>
         /// <param name="message"></param>
-        public static void ShowMessage(string message)
-        {
-            _ = System.Windows.MessageBox.Show(message);
-        }
+        public static void ShowMessage(string message) => _ = System.Windows.MessageBox.Show(message);
 
         private void ClearItems()
         {

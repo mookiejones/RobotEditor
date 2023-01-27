@@ -7,9 +7,6 @@ namespace RobotEditor.Controls.TextEditor.Brackets
 {
     public sealed class MyBracketSearcher : IBracketSearcher
     {
-        private const string OpeningBrackets = "([{";
-        private const string ClosingBrackets = ")]}";
-
         public BracketSearchResult SearchBracket(TextDocument document, int offset)
         {
             BracketSearchResult result;

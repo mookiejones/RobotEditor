@@ -21,10 +21,8 @@ namespace RobotEditor.UI
     /// <typeparam name="TApplication"></typeparam>
     public static class SingleInstance<TApplication> where TApplication : Application, ISingleInstanceApp
     {
-        private const string Delimiter = ":";
         private const string ChannelNameSuffix = "SingeInstanceIPCChannel";
         private const string RemoteServiceName = "SingleInstanceApplicationService";
-        private const string IpcProtocol = "ipc://";
         private static Mutex _singleInstanceMutex;
 
         // ReSharper disable once StaticFieldInGenericType
@@ -155,16 +153,10 @@ namespace RobotEditor.UI
 
         private class IpcRemoteService : MarshalByRefObject
         {
-            public void InvokeFirstInstance(IList<string> args)
-            {
-                _ = (Application.Current?.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+            public void InvokeFirstInstance(IList<string> args) => _ = (Application.Current?.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                         new DispatcherOperationCallback(ActivateFirstInstanceCallback), args));
-            }
 
-            public override object InitializeLifetimeService()
-            {
-                return null;
-            }
+            public override object InitializeLifetimeService() => null;
         }
     }
 }

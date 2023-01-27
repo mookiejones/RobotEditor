@@ -109,21 +109,12 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c)
-        {
-            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
-        }
+        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
 
         public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1,
-            double z2)
-        {
-            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
-        }
+            double z2) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
 
-        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w)
-        {
-            return new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
-        }
+        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
 
         public static TransformationMatrix3D Identity()
         {
@@ -135,15 +126,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return transformationMatrix3D;
         }
 
-        public new TransformationMatrix3D Inverse()
-        {
-            return new TransformationMatrix3D(base.Inverse());
-        }
+        public new TransformationMatrix3D Inverse() => new TransformationMatrix3D(base.Inverse());
 
-        public static TransformationMatrix3D NaN()
-        {
-            return new TransformationMatrix3D(NaN(4));
-        }
+        public static TransformationMatrix3D NaN() => new TransformationMatrix3D(NaN(4));
 
         public static Collection<Point3D> operator *(TransformationMatrix3D transform, Collection<Point3D> points)
         {
@@ -200,10 +185,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector3D(matrix[0, 0], matrix[1, 0], matrix[2, 0]);
         }
 
-        public string ToString(string format)
-        {
-            return ToString(format, null);
-        }
+        public string ToString(string format) => ToString(format, null);
 
         public override string ToString(string format, IFormatProvider formatProvider)
         {

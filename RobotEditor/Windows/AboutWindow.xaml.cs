@@ -13,11 +13,10 @@ namespace RobotEditor.Windows
     {
 
         #region Properties
-        private string Copyright => "Copyright 2023 Charles Berman";
 
         private string _appName => Assembly.GetExecutingAssembly().GetName().Name;
 
-        private string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private string _version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         private string _newVersion => Environment.Version.ToString();
 
@@ -34,10 +33,7 @@ namespace RobotEditor.Windows
             InitializeComponent();
         }
 
-        private void CloseClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseClick(object sender, RoutedEventArgs e) => Close();
 
         public string Info
         {
@@ -46,6 +42,7 @@ namespace RobotEditor.Windows
                 StringBuilder stringBuilder = new StringBuilder();
                 _ = stringBuilder.AppendLine(" Name                : " + _appName);
                 _ = stringBuilder.AppendLine(" .Net Version        : " + _newVersion);
+                _ = stringBuilder.AppendLine(" Version        : " + _version);
                 _ = stringBuilder.AppendLine(" OS Version          : " + _osVersion);
                 _ = stringBuilder.AppendLine(" Current Culture     : " + _currentCulture);
                 _ = stringBuilder.AppendLine(" Working Set Memory  : " + _workingSetMemory);

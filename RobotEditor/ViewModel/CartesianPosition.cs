@@ -5,12 +5,8 @@ namespace RobotEditor.ViewModel
 {
     public sealed class CartesianPosition : ObservableObject
     {
-        #region Header
 
-        /// <summary>
-        ///     The <see cref="Header" /> property's name.
-        /// </summary>
-        private const string HeaderPropertyName = "Header";
+        #region Header
 
         private string _header = string.Empty;
 

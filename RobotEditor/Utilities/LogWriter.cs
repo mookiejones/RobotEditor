@@ -28,9 +28,6 @@ namespace RobotEditor.Utilities
             File.AppendAllText(path, message + "/r/n", Encoding.Default);
         }
 
-        public static void WriteLog(string message)
-        {
-            WriteLog(message, Colors.Gray);
-        }
+        public static void WriteLog(string message) => WriteLog(message, Colors.Gray);
     }
 }

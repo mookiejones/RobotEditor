@@ -6,12 +6,8 @@ namespace RobotEditor.ViewModel
 {
     internal sealed class AdjustST : ObservableObject
     {
-        #region ToolItems
 
-        /// <summary>
-        ///     The <see cref="ToolItems" /> property's name.
-        /// </summary>
-        private const string ToolItemsPropertyName = "ToolItems";
+        #region ToolItems
 
         private ToolItems _toolItems = new ToolItems();
 

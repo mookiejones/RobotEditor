@@ -18,8 +18,6 @@ namespace RobotEditor.Languages
     [Localizable(false)]
     public sealed class Kawasaki : AbstractLanguageClass
     {
-        private const RegexOptions Ro = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
         public Kawasaki(string file)
             : base(file)
         {
@@ -69,19 +67,13 @@ namespace RobotEditor.Languages
         public override Regex XYZRegex => new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override void Initialize(string filename)
-        {
-            Initialize();
-        }
+        public override void Initialize(string filename) => Initialize();
 
         public override string CommentChar => ";";
 
         public override Regex SignalRegex => new Regex(string.Empty);
 
-        protected override bool IsFileValid(FileInfo file)
-        {
-            return EXT.Any((string e) => file.Extension.ToLower() == e);
-        }
+        protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
 
         internal override string FoldTitle(FoldingSection section, TextDocument doc)
         {
@@ -97,17 +89,11 @@ namespace RobotEditor.Languages
             return positionstring.Substring(positionstring.IndexOf("#[", StringComparison.Ordinal) + 2);
         }
 
-        public override DocumentViewModel GetFile(string filepath)
-        {
-            return new DocumentViewModel(filepath);
-        }
+        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
-            public new void UpdateFoldings(FoldingManager manager, TextDocument document)
-            {
-                throw new NotImplementedException();
-            }
+            public new void UpdateFoldings(FoldingManager manager, TextDocument document) => throw new NotImplementedException();
 
             protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
             {

@@ -35,9 +35,6 @@ namespace RobotEditor.Controls.TextEditor
                 });
         }
 
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawGeometry(null, _pen, _geometry);
-        }
+        protected override void OnRender(DrawingContext drawingContext) => drawingContext.DrawGeometry(null, _pen, _geometry);
     }
 }

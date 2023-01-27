@@ -15,16 +15,6 @@ namespace RobotEditor.Controls
 {
     public sealed class ExplorerClass : TreeView, IComparable
     {
-        // ReSharper disable UnusedMember.Local
-        // ReSharper disable InconsistentNaming
-        private const int FOLDER = 0;
-        private const int FOLDEROPEN = 1;
-        private const int REMOVABLE = 5;
-        private const int CDDRIVE = 3;
-        private const int FIXEDDRIVE = 2;
-        private const int GENERICFILE = 6;
-        private const int NETWORK = 7;
-
         public ExplorerClass()
         {
             base.HideSelection = false;
@@ -49,10 +39,7 @@ namespace RobotEditor.Controls
             SelectedNode.ToolTipText = sFile;
         }
 
-        private void RaiseFileSelected(object sender, FileSelectedEventArgs e)
-        {
-            OnFileSelected?.Invoke(sender, e);
-        }
+        private void RaiseFileSelected(object sender, FileSelectedEventArgs e) => OnFileSelected?.Invoke(sender, e);
 
         protected override void OnMouseDoubleClick(MouseEventArgs e)
         {

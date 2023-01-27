@@ -167,25 +167,6 @@ namespace RobotEditor.ViewModel
             }
         }
 
-        private void ReadZip()
-        {
-            foreach (ZipEntry current in
-                from z in ArchiveZip.EntriesSorted
-                where z.IsDirectory
-                select z)
-            {
-                Console.WriteLine(current.FileName);
-            }
-            foreach (ZipEntry current2 in
-                from e in ArchiveZip.Entries
-                where e.IsDirectory
-                select e)
-            {
-                Console.WriteLine(current2.FileName);
-            }
-            OnPropertyChanged(nameof(Root));
-        }
-
         private static bool CheckPathExists(string path)
         {
             bool result;
@@ -228,10 +209,6 @@ namespace RobotEditor.ViewModel
                 ArchiveZip.ExtractAll(DirectoryPath);
                 _root.Add(new DirectoryInfo(DirectoryPath));
             }
-        }
-
-        private void GetDirectories()
-        {
         }
 
         private void GetAMInfo()
@@ -309,34 +286,6 @@ namespace RobotEditor.ViewModel
             OnPropertyChanged(nameof(FlagVisibility));
         }
 
-        private List<Item> GetValues(string cmd, int index)
-        {
-            List<Item> list = new List<Item>();
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
-            string cmdText =
-                string.Format(
-                    "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",
-                    cmd);
-            using (OleDbConnection oleDbConnection = new OleDbConnection(connectionString))
-            {
-                oleDbConnection.Open();
-                using (OleDbCommand oleDbCommand = new OleDbCommand(cmdText, oleDbConnection))
-                {
-                    using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
-                    {
-                        while (oleDbDataReader != null && oleDbDataReader.Read())
-                        {
-                            string text = oleDbDataReader.GetValue(0).ToString();
-                            Item item = new Item(string.Format("${1}[{0}]", text.Substring(index), cmd),
-                                oleDbDataReader.GetValue(1).ToString());
-                            list.Add(item);
-                        }
-                    }
-                }
-            }
-            return list;
-        }
-
         private void GetTimers()
         {
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
@@ -363,20 +312,6 @@ namespace RobotEditor.ViewModel
             }
             TimerVisibility = (Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
             OnPropertyChanged(nameof(TimerVisibility));
-        }
-
-        private void GetSignalsFromDataBase()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Title = "Select Database",
-                Filter = "KUKA Connection Files (kuka_con.mdb)|kuka_con.mdb|All files (*.*)|*.*",
-                Multiselect = false
-            };
-            _ = openFileDialog.ShowDialog();
-            LanguageText = string.Empty;
-            DatabaseFile = openFileDialog.FileName;
-            GetSignals();
         }
 
         private void GetSignals()
@@ -483,106 +418,6 @@ namespace RobotEditor.ViewModel
             }
         }
 
-        // ReSharper disable once UnusedMember.Local
-        private void ImportFile(string sFile, bool bCsv)
-        {
-            if (File.Exists(sFile))
-            {
-                DialogResult dialogResult = MessageBox.Show("Delete existing long texts?", "Import File",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes)
-                {
-                }
-                string[] array = File.ReadAllLines(sFile);
-                string text = " ";
-                if (bCsv)
-                {
-                    text = ";";
-                }
-                ProgressBarViewModel progressBarViewModel = new ProgressBarViewModel
-                {
-                    Maximum = array.Length,
-                    Value = 0,
-                    IsVisible = true
-                };
-                Application.DoEvents();
-                string[] array2 = array;
-                string[] array3 = array2;
-                foreach (string text2 in array3)
-                {
-                    checked
-                    {
-                        if (text2.Contains(text))
-                        {
-                            string[] array4 = text2.Split(text.ToCharArray(), 2);
-                            if (array4[0].StartsWith("$IN[", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                array4[0] = "IN_" + array4[0].Substring(4, array4[0].Length - 5);
-                            }
-                            else
-                            {
-                                if (array4[0].StartsWith("$OUT[", StringComparison.CurrentCultureIgnoreCase))
-                                {
-                                    array4[0] = "OUT_" + array4[0].Substring(5, array4[0].Length - 6);
-                                }
-                                else
-                                {
-                                    if (array4[0].StartsWith("$TIMER[", StringComparison.CurrentCultureIgnoreCase))
-                                    {
-                                        array4[0] = "TimerText" + array4[0].Substring(7, array4[0].Length - 8);
-                                    }
-                                    else
-                                    {
-                                        if (array4[0].StartsWith("$COUNT_I[", StringComparison.CurrentCultureIgnoreCase))
-                                        {
-                                            array4[0] = "CounterText" + array4[0].Substring(9, array4[0].Length - 10);
-                                        }
-                                        else
-                                        {
-                                            if (array4[0].StartsWith("$FLAG[", StringComparison.CurrentCultureIgnoreCase))
-                                            {
-                                                array4[0] = "FlagText" + array4[0].Substring(6, array4[0].Length - 7);
-                                            }
-                                            else
-                                            {
-                                                if (array4[0].StartsWith("$CYC_FLAG[",
-                                                    StringComparison.CurrentCultureIgnoreCase))
-                                                {
-                                                    array4[0] = "NoticeText" +
-                                                                array4[0].Substring(10, array4[0].Length - 11);
-                                                }
-                                                else
-                                                {
-                                                    if (array4[0].StartsWith("$ANIN[",
-                                                        StringComparison.CurrentCultureIgnoreCase))
-                                                    {
-                                                        array4[0] = "ANIN_" +
-                                                                    array4[0].Substring(6, array4[0].Length - 7);
-                                                    }
-                                                    else
-                                                    {
-                                                        if (array4[0].StartsWith("$ANOUT[",
-                                                            StringComparison.CurrentCultureIgnoreCase))
-                                                        {
-                                                            array4[0] = "ANOUT_" +
-                                                                        array4[0].Substring(6, array4[0].Length - 8);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        progressBarViewModel.Value++;
-                    }
-                }
-                progressBarViewModel.IsVisible = false;
-                InitGrids();
-            }
-        }
-
         private void Open()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -594,149 +429,6 @@ namespace RobotEditor.ViewModel
                 _dbFile = openFileDialog.FileName;
                 Database = _dbFile;
                 InitGrids();
-            }
-        }
-
-        private void Export(string filename, bool iscsv)
-        {
-            string contents = "";
-            string text = " ";
-            _progress.Maximum = 9551;
-            _progress.Value = 0;
-            _progress.IsVisible = true;
-            string text2 = _isKRC2 ? string.Empty : "$";
-            string text3 = _isKRC2 ? "_" : "]";
-            if (iscsv)
-            {
-                text = ";";
-            }
-            checked
-            {
-                if (_isKRC2)
-                {
-                    for (int i = 1; i < 4096; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}IN{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                text2,
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 4096; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}OUT{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                text2,
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 32; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}ANIN{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                text2,
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 32; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}ANOUT{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                text2,
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 20; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                _isKRC2 ? "TimerText" : "$Timer[",
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 20; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                _isKRC2 ? "CounterText" : "$Counter[",
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 999; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                _isKRC2 ? "FlagText" : "$FLAG[",
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                    for (int i = 1; i < 256; i++)
-                    {
-                        if (!string.IsNullOrEmpty(_langText[i]))
-                        {
-                            contents = string.Format("{0}{1}{2}{3}{4}\r\n", new object[]
-                            {
-                                _isKRC2 ? "NoticeText" : "$CycFlag[",
-                                text3,
-                                i,
-                                text,
-                                _langText[i]
-                            });
-                        }
-                        _progress.Value++;
-                    }
-                }
-                File.WriteAllText(filename, contents);
-                _progress.IsVisible = false;
             }
         }
 

@@ -11,7 +11,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
     [Serializable]
     public class Matrix : IFormattable
     {
-        private const double EPSILON = 0.0001;
         private int _columns;
         private double[,] _elements;
         private int _rows;
@@ -121,16 +120,10 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return result;
         }
 
-        private bool Equals(Matrix other)
-        {
-            return _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
-        }
+        private bool Equals(Matrix other) => _columns == other._columns && Equals(_elements, other._elements) && _rows == other._rows;
 
-        public override bool Equals(object obj)
-        {
-            return obj is object &&
+        public override bool Equals(object obj) => obj is object &&
                    (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((Matrix)obj)));
-        }
 
         public override int GetHashCode()
         {
@@ -540,10 +533,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             SetRow(row2, row3);
         }
 
-        public override string ToString()
-        {
-            return ToString(null, null);
-        }
+        public override string ToString() => ToString(null, null);
 
         public Matrix Transpose()
         {

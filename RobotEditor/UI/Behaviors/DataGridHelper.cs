@@ -14,20 +14,14 @@ namespace RobotEditor.UI.Behaviors
         /// </summary>
         /// <param name="element"></param>
         /// <param name="value"></param>
-        public static void SetTextHeaderStyle(DependencyObject element, Style value)
-        {
-            element.SetValue(TextHeaderStyleProperty, value);
-        }
+        public static void SetTextHeaderStyle(DependencyObject element, Style value) => element.SetValue(TextHeaderStyleProperty, value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public static Style GetTextHeaderStyle(DependencyObject element)
-        {
-            return (Style)element.GetValue(TextHeaderStyleProperty);
-        }
+        public static Style GetTextHeaderStyle(DependencyObject element) => (Style)element.GetValue(TextHeaderStyleProperty);
 
 
         // Using a DependencyProperty as the backing store for TextHeaderStyle.  This enables animation, styling, binding, etc...
@@ -78,20 +72,14 @@ namespace RobotEditor.UI.Behaviors
         /// </summary>
         /// <param name="element"></param>
         /// <param name="value"></param>
-        public static void SetTextColumnStyle(DependencyObject element, Style value)
-        {
-            element.SetValue(TextColumnStyleProperty, value);
-        }
+        public static void SetTextColumnStyle(DependencyObject element, Style value) => element.SetValue(TextColumnStyleProperty, value);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        public static Style GetTextColumnStyle(DependencyObject element)
-        {
-            return (Style)element.GetValue(TextColumnStyleProperty);
-        }
+        public static Style GetTextColumnStyle(DependencyObject element) => (Style)element.GetValue(TextColumnStyleProperty);
 
         private static void UpdateColumnStyles(DataGrid grid)
         {

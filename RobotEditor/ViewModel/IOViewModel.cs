@@ -48,7 +48,7 @@ namespace RobotEditor.ViewModel
 
         public IOViewModel(string filename)
         {
-            DataBaseFile = filename;
+            DatabaseFile = filename;
             BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += _backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
@@ -91,9 +91,9 @@ namespace RobotEditor.ViewModel
 
         public string BufferSize { get => _buffersize; set => SetProperty(ref _buffersize, value); }
 
-        public string DataBaseFile { get; set; }
+        public string DatabaseFile { get; set; }
 
-        public string DataBase { get => _database; set => SetProperty(ref _database, value); }
+        public string Database { get => _database; set => SetProperty(ref _database, value); }
 
         public string InfoFile { get; set; }
 
@@ -123,7 +123,7 @@ namespace RobotEditor.ViewModel
 
         private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (string.IsNullOrEmpty(DataBaseFile))
+            if (string.IsNullOrEmpty(DatabaseFile))
             {
                 return;
             }
@@ -146,7 +146,7 @@ namespace RobotEditor.ViewModel
 
         private OleDbConnection GetDBConnection()
         {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
             try
             {
                 if (_oleDbConnection == null)
@@ -193,7 +193,7 @@ namespace RobotEditor.ViewModel
 
         private void GetSignals()
         {
-            if (File.Exists(DataBaseFile))
+            if (File.Exists(DatabaseFile))
             {
                 OleDbConnection dBConnection = GetDBConnection();
 
@@ -298,60 +298,12 @@ namespace RobotEditor.ViewModel
             OnPropertyChanged(nameof(TimerVisibility));
         }
 
-        private List<Item> GetValues(string cmd, int index)
-        {
-            List<Item> list = new List<Item>();
-            string cmdText =
-                string.Format(
-                    "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = '{0}')",
-                    cmd);
-            OleDbConnection dBConnection = GetDBConnection();
-            List<Item> result;
-            if (dBConnection == null)
-            {
-                result = list;
-            }
-            else
-            {
-                dBConnection.Open();
-                using (OleDbCommand oleDbCommand = new OleDbCommand(cmdText, dBConnection))
-                {
-                    using (OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader())
-                    {
-                        while (oleDbDataReader != null && oleDbDataReader.Read())
-                        {
-                            string text = oleDbDataReader.GetValue(0).ToString();
-                            Item item = new Item(string.Format("${1}[{0}]", text.Substring(index), cmd),
-                                oleDbDataReader.GetValue(1).ToString());
-                            list.Add(item);
-                        }
-                    }
-                }
-                result = list;
-            }
-            return result;
-        }
-
-        private void GetSignalsFromDataBase()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Title = "Select Database",
-                Filter = "KUKA Connection Files (kuka_con.mdb)|kuka_con.mdb|All files (*.*)|*.*",
-                Multiselect = false
-            };
-            _ = openFileDialog.ShowDialog();
-            LanguageText = string.Empty;
-            DataBaseFile = openFileDialog.FileName;
-            GetSignals();
-        }
-
         private void GetAllLangtextFromDatabase()
         {
             LanguageText = string.Empty;
-            if (File.Exists(DataBaseFile))
+            if (File.Exists(DatabaseFile))
             {
-                _ = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DataBaseFile + ";";
+                _ = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
                 OleDbConnection dBConnection = GetDBConnection();
                 if (dBConnection != null)
                 {
@@ -368,7 +320,7 @@ namespace RobotEditor.ViewModel
                             {
                                 string arg = oleDbDataReader.GetValue(0).ToString();
                                 string arg2 = oleDbDataReader.GetValue(1).ToString();
-                                DataBase += string.Format("{0} {1}\r\n", arg, arg2);
+                                Database += string.Format("{0} {1}\r\n", arg, arg2);
                             }
                         }
                     }
