@@ -690,7 +690,7 @@
     <Compile Include="Rules\Class1.cs" />
     <Compile Include="Selectors\MenuTemplateSelector.cs" />
     <Compile Include="Selectors\PanesStyleSelector.cs" />
-    <Compile Include="Structs\Class1.cs" />
+    <Compile Include="Structs\Location.cs" />
     <Compile Include="ViewModel\AbstractPaneViewModel.cs" />
     <Compile Include="ViewModel\AngleConvertorViewModel.cs" />
     <Compile Include="ViewModel\FileOptionsViewModel.cs" />

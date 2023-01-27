@@ -6,22 +6,16 @@ namespace RobotEditor.Structs
     public struct Location : IComparable<Location>, IEquatable<Location>
     {
         public static readonly Location Empty = new Location(-1, -1);
-        private int _y;
-
 
         public Location(int column, int line)
         {
             X = column;
-            _y = line;
+            Y = line;
         }
 
         public int X { get; set; }
 
-        public int Y
-        {
-            get => _y;
-            set => _y = value;
-        }
+        public int Y { get; set; }
 
         public int Line
         {
@@ -62,22 +56,22 @@ namespace RobotEditor.Structs
 
         public static bool operator ==(Location a, Location b)
         {
-            return a.X == b.X && a.Y == b._y;
+            return a.X == b.X && a.Y == b.Y;
         }
 
         public static bool operator !=(Location a, Location b)
         {
-            return a.X != b.X || a.Y != b._y;
+            return a.X != b.X || a.Y != b.Y;
         }
 
         public static bool operator <(Location a, Location b)
         {
-            return a.Y < b._y || (a.Y == b._y && a.X < b.X);
+            return a.Y < b.Y || (a.Y == b.Y && a.X < b.X);
         }
 
         public static bool operator >(Location a, Location b)
         {
-            return a.Y > b._y || (a.Y == b._y && a.X > b.X);
+            return a.Y > b.Y || (a.Y == b.Y && a.X > b.X);
         }
 
         public static bool operator <=(Location a, Location b)

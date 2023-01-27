@@ -7,8 +7,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 {
     public sealed class SVD
     {
-        private readonly Vector _w;
-
         public SVD(Matrix mat)
         {
             int i = 0;
@@ -25,7 +23,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             int num4 = 0;
             U = new Matrix(mat);
             V = new SquareMatrix(columns);
-            _w = new Vector(columns);
+            W = new Vector(columns);
             for (int j = 0; j < columns; j++)
             {
                 i = j + 1;
@@ -79,7 +77,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                         }
                     }
                 }
-                _w[j] = num * num2;
+                W[j] = num * num2;
                 num5 = num2 = num = 0.0;
                 if (j < rows && j != columns - 1)
                 {
@@ -132,7 +130,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                         }
                     }
                 }
-                num3 = Math.Max(num3, Math.Abs(_w[j]) + Math.Abs(vector[j]));
+                num3 = Math.Max(num3, Math.Abs(W[j]) + Math.Abs(vector[j]));
             }
             for (int num18 = columns - 1; num18 >= 0; num18--)
             {
@@ -172,7 +170,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             for (int num24 = columns - 1; num24 >= 0; num24--)
             {
                 i = num24 + 1;
-                num2 = _w[num24];
+                num2 = W[num24];
                 if (num24 < columns - 1)
                 {
                     for (int num25 = i; num25 < columns; num25++)
@@ -232,7 +230,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                             num33 = 0;
                             break;
                         }
-                        if (Math.Abs(Math.Abs(_w[num4]) + num3 - num3) < 0.0001)
+                        if (Math.Abs(Math.Abs(W[num4]) + num3 - num3) < 0.0001)
                         {
                             break;
                         }
@@ -251,9 +249,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                             num6 = num5 * vector[num34];
                             if (Math.Abs(Math.Abs(num6) + num3 - num3) > 0.0001)
                             {
-                                num2 = _w[num34];
+                                num2 = W[num34];
                                 num7 = Pythag(num6, num2);
-                                _w[num34] = (float)num7;
+                                W[num34] = (float)num7;
                                 num7 = 1.0 / num7;
                                 num35 = num2 * num7;
                                 num5 = -num6 * num7;
@@ -267,12 +265,12 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                             }
                         }
                     }
-                    num38 = _w[num31];
+                    num38 = W[num31];
                     if (i == num31)
                     {
                         if (num38 < 0.0)
                         {
-                            _w[num31] = -num38;
+                            W[num31] = -num38;
                             for (int num39 = 0; num39 < columns; num39++)
                             {
                                 V[num39, num31] = -V[num39, num31];
@@ -284,9 +282,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                     {
                         throw new MatrixException("No convergence after 30 iterations");
                     }
-                    double num40 = _w[i];
+                    double num40 = W[i];
                     num4 = num31 - 1;
-                    num37 = _w[num4];
+                    num37 = W[num4];
                     num2 = vector[num4];
                     num7 = vector[num31];
                     num6 = (((num37 - num38) * (num37 + num38)) + ((num2 - num7) * (num2 + num7))) / (2.0 * num7 * num37);
@@ -298,7 +296,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                     {
                         int num43 = num42 + 1;
                         num2 = vector[num43];
-                        num37 = _w[num43];
+                        num37 = W[num43];
                         num7 = num5 * num2;
                         num2 = num35 * num2;
                         num38 = Pythag(num6, num7);
@@ -317,7 +315,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                             V[num44, num43] = (num38 * num35) - (num40 * num5);
                         }
                         num38 = Pythag(num6, num7);
-                        _w[num42] = num38;
+                        W[num42] = num38;
                         if (Math.Abs(num38 - 0.0) > 0.0001)
                         {
                             num38 = 1.0 / num38;
@@ -336,7 +334,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                     }
                     vector[i] = 0.0;
                     vector[num31] = num6;
-                    _w[num31] = num40;
+                    W[num31] = num40;
                 }
             }
         }
@@ -349,8 +347,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
                 double num2 = 0.0;
                 for (int i = 0; i < W.Rows; i++)
                 {
-                    num = Math.Min(num, _w[i]);
-                    num2 = Math.Max(num2, _w[i]);
+                    num = Math.Min(num, W[i]);
+                    num2 = Math.Max(num2, W[i]);
                 }
                 return num2 / num;
             }
@@ -378,7 +376,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public SquareMatrix V { get; }
 
-        public Vector W => _w;
+        public Vector W { get; }
 
         private static double Pythag(double a, double b)
         {
