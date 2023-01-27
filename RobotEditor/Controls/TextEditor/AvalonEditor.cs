@@ -183,7 +183,13 @@ namespace RobotEditor.Controls.TextEditor
             get => (CompletionWindow)GetValue(CompletionWindowProperty);
             set => SetValue(CompletionWindowProperty, value);
         }
-
+        public  string GetWordBeforeCaret()
+        {
+          
+            int offset = TextArea.Caret.Offset;
+            int num = Document.FindPrevWordStart(offset);
+            return num < 0 ? string.Empty : Document.GetText(num, offset - num);
+        }
         public IList<ICompletionData> CompletionData
         {
             get; // ReSharper disable once UnusedAutoPropertyAccessor.Local
