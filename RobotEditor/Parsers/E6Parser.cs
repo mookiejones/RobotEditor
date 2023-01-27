@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
-using RobotEditor.Abstract;
 using RobotEditor.Enums;
 
 namespace RobotEditor.Parsers

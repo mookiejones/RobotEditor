@@ -1,6 +1,7 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 using ICSharpCode.AvalonEdit.Snippets;
+using RobotEditor.Controls.TextEditor.Folding;
 using RobotEditor.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +9,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
-namespace RobotEditor.Abstract
+namespace RobotEditor.Languages
 {
     public interface ILanguageClass
     {

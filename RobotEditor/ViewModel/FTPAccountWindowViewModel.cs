@@ -1,9 +1,9 @@
 using System.Collections.ObjectModel;
-using RobotEditor.Abstract;
+using RobotEditor.Controls.FTP;
 
 namespace RobotEditor.ViewModel
 {
-// ReSharper disable once UnusedMember.Global
+    // ReSharper disable once UnusedMember.Global
     public class FTPAccountWindowViewModel : ToolViewModel
     {
         private readonly ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();

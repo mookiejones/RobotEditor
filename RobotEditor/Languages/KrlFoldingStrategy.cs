@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using RobotEditor.Abstract;
+using RobotEditor.Controls.TextEditor.Folding;
 
 namespace RobotEditor.Languages
 {

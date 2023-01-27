@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor
 {
     public interface IImage
     {

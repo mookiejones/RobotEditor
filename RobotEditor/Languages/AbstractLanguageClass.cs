@@ -16,21 +16,21 @@ using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using RobotEditor.Classes;
 using RobotEditor.Controls.TextEditor;
+using RobotEditor.Controls.TextEditor.Folding;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
-using RobotEditor.Languages;
+using RobotEditor.Languages.Data;
 using RobotEditor.Messages;
 using RobotEditor.Model;
 using RobotEditor.Utilities;
 using RobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 
-namespace RobotEditor.Abstract
+namespace RobotEditor.Languages
 {
     [Localizable(false)]
-    public abstract class AbstractLanguageClass : ObservableRecipient,ILanguageRegex
+    public abstract class AbstractLanguageClass : ObservableRecipient, ILanguageRegex
     {
         public const string RootPathPropertyName = "RootPath";
         public const string FileNamePropertyName = "FileName";
@@ -41,13 +41,13 @@ namespace RobotEditor.Abstract
         public const string BWProgressVisibilityPropertyName = "BWProgressVisibility";
         internal readonly List<IVariable> _allVariables = new List<IVariable>();
         private readonly List<IVariable> _enums = new List<IVariable>();
-     
+
         private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
         private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
         private readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
-      
+
         private readonly ReadOnlyCollection<IVariable> _readOnlyFunctions = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyenums = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlypositions = null;
@@ -80,7 +80,7 @@ namespace RobotEditor.Abstract
 
         private string flename;
 
-        
+
         protected virtual void Initialize()
         {
 
@@ -131,7 +131,7 @@ namespace RobotEditor.Abstract
         #endregion
 
         #region RootPath
-        public DirectoryInfo RootPath { get =>_rootPath; set=>SetProperty(ref _rootPath,value); }
+        public DirectoryInfo RootPath { get => _rootPath; set => SetProperty(ref _rootPath, value); }
 
         #endregion
         #region FileName
@@ -149,11 +149,11 @@ namespace RobotEditor.Abstract
         #endregion
 
         #region RobotMenuItems
-        public MenuItem RobotMenuItems { get =>_robotMenuItems; set=>SetProperty(ref _robotMenuItems,value); }
+        public MenuItem RobotMenuItems { get => _robotMenuItems; set => SetProperty(ref _robotMenuItems, value); }
         #endregion
 
         #region Name
-        public string Name => (RobotType == Typlanguage.None) ? string.Empty : RobotType.ToString();
+        public string Name => RobotType == Typlanguage.None ? string.Empty : RobotType.ToString();
         #endregion
 
         #region DataName
@@ -178,7 +178,7 @@ namespace RobotEditor.Abstract
 
         private ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
 
-       
+
 #pragma warning disable 649
         private readonly ReadOnlyObservableCollection<FileInfo> _readOnlyFiles;
 #pragma warning restore 649
@@ -227,23 +227,23 @@ namespace RobotEditor.Abstract
         public abstract Regex MethodRegex { get; }
         public abstract Regex FieldRegex { get; }
         public abstract Regex EnumRegex { get; }
-        public abstract  Regex XYZRegex { get; }
-        public abstract  Regex StructRegex { get; }
-        public abstract  Regex SignalRegex { get; }
+        public abstract Regex XYZRegex { get; }
+        public abstract Regex StructRegex { get; }
+        public abstract Regex SignalRegex { get; }
         internal abstract string FunctionItems { get; }
         internal abstract IList<ICompletionData> CodeCompletion { get; }
         internal abstract AbstractFoldingStrategy FoldingStrategy { get; set; }
         internal abstract string SourceFile { get; }
 
-        public IOViewModel IOModel { get =>_ioModel; set=>SetProperty(ref _ioModel,value); }
+        public IOViewModel IOModel { get => _ioModel; set => SetProperty(ref _ioModel, value); }
 
-        public int BWProgress { get =>_bwProgress; set=>SetProperty(ref _bwProgress,value); }
+        public int BWProgress { get => _bwProgress; set => SetProperty(ref _bwProgress, value); }
 
-        public int BWFilesMin { get =>_bwFilesMin; set=>SetProperty(ref _bwFilesMin,value); }
+        public int BWFilesMin { get => _bwFilesMin; set => SetProperty(ref _bwFilesMin, value); }
 
-        public int BWFilesMax { get =>_bwFilesMax; set=>SetProperty(ref _bwFilesMax,value); }
+        public int BWFilesMax { get => _bwFilesMax; set => SetProperty(ref _bwFilesMax, value); }
 
-        public Visibility BWProgressVisibility { get =>_bwProgressVisibility; set=>SetProperty(ref _bwProgressVisibility,value); }
+        public Visibility BWProgressVisibility { get => _bwProgressVisibility; set => SetProperty(ref _bwProgressVisibility, value); }
 
         /// <summary>
         ///     Check to see if file is valid
@@ -263,7 +263,7 @@ namespace RobotEditor.Abstract
             {
                 Source = new Uri("/RobotEditor;component/Assets/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
             };
-            return (resourceDictionary[RobotType + "Menu"] as MenuItem) ?? new MenuItem();
+            return resourceDictionary[RobotType + "Menu"] as MenuItem ?? new MenuItem();
         }
 
         public static IEditorDocument GetViewModel(string filepath)
@@ -316,8 +316,8 @@ namespace RobotEditor.Abstract
             Debug.Assert(fileInfo.DirectoryName != null, "dir != null");
             name = Path.Combine(fileInfo.DirectoryName, name);
             var src = new FileInfo(name + ".src");
-            var dat = new FileInfo(name+".dat");
-            
+            var dat = new FileInfo(name + ".dat");
+
             IEditorDocument result;
             if (src.Exists && dat.Exists)
             {
@@ -491,7 +491,7 @@ namespace RobotEditor.Abstract
             var matchCollection = regex.Matches(doc.Text);
             var count = matchCollection.Count;
             var num4 = 0.0;
-            var num5 = (double) ((count > 0) ? (100/count) : count);
+            var num5 = (double)(count > 0 ? 100 / count : count);
             foreach (Match match in regex.Matches(doc.Text))
             {
                 // ReSharper disable UnusedVariable
@@ -531,14 +531,14 @@ namespace RobotEditor.Abstract
             if (dd.Name == dd.Root.Name)
             {
                 _rootFound = true;
-                
+
             }
             try
             {
 
                 var directories = dd.GetDirectories("KRC", SearchOption.AllDirectories);
 
-                while (dd.Parent != null && ((!_rootFound) && (dd.Parent.Name != TargetDirectory)))
+                while (dd.Parent != null && !_rootFound && dd.Parent.Name != TargetDirectory)
                 {
                     GetRootDirectory(dd.Parent.FullName);
                 }
@@ -559,7 +559,7 @@ namespace RobotEditor.Abstract
 
 
                 if (f.Length < 1) return;
-                if ((f[0].Name == "C") && (f[1].Name == "KRC"))
+                if (f[0].Name == "C" && f[1].Name == "KRC")
                     _rootName = r.FullName;
 
                 _rootFound = true;
@@ -589,7 +589,7 @@ namespace RobotEditor.Abstract
                 {
                     try
                     {
-                        var file = new System.IO.FileInfo(f);
+                        var file = new FileInfo(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
                             _kukaCon = file.FullName;
                         _files.Add(file);
@@ -611,7 +611,7 @@ namespace RobotEditor.Abstract
             _functions = new List<IVariable>();
             _fields = new List<IVariable>();
             _positions = new List<IVariable>();
-            foreach (System.IO.FileInfo f in Files)
+            foreach (FileInfo f in Files)
             {
                 // Check to see if file is ok to check for values
                 if (IsFileValid(f))
@@ -662,19 +662,19 @@ namespace RobotEditor.Abstract
         }
         private Task<VariableMembers> GetVariableMembers(string filename)
         {
-           var task =  Task.Factory.StartNew(() =>
-           {
-               var result = new VariableMembers();
-               result.FindVariables(filename,this);
-               return result;
-           });
+            var task = Task.Factory.StartNew(() =>
+            {
+                var result = new VariableMembers();
+                result.FindVariables(filename, this);
+                return result;
+            });
 
-           return task;
+            return task;
 
 
         }
-        private  VariableMembers GetVariables(IEnumerable<FileInfo> files)
-        {            
+        private VariableMembers GetVariables(IEnumerable<FileInfo> files)
+        {
             var variableMembers = new VariableMembers();
 
             var validFiles = files
@@ -682,9 +682,9 @@ namespace RobotEditor.Abstract
                 .Select(GetVariableMembers)
                 .ToList();
             var num = 0;
-            
 
-            foreach(var file in validFiles)
+
+            foreach (var file in validFiles)
             {
                 variableMembers.Functions.AddRange(file.Structures.ToList());
                 variableMembers.Structures.AddRange(file.Structures.ToList());
@@ -693,30 +693,30 @@ namespace RobotEditor.Abstract
                 variableMembers.Enums.AddRange(file.Enums.ToList());
                 variableMembers.Positions.AddRange(file.Positions.ToList());
             }
-          
 
-       
 
-                OnPropertyChanged(nameof(Structures));
-                OnPropertyChanged(nameof(Functions));
-                OnPropertyChanged(nameof(Fields));
-                OnPropertyChanged(nameof(Files));
-                OnPropertyChanged(nameof(Positions));
-                BWProgressVisibility = Visibility.Collapsed;
 
-                var instance = Ioc.Default.GetRequiredService<MainViewModel>();
-                instance.EnableIO = File.Exists(_kukaCon);
-                IOModel = new IOViewModel(_kukaCon);
-                return variableMembers;
-            
-                
 
-  
+            OnPropertyChanged(nameof(Structures));
+            OnPropertyChanged(nameof(Functions));
+            OnPropertyChanged(nameof(Fields));
+            OnPropertyChanged(nameof(Files));
+            OnPropertyChanged(nameof(Positions));
+            BWProgressVisibility = Visibility.Collapsed;
+
+            var instance = Ioc.Default.GetRequiredService<MainViewModel>();
+            instance.EnableIO = File.Exists(_kukaCon);
+            IOModel = new IOViewModel(_kukaCon);
+            return variableMembers;
+
+
+
+
         }
-       
-        public  sealed class VariableMembers
+
+        public sealed class VariableMembers
         {
-          
+
             private void Initialize()
             {
                 Functions = new List<IVariable>();
@@ -726,34 +726,34 @@ namespace RobotEditor.Abstract
                 Enums = new List<IVariable>();
                 Positions = new List<IVariable>();
             }
-            
-            public  VariableMembers()
+
+            public VariableMembers()
             {
                 Initialize();
             }
-            
 
-#region Variables
-           public List<IVariable> Functions {get; private set;}
-           public List<IVariable> Structures { get; private set; }
-           public List<IVariable> Fields { get; private set; }
-           public List<IVariable> Signals { get; private set; }
-           public List<IVariable> Enums { get; private set; }
-           public List<IVariable> Positions { get; private set; }
-#endregion
 
-            public  void FindVariables(string filename,ILanguageRegex regex)
+            #region Variables
+            public List<IVariable> Functions { get; private set; }
+            public List<IVariable> Structures { get; private set; }
+            public List<IVariable> Fields { get; private set; }
+            public List<IVariable> Signals { get; private set; }
+            public List<IVariable> Enums { get; private set; }
+            public List<IVariable> Positions { get; private set; }
+            #endregion
+
+            public void FindVariables(string filename, ILanguageRegex regex)
             {
-               
-             
-                    Functions = FindMatches(regex.MethodRegex, Global.ImgMethod, filename).ToList();
-                    Structures = FindMatches(regex.StructRegex, Global.ImgStruct, filename).ToList();
-                    Fields = FindMatches(regex.FieldRegex, Global.ImgField, filename).ToList();
-                    Signals = FindMatches(regex.SignalRegex, Global.ImgSignal, filename).ToList();
-                    Enums = FindMatches(regex.EnumRegex, Global.ImgEnum, filename).ToList();
-                    Positions = FindMatches(regex.XYZRegex, Global.ImgXyz, filename).ToList();
+
+
+                Functions = FindMatches(regex.MethodRegex, Global.ImgMethod, filename).ToList();
+                Structures = FindMatches(regex.StructRegex, Global.ImgStruct, filename).ToList();
+                Fields = FindMatches(regex.FieldRegex, Global.ImgField, filename).ToList();
+                Signals = FindMatches(regex.SignalRegex, Global.ImgSignal, filename).ToList();
+                Enums = FindMatches(regex.EnumRegex, Global.ImgEnum, filename).ToList();
+                Positions = FindMatches(regex.XYZRegex, Global.ImgXyz, filename).ToList();
             }
-            
+
 
 
         }
@@ -761,7 +761,7 @@ namespace RobotEditor.Abstract
         private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
             var list = new List<IVariable>();
-           
+
             IEnumerable<IVariable> result;
             try
             {

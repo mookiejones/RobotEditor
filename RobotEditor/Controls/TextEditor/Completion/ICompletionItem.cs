@@ -1,6 +1,6 @@
-﻿using RobotEditor.Abstract;
+﻿using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Completion
 {
     public interface ICompletionItem
     {

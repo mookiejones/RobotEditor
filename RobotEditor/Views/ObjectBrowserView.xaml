@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:RobotEditor.Controls"
              xmlns:controls1="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:classes="clr-namespace:RobotEditor.Classes"
     xmlns:behaviors="clr-namespace:RobotEditor.UI.Behaviors"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">

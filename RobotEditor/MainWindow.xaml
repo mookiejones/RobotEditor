@@ -8,9 +8,9 @@
     xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:controls="clr-namespace:RobotEditor.Controls" 
     xmlns:selectors="clr-namespace:RobotEditor.Selectors"
-    xmlns:classes="clr-namespace:RobotEditor.Classes"
     xmlns:ViewModel="clr-namespace:RobotEditor.ViewModel" 
-    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes" 
+    xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor" xmlns:ui="clr-namespace:RobotEditor.UI"
     x:Name="MetroWindow"
     SnapsToDevicePixels="True"
     WindowState="Maximized"
@@ -38,7 +38,7 @@
              
             <converters:ActiveEditorConverter x:Key="ActiveEditorConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <classes:EditorOptions x:Key="EditorOptions" />
+            <textEditor:EditorOptions x:Key="EditorOptions" />
             <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
                 <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
             </Style>
@@ -134,8 +134,9 @@
 
                 <Separator />
                 <MenuItem x:Name="Formatting" Header="Formatting"  >
-                    <MenuItem Header="View Whitespace" IsCheckable="True"  IsChecked="{Binding ShowSpaces, Source={x:Static classes:EditorOptions.Instance}}"  />
-                    <MenuItem Header="Wordwrap" IsChecked="{Binding WrapWords, Source={x:Static classes:EditorOptions.Instance}}" />
+
+                    <MenuItem Header="View Whitespace" IsCheckable="True"  IsChecked="{Binding ShowSpaces, Source={x:Static textEditor:EditorOptions.Instance}}"  />
+                    <MenuItem Header="Wordwrap" IsChecked="{Binding WrapWords, Source={x:Static textEditor:EditorOptions.Instance}}" />
                     <Separator />
                     <MenuItem Header="Toggle Comment" />
                     <Separator />
@@ -212,16 +213,16 @@
                         <MenuItem Header="Purple" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="View Whitespace" IsCheckable="True" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static classes:EditorOptions.Instance}}" />
+                <MenuItem Header="View Whitespace" IsCheckable="True" IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static textEditor:EditorOptions.Instance}}" />
                 <MenuItem Header="View EOL" IsCheckable="True"
                             
-                          IsChecked="{Binding ShowEndOfLine, Source={x:Static classes:EditorOptions.Instance}}" />
+                          IsChecked="{Binding ShowEndOfLine, Source={x:Static textEditor:EditorOptions.Instance}}" />
                 <MenuItem Header="View Tabs" IsCheckable="True"
-                          IsChecked="{Binding ShowTabs, Source={x:Static classes:EditorOptions.Instance}}" />
+                          IsChecked="{Binding ShowTabs, Source={x:Static textEditor:EditorOptions.Instance}}" />
                 <MenuItem Header="Wordwrap" IsCheckable="True"
-                          IsChecked="{Binding WrapWords, Source={x:Static classes:EditorOptions.Instance}}" />
+                          IsChecked="{Binding WrapWords, Source={x:Static textEditor:EditorOptions.Instance}}" />
                 <MenuItem Header="Line Numbers" IsCheckable="True"
-                          IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static classes:EditorOptions.Instance}}"  Icon="{wpf:PackIcon Kind=FormatListNumbers}"/>
+                          IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static textEditor:EditorOptions.Instance}}"  Icon="{wpf:PackIcon Kind=FormatListNumbers}"/>
              
 
             </MenuItem>
@@ -311,7 +312,7 @@
             DocumentsSource="{Binding Main.Files}"
             ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">
             <DockingManager.LayoutUpdateStrategy>
-                <classes:LayoutInitializer />
+                <ui:LayoutInitializer />
             </DockingManager.LayoutUpdateStrategy>
             <DockingManager.LayoutItemTemplateSelector>
                 <selectors:PanesTemplateSelector AngleConverterTemplate="{StaticResource AngleConverterTemplate}"

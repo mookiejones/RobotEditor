@@ -4,8 +4,8 @@
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                       xmlns:classes="clr-namespace:RobotEditor.Classes"
                        xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"
+                       xmlns:completiondata="clr-namespace:RobotEditor.Controls.TextEditor.Snippets.CompletionData"
                        mc:Ignorable="d"
                        MouseHover="Mouse_OnHover"
                        PreviewMouseWheel="EditorPreviewMouseWheel"
@@ -14,12 +14,13 @@
                        VerticalScrollBarVisibility="Auto"
                        PreviewKeyDown="TextEditor_PreviewKeyDown"
                        d:DesignHeight="300" d:DesignWidth="300">
+
     <avalonedit:TextEditor.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/EditorTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate x:Key="CodeCompletion" DataType="{x:Type classes:CodeCompletion}">
+            <DataTemplate x:Key="CodeCompletion" DataType="{x:Type completiondata:CodeCompletion}">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Background="#FFFFA500" Text="{Binding Text}" />
                     <TextBlock Background="#FFFF0000" Text="{Binding Description}" />

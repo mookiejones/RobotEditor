@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RobotEditor.Abstract;
+using RobotEditor.Model;
 
 namespace RobotEditor.ViewModel
 {

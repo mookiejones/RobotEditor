@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using ICSharpCode.AvalonEdit.Document;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Controls.TextEditor.Brackets
 {

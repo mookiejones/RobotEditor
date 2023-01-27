@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
-using RobotEditor.Controls.TextEditor;
 using RobotEditor.Interfaces;
 
 namespace RobotEditor.Controls.TextEditor.Formatting

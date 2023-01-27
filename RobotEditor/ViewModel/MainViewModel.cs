@@ -10,8 +10,6 @@ using AvalonDock.Layout;
 using ControlzEx.Theming;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Win32;
-using RobotEditor.Abstract;
-using RobotEditor.Classes;
 using RobotEditor.Controls;
 using RobotEditor.Enums;
 using RobotEditor.Interfaces;
@@ -20,6 +18,7 @@ using RobotEditor.Messages;
 using RobotEditor.Windows;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Input;
+using RobotEditor.UI;
 
 namespace RobotEditor.ViewModel
 {

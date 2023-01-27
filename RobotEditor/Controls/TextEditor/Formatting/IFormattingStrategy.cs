@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
+using RobotEditor.Controls.TextEditor;
 
 namespace RobotEditor.Interfaces
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using RobotEditor.Interfaces;
+using RobotEditor.Controls.TextEditor.Bookmarks;
 
 namespace RobotEditor.Controls.TextEditor.IconBar
 {

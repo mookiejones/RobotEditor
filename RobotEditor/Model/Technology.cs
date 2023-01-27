@@ -1,4 +1,4 @@
-﻿namespace RobotEditor.Abstract
+﻿namespace RobotEditor.Model
 {
     public abstract class Technology
     {

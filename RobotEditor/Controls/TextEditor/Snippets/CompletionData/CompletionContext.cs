@@ -1,6 +1,4 @@
-﻿using RobotEditor.Interfaces;
-
-namespace RobotEditor.Abstract
+﻿namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
 {
     public abstract class CompletionContext
     {

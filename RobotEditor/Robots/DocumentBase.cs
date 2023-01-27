@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using RobotEditor.Abstract;
 using RobotEditor.Controls.TextEditor;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;

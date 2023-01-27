@@ -1,7 +1,6 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
-using RobotEditor.Classes;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Brackets
 {
     public interface IBracketSearcher
     {

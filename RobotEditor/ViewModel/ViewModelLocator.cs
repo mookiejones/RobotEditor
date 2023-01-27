@@ -11,7 +11,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using RobotEditor.Model;
 
 namespace RobotEditor.ViewModel
 {

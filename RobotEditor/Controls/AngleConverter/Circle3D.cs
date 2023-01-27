@@ -1,7 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using RobotEditor.Classes;
 using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Controls.AngleConverter.Interfaces;
 

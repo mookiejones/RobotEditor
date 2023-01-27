@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Media;
 using System.Xml;
@@ -350,8 +351,20 @@ namespace RobotEditor.Controls.TextEditor
             var type = typeof(EditorOptions);
             var ns=type.Namespace;
             
-            var filename = string.Format("RobotEditor.Controls.SyntaxHighlighting.{0}Highlight.xshd", name);
-            using (var manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
+
+            var filename = $"{ns}.SyntaxHighlighting.{name}Highlight.xshd";
+
+            var asm = Assembly.GetExecutingAssembly();
+            var names = asm.GetManifestResourceNames();
+
+            // Does the name exist?
+            var validName = names.FirstOrDefault(o => o.Equals(filename, StringComparison.InvariantCultureIgnoreCase));
+            if (validName == null)
+            {
+
+            }
+
+            using (var manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(validName))
             {
                 if (manifestResourceStream == null)
                 {

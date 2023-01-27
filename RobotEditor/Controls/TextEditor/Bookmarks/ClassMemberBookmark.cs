@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Controls.TextEditor.Bookmarks
 {

@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Controls.TextEditor.Bookmarks
 {

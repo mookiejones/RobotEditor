@@ -2,7 +2,7 @@
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
 
-namespace RobotEditor.Abstract
+namespace RobotEditor.Controls.TextEditor.Folding
 {
     public abstract class AbstractFoldingStrategy
     {

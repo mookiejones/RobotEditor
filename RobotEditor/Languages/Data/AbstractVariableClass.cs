@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RobotEditor.Parsers;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
-namespace RobotEditor.Abstract
+namespace RobotEditor.Languages.Data
 {
     internal abstract class AbstractVariableClass
     {

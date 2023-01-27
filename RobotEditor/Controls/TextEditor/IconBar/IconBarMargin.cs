@@ -9,7 +9,6 @@ using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Utils;
 using RobotEditor.Controls.TextEditor.Bookmarks;
-using RobotEditor.Interfaces;
 
 namespace RobotEditor.Controls.TextEditor.IconBar
 {

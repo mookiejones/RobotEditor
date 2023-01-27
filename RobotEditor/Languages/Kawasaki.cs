@@ -6,9 +6,10 @@ using System.Text.RegularExpressions;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Folding;
-using RobotEditor.Abstract;
-using RobotEditor.Classes;
+using RobotEditor.Controls.TextEditor.Folding;
+using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
+using RobotEditor.Languages.Data;
 using RobotEditor.ViewModel;
 using FileInfo = System.IO.FileInfo;
 

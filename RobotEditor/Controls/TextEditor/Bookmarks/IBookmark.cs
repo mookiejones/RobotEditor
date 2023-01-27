@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Bookmarks
 {
     public interface IBookmark
     {

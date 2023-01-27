@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using RobotEditor.Abstract;
+using RobotEditor.Controls.TextEditor.Snippets.CompletionData;
 using RobotEditor.Enums;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Completion
 {
     public interface ICompletionItemList
     {

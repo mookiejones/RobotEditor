@@ -1,5 +1,4 @@
-﻿using System.Windows.Media.Imaging;
-using RobotEditor.Interfaces;
+﻿using RobotEditor.Interfaces;
 
 namespace RobotEditor.Messages
 {

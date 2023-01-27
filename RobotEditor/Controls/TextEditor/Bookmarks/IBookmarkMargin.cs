@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Bookmarks
 {
     public interface IBookmarkMargin
     {

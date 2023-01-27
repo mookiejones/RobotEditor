@@ -1,8 +1,10 @@
-﻿using System;
+﻿using RobotEditor.Controls.TextEditor.Completion;
+using RobotEditor.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor
 {
     public interface ITextEditor : IServiceProvider
     {

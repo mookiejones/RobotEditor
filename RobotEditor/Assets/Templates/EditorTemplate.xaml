@@ -3,8 +3,6 @@
                     xmlns:converters="clr-namespace:RobotEditor.Converters"
                     
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    xmlns:gui="clr-namespace:RobotEditor.Classes"
-                    xmlns:controls="clr-namespace:RobotEditor.Controls"
                     xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor">
     <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
     <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor.Completion
 {
-    public interface ICompletionListWindow
+    public interface ICompletionWindow
     {
         double Width { get; set; }
         double Height { get; set; }

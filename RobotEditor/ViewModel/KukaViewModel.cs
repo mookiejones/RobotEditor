@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows;
 using CommunityToolkit.Mvvm.Input;
-using RobotEditor.Abstract;
 using RobotEditor.Controls;
 using RobotEditor.Controls.TextEditor;
 using RobotEditor.Enums;

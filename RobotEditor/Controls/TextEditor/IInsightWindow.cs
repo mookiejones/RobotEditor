@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Document;
+using RobotEditor.Controls.TextEditor.Completion;
+using RobotEditor.Interfaces;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Controls.TextEditor
 {
     public interface IInsightWindow : ICompletionWindow
     {

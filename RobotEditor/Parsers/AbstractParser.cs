@@ -1,6 +1,6 @@
 ﻿using RobotEditor.Enums;
 
-namespace RobotEditor.Abstract
+namespace RobotEditor.Parsers
 {
     public abstract class AbstractParser
     {
