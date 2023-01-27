@@ -10,12 +10,18 @@ namespace RobotEditor.Utilities
 {
     internal static class StringEx
     {
-        public static bool IsMatch(this string value, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
+        internal static bool IsMatch(this string value, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
                => Regex.IsMatch(value, pattern, options);
 
 
-        public static MatchCollection GetMatches(this string value, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
+        internal static MatchCollection GetMatches(this string value, string pattern, RegexOptions options = RegexOptions.IgnoreCase)
             => Regex.Matches(value, pattern, options);
+
+
+        internal static bool IsWhitespaceOrNewline(this char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
+
+        internal static bool IsWordPart(this char ch) => char.IsLetterOrDigit(ch) || ch == '_';
+
     }
 
 

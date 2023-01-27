@@ -4,14 +4,9 @@
                      
                     xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor" 
                     xmlns:xctk="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" 
-                    xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" 
-                    xmlns:xctk2="clr-namespace:ColorPickerLib.Converters;assembly=ColorPickerLib" 
-                    xmlns:converters="clr-namespace:RobotEditor.Converters" 
-                    xmlns:converters1="http://metro.mahapps.com/winfx/xaml/shared" xmlns:roboteditor="clr-namespace:RobotEditor">
-    <converters1:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
+                    xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+                    xmlns:roboteditor="clr-namespace:RobotEditor">
     <AlternationConverter x:Key="AlternationConverter" />
-    <converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
-    <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
     <DataTemplate x:Key="{DataTemplateKey {x:Type textEditor:EditorOptions}}" DataType="{x:Type textEditor:EditorOptions}">
         <TabControl>
             <TabItem DataContext="{x:Static roboteditor:GlobalOptions.Instance}" Header="{Binding Title}">

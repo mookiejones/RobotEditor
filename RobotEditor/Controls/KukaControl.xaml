@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:RobotEditor.Controls"
              xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
+             xmlns:converters="clr-namespace:RobotEditor.Converters"
              xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"
              d:DataContext="{d:DesignInstance viewModel:KukaViewModel}"
              mc:Ignorable="d"
@@ -28,7 +29,7 @@
             </Style>
         </DockPanel.Resources>
         <ComboBox x:Name="MethodSelector" SelectedItem="{Binding TextBox.SelectedVariable}"
-                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={x:Static converters:VariableToFunctionConverter.DefaultInstance}}"
                   DockPanel.Dock="Top" />
         <Grid DockPanel.Dock="Top">
             <Grid.InputBindings>

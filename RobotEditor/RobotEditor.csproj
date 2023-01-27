@@ -195,6 +195,7 @@
     <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
     <Compile Include="Controls\TextEditor\Views\Msg.cs" />
     <Compile Include="Controls\TextEditor\Views\MsgTypeToResourceConverter.cs" />
+    <Compile Include="Converters\SingletonValueConverter.cs" />
     <Compile Include="Converters\ThicknessToDoubleConverter.cs" />
     <Compile Include="Languages\AbstractLanguageClass.cs" />
     <Compile Include="Languages\Data\AbstractVariableClass.cs" />
@@ -645,10 +646,6 @@
     <Compile Include="Converters\ActiveEditorConverter.cs" />
     <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\DoubleToStringConverter.cs" />
-    <Compile Include="Converters\DoubleToThicknessConverter.cs" />
-    <Compile Include="Converters\EnumtoInt32.cs" />
-    <Compile Include="Converters\FunctionVisibilityConverter.cs" />
     <Compile Include="Converters\GetFileIconConverter.cs" />
     <Compile Include="Converters\TextOptionsConverter.cs" />
     <Compile Include="Converters\VariableToFunctionConverter.cs" />

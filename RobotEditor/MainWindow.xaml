@@ -60,7 +60,7 @@
         <mw:WindowCommands>
             <ToggleButton Content="Settings" Command="{Binding Main.ShowSettingsCommand, Mode=OneWay}" />
             <ToggleButton Content="Show IO" Command="{Binding Main.ShowIOCommand}"
-                          Visibility="{Binding Main.EnableIO, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                          Visibility="{Binding Main.EnableIO, Converter={x:Static converters:BooleanToVisibilityConverter.DefaultInstance}}" />
         </mw:WindowCommands>
     </mw:MetroWindow.RightWindowCommands>
    
@@ -310,7 +310,7 @@
             Grid.Row="2"
             AnchorablesSource="{Binding Main.Tools}"
             DocumentsSource="{Binding Main.Files}"
-            ActiveContent="{Binding Main.ActiveEditor, Converter={StaticResource ActiveEditorConverter}, Mode=TwoWay}">
+            ActiveContent="{Binding Main.ActiveEditor, Converter={x:Static  converters:ActiveEditorConverter.DefaultInstance}, Mode=TwoWay}">
             <DockingManager.LayoutUpdateStrategy>
                 <ui:LayoutInitializer />
             </DockingManager.LayoutUpdateStrategy>

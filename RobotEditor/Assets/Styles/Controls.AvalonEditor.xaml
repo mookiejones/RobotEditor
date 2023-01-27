@@ -5,9 +5,6 @@
                     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"
                     xmlns:completiondata="clr-namespace:RobotEditor.Controls.TextEditor.Snippets.CompletionData" xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
-    <converters:ThicknessToDoubleConverter x:Key="ThicknessToDoubleConverter" />
-    <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
-
 
     <DataTemplate x:Key="CodeCompletion" DataType="{x:Type completiondata:CodeCompletion}">
         <StackPanel Orientation="Vertical">
@@ -36,13 +33,13 @@
         </Setter>
 
         <Setter Property="Background"
-                Value="{Binding BackgroundColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding BackgroundColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderBrush"
-                Value="{Binding BorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding BorderColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="Foreground"
-                Value="{Binding FontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding FontColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="LineNumbersForeground"
-                Value="{Binding LineNumbersFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding LineNumbersFontColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="ShowLineNumbers"
                 Value="{Binding ShowLineNumbers, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="BorderThickness"
@@ -53,15 +50,15 @@
     <Style x:Key="{x:Type avalonedit:TextArea}" TargetType="{x:Type avalonedit:TextArea}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SelectionBrush"
-                Value="{Binding SelectedTextBackground, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding SelectedTextBackground, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="SelectionBorder">
             <Setter.Value>
                 <Pen Thickness="{Binding SelectedBorderThickness, Source={x:Static textEditor:EditorOptions.Instance}}"
-                     Brush="{Binding SelectedBorderColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                     Brush="{Binding SelectedBorderColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
             </Setter.Value>
         </Setter>
         <Setter Property="SelectionForeground"
-                Value="{Binding SelectedFontColor, Converter={StaticResource ColorToSolidColorBrushConverter}, Source={x:Static textEditor:EditorOptions.Instance}}" />
+                Value="{Binding SelectedFontColor, Converter={x:Static converters:ColorToSolidColorBrushConverter.DefaultInstance}, Source={x:Static textEditor:EditorOptions.Instance}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type avalonedit:TextArea}">

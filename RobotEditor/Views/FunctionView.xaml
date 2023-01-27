@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:RobotEditor.Converters"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
         <ListView DataContext="{Binding Main.ActiveEditor, IsAsync=True, Source={StaticResource Locator}}"
                   Background="White" Foreground="Black" SelectedItem="{Binding TextBox.SelectedVariable}"
-                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                  ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={x:Static  converters:VariableToFunctionConverter.DefaultInstance}}"
                   ItemTemplate="{DynamicResource FunctionItemTemplate}" />
 
     </Grid>

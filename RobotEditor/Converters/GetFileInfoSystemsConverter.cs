@@ -5,18 +5,16 @@ using System.Windows.Data;
 
 namespace RobotEditor.Converters
 {
-    public sealed class GetFileSystemInfosConverter : IValueConverter
+     sealed class GetFileSystemInfosConverter : SingletonValueConverter<GetFileSystemInfosConverter>
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result;
+             
             try
             {
                 if (value is DirectoryInfo directoryInfo)
-                {
-                    result = directoryInfo.GetFileSystemInfos();
-                    return result;
-                }
+                    return directoryInfo.GetFileSystemInfos();
+
             }
             catch (Exception ex)
             {
@@ -25,6 +23,6 @@ namespace RobotEditor.Converters
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

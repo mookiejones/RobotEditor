@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
+using RobotEditor.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -12,15 +13,13 @@ namespace RobotEditor.Controls.TextEditor
         {
             for (int num = offset; num != -1; num++)
             {
-                if (num >= document.TextLength)
-                {
+                if (num >= document.TextLength)                
                     return -1;
-                }
+                
                 char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
-                {
+                if (!charAt.IsWordPart() && !allowedChars.Contains(charAt))
                     return num;
-                }
+
             }
             return -1;
         }
@@ -33,7 +32,7 @@ namespace RobotEditor.Controls.TextEditor
                     return 0;
                 }
                 char charAt = document.GetCharAt(num);
-                if (!IsWhitespaceOrNewline(charAt))
+                if (!charAt.IsWhitespaceOrNewline())
                 {
                     return num;
                 }
@@ -45,7 +44,7 @@ namespace RobotEditor.Controls.TextEditor
             for (int num = offset; num != -1; num++)
             {
                 char charAt = document.GetCharAt(num);
-                if (!IsWhitespaceOrNewline(charAt))
+                if (!charAt.IsWhitespaceOrNewline())
                 {
                     return num - offset;
                 }
@@ -57,7 +56,7 @@ namespace RobotEditor.Controls.TextEditor
             for (int num = offset - 1; num != -1; num--)
             {
                 char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt))
+                if (!charAt.IsWordPart())
                 {
                     return num + 1;
                 }
@@ -82,17 +81,14 @@ namespace RobotEditor.Controls.TextEditor
             for (int num = offset - 1; num != -1; num--)
             {
                 char charAt = document.GetCharAt(num);
-                if (!IsWordPart(charAt) && !allowedChars.Contains(charAt))
+                if (!charAt.IsWordPart() && !allowedChars.Contains(charAt))
                 {
                     return num + 1;
                 }
             }
             return 0;
         }
-        public static bool IsWhitespaceOrNewline(char ch) => ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r';
-
-        private static bool IsWordPart(char ch) => char.IsLetterOrDigit(ch) || ch == '_';
-
+       
         public static string GetFirstWordInLine(this TextDocument document, int lineNumber)
         {
             if (document == null)

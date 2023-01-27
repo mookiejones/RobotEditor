@@ -9,10 +9,7 @@
              xmlns:roboteditor="clr-namespace:RobotEditor"
              xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <converters:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
-        <converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
-    </UserControl.Resources>
+
     <Grid>
         <TabControl>
             

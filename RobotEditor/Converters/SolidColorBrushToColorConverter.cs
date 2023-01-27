@@ -5,19 +5,11 @@ using System.Windows.Media;
 namespace RobotEditor.Converters
 {
 
-    public class SolidColorBrushToColorConverter : IValueConverter
+    class SolidColorBrushToColorConverter : SingletonValueConverter<SolidColorBrushToColorConverter>
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is SolidColorBrush solidColorBrush ? solidColorBrush.Color : (object)default(Color);
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is SolidColorBrush solidColorBrush ? solidColorBrush.Color : (object)default(Color);
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value != null)
-            {
-                Color color = (Color)value;
-                return new SolidColorBrush(color);
-            }
-            return null;
-        }
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value is Color color ? new SolidColorBrush(color) : default(SolidColorBrush);
     }
 
 }

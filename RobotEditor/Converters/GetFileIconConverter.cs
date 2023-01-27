@@ -10,33 +10,29 @@ using System.Windows.Data;
 
 namespace RobotEditor.Converters
 {
-    public sealed class GetFileIconConverter : IValueConverter
+    sealed class GetFileIconConverter : SingletonValueConverter<GetFileIconConverter>
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override  object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object result;
+          
             try
             {
                 string extension = Path.GetExtension(value.ToString().ToLower());
-                if (!string.IsNullOrEmpty(extension))
+
+                if (string.IsNullOrEmpty(extension))
+                    return null;
+
+                switch (extension)
                 {
-                    if (extension == ".src")
-                    {
-                        System.Windows.Media.Imaging.BitmapImage bitmapImage = ImageHelper.LoadBitmap(Global.ImgSrc);
-                        result = bitmapImage;
-                        return result;
-                    }
-                    if (extension == ".dat")
-                    {
-                        result = ImageHelper.LoadBitmap(Global.ImgDat);
-                        return result;
-                    }
-                    if (extension == ".sub")
-                    {
-                        result = ImageHelper.LoadBitmap(Global.ImgSps);
-                        return result;
-                    }
+                    case ".src":
+                        return ImageHelper.LoadBitmap(Global.ImgSrc);
+                    case ".dat":
+                        return ImageHelper.LoadBitmap(Global.ImgDat);
+
+                    case ".sub":
+                        return ImageHelper.LoadBitmap(Global.ImgSps);
                 }
+
             }
             catch (Exception ex)
             {
@@ -46,6 +42,6 @@ namespace RobotEditor.Converters
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

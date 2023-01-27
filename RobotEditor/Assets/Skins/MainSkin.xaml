@@ -24,7 +24,7 @@
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     <converters:GetFileSystemInfosConverter x:Key="GetFileSystemInfosConverter" />
     <converters:WidthConverter x:Key="WidthConverter" />
-    <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+
     <!--<viewModel:GlobalOptionsViewModel x:Key="GlobalOptions" />-->
 
 
@@ -208,7 +208,7 @@
                 </Style>
             </DockPanel.Resources>
             <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={x:Static converters:VariableToFunctionConverter.DefaultInstance}}"
                       DockPanel.Dock="Top" />
             <ContentPresenter Content="{Binding TextBox}" DockPanel.Dock="Top" />
         </DockPanel>
@@ -232,7 +232,7 @@
                 </Style>
             </DockPanel.Resources>
             <ComboBox SelectedItem="{Binding TextBox.SelectedVariable}"
-                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={StaticResource VariableToFunctionConverter}}"
+                      ItemsSource="{Binding TextBox.Variables, ConverterParameter=Function, Converter={x:Static converters:VariableToFunctionConverter.DefaultInstance}}"
                       DockPanel.Dock="Top" />
             <Grid DockPanel.Dock="Top">
                 <Grid.InputBindings>
