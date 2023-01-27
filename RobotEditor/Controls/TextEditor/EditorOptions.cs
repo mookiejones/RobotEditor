@@ -346,7 +346,7 @@ namespace RobotEditor.Classes
         [Localizable(false)]
         private static void Register(string name, string[] ext)
         {
-            var filename = string.Format("RobotEditor.Controls.SyntaxHighlighting.{0}Highlight.xshd", name);
+            var filename = string.Format("RobotEditor.Controls.TextEditor.SyntaxHighlighting.{0}Highlight.xshd", name);
             using (var manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(filename))
             {
                 if (manifestResourceStream == null)

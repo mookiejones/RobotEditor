@@ -6,7 +6,7 @@
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.DataGrid.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
-    
+
 
     <Style TargetType="{x:Type mah:Flyout}">
         <Style.Resources>
