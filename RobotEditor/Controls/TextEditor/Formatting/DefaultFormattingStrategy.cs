@@ -7,7 +7,7 @@ namespace RobotEditor.Controls.TextEditor.Formatting
 {
     public class DefaultFormattingStrategy : IFormattingStrategy
     {
-        internal static readonly DefaultFormattingStrategy DefaultInstance = new DefaultFormattingStrategy();
+        internal static readonly DefaultFormattingStrategy DefaultInstance = new();
 
         public virtual void FormatLine(ITextEditor editor, char charTyped)
         {
@@ -49,7 +49,7 @@ namespace RobotEditor.Controls.TextEditor.Formatting
                 int num = location2.Column == 1 && location2.Line > location.Line
                     ? location2.Line - 1
                     : location2.Line;
-                List<IEditorDocumentLine> list = new List<IEditorDocumentLine>();
+                List<IEditorDocumentLine> list = new();
                 bool flag = true;
                 for (int i = location.Line; i <= num; i++)
                 {

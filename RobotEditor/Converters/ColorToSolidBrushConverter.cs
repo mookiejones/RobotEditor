@@ -29,7 +29,7 @@ namespace RobotEditor.Converters
         {
             if (value is Color color)
             {
-                SolidColorBrush solidColorBrush = new SolidColorBrush(color);
+                SolidColorBrush solidColorBrush = new(color);
                 solidColorBrush.Freeze();
                 return solidColorBrush;
             }

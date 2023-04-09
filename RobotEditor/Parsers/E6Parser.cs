@@ -114,18 +114,18 @@ namespace RobotEditor.Parsers
             {
                 foreach (KeyValuePair<Tokens, string> current in _tokens)
                 {
-                    Regex regex = new Regex(current.Value);
+                    Regex regex = new(current.Value);
                     Match match = regex.Match(_inputString, _index);
                     if (match.Success && match.Index == _index)
                     {
                         _index += match.Length;
-                        PeekToken peekToken2 = new PeekToken(_index, new Token(current.Key, match.Value));
+                        PeekToken peekToken2 = new(_index, new Token(current.Key, match.Value));
                         _index = index;
                         result = peekToken2;
                         return result;
                     }
                 }
-                PeekToken peekToken3 = new PeekToken(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
+                PeekToken peekToken3 = new(_index + 1, new Token(Tokens.UNDEFINED, string.Empty));
                 _index = index;
                 result = peekToken3;
             }

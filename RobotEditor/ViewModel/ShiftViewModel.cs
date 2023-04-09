@@ -6,17 +6,17 @@ namespace RobotEditor.ViewModel
     {
         private static ShiftViewModel _instance;
 
-        private CartesianPosition _diffvalues = new CartesianPosition
+        private CartesianPosition _diffvalues = new()
         {
             Header = "Difference"
         };
 
-        private CartesianPosition _newvalues = new CartesianPosition
+        private CartesianPosition _newvalues = new()
         {
             Header = "New Values"
         };
 
-        private CartesianPosition _oldvalues = new CartesianPosition
+        private CartesianPosition _oldvalues = new()
         {
             Header = "Old Values"
         };

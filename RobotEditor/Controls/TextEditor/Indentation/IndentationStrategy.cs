@@ -40,12 +40,12 @@ namespace RobotEditor.Controls.TextEditor.Indentation
             {
                 throw new ArgumentNullException("document");
             }
-            IndentationSettings set = new IndentationSettings
+            IndentationSettings set = new()
             {
                 IndentString = IndentationString,
                 LeaveEmptyLines = keepEmptyLines
             };
-            IndentationClass indentationClass = new IndentationClass();
+            IndentationClass indentationClass = new();
             indentationClass.Reformat(document, set);
         }
 
@@ -56,7 +56,7 @@ namespace RobotEditor.Controls.TextEditor.Indentation
         public override void IndentLine(TextDocument document, DocumentLine line)
         {
             int lineNumber = line.LineNumber;
-            TextDocumentAccessor textDocumentAccessor = new TextDocumentAccessor(document, lineNumber, lineNumber);
+            TextDocumentAccessor textDocumentAccessor = new(document, lineNumber, lineNumber);
             Indent(textDocumentAccessor, false);
             string text = textDocumentAccessor.Text;
             if (text.Length == 0)

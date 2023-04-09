@@ -110,8 +110,8 @@ namespace RobotEditor.ViewModel
 
         public static void AddError(string message, Exception ex)
         {
-            System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace();
-            OutputWindowMessage msg = new OutputWindowMessage
+            System.Diagnostics.StackTrace trace = new();
+            OutputWindowMessage msg = new()
             {
                 Title = "Internal Error",
                 Icon = ImageHelper.LoadBitmap(Global.ImgError),

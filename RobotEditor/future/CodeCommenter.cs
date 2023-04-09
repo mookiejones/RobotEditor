@@ -7,7 +7,7 @@ namespace RobotEditor.future
 {
     public class CodeCommenter
     {
-        private static readonly List<char> Whitespaces = new List<char>
+        private static readonly List<char> Whitespaces = new()
         {
             ' ',
             '\t'

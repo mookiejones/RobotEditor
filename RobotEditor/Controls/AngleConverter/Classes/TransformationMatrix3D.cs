@@ -23,7 +23,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrix is not the correct size to convert to a TransformationMatrix3D");
             }
-            SquareMatrix squareMatrix = new SquareMatrix(3);
+            SquareMatrix squareMatrix = new(3);
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
@@ -76,7 +76,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         {
             get
             {
-                RotationMatrix3D rotationMatrix3D = new RotationMatrix3D();
+                RotationMatrix3D rotationMatrix3D = new();
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
@@ -100,7 +100,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public Vector3D Translation
         {
-            get => new Vector3D(base[0, 3], base[1, 3], base[2, 3]);
+            get => new(base[0, 3], base[1, 3], base[2, 3]);
             set
             {
                 base[0, 3] = value[0];
@@ -109,16 +109,16 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
+        public static TransformationMatrix3D FromXYZABC(double x, double y, double z, double a, double b, double c) => new(new Vector3D(x, y, z), RotationMatrix3D.FromABC(a, b, c));
 
         public static TransformationMatrix3D FromXYZEulerZYZ(double x, double y, double z, double z1, double y1,
-            double z2) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
+            double z2) => new(new Vector3D(x, y, z), RotationMatrix3D.FromEulerZYZ(z1, y1, z2));
 
-        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w) => new TransformationMatrix3D(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
+        public static TransformationMatrix3D FromXYZRPY(double x, double y, double z, double r, double p, double w) => new(new Vector3D(x, y, z), RotationMatrix3D.FromRPY(r, p, w));
 
         public static TransformationMatrix3D Identity()
         {
-            TransformationMatrix3D transformationMatrix3D = new TransformationMatrix3D();
+            TransformationMatrix3D transformationMatrix3D = new();
             for (int i = 0; i < 4; i++)
             {
                 transformationMatrix3D[i, i] = 1.0;
@@ -126,13 +126,13 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return transformationMatrix3D;
         }
 
-        public new TransformationMatrix3D Inverse() => new TransformationMatrix3D(base.Inverse());
+        public new TransformationMatrix3D Inverse() => new(base.Inverse());
 
-        public static TransformationMatrix3D NaN() => new TransformationMatrix3D(NaN(4));
+        public static TransformationMatrix3D NaN() => new(NaN(4));
 
         public static Collection<Point3D> operator *(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            Collection<Point3D> collection = new Collection<Point3D>();
+            Collection<Point3D> collection = new();
             foreach (Point3D current in points)
             {
                 collection.Add(transform * current);
@@ -142,7 +142,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Collection<Point3D> Multiply(TransformationMatrix3D transform, Collection<Point3D> points)
         {
-            Collection<Point3D> collection = new Collection<Point3D>();
+            Collection<Point3D> collection = new();
             foreach (Point3D current in points)
             {
                 collection.Add(transform * current);
@@ -152,7 +152,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Collection<Vector3D> operator *(TransformationMatrix3D transform, Collection<Vector3D> vectors)
         {
-            Collection<Vector3D> collection = new Collection<Vector3D>();
+            Collection<Vector3D> collection = new();
             foreach (Vector3D current in vectors)
             {
                 collection.Add(transform * current);
@@ -162,7 +162,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Point3D operator *(TransformationMatrix3D mat, Point3D pt)
         {
-            Vector3D vec = new Vector3D(pt.X, pt.Y, pt.Z);
+            Vector3D vec = new(pt.X, pt.Y, pt.Z);
             Vector3D vector3D = mat * vec;
             return new Point3D(vector3D.X, vector3D.Y, vector3D.Z);
         }
@@ -174,7 +174,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Vector3D operator *(TransformationMatrix3D mat, Vector3D vec)
         {
-            Vector vec2 = new Vector(4, new[]
+            Vector vec2 = new(4, new[]
             {
                 vec[0],
                 vec[1],

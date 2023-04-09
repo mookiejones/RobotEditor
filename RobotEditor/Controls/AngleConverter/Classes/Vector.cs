@@ -90,7 +90,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
         }
 
-        public Vector Normalised() => new Vector(this / Length());
+        public Vector Normalised() => new(this / Length());
 
         public static Vector operator +(Vector v1, Vector v2)
         {
@@ -102,7 +102,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec + scalar);
         }
 
-        public static Vector Add(Vector vec, double scalar) => new Vector(vec + scalar);
+        public static Vector Add(Vector vec, double scalar) => new(vec + scalar);
 
         public static Vector operator +(double scalar, Vector vec)
         {
@@ -114,7 +114,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec / scalar);
         }
 
-        public static Vector Divide(Vector vec, double scalar) => new Vector(vec / scalar);
+        public static Vector Divide(Vector vec, double scalar) => new(vec / scalar);
 
         public static Vector operator *(Matrix mat, Vector vec)
         {
@@ -126,7 +126,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(vec * scalar);
         }
 
-        public static Vector Multiply(Vector vec, double scalar) => new Vector(vec * scalar);
+        public static Vector Multiply(Vector vec, double scalar) => new(vec * scalar);
 
         public static Vector operator *(double scalar, Vector vec)
         {
@@ -138,7 +138,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(v1 - v2);
         }
 
-        public static Vector Subtract(Vector v1, Vector v2) => new Vector(v1 - v2);
+        public static Vector Subtract(Vector v1, Vector v2) => new(v1 - v2);
 
         public static bool operator ==(Vector v1, Vector v2)
         {
@@ -162,6 +162,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector(-v);
         }
 
-        public static Vector Negate(Vector v) => new Vector(-v);
+        public static Vector Negate(Vector v) => new(-v);
     }
 }

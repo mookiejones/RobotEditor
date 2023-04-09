@@ -19,14 +19,14 @@ namespace RobotEditor.ViewModel
     public sealed class ArchiveInfoViewModel : ToolViewModel
     {
         // ReSharper disable once ConvertToConstant.Local
-        private readonly ObservableCollection<Item> _anin = new ObservableCollection<Item>();
-        private readonly ObservableCollection<Item> _anout = new ObservableCollection<Item>();
-        private readonly ObservableCollection<Item> _counter = new ObservableCollection<Item>();
-        private readonly ObservableCollection<Item> _cycflags = new ObservableCollection<Item>();
-        private readonly ObservableCollection<Item> _flags = new ObservableCollection<Item>();
+        private readonly ObservableCollection<Item> _anin = new();
+        private readonly ObservableCollection<Item> _anout = new();
+        private readonly ObservableCollection<Item> _counter = new();
+        private readonly ObservableCollection<Item> _cycflags = new();
+        private readonly ObservableCollection<Item> _flags = new();
         private readonly bool _isKRC2 = true;
-        private readonly ObservableCollection<Item> _outputs = new ObservableCollection<Item>();
-        private readonly ProgressBarViewModel _progress = new ProgressBarViewModel();
+        private readonly ObservableCollection<Item> _outputs = new();
+        private readonly ProgressBarViewModel _progress = new();
         private readonly ReadOnlyObservableCollection<Item> _readonlyAnIn = null;
         private readonly ReadOnlyObservableCollection<Item> _readonlyAnOut = null;
         private readonly ReadOnlyObservableCollection<Item> _readonlyCounter = null;
@@ -36,8 +36,8 @@ namespace RobotEditor.ViewModel
         private readonly ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
         private readonly ReadOnlyObservableCollection<Item> _readonlyTimer = null;
         private readonly ReadOnlyObservableCollection<Item> _readonlyinputs = null;
-        private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
-        private readonly ObservableCollection<Item> _timer = new ObservableCollection<Item>();
+        private readonly ObservableCollection<DirectoryInfo> _root = new();
+        private readonly ObservableCollection<Item> _timer = new();
         private string _archivePath = " ";
         private string _buffersize = string.Empty;
         private Visibility _counterVisibility = Visibility.Collapsed;
@@ -48,8 +48,8 @@ namespace RobotEditor.ViewModel
         private string _filecount = string.Empty;
         private Visibility _flagVisibility = Visibility.Collapsed;
         private RelayCommand _importCommand;
-        private InfoFile _info = new InfoFile();
-        public ObservableCollection<Item> _inputs = new ObservableCollection<Item>();
+        private InfoFile _info = new();
+        public ObservableCollection<Item> _inputs = new();
         private readonly string[] _langText;
         private string _languageText = string.Empty;
         private RelayCommand _loadCommand;
@@ -146,7 +146,7 @@ namespace RobotEditor.ViewModel
 
         private void Import()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            OpenFileDialog openFileDialog = new()
             {
                 Title = "Select Archive",
                 Filter = "KUKA Archive (*.zip)|*.zip",
@@ -261,12 +261,12 @@ namespace RobotEditor.ViewModel
         private void GetFlags()
         {
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
-            using (OleDbConnection oleDbConnection = new OleDbConnection(connectionString))
+            using (OleDbConnection oleDbConnection = new(connectionString))
             {
                 oleDbConnection.Open();
                 using (
                     OleDbCommand oleDbCommand =
-                        new OleDbCommand(
+                        new(
                             "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'FLAG')",
                             oleDbConnection))
                 {
@@ -275,7 +275,7 @@ namespace RobotEditor.ViewModel
                         while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
                             string text = oleDbDataReader.GetValue(0).ToString();
-                            Item item = new Item(string.Format("$FLAG[{0}]", text.Substring(8)),
+                            Item item = new(string.Format("$FLAG[{0}]", text.Substring(8)),
                                 oleDbDataReader.GetValue(1).ToString());
                             _flags.Add(item);
                         }
@@ -289,12 +289,12 @@ namespace RobotEditor.ViewModel
         private void GetTimers()
         {
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
-            using (OleDbConnection oleDbConnection = new OleDbConnection(connectionString))
+            using (OleDbConnection oleDbConnection = new(connectionString))
             {
                 oleDbConnection.Open();
                 using (
                     OleDbCommand oleDbCommand =
-                        new OleDbCommand(
+                        new(
                             "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'TIMER')",
                             oleDbConnection))
                 {
@@ -303,7 +303,7 @@ namespace RobotEditor.ViewModel
                         while (oleDbDataReader != null && oleDbDataReader.Read())
                         {
                             string text = oleDbDataReader.GetValue(0).ToString();
-                            Item item = new Item(string.Format("$TIMER[{0}]", text.Substring(9)),
+                            Item item = new(string.Format("$TIMER[{0}]", text.Substring(9)),
                                 oleDbDataReader.GetValue(1).ToString());
                             _timer.Add(item);
                         }
@@ -319,12 +319,12 @@ namespace RobotEditor.ViewModel
             if (File.Exists(DatabaseFile))
             {
                 string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
-                using (OleDbConnection oleDbConnection = new OleDbConnection(connectionString))
+                using (OleDbConnection oleDbConnection = new(connectionString))
                 {
                     oleDbConnection.Open();
                     using (
                         OleDbCommand oleDbCommand =
-                            new OleDbCommand(
+                            new(
                                 "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')",
                                 oleDbConnection))
                     {
@@ -344,7 +344,7 @@ namespace RobotEditor.ViewModel
                                             {
                                                 if (text2 == "ANOUT")
                                                 {
-                                                    Item item = new Item(
+                                                    Item item = new(
                                                         string.Format("$ANOUT[{0}]", text.Substring(6)),
                                                         oleDbDataReader.GetValue(1).ToString());
                                                     _anout.Add(item);
@@ -353,7 +353,7 @@ namespace RobotEditor.ViewModel
                                             }
                                             else
                                             {
-                                                Item item = new Item(string.Format("$ANIN[{0}]", text.Substring(5)),
+                                                Item item = new(string.Format("$ANIN[{0}]", text.Substring(5)),
                                                     oleDbDataReader.GetValue(1).ToString());
                                                 _anin.Add(item);
                                                 LanguageText = LanguageText + item + "\r\n";
@@ -361,7 +361,7 @@ namespace RobotEditor.ViewModel
                                         }
                                         else
                                         {
-                                            Item item = new Item(string.Format("$OUT[{0}]", text.Substring(4)),
+                                            Item item = new(string.Format("$OUT[{0}]", text.Substring(4)),
                                                 oleDbDataReader.GetValue(1).ToString());
                                             _outputs.Add(item);
                                             LanguageText = LanguageText + item + "\r\n";
@@ -369,7 +369,7 @@ namespace RobotEditor.ViewModel
                                     }
                                     else
                                     {
-                                        Item item = new Item(string.Format("$IN[{0}]", text.Substring(3)),
+                                        Item item = new(string.Format("$IN[{0}]", text.Substring(3)),
                                             oleDbDataReader.GetValue(1).ToString());
                                         _inputs.Add(item);
                                         LanguageText = LanguageText + item + "\r\n";
@@ -395,12 +395,12 @@ namespace RobotEditor.ViewModel
             if (File.Exists(DatabaseFile))
             {
                 string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + DatabaseFile + ";";
-                using (OleDbConnection oleDbConnection = new OleDbConnection(connectionString))
+                using (OleDbConnection oleDbConnection = new(connectionString))
                 {
                     oleDbConnection.Open();
                     using (
                         OleDbCommand oleDbCommand =
-                            new OleDbCommand(
+                            new(
                                 "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99",
                                 oleDbConnection))
                     {
@@ -420,7 +420,7 @@ namespace RobotEditor.ViewModel
 
         private void Open()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
             OpenFileDialog openFileDialog2 = openFileDialog;
             openFileDialog2.Filter = "longtext (*.mdb)|*.mdb";
             openFileDialog2.Multiselect = false;

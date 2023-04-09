@@ -68,7 +68,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
         }
 
-        public static Vector2D Subtract(Point2D p1, Point2D p2) => new Vector2D(p2.X - p1.X, p2.Y - p1.Y);
+        public static Vector2D Subtract(Point2D p1, Point2D p2) => new(p2.X - p1.X, p2.Y - p1.Y);
 
         [Localizable(false)]
         public override string ToString() => string.Format("{0:F2}, {1:F2}", X, Y);

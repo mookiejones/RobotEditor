@@ -36,7 +36,7 @@ namespace RobotEditor.Converters
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Convert", ex, MessageType.Error);
+                ErrorMessage msg = new("Convert", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             return null;

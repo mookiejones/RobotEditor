@@ -30,10 +30,10 @@ namespace RobotEditor.Languages
 
         protected override IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
         {
-            List<NewFolding> list = new List<NewFolding>();
+            List<NewFolding> list = new();
             firstErrorOffset = -1;
-            Stack<DocumentLine> stack = new Stack<DocumentLine>();
-            Stack<DocumentLine> stack2 = new Stack<DocumentLine>();
+            Stack<DocumentLine> stack = new();
+            Stack<DocumentLine> stack2 = new();
             bool flag = false;
             foreach (DocumentLine current in document.Lines)
             {

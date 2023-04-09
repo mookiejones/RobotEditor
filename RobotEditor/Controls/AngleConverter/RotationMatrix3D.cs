@@ -26,7 +26,7 @@ namespace RobotEditor.Controls.AngleConverter
             }
         }
 
-        public Vector3D ABC => new Vector3D(RPY.Z, RPY.Y, RPY.X);
+        public Vector3D ABC => new(RPY.Z, RPY.Y, RPY.X);
 
         public Vector3D ABG
         {
@@ -124,11 +124,11 @@ namespace RobotEditor.Controls.AngleConverter
             return rotationMatrix3D;
         }
 
-        public static RotationMatrix3D FromRPY(double roll, double pitch, double yaw) => new RotationMatrix3D(RotateZ(yaw) * RotateY(pitch) * RotateX(roll));
+        public static RotationMatrix3D FromRPY(double roll, double pitch, double yaw) => new(RotateZ(yaw) * RotateY(pitch) * RotateX(roll));
 
-        public static RotationMatrix3D Identity() => new RotationMatrix3D(Identity(3));
+        public static RotationMatrix3D Identity() => new(Identity(3));
 
-        public new RotationMatrix3D Inverse() => new RotationMatrix3D(base.Inverse());
+        public new RotationMatrix3D Inverse() => new(base.Inverse());
 
         public static explicit operator Quaternion(RotationMatrix3D mat)
         {

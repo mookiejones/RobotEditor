@@ -44,7 +44,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public Vector3D Vector
         {
-            get => new Vector3D(X, Y, Z);
+            get => new(X, Y, Z);
             set
             {
                 X = value.X;
@@ -86,7 +86,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector3D(X / num, Y / num, Z / num);
         }
 
-        public Quaternion Conjugate() => new Quaternion(-X, -Y, -Z, W);
+        public Quaternion Conjugate() => new(-X, -Y, -Z, W);
 
         public static Quaternion FromAxisAngle(Vector axis, double angle)
         {
@@ -94,7 +94,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             axis.Normalise();
             double num = Math.Sin(angle / 2.0);
             double w = Math.Cos(angle / 2.0);
-            Quaternion quaternion = new Quaternion(axis[0] * num, axis[1] * num, axis[2] * num, w);
+            Quaternion quaternion = new(axis[0] * num, axis[1] * num, axis[2] * num, w);
             quaternion.Normalise();
             return quaternion;
         }
@@ -122,7 +122,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return Add(q1, q2);
         }
 
-        public static Quaternion Add(Quaternion q1, Quaternion q2) => new Quaternion
+        public static Quaternion Add(Quaternion q1, Quaternion q2) => new()
         {
             Scalar = q1.Scalar + q2.Scalar,
             Vector = q1.Vector + q2.Vector
@@ -130,7 +130,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static explicit operator RotationMatrix3D(Quaternion q)
         {
-            RotationMatrix3D rotationMatrix3D = new RotationMatrix3D();
+            RotationMatrix3D rotationMatrix3D = new();
             double num = q.X * q.X;
             double num2 = q.X * q.Y;
             double num3 = q.X * q.Z;
@@ -154,9 +154,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Quaternion operator *(Quaternion q1, Quaternion q2)
         {
-            Quaternion quaternion = new Quaternion();
-            Vector3D vector3D = new Vector3D(q1.X, q1.Y, q1.Z);
-            Vector3D vector3D2 = new Vector3D(q2.X, q2.Y, q2.Z);
+            Quaternion quaternion = new();
+            Vector3D vector3D = new(q1.X, q1.Y, q1.Z);
+            Vector3D vector3D2 = new(q2.X, q2.Y, q2.Z);
             double w = q1.W;
             double w2 = q2.W;
             Vector3D vector3D3 = (Vector3D)((w * vector3D2) + (w2 * vector3D)) + Vector3D.Cross(vector3D, vector3D2);
@@ -169,9 +169,9 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Quaternion Multiply(Quaternion q1, Quaternion q2)
         {
-            Quaternion quaternion = new Quaternion();
-            Vector3D vector3D = new Vector3D(q1.X, q1.Y, q1.Z);
-            Vector3D vector3D2 = new Vector3D(q2.X, q2.Y, q2.Z);
+            Quaternion quaternion = new();
+            Vector3D vector3D = new(q1.X, q1.Y, q1.Z);
+            Vector3D vector3D2 = new(q2.X, q2.Y, q2.Z);
             double w = q1.W;
             double w2 = q2.W;
             Vector3D vector3D3 = (Vector3D)((w * vector3D2) + (w2 * vector3D)) + Vector3D.Cross(vector3D, vector3D2);
@@ -187,7 +187,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return Subtract(q1, q2);
         }
 
-        public static Quaternion Subtract(Quaternion q1, Quaternion q2) => new Quaternion
+        public static Quaternion Subtract(Quaternion q1, Quaternion q2) => new()
         {
             Scalar = q1.Scalar - q2.Scalar,
             Vector = q1.Vector - q2.Vector

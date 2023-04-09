@@ -58,7 +58,7 @@ namespace RobotEditor.Controls.TextEditor.Views
                     break;
             }
 
-            BitmapImage icon = new BitmapImage();
+            BitmapImage icon = new();
 
             try
             {

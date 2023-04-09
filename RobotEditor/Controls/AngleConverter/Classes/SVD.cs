@@ -16,7 +16,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             }
             int rows = mat.Rows;
             int columns = mat.Columns;
-            Vector vector = new Vector(columns);
+            Vector vector = new(columns);
             double num = 0.0;
             double num2 = 0.0;
             double num3 = 0.0;
@@ -480,48 +480,48 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Vector3D Cross(Vector vec1, Vector vec2)
         {
-            Vector3D vector3D = new Vector3D();
+            Vector3D vector3D = new();
             vector3D[0] = (vec1[1] * vec2[2]) - (vec1[2] * vec2[1]);
             vector3D[1] = (vec1[2] * vec2[0]) - (vec1[0] * vec2[2]);
             vector3D[2] = (vec1[0] * vec2[1]) - (vec1[1] * vec2[0]);
             return vector3D;
         }
 
-        public static Vector3D NaN() => new Vector3D(NaN(3, 1));
+        public static Vector3D NaN() => new(NaN(3, 1));
 
-        public new Vector3D Normalised() => new Vector3D(this / base.Length());
+        public new Vector3D Normalised() => new(this / base.Length());
 
         public static Vector3D operator +(Vector3D v1, Vector3D v2)
         {
             return new Vector3D(v1 + v2);
         }
 
-        public static Vector3D Add(Vector3D v1, Vector3D v2) => new Vector3D(v1 + v2);
+        public static Vector3D Add(Vector3D v1, Vector3D v2) => new(v1 + v2);
 
         public static Vector3D operator /(Vector3D vec, double scalar)
         {
             return new Vector3D(vec / scalar);
         }
 
-        public static Vector3D Divide(Vector3D vec, double scalar) => new Vector3D(vec / scalar);
+        public static Vector3D Divide(Vector3D vec, double scalar) => new(vec / scalar);
 
         public static explicit operator Point3D(Vector3D vec)
         {
             return new Point3D(vec);
         }
 
-        public static Point3D ToPoint3D(Vector3D vec) => new Point3D(vec);
+        public static Point3D ToPoint3D(Vector3D vec) => new(vec);
 
         public static Vector3D operator *(Vector3D vec, double scalar)
         {
             return new Vector3D(vec * scalar);
         }
 
-        public static Vector3D Multiply(Vector3D vec, double scalar) => new Vector3D(vec * scalar);
+        public static Vector3D Multiply(Vector3D vec, double scalar) => new(vec * scalar);
 
         public static Collection<Vector3D> operator *(Collection<TransformationMatrix3D> transforms, Vector3D vector)
         {
-            Collection<Vector3D> collection = new Collection<Vector3D>();
+            Collection<Vector3D> collection = new();
             foreach (TransformationMatrix3D current in transforms)
             {
                 collection.Add(current * vector);
@@ -544,13 +544,13 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return !(v1 == v2);
         }
 
-        public static Vector3D Subtract(Vector3D v1, Vector3D v2) => new Vector3D(v1 - v2);
+        public static Vector3D Subtract(Vector3D v1, Vector3D v2) => new(v1 - v2);
 
         public static Vector3D operator -(Vector3D vec)
         {
             return Negate(vec);
         }
 
-        public static Vector3D Negate(Vector3D vec) => new Vector3D(-vec.X, -vec.Y, -vec.Z);
+        public static Vector3D Negate(Vector3D vec) => new(-vec.X, -vec.Y, -vec.Z);
     }
 }

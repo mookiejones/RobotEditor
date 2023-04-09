@@ -33,7 +33,7 @@ namespace RobotEditor.Controls.AngleConverter
 
         public static Plane3D FitToPoints(Collection<Point3D> points)
         {
-            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new();
             return leastSquaresFit3D.FitPlaneToPoints(points);
         }
 

@@ -62,7 +62,7 @@ namespace RobotEditor
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            ErrorMessage msg = new ErrorMessage("App", e.Exception, MessageType.Error);
+            ErrorMessage msg = new("App", e.Exception, MessageType.Error);
             _ = WeakReferenceMessenger.Default.Send(msg);
 
             Console.Write(e);
@@ -117,7 +117,7 @@ namespace RobotEditor
                 Shutdown();
             }
 
-            JumpTask task = new JumpTask
+            JumpTask task = new()
             {
                 Title = "Check for Updates",
                 Arguments = "/update",
@@ -129,7 +129,7 @@ namespace RobotEditor
 
             Assembly asm = Assembly.GetExecutingAssembly();
 
-            JumpTask version = new JumpTask
+            JumpTask version = new()
             {
                 CustomCategory = "Version",
                 Title = asm.GetName().Version.ToString(),
@@ -137,7 +137,7 @@ namespace RobotEditor
                 IconResourceIndex = 0
             };
 
-            JumpList jumpList = new JumpList();
+            JumpList jumpList = new();
             jumpList.JumpItems.Add(version);
             jumpList.ShowFrequentCategory = true;
             jumpList.ShowRecentCategory = true;

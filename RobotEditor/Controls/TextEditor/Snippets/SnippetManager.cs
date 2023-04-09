@@ -13,15 +13,15 @@ namespace RobotEditor.Controls.TextEditor.Snippets
 {
     public class SnippetManager
     {
-        private static readonly Dictionary<string, SnippetInfo> Snippets = new Dictionary<string, SnippetInfo>();
-        private static readonly Dictionary<string, List<SnippetInfo>> SnippetsByExtension = new Dictionary<string, List<SnippetInfo>>();
+        private static readonly Dictionary<string, SnippetInfo> Snippets = new();
+        private static readonly Dictionary<string, List<SnippetInfo>> SnippetsByExtension = new();
 
         public static IList<SnippetCompletionData> CompletionData
         {
             get
             {
-                Dictionary<SnippetInfo, string> dictionary = new Dictionary<SnippetInfo, string>();
-                List<SnippetCompletionData> list = new List<SnippetCompletionData>();
+                Dictionary<SnippetInfo, string> dictionary = new();
+                List<SnippetCompletionData> list = new();
                 foreach (SnippetInfo current in Snippets.Values)
                 {
                     if (!dictionary.ContainsKey(current))
@@ -106,7 +106,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
                                 }
                                 else
                                 {
-                                    ErrorMessage msg = new ErrorMessage(string.Format("Duplicate Shortcut :", file), null,
+                                    ErrorMessage msg = new(string.Format("Duplicate Shortcut :", file), null,
                                         MessageType.Error);
                                     _ = WeakReferenceMessenger.Default.Send(msg);
 
@@ -137,7 +137,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
             }
             catch (Exception ex2)
             {
-                ErrorMessage msg = new ErrorMessage("ErrorOnLoadingSnippet", ex2, MessageType.Error);
+                ErrorMessage msg = new("ErrorOnLoadingSnippet", ex2, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send(msg);
 
                 result = false;
@@ -196,7 +196,7 @@ namespace RobotEditor.Controls.TextEditor.Snippets
             }
             string value = xAttribute.Value;
             XElement headerElement = element.Element("Header");
-            SnippetHeader header = new SnippetHeader(headerElement);
+            SnippetHeader header = new(headerElement);
             XElement element2 = element.Element("Snippet");
             Snippet snippet = SnippetParser.BuildSnippet(element2);
             return new SnippetInfo(path)

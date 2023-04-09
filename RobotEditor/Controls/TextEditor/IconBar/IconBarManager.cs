@@ -9,7 +9,7 @@ namespace RobotEditor.Controls.TextEditor.IconBar
 {
     public sealed class IconBarManager : IBookmarkMargin
     {
-        private readonly ObservableCollection<IBookmark> _bookmarks = new ObservableCollection<IBookmark>();
+        private readonly ObservableCollection<IBookmark> _bookmarks = new();
 
         public IconBarManager()
         {

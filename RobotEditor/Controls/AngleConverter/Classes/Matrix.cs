@@ -65,7 +65,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public virtual string ToString(string format, IFormatProvider formatProvider)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
             if (format == null)
             {
                 format = "F2";
@@ -148,7 +148,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Cannot augment matrices with different number of rows");
             }
-            Matrix matrix = new Matrix(Rows, Columns + mat.Columns);
+            Matrix matrix = new(Rows, Columns + mat.Columns);
             for (int i = 0; i < Columns; i++)
             {
                 matrix.SetColumn(i, GetColumn(i));
@@ -162,13 +162,13 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public double ConditionNumber()
         {
-            SVD sVD = new SVD(this);
+            SVD sVD = new(this);
             return sVD.ConditionNumber;
         }
 
         public Vector GetColumn(int column)
         {
-            Vector vector = new Vector(Rows);
+            Vector vector = new(Rows);
             for (int i = 0; i < Rows; i++)
             {
                 vector[i] = this[i, column];
@@ -178,7 +178,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public Vector GetRow(int row)
         {
-            Vector vector = new Vector(Columns);
+            Vector vector = new(Columns);
             for (int i = 0; i < Columns; i++)
             {
                 vector[i] = this[row, i];
@@ -309,7 +309,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         protected static Matrix NaN(int rows, int columns)
         {
-            Matrix matrix = new Matrix(rows, columns);
+            Matrix matrix = new(rows, columns);
             matrix.SetSize(rows, columns);
             for (int i = 0; i < rows; i++)
             {
@@ -327,7 +327,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            Matrix matrix = new(lhs.Rows, lhs.Columns);
             for (int i = 0; i < lhs.Rows; i++)
             {
                 for (int j = 0; j < lhs.Columns; j++)
@@ -340,7 +340,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator +(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            Matrix matrix = new(mat);
             for (int i = 0; i < matrix.Rows; i++)
             {
                 for (int j = 0; j < matrix.Columns; j++)
@@ -408,7 +408,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not compatible for multiplication");
             }
-            Matrix matrix = new Matrix(lhs.Rows, rhs.Columns);
+            Matrix matrix = new(lhs.Rows, rhs.Columns);
             for (int i = 0; i < matrix.Rows; i++)
             {
                 for (int j = 0; j < matrix.Columns; j++)
@@ -426,7 +426,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator *(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat.Rows, mat.Columns);
+            Matrix matrix = new(mat.Rows, mat.Columns);
             for (int i = 0; i < mat.Rows; i++)
             {
                 for (int j = 0; j < mat.Columns; j++)
@@ -448,7 +448,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             {
                 throw new MatrixException("Matrices are not the same size");
             }
-            Matrix matrix = new Matrix(lhs.Rows, lhs.Columns);
+            Matrix matrix = new(lhs.Rows, lhs.Columns);
             for (int i = 0; i < lhs.Rows; i++)
             {
                 for (int j = 0; j < lhs.Columns; j++)
@@ -461,7 +461,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator -(Matrix mat, double scalar)
         {
-            Matrix matrix = new Matrix(mat);
+            Matrix matrix = new(mat);
             for (int i = 0; i < matrix.Rows; i++)
             {
                 for (int j = 0; j < matrix.Columns; j++)
@@ -477,7 +477,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Matrix operator -(Matrix mat)
         {
-            Matrix matrix = new Matrix(mat);
+            Matrix matrix = new(mat);
             for (int i = 0; i < mat.Rows; i++)
             {
                 for (int j = 0; j < mat.Columns; j++)
@@ -490,7 +490,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public Matrix PseudoInverse()
         {
-            SVD sVD = new SVD(this);
+            SVD sVD = new(this);
             Matrix matrix = new SquareMatrix(Columns);
             for (int i = 0; i < sVD.W.Rows; i++)
             {
@@ -537,7 +537,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public Matrix Transpose()
         {
-            Matrix matrix = new Matrix(Columns, Rows);
+            Matrix matrix = new(Columns, Rows);
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)

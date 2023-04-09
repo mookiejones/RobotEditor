@@ -66,7 +66,7 @@ namespace RobotEditor.UI
         {
             if (UIDispatcher == null)
             {
-                StringBuilder error = new StringBuilder("The DispatcherHelper is not initialized.");
+                StringBuilder error = new("The DispatcherHelper is not initialized.");
                 _ = error.AppendLine();
 
 

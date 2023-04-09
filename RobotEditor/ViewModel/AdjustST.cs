@@ -9,7 +9,7 @@ namespace RobotEditor.ViewModel
 
         #region ToolItems
 
-        private ToolItems _toolItems = new ToolItems();
+        private ToolItems _toolItems = new();
 
         /// <summary>
         ///     Sets and gets the ToolItems property.

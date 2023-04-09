@@ -47,7 +47,7 @@ namespace RobotEditor.Languages.Data
 
         public static void GetPositions(string filename, AbstractLanguageClass lang, string iconpath)
         {
-            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            BackgroundWorker backgroundWorker = new();
             backgroundWorker.DoWork += BackgroundworkerDoWork;
             backgroundWorker.RunWorkerCompleted += BackgroundworkerRunWorkerCompleted;
             backgroundWorker.RunWorkerAsync(new WorkerArgs
@@ -75,7 +75,7 @@ namespace RobotEditor.Languages.Data
                 bool flag = fileNameWithoutExtension != null && fileNameWithoutExtension.Contains("XYZ");
                 while (match.Success)
                 {
-                    Variable item = new Variable
+                    Variable item = new()
                     {
                         Icon = bitmapImage,
                         Path = workerArgs.Filename,
@@ -93,7 +93,7 @@ namespace RobotEditor.Languages.Data
 
         public static List<IVariable> GetVariables(string filename, Regex regex, string iconpath)
         {
-            List<IVariable> list = new List<IVariable>();
+            List<IVariable> list = new();
             BitmapImage bitmapImage = ImageHelper.LoadBitmap(iconpath);
             MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
             AbstractLanguageClass fileLanguage = instance.ActiveEditor.FileLanguage;
@@ -104,7 +104,7 @@ namespace RobotEditor.Languages.Data
             List<IVariable> result;
             if (match == null)
             {
-                ErrorMessage msg = new ErrorMessage("Variable for " + fileLanguage.RobotType,
+                ErrorMessage msg = new("Variable for " + fileLanguage.RobotType,
                     "Does not exist in VariableBase.GetVariables", MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
                 result = null;
@@ -113,7 +113,7 @@ namespace RobotEditor.Languages.Data
             {
                 while (match.Success)
                 {
-                    Variable item = new Variable
+                    Variable item = new()
                     {
                         Icon = bitmapImage,
                         Path = filename,

@@ -6,7 +6,7 @@ namespace RobotEditor.ViewModel
     // ReSharper disable once UnusedMember.Global
     public class FTPAccountWindowViewModel : ToolViewModel
     {
-        private readonly ObservableCollection<FTPAccount> _accounts = new ObservableCollection<FTPAccount>();
+        private readonly ObservableCollection<FTPAccount> _accounts = new();
         private readonly ReadOnlyObservableCollection<FTPAccount> _readonlyAccounts = null;
 
         public FTPAccountWindowViewModel()

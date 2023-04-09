@@ -111,7 +111,7 @@ namespace RobotEditor.Robots
         /// </summary>
         private const string TextBoxPropertyName = "TextBox";
 
-        private AvalonEditor _textBox = new AvalonEditor();
+        private AvalonEditor _textBox = new();
 
         /// <summary>
         ///     Sets and gets the TextBox property.

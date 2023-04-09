@@ -5,7 +5,7 @@ namespace RobotEditor.Structs
 {
     public struct Location : IComparable<Location>, IEquatable<Location>
     {
-        public static readonly Location Empty = new Location(-1, -1);
+        public static readonly Location Empty = new(-1, -1);
 
         public Location(int column, int line)
         {

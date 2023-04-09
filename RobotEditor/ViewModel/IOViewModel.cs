@@ -15,13 +15,13 @@ namespace RobotEditor.ViewModel
     public sealed class IOViewModel : ObservableRecipient
     {
         private static OleDbConnection _oleDbConnection;
-        private readonly List<Item> _anin = new List<Item>();
-        private readonly List<Item> _anout = new List<Item>();
-        private readonly List<Item> _counter = new List<Item>();
-        private readonly List<Item> _cycflags = new List<Item>();
-        private readonly List<Item> _flags = new List<Item>();
-        private readonly List<Item> _inputs = new List<Item>();
-        private readonly List<Item> _outputs = new List<Item>();
+        private readonly List<Item> _anin = new();
+        private readonly List<Item> _anout = new();
+        private readonly List<Item> _counter = new();
+        private readonly List<Item> _cycflags = new();
+        private readonly List<Item> _flags = new();
+        private readonly List<Item> _inputs = new();
+        private readonly List<Item> _outputs = new();
         private readonly ReadOnlyCollection<Item> _readonlyAnIn = null;
         private readonly ReadOnlyCollection<Item> _readonlyAnOut = null;
         private readonly ReadOnlyCollection<Item> _readonlyCounter = null;
@@ -31,8 +31,8 @@ namespace RobotEditor.ViewModel
         private readonly ReadOnlyObservableCollection<DirectoryInfo> _readonlyRoot = null;
         private readonly ReadOnlyCollection<Item> _readonlyTimer = null;
         private readonly ReadOnlyCollection<Item> _readonlyinputs = null;
-        private readonly ObservableCollection<DirectoryInfo> _root = new ObservableCollection<DirectoryInfo>();
-        private readonly List<Item> _timer = new List<Item>();
+        private readonly ObservableCollection<DirectoryInfo> _root = new();
+        private readonly List<Item> _timer = new();
         private string _archivePath = " ";
         private string _buffersize = string.Empty;
         private Visibility _counterVisibility = Visibility.Collapsed;
@@ -41,7 +41,7 @@ namespace RobotEditor.ViewModel
         private string _databaseText = string.Empty;
         private string _filecount = string.Empty;
         private Visibility _flagVisibility = Visibility.Collapsed;
-        private InfoFile _info = new InfoFile();
+        private InfoFile _info = new();
         private string _languageText = string.Empty;
         private DirectoryInfo _rootpath;
         private Visibility _timerVisibility = Visibility.Collapsed;
@@ -49,7 +49,7 @@ namespace RobotEditor.ViewModel
         public IOViewModel(string filename)
         {
             DatabaseFile = filename;
-            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            BackgroundWorker backgroundWorker = new();
             backgroundWorker.DoWork += _backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
@@ -164,7 +164,7 @@ namespace RobotEditor.ViewModel
 
         private IEnumerable<Item> getItems(string command, string itemType, int idx)
         {
-            List<Item> result = new List<Item>();
+            List<Item> result = new();
             OleDbConnection dbConnection = GetDBConnection();
             if (dbConnection != null)
             {
@@ -173,7 +173,7 @@ namespace RobotEditor.ViewModel
                     dbConnection.Open();
                 }
 
-                using (OleDbCommand cmd = new OleDbCommand(command, dbConnection))
+                using (OleDbCommand cmd = new(command, dbConnection))
                 {
                     using (OleDbDataReader reader = cmd.ExecuteReader())
                     {
@@ -181,7 +181,7 @@ namespace RobotEditor.ViewModel
                         {
                             string text = reader.GetValue(0).ToString();
                             Item item =
-                                new Item(string.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
+                                new(string.Format(itemType, text.Substring(idx)), reader.GetValue(1).ToString());
                             result.Add(item);
                         }
                     }
@@ -208,7 +208,7 @@ namespace RobotEditor.ViewModel
 
                 using (
                     OleDbCommand oleDbCommand =
-                        new OleDbCommand(
+                        new(
                             "SELECT Items.KeyString, Messages.[String] FROM (Items INNER JOIN Messages ON Items.Key_id = Messages.Key_id)WHERE (Items.[Module] = 'IO')",
                             dBConnection))
                 {
@@ -230,7 +230,7 @@ namespace RobotEditor.ViewModel
                                         {
                                             if (text4 == "ANOUT")
                                             {
-                                                Item item = new Item(string.Format("$ANOUT[{0}]", text2.Substring(6)),
+                                                Item item = new(string.Format("$ANOUT[{0}]", text2.Substring(6)),
                                                     description);
                                                 _anout.Add(item);
                                                 LanguageText = LanguageText + item + "\r\n";
@@ -238,7 +238,7 @@ namespace RobotEditor.ViewModel
                                         }
                                         else
                                         {
-                                            Item item = new Item(string.Format("$ANIN[{0}]", text2.Substring(5)),
+                                            Item item = new(string.Format("$ANIN[{0}]", text2.Substring(5)),
                                                 description);
                                             _anin.Add(item);
                                             LanguageText = LanguageText + item + "\r\n";
@@ -246,7 +246,7 @@ namespace RobotEditor.ViewModel
                                     }
                                     else
                                     {
-                                        Item item = new Item(string.Format("$OUT[{0}]", text2.Substring(4)), description);
+                                        Item item = new(string.Format("$OUT[{0}]", text2.Substring(4)), description);
                                         if (!_outputs.Contains(item))
                                         {
                                             _outputs.Add(item);
@@ -256,7 +256,7 @@ namespace RobotEditor.ViewModel
                                 }
                                 else
                                 {
-                                    Item item = new Item(string.Format("$IN[{0}]", text2.Substring(3)), description);
+                                    Item item = new(string.Format("$IN[{0}]", text2.Substring(3)), description);
                                     _inputs.Add(item);
                                     LanguageText = LanguageText + item + "\r\n";
                                 }
@@ -310,7 +310,7 @@ namespace RobotEditor.ViewModel
                     dBConnection.Open();
                     using (
                         OleDbCommand oleDbCommand =
-                            new OleDbCommand(
+                            new(
                                 "SELECT i.keystring, m.string FROM ITEMS i, messages m where i.key_id=m.key_id and m.language_id=99",
                                 dBConnection))
                     {

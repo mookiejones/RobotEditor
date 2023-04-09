@@ -15,7 +15,7 @@ namespace RobotEditor.Views
     {
         // ReSharper disable UnassignedField.Compiler
         // ReSharper disable UnusedField.Compiler
-        private readonly ExplorerClass _explorer = new ExplorerClass();
+        private readonly ExplorerClass _explorer = new();
         private string _filter = "*.*";
         private readonly ToolStripMenuItem _mnuCopy;
         private readonly ToolStripMenuItem _mnuCut;

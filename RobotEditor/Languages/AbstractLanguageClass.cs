@@ -39,11 +39,11 @@ namespace RobotEditor.Languages
         public const string BWFilesMinPropertyName = "BWFilesMin";
         public const string BWFilesMaxPropertyName = "BWFilesMax";
         public const string BWProgressVisibilityPropertyName = "BWProgressVisibility";
-        internal readonly List<IVariable> _allVariables = new List<IVariable>();
-        private readonly List<IVariable> _enums = new List<IVariable>();
+        internal readonly List<IVariable> _allVariables = new();
+        private readonly List<IVariable> _enums = new();
 
-        private readonly ObservableCollection<MenuItem> _menuItems = new ObservableCollection<MenuItem>();
-        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new ObservableCollection<IVariable>();
+        private readonly ObservableCollection<MenuItem> _menuItems = new();
+        private readonly ObservableCollection<IVariable> _objectBrowserVariables = new();
         private readonly ReadOnlyCollection<IVariable> _readOnlyAllVariables = null;
         private readonly ReadOnlyObservableCollection<IVariable> _readOnlyBrowserVariables = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlyFields = null;
@@ -54,18 +54,18 @@ namespace RobotEditor.Languages
         private readonly ReadOnlyCollection<IVariable> _readOnlysignals = null;
         private readonly ReadOnlyCollection<IVariable> _readOnlystructures = null;
         private readonly ReadOnlyObservableCollection<MenuItem> _readonlyMenuItems = null;
-        private readonly List<IVariable> _signals = new List<IVariable>();
-        private readonly List<IVariable> _structures = new List<IVariable>();
+        private readonly List<IVariable> _signals = new();
+        private readonly List<IVariable> _structures = new();
         private int _bwFilesMax;
         private int _bwFilesMin;
         private int _bwProgress;
         private Visibility _bwProgressVisibility = Visibility.Collapsed;
-        private List<IVariable> _fields = new List<IVariable>();
+        private List<IVariable> _fields = new();
         private string _filename = string.Empty;
-        private List<IVariable> _functions = new List<IVariable>();
+        private List<IVariable> _functions = new();
         private IOViewModel _ioModel;
         private string _kukaCon;
-        private List<IVariable> _positions = new List<IVariable>();
+        private List<IVariable> _positions = new();
         private MenuItem _robotMenuItems;
         private bool _rootFound;
         private string _rootName = string.Empty;
@@ -179,7 +179,7 @@ namespace RobotEditor.Languages
 
         #region Files
 
-        private readonly ObservableCollection<FileInfo> _files = new ObservableCollection<FileInfo>();
+        private readonly ObservableCollection<FileInfo> _files = new();
 
 
 #pragma warning disable 649
@@ -262,7 +262,7 @@ namespace RobotEditor.Languages
         private MenuItem GetMenuItems()
         {
             return new MenuItem();
-            ResourceDictionary resourceDictionary = new ResourceDictionary
+            ResourceDictionary resourceDictionary = new()
             {
                 Source = new Uri("/RobotEditor;component/Assets/Templates/MenuDictionary.xaml", UriKind.RelativeOrAbsolute)
             };
@@ -313,13 +313,13 @@ namespace RobotEditor.Languages
 
         private static IEditorDocument GetKukaViewModel(string filepath)
         {
-            FileInfo fileInfo = new FileInfo(filepath);
+            FileInfo fileInfo = new(filepath);
             string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
             Debug.Assert(name != null, "file != null");
             Debug.Assert(fileInfo.DirectoryName != null, "dir != null");
             name = Path.Combine(fileInfo.DirectoryName, name);
-            FileInfo src = new FileInfo(name + ".src");
-            FileInfo dat = new FileInfo(name + ".dat");
+            FileInfo src = new(name + ".src");
+            FileInfo dat = new(name + ".dat");
 
             IEditorDocument result = src.Exists && dat.Exists
                 ? new KukaViewModel(src.FullName, new KUKA(src.FullName))
@@ -330,7 +330,7 @@ namespace RobotEditor.Languages
         public virtual string CommentReplaceString(string text)
         {
             string pattern = string.Format("^([ ]*)([{0}]*)([^\r\n]*)", CommentChar);
-            Regex regex = new Regex(pattern);
+            Regex regex = new(pattern);
             Match match = regex.Match(text);
             string result = match.Success ? match.Groups[1] + match.Groups[3].ToString() : text;
             return result;
@@ -338,7 +338,7 @@ namespace RobotEditor.Languages
 
         public virtual int CommentOffset(string text)
         {
-            Regex regex = new Regex("(^[\\s]+)");
+            Regex regex = new("(^[\\s]+)");
             Match match = regex.Match(text);
             int result = match.Success ? match.Groups[1].Length : 0;
             return result;
@@ -377,8 +377,8 @@ namespace RobotEditor.Languages
         protected static IEnumerable<LanguageFold> CreateFoldingHelper(ITextSource document, string startFold,
             string endFold, bool defaultclosed)
         {
-            List<LanguageFold> list = new List<LanguageFold>();
-            Stack<int> stack = new Stack<int>();
+            List<LanguageFold> list = new();
+            Stack<int> stack = new();
             endFold = endFold.ToLower();
             int num = 0;
             if (document is TextDocument textDocument)
@@ -423,7 +423,7 @@ namespace RobotEditor.Languages
                                         int end = lineByNumber.Offset + text.Length;
                                         string text3 = textDocument.GetText(num2 + startFold.Length + 1,
                                             lineByNumber.Offset - num2 - endFold.Length);
-                                        LanguageFold item = new LanguageFold(num2, end, text3, startFold, endFold, defaultclosed);
+                                        LanguageFold item = new(num2, end, text3, startFold, endFold, defaultclosed);
                                         list.Add(item);
                                     }
                                 }
@@ -448,7 +448,7 @@ namespace RobotEditor.Languages
             if (doc is KukaViewModel)
             {
                 KukaViewModel kukaViewModel = doc as KukaViewModel;
-                ShiftClass shiftClass = new ShiftClass
+                ShiftClass shiftClass = new()
                 {
                     Source = ShiftProgram(kukaViewModel.Source, shift)
                 };
@@ -460,7 +460,7 @@ namespace RobotEditor.Languages
             }
             else
             {
-                ShiftClass shiftClass = new ShiftClass
+                ShiftClass shiftClass = new()
                 {
                     Source = ShiftProgram(doc.TextBox, shift)
                 };
@@ -471,12 +471,12 @@ namespace RobotEditor.Languages
 
         private string ShiftProgram(AvalonEditor doc, ShiftViewModel shift)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             stopwatch.Start();
             double num = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.X);
             double num2 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Y);
             double num3 = Convert.ToDouble(ShiftViewModel.Instance.DiffValues.Z);
-            Regex regex = new Regex(ShiftRegex, RegexOptions.IgnoreCase);
+            Regex regex = new(ShiftRegex, RegexOptions.IgnoreCase);
 
             var matchCollection = doc.Text.GetMatches(ShiftRegex);
 
@@ -509,14 +509,14 @@ namespace RobotEditor.Languages
             return doc.Text;
         }
 
-        private readonly object locker = new object();
+        private readonly object locker = new();
         //TODO Split this up for a robot by robot basis
         private const string TargetDirectory = "KRC";
 
         public void GetRootDirectory(string dir)
         {
             //Search Backwards from current point to root directory
-            DirectoryInfo dd = new DirectoryInfo(dir);
+            DirectoryInfo dd = new(dir);
 
             // Cannot Parse Directory
             if (dd.Name == dd.Root.Name)
@@ -553,7 +553,7 @@ namespace RobotEditor.Languages
                     }
                 }
 
-                DirectoryInfo r = new DirectoryInfo(_rootName);
+                DirectoryInfo r = new(_rootName);
 
                 DirectoryInfo[] f = r.GetDirectories();
 
@@ -595,7 +595,7 @@ namespace RobotEditor.Languages
                 {
                     try
                     {
-                        FileInfo file = new FileInfo(f);
+                        FileInfo file = new(f);
                         if (file.Name.ToLower() == "kuka_con.mdb")
                         {
                             _kukaCon = file.FullName;
@@ -665,14 +665,14 @@ namespace RobotEditor.Languages
         }
         private VariableMembers GetVariableMembers(FileInfo fi)
         {
-            VariableMembers result = new VariableMembers();
+            VariableMembers result = new();
             result.FindVariables(fi.FullName, this);
             return result;
         }
 
         private VariableMembers GetVariables(IEnumerable<FileInfo> files)
         {
-            VariableMembers variableMembers = new VariableMembers();
+            VariableMembers variableMembers = new();
 
             List<VariableMembers> validFiles = files
                 .Where(IsFileValid)
@@ -756,7 +756,7 @@ namespace RobotEditor.Languages
 
         private static IEnumerable<IVariable> FindMatches(Regex matchstring, string imgPath, string filepath)
         {
-            List<IVariable> list = new List<IVariable>();
+            List<IVariable> list = new();
 
             IEnumerable<IVariable> result;
             try
@@ -785,7 +785,7 @@ namespace RobotEditor.Languages
             }
             catch (Exception ex)
             {
-                ErrorMessage msg = new ErrorMessage("Find Matches", ex, MessageType.Error);
+                ErrorMessage msg = new("Find Matches", ex, MessageType.Error);
                 _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
             }
             result = list;

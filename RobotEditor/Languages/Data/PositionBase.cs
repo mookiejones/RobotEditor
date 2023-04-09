@@ -11,7 +11,7 @@ namespace RobotEditor.Languages.Data
     public sealed class PositionBase : IPosition
     {
         private readonly ReadOnlyObservableCollection<PositionValue> _positionalValues = null;
-        private ObservableCollection<PositionValue> _values = new ObservableCollection<PositionValue>();
+        private ObservableCollection<PositionValue> _values = new();
 
         public PositionBase(string value)
         {

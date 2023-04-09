@@ -70,7 +70,7 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string GridPropertyName = "Grid";
 
-        private ExtendedGridSplitter _grid = new ExtendedGridSplitter();
+        private ExtendedGridSplitter _grid = new();
 
         /// <summary>
         ///     Sets and gets the Grid property.
@@ -104,7 +104,7 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string SourcePropertyName = "Source";
 
-        private AvalonEditor _source = new AvalonEditor();
+        private AvalonEditor _source = new();
 
         /// <summary>
         ///     Sets and gets the Source property.
@@ -138,7 +138,7 @@ namespace RobotEditor.ViewModel
         /// </summary>
         private const string DataPropertyName = "Data";
 
-        private AvalonEditor _data = new AvalonEditor();
+        private AvalonEditor _data = new();
 
         /// <summary>
         ///     Sets and gets the Data property.

@@ -50,7 +50,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public double Determinant()
         {
-            SquareMatrix squareMatrix = new SquareMatrix(this);
+            SquareMatrix squareMatrix = new(this);
             double num = squareMatrix.MakeRowEchelon();
             double result;
             for (int i = 0; i < Size; i++)
@@ -67,7 +67,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static SquareMatrix Identity(int size)
         {
-            SquareMatrix squareMatrix = new SquareMatrix(size);
+            SquareMatrix squareMatrix = new(size);
             for (int i = 0; i < size; i++)
             {
                 squareMatrix[i, i] = 1.0;
@@ -79,8 +79,8 @@ namespace RobotEditor.Controls.AngleConverter.Classes
         {
             Matrix matrix = base.Augment(Identity(Size));
             _ = matrix.MakeRowEchelon();
-            SquareMatrix squareMatrix = new SquareMatrix(Size);
-            SquareMatrix squareMatrix2 = new SquareMatrix(Size);
+            SquareMatrix squareMatrix = new(Size);
+            SquareMatrix squareMatrix2 = new(Size);
             for (int i = 0; i < Size; i++)
             {
                 squareMatrix.SetColumn(i, matrix.GetColumn(i));
@@ -181,7 +181,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public SquareMatrix Minor(int i, int j)
         {
-            SquareMatrix squareMatrix = new SquareMatrix(Size - 1);
+            SquareMatrix squareMatrix = new(Size - 1);
             int num = 0;
             for (int k = 0; k < base.Rows; k++)
             {
@@ -202,7 +202,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return squareMatrix;
         }
 
-        public static SquareMatrix NaN(int size) => new SquareMatrix(NaN(size, size));
+        public static SquareMatrix NaN(int size) => new(NaN(size, size));
 
         public SquareMatrix Power(int power)
         {
@@ -224,6 +224,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return num;
         }
 
-        public new SquareMatrix Transpose() => new SquareMatrix(base.Transpose());
+        public new SquareMatrix Transpose() => new(base.Transpose());
     }
 }

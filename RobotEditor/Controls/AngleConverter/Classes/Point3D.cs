@@ -48,7 +48,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             set => _position[2] = value;
         }
 
-        TransformationMatrix3D IGeometricElement3D.Position => new TransformationMatrix3D(_position, RotationMatrix3D.Identity());
+        TransformationMatrix3D IGeometricElement3D.Position => new(_position, RotationMatrix3D.Identity());
 
         public string ToString(string format, IFormatProvider formatProvider = null)
         {
@@ -70,7 +70,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Point3D Centroid(Collection<Point3D> points)
         {
-            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new();
             return leastSquaresFit3D.Centroid(points);
         }
 
@@ -79,7 +79,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return Add(point, vec);
         }
 
-        public static Point3D Add(Point3D point, Vector3D vec) => new Point3D
+        public static Point3D Add(Point3D point, Vector3D vec) => new()
         {
             X = point.X + vec.X,
             Y = point.Y + vec.Y,
@@ -93,7 +93,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Collection<Point3D> operator *(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
-            Collection<Point3D> collection = new Collection<Point3D>();
+            Collection<Point3D> collection = new();
             foreach (TransformationMatrix3D current in transforms)
             {
                 collection.Add(current * point);
@@ -103,7 +103,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Collection<Point3D> Multiply(Collection<TransformationMatrix3D> transforms, Point3D point)
         {
-            Collection<Point3D> collection = new Collection<Point3D>();
+            Collection<Point3D> collection = new();
             foreach (TransformationMatrix3D current in transforms)
             {
                 collection.Add(current * point);
@@ -113,7 +113,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
 
         public static Point3D operator *(RotationMatrix3D mat, Point3D pt)
         {
-            Vector3D vec = new Vector3D(pt.X, pt.Y, pt.Z);
+            Vector3D vec = new(pt.X, pt.Y, pt.Z);
             return new Point3D(new Vector3D(mat * vec));
         }
 
@@ -122,7 +122,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
         }
 
-        public static Vector3D Subtract(Point3D p1, Point3D p2) => new Vector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
+        public static Vector3D Subtract(Point3D p1, Point3D p2) => new(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
 
         public static bool operator ==(Point3D p1, Point3D p2)
         {

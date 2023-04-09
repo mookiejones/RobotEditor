@@ -69,7 +69,7 @@ namespace RobotEditor.Controls.AngleConverter
                 num2 += current.Y;
                 num3 += current.Z;
             }
-            Point3D point3D = new Point3D(num / count, num2 / count, num3 / count);
+            Point3D point3D = new(num / count, num2 / count, num3 / count);
             Transform = new TransformationMatrix3D(new Vector3D(point3D.X, point3D.Y, point3D.Z), new RotationMatrix3D());
             CalculateErrors(points, point3D);
             return point3D;
@@ -77,16 +77,16 @@ namespace RobotEditor.Controls.AngleConverter
 
         private Vector Circle3DErrorFunction(Vector vec)
         {
-            Vector vector = new Vector(_solver.NumEquations);
+            Vector vector = new(_solver.NumEquations);
             int index = 0;
-            Point3D point3D = new Point3D(vec[0], vec[1], vec[2]);
-            Plane3D plane = new Plane3D(point3D, new Vector3D(vec[3], vec[4], vec[5]));
+            Point3D point3D = new(vec[0], vec[1], vec[2]);
+            Plane3D plane = new(point3D, new Vector3D(vec[3], vec[4], vec[5]));
             foreach (Point3D current in _measuredPoints)
             {
                 Point3D p = Project3D.PointOntoPlane(plane, current);
                 Vector3D vector3D = point3D - p;
                 vector3D.Normalise();
-                Point3D point3D2 = new Point3D();
+                Point3D point3D2 = new();
                 vector[index++] = current.X - point3D2.X;
                 vector[index++] = current.Y - point3D2.Y;
                 vector[index++] = current.Z - point3D2.Z;
@@ -107,16 +107,16 @@ namespace RobotEditor.Controls.AngleConverter
             }
             _solver = new NRSolver((points.Count * 3) + 1, 7);
             _measuredPoints = points;
-            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            LeastSquaresFit3D leastSquaresFit3D = new();
             Plane3D plane3D = leastSquaresFit3D.FitPlaneToPoints(points);
-            Circle3D initialGuess = new Circle3D
+            Circle3D initialGuess = new()
             {
                 Origin = leastSquaresFit3D.Centroid(points),
                 Normal = plane3D.Normal,
                 Radius = leastSquaresFit3D.AverageError
             };
             Vector vector = _solver.Solve(Circle3DErrorFunction, VectorFromCircle3D(initialGuess));
-            Circle3D circle3D = new Circle3D
+            Circle3D circle3D = new()
             {
                 Origin = new Point3D(vector[0], vector[1], vector[2]),
                 Normal = new Vector3D(vector[3], vector[4], vector[5]),
@@ -136,10 +136,10 @@ namespace RobotEditor.Controls.AngleConverter
             {
                 throw new ArgumentException("Need at least 3 points to fit circle");
             }
-            Circle3D circle3D = new Circle3D();
-            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
-            Matrix matrix = new Matrix(points.Count, 7);
-            Vector vector = new Vector(points.Count);
+            Circle3D circle3D = new();
+            LeastSquaresFit3D leastSquaresFit3D = new();
+            Matrix matrix = new(points.Count, 7);
+            Vector vector = new(points.Count);
             for (int i = 0; i < 50; i++)
             {
                 circle3D.Origin = leastSquaresFit3D.Centroid(points);
@@ -211,7 +211,7 @@ namespace RobotEditor.Controls.AngleConverter
                 num5 += num8 * num9;
                 num6 += num7 * num9;
             }
-            SquareMatrix mat = new SquareMatrix(3, new[]
+            SquareMatrix mat = new(3, new[]
             {
                 num2 + num3,
                 -num4,
@@ -223,9 +223,9 @@ namespace RobotEditor.Controls.AngleConverter
                 -num5,
                 num + num2
             });
-            SVD sVD = new SVD(mat);
-            Vector3D direction = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
-            Line3D line3D = new Line3D(point3D, direction);
+            SVD sVD = new(mat);
+            Vector3D direction = new(sVD.U.GetColumn(sVD.SmallestSingularIndex));
+            Line3D line3D = new(point3D, direction);
             CalculateErrors(points, line3D);
             return line3D;
         }
@@ -259,7 +259,7 @@ namespace RobotEditor.Controls.AngleConverter
                 num5 += num8 * num9;
                 num6 += num7 * num9;
             }
-            SquareMatrix mat = new SquareMatrix(3, new[]
+            SquareMatrix mat = new(3, new[]
             {
                 num,
                 num4,
@@ -271,9 +271,9 @@ namespace RobotEditor.Controls.AngleConverter
                 num5,
                 num3
             });
-            SVD sVD = new SVD(mat);
-            Vector3D normal = new Vector3D(sVD.U.GetColumn(sVD.SmallestSingularIndex));
-            Plane3D plane3D = new Plane3D(point3D, normal);
+            SVD sVD = new(mat);
+            Vector3D normal = new(sVD.U.GetColumn(sVD.SmallestSingularIndex));
+            Plane3D plane3D = new(point3D, normal);
             CalculateErrors(points, plane3D);
             return plane3D;
         }
@@ -288,12 +288,12 @@ namespace RobotEditor.Controls.AngleConverter
             {
                 throw new MatrixException("Need at least 4 points to fit sphere");
             }
-            Sphere3D sphere3D = new Sphere3D();
-            LeastSquaresFit3D leastSquaresFit3D = new LeastSquaresFit3D();
+            Sphere3D sphere3D = new();
+            LeastSquaresFit3D leastSquaresFit3D = new();
             sphere3D.Origin = leastSquaresFit3D.Centroid(points);
             sphere3D.Radius = leastSquaresFit3D.RmsError;
-            Matrix matrix = new Matrix(points.Count, 4);
-            Vector vector = new Vector(points.Count);
+            Matrix matrix = new(points.Count, 4);
+            Vector vector = new(points.Count);
             for (int i = 0; i < 50; i++)
             {
                 int num = 0;
@@ -328,7 +328,7 @@ namespace RobotEditor.Controls.AngleConverter
 
         private static Vector VectorFromCircle3D(Circle3D initialGuess)
         {
-            Vector vector = new Vector(7);
+            Vector vector = new(7);
             vector[0] = initialGuess.Origin.X;
             vector[1] = initialGuess.Origin.Y;
             vector[2] = initialGuess.Origin.Z;

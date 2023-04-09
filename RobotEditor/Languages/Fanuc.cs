@@ -33,8 +33,8 @@ namespace RobotEditor.Languages
 
         public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT => new List<string>
-                {
+        public static List<string> EXT => new()
+        {
                     ".ls"
                 };
 
@@ -59,22 +59,22 @@ namespace RobotEditor.Languages
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex => new Regex(string.Empty);
+        public override Regex MethodRegex => new(string.Empty);
 
-        public override Regex StructRegex => new Regex(string.Empty);
+        public override Regex StructRegex => new(string.Empty);
 
-        public override Regex FieldRegex => new Regex(string.Empty);
+        public override Regex FieldRegex => new(string.Empty);
 
-        public override Regex EnumRegex => new Regex(string.Empty);
+        public override Regex EnumRegex => new(string.Empty);
 
         public override void Initialize(string filename) => Initialize();
 
         [Localizable(false)]
         public override string CommentChar => "!";
 
-        public override Regex SignalRegex => new Regex(string.Empty);
+        public override Regex SignalRegex => new(string.Empty);
 
-        public override Regex XYZRegex => new Regex(string.Empty);
+        public override Regex XYZRegex => new(string.Empty);
 
         protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
 
@@ -134,7 +134,7 @@ namespace RobotEditor.Languages
             return positionBase.ExtractFromMatch();
         }
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+        public override DocumentViewModel GetFile(string filepath) => new(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {

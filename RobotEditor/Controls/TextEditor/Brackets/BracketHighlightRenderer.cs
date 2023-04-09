@@ -25,7 +25,7 @@ namespace RobotEditor.Controls.TextEditor.Brackets
         {
             if (_result != null)
             {
-                BackgroundGeometryBuilder backgroundGeometryBuilder = new BackgroundGeometryBuilder
+                BackgroundGeometryBuilder backgroundGeometryBuilder = new()
                 {
                     CornerRadius = 1.0,
                     AlignToWholePixels = true

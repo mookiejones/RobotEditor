@@ -7,7 +7,7 @@ namespace RobotEditor.Controls.AngleConverter
     {
         public static Point3D PointOntoCircle(Circle3D circle, Point3D point)
         {
-            Plane3D plane = new Plane3D(circle.Origin, circle.Normal);
+            Plane3D plane = new(circle.Origin, circle.Normal);
             Point3D point3D = PointOntoPlane(plane, point);
             _ = Distance3D.Between(point, point3D);
             Vector3D vector3D = circle.Origin - point3D;

@@ -39,7 +39,7 @@ namespace RobotEditor.Windows
         {
             get
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new();
                 _ = stringBuilder.AppendLine(" Name                : " + _appName);
                 _ = stringBuilder.AppendLine(" .Net Version        : " + _newVersion);
                 _ = stringBuilder.AppendLine(" Version        : " + _version);

@@ -34,7 +34,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector2D(v1 + v2);
         }
 
-        public static Vector2D Add(Vector2D v1, Vector2D v2) => new Vector2D(v1 + v2);
+        public static Vector2D Add(Vector2D v1, Vector2D v2) => new(v1 + v2);
 
         public static bool operator ==(Vector2D v1, Vector2D v2)
         {
@@ -53,6 +53,6 @@ namespace RobotEditor.Controls.AngleConverter.Classes
             return new Vector2D(vec / scalar);
         }
 
-        public static Vector2D Divide(Vector2D vec, double scalar) => new Vector2D(vec / scalar);
+        public static Vector2D Divide(Vector2D vec, double scalar) => new(vec / scalar);
     }
 }

@@ -7,7 +7,7 @@ namespace RobotEditor.ViewModel
     public sealed class InfoFile : ObservableRecipient
     {
         private readonly ReadOnlyObservableCollection<Technology> _readonlyTechnology = null;
-        private readonly ObservableCollection<Technology> _technologies = new ObservableCollection<Technology>();
+        private readonly ObservableCollection<Technology> _technologies = new();
         private string _archiveDate = string.Empty;
         private string _archiveDiskNo = string.Empty;
         private string _archiveID = string.Empty;

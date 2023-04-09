@@ -26,7 +26,7 @@ namespace RobotEditor.Controls.AngleConverter
 
         public Point3D GetPoint(double u)
         {
-            Vector3D vec = new Vector3D(u * Direction);
+            Vector3D vec = new(u * Direction);
             return Origin + vec;
         }
 

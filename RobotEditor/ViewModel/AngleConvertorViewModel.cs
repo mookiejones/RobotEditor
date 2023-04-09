@@ -8,12 +8,12 @@ namespace RobotEditor.ViewModel
     public sealed class AngleConvertorViewModel : ToolViewModel
     {
         public const string ToolContentId = "AngleConverterTool";
-        private ValueBoxViewModel _inputItems = new ValueBoxViewModel();
+        private ValueBoxViewModel _inputItems = new();
 
         private bool _isConverting;
         private string _matrix = string.Empty;
 
-        private ValueBoxViewModel _outputItems = new ValueBoxViewModel
+        private ValueBoxViewModel _outputItems = new()
         {
             IsReadOnly = true
         };
@@ -46,9 +46,9 @@ namespace RobotEditor.ViewModel
                 if (!_isConverting)
                 {
                     _isConverting = true;
-                    Vector3D result = new Vector3D();
+                    Vector3D result = new();
                     double num = 0.0;
-                    Quaternion quaternion = new Quaternion();
+                    Quaternion quaternion = new();
                     switch (InputItems.SelectedItem)
                     {
                         case CartesianEnum.ABB_Quaternion:

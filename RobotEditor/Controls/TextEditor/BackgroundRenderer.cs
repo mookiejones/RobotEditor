@@ -30,7 +30,7 @@ namespace RobotEditor.Controls.TextEditor
                 return;
             }
 
-            TextSegment segment = new TextSegment
+            TextSegment segment = new()
             {
                 StartOffset = _line.Offset,
                 EndOffset = _line.EndOffset

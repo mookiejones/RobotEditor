@@ -8,7 +8,7 @@ namespace RobotEditor.Model
         {
             // Use this to connect to the actual data service
 
-            DataItem item = new DataItem("Welcome to MVVM Light");
+            DataItem item = new("Welcome to MVVM Light");
             callback(item, null);
         }
     }

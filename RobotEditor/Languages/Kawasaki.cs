@@ -32,8 +32,8 @@ namespace RobotEditor.Languages
 
         public override List<string> SearchFilters => EXT;
 
-        public static List<string> EXT => new List<string>
-                {
+        public static List<string> EXT => new()
+        {
                     ".as",
                     ".prg"
                 };
@@ -53,25 +53,25 @@ namespace RobotEditor.Languages
 
         internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        public override Regex MethodRegex => new Regex("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",
+        public override Regex MethodRegex => new("(\\.Program [\\d\\w]*[\\(\\)\\w\\d_.]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex StructRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
+        public override Regex StructRegex => new("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex FieldRegex => new Regex("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
+        public override Regex FieldRegex => new("(ISKAWASAKI)(ISKAWASAKI)(ISKAWASAKI)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex EnumRegex => new Regex("^ENUM ", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        public override Regex EnumRegex => new("^ENUM ", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-        public override Regex XYZRegex => new Regex("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
+        public override Regex XYZRegex => new("^(LINEAR|JOINT) ([^#])*#\\[([^\\]]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public override void Initialize(string filename) => Initialize();
 
         public override string CommentChar => ";";
 
-        public override Regex SignalRegex => new Regex(string.Empty);
+        public override Regex SignalRegex => new(string.Empty);
 
         protected override bool IsFileValid(FileInfo file) => EXT.Any((string e) => file.Extension.ToLower() == e);
 
@@ -89,7 +89,7 @@ namespace RobotEditor.Languages
             return positionstring.Substring(positionstring.IndexOf("#[", StringComparison.Ordinal) + 2);
         }
 
-        public override DocumentViewModel GetFile(string filepath) => new DocumentViewModel(filepath);
+        public override DocumentViewModel GetFile(string filepath) => new(filepath);
 
         private sealed class RegionFoldingStrategy : AbstractFoldingStrategy
         {
@@ -103,7 +103,7 @@ namespace RobotEditor.Languages
 
             private IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                List<NewFolding> list = new List<NewFolding>();
+                List<NewFolding> list = new();
                 list.AddRange(CreateFoldingHelper(document, ".program", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".robotdata1", ".end", false));
                 list.AddRange(CreateFoldingHelper(document, ".ope_info1", ".end", false));

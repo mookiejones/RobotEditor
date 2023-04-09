@@ -65,7 +65,7 @@ namespace RobotEditor.Controls.TextEditor.IconBar
         protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters) => new PointHitTestResult(this, hitTestParameters.HitPoint);
 
         [DebuggerStepThrough]
-        protected override Size MeasureOverride(Size availableSize) => new Size(18.0, 0.0);
+        protected override Size MeasureOverride(Size availableSize) => new(18.0, 0.0);
 
         [DebuggerStepThrough]
         protected override void OnRender(DrawingContext drawingContext)
@@ -83,7 +83,7 @@ namespace RobotEditor.Controls.TextEditor.IconBar
                 return;
             }
             // create a dictionary line number => first bookmark
-            Dictionary<int, IBookmark> bookmarkDict = new Dictionary<int, IBookmark>();
+            Dictionary<int, IBookmark> bookmarkDict = new();
             foreach (IBookmark bm in _manager.Bookmarks)
             {
                 int line = bm.LineNumber;

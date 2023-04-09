@@ -45,8 +45,7 @@ namespace RobotEditor
         private void LoadItems()
         {
             LoadOpenFiles();
-            LayoutDocumentPane layoutDocumentPane =
-                DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
+            var layoutDocumentPane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (layoutDocumentPane != null && layoutDocumentPane.ChildrenCount == 0)
             {
                 MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
@@ -119,7 +118,7 @@ namespace RobotEditor
             }
             SafeThreadAsyncCall(delegate
             {
-                Timer t = new Timer
+                Timer t = new()
                 {
                     Interval = Math.Max(1, delayMilliseconds)
                 };
@@ -136,8 +135,7 @@ namespace RobotEditor
         private void WindowClosing(object sender, CancelEventArgs e)
         {
             Settings.Default.OpenDocuments = string.Empty;
-            LayoutDocumentPane layoutDocumentPane =
-                DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
+            var layoutDocumentPane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (layoutDocumentPane != null)
             {
                 foreach (DocumentViewModel current in
@@ -166,14 +164,14 @@ namespace RobotEditor
             //  LoadLayout();
 
 
-            WindowMessage msg = new WindowMessage("Application Loaded", "Application Loaded", MessageType.Information);
+            WindowMessage msg = new("Application Loaded", "Application Loaded", MessageType.Information);
             _ = WeakReferenceMessenger.Default.Send<IMessage>(msg);
         }
 
         private void SaveLayout()
         {
-            XmlLayoutSerializer xmlLayoutSerializer = new XmlLayoutSerializer(DockManager);
-            using (StreamWriter streamWriter = new StreamWriter(Global.DockConfig))
+            XmlLayoutSerializer xmlLayoutSerializer = new(DockManager);
+            using (StreamWriter streamWriter = new(Global.DockConfig))
             {
                 xmlLayoutSerializer.Serialize(streamWriter);
             }
@@ -181,9 +179,11 @@ namespace RobotEditor
 
         public void CloseWindow(object param)
         {
-            IEditorDocument ad = param as IEditorDocument;
-            LayoutDocumentPane layoutDocumentPane =
-                DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault<LayoutDocumentPane>();
+
+            if (!(param is IEditorDocument ad))
+                return; ;
+
+            var layoutDocumentPane = DockManager.Layout.Descendents().OfType<LayoutDocumentPane>().FirstOrDefault();
             if (layoutDocumentPane != null)
             {
                 using (System.Collections.Generic.IEnumerator<LayoutContent> enumerator = (

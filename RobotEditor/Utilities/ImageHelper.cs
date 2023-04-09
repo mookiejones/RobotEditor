@@ -11,8 +11,8 @@ namespace RobotEditor.Utilities
     {
         public static BitmapImage LoadBitmap(Bitmap img)
         {
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream())
+            BitmapImage bitmapImage = new();
+            using (MemoryStream memoryStream = new())
             {
                 img.Save(memoryStream, ImageFormat.Jpeg);
                 bitmapImage.BeginInit();
@@ -24,7 +24,7 @@ namespace RobotEditor.Utilities
 
         public static ImageSource GetIcon(string fileName)
         {
-            BitmapImage bitmapImage = new BitmapImage();
+            BitmapImage bitmapImage = new();
             bitmapImage.BeginInit();
             bitmapImage.UriSource = new Uri(fileName);
             bitmapImage.EndInit();
@@ -36,7 +36,7 @@ namespace RobotEditor.Utilities
             BitmapImage result;
 
 #if DEBUG
-            FileInfo file = new System.IO.FileInfo(fileName);
+            FileInfo file = new(fileName);
             if (!file.Exists)
             {
                 Console.WriteLine(file);
@@ -46,8 +46,8 @@ namespace RobotEditor.Utilities
             {
                 if (File.Exists(fileName))
                 {
-                    FileInfo fileInfo = new System.IO.FileInfo(fileName);
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(fileInfo.FullName));
+                    FileInfo fileInfo = new(fileName);
+                    BitmapImage bitmapImage = new(new Uri(fileInfo.FullName));
                     bitmapImage.Freeze();
                     result = bitmapImage;
                     return result;

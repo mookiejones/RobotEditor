@@ -26,8 +26,8 @@ namespace RobotEditor.Languages
         }
 
         // ReSharper disable once InconsistentNaming
-        public static List<string> EXT => new List<string>
-                {
+        public static List<string> EXT => new()
+        {
                     ".mod",
                     ".prg"
                 };
@@ -44,24 +44,24 @@ namespace RobotEditor.Languages
 
         internal override string FunctionItems => "((?<!END)()()PROC\\s([\\d\\w]*)[\\(\\)\\w\\d_. ]*)";
 
-        public override Regex MethodRegex => new Regex("( proc )\\s*([\\d\\w]*)\\(([^\\)]*)", RegexOptions.IgnoreCase);
+        public override Regex MethodRegex => new("( proc )\\s*([\\d\\w]*)\\(([^\\)]*)", RegexOptions.IgnoreCase);
 
-        public override Regex StructRegex => new Regex(string.Empty);
+        public override Regex StructRegex => new(string.Empty);
 
-        public override Regex FieldRegex => new Regex(
+        public override Regex FieldRegex => new(
                         "^([^\\r\\n]*)(tooldata|wobjdata|num|mecunit|string|datapos|intnum|bool|signaldo|dignaldi|signalgo|signalgi)\\s+([\\$0-9a-zA-Z_\\[\\],\\$]+)(:=)?([^\\r\\n]*)",
                         RegexOptions.IgnoreCase);
 
-        public override Regex EnumRegex => new Regex(string.Empty);
+        public override Regex EnumRegex => new(string.Empty);
 
-        public override Regex XYZRegex => new Regex("^[PERS ]*(robtarget|jointtarget) ([\\w\\d_]*)",
+        public override Regex XYZRegex => new("^[PERS ]*(robtarget|jointtarget) ([\\w\\d_]*)",
                     RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         public override void Initialize(string filename) => Initialize();
 
         public override string CommentChar => "!";
 
-        public override Regex SignalRegex => new Regex("SignalDI|SignalDO|SignalGI|SignalGO");
+        public override Regex SignalRegex => new("SignalDI|SignalDO|SignalGI|SignalGO");
 
         internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
                 {
@@ -72,7 +72,7 @@ namespace RobotEditor.Languages
 
         public override string ExtractXYZ(string positionstring)
         {
-            PositionBase positionBase = new PositionBase(positionstring);
+            PositionBase positionBase = new(positionstring);
             return positionBase.ExtractFromMatch();
         }
 
@@ -91,7 +91,7 @@ namespace RobotEditor.Languages
             {
                 if (extension == ".prg" || extension == ".mod")
                 {
-                    DocumentViewModel result = new DocumentViewModel(filePath);
+                    DocumentViewModel result = new(filePath);
                     return result;
                 }
             }
@@ -108,7 +108,7 @@ namespace RobotEditor.Languages
 
             public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
             {
-                List<NewFolding> list = new List<NewFolding>();
+                List<NewFolding> list = new();
                 list.AddRange(CreateFoldingHelper(document, "proc", "endproc", true));
                 list.AddRange(CreateFoldingHelper(document, "module", "endmodule", false));
                 list.Sort((a, b) => a.StartOffset.CompareTo(b.StartOffset));

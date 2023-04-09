@@ -25,7 +25,7 @@ namespace RobotEditor
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            ServiceCollection services = new ServiceCollection();
+            ServiceCollection services = new();
             // Services
             _ = services.AddSingleton<IDataService, DataService>();
 

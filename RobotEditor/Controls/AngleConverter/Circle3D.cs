@@ -21,7 +21,7 @@ namespace RobotEditor.Controls.AngleConverter
 
         public double Radius { get; set; }
 
-        public TransformationMatrix3D Position => new TransformationMatrix3D((Vector3D)Origin, RotationMatrix3D.Identity());
+        public TransformationMatrix3D Position => new((Vector3D)Origin, RotationMatrix3D.Identity());
 
         public string ToString(string format, IFormatProvider formatProvider) => string.Format("Circle3D: Centre {0}, Normal {1}, Radius {2:F2}", Origin, Normal, Radius);
 
