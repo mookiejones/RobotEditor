@@ -1,757 +1,65 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{689D2046-E34D-4FF2-890F-410BD2F99BF9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RobotEditor</RootNamespace>
-    <AssemblyName>RobotEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Background</UpdateMode>
-    <UpdateInterval>1</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>true</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>http://localhost/RobotEditor/</UpdateUrl>
-    <TargetCulture>en</TargetCulture>
-    <ProductName>RobotEditor</ProductName>
-    <PublisherName>Mookies Robot Editor</PublisherName>
-    <SuiteName>Mookies Editor</SuiteName>
-    <ApplicationRevision>10</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <CreateDesktopShortcut>true</CreateDesktopShortcut>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <LangVersion>7.0</LangVersion>
-    <CodeAnalysisRuleSet>RobotEditor.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.0</LangVersion>
-    <CodeAnalysisRuleSet>RobotEditor.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>RobotEditor.App</StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Images\editor.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>F36E4874721869C05E3F7257EFF6D15647106888</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="AvalonDock, Version=4.71.1.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>packages\Dirkster.AvalonDock.4.71.1\lib\net40\AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="ColorPickerLib, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Dirkster.ColorPickerLib.1.6.2\lib\net40\ColorPickerLib.dll</HintPath>
-    </Reference>
-    <Reference Include="CommunityToolkit.Mvvm, Version=8.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
-      <HintPath>packages\CommunityToolkit.Mvvm.8.1.0\lib\netstandard2.0\CommunityToolkit.Mvvm.dll</HintPath>
-    </Reference>
-    <Reference Include="ControlzEx, Version=5.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
-      <HintPath>packages\ControlzEx.5.0.2\lib\net462\ControlzEx.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.AvalonEdit, Version=6.2.0.78, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
-      <HintPath>packages\AvalonEdit.6.2.0.78\lib\net462\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
-    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
-      <HintPath>packages\MahApps.Metro.2.4.9\lib\net46\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignColors, Version=2.1.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>packages\MaterialDesignColors.2.1.1\lib\net462\MaterialDesignColors.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.MahApps, Version=0.2.7.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>packages\MaterialDesignThemes.MahApps.0.2.7\lib\net462\MaterialDesignThemes.MahApps.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=4.7.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>packages\MaterialDesignThemes.4.7.1\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
-    <Reference Include="NumericUpDownLib, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Dirkster.NumericUpDownLib.3.3.1\lib\net40\NumericUpDownLib.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsFormsIntegration" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\ABBHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\FANUCHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\KUKAHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\NONEHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
+    <None Remove="Controls\TextEditor\SyntaxHighlighting\VBAHighlight.xshd" />
+    <None Remove="Images\binoculars.png" />
+    <None Remove="Images\close.png" />
+    <None Remove="Images\collapsefolds.png" />
+    <None Remove="Images\editor.ico" />
+    <None Remove="Images\kuka.ico" />
+    <None Remove="Images\miRobotEditor.Resources.vxmethod_icon.png" />
+    <None Remove="Images\mnuCopy.png" />
+    <None Remove="Images\mnuCut.png" />
+    <None Remove="Images\mnuDelete.png" />
+    <None Remove="Images\mnuPaste.png" />
+    <None Remove="Images\resources-comment.png" />
+    <None Remove="Images\resources-document.png" />
+    <None Remove="Images\resources-editdelete.png" />
+    <None Remove="Images\resources-editor.png" />
+    <None Remove="Images\resources-error.png" />
+    <None Remove="Images\resources-expandfolds.png" />
+    <None Remove="Images\resources-folder.png" />
+    <None Remove="Images\resources-foldingdisabled.png" />
+    <None Remove="Images\resources-foldingenabled.png" />
+    <None Remove="Images\resources-info.png" />
+    <None Remove="Images\resources-lineendings.png" />
+    <None Remove="Images\resources-new_edit_find_replace.png" />
+    <None Remove="Images\resources-objectbrowser.png" />
+    <None Remove="Images\resources-property-blue.png" />
+    <None Remove="Images\resources-redo.png" />
+    <None Remove="Images\resources-refresh_yellow.png" />
+    <None Remove="Images\resources-search.png" />
+    <None Remove="Images\resources-showspaces.png" />
+    <None Remove="Images\resources-splash.png" />
+    <None Remove="Images\resources-spsfile.png" />
+    <None Remove="Images\resources-srcfile.png" />
+    <None Remove="Images\resources-stock_notes.png" />
+    <None Remove="Images\resources-vxenum_icon.png" />
+    <None Remove="Images\resources-vxevent_icon.png" />
+    <None Remove="Images\resources-vxfield_icon.png" />
+    <None Remove="Images\resources-vxmethod_icon.png" />
+    <None Remove="Images\resources-vxmodule_icon.png" />
+    <None Remove="Images\resources-vxproperty_icon.png" />
+    <None Remove="Images\resources-vxstruct_icon.png" />
+    <None Remove="Images\resources-vxvaluetype_icon.png" />
+    <None Remove="Images\resources-vxxyz_icon.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.Initialize.cs" />
-    <Compile Include="Controls\AngleConverter\Distance3D.cs" />
-    <Compile Include="Controls\AngleConverter\NRSolver.cs" />
-    <Compile Include="Controls\TextEditor\AvalonEditor.cs" />
-    <Compile Include="Controls\TextEditor\DocumentUtilitites.cs" />
-    <Compile Include="Controls\TextEditor\FileExtended.cs" />
-    <Compile Include="Controls\TextEditor\Folding\AbstractFoldingStrategy.cs" />
-    <Compile Include="Controls\TextEditor\Views\CountToVisibilityHiddenConverter.cs" />
-    <Compile Include="Controls\TextEditor\Views\GotoLineView.cs" />
-    <Compile Include="Controls\TextEditor\Views\Msg.cs" />
-    <Compile Include="Controls\TextEditor\Views\MsgTypeToResourceConverter.cs" />
-    <Compile Include="Converters\SingletonValueConverter.cs" />
-    <Compile Include="Converters\ThicknessToDoubleConverter.cs" />
-    <Compile Include="Languages\AbstractLanguageClass.cs" />
-    <Compile Include="Languages\Data\AbstractVariableClass.cs" />
-    <Compile Include="Languages\ILanguageClass.cs" />
-    <Compile Include="NativeMethods.cs" />
-    <Compile Include="Parsers\AbstractParser.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionContext.cs" />
-    <Compile Include="Controls\FTP\FTPAccount.cs" />
-    <Compile Include="Model\Technology.cs" />
-    <Compile Include="Controls\TextEditor\BackgroundRenderer.cs" />
-    <Compile Include="Controls\TextEditor\BlockCommentRegion.cs" />
-    <Compile Include="Controls\TextEditor\Bookmarks\BookmarkBase.cs" />
-    <Compile Include="Controls\TextEditor\Bookmarks\BookmarkImage.cs" />
-    <Compile Include="Controls\TextEditor\Brackets\BracketHighlightRenderer.cs" />
-    <Compile Include="Controls\TextEditor\Brackets\BracketSearchResult.cs" />
-    <Compile Include="Controls\TextEditor\CaretHighlightAdorner.cs" />
-    <Compile Include="Languages\Data\CartesianItems.cs" />
-    <Compile Include="Languages\Data\CartesianTypes.cs" />
-    <Compile Include="Controls\AngleConverter\Circle3D.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletion.cs" />
-    <Compile Include="Robots\DocumentBase.cs" />
-    <Compile Include="Controls\TextEditor\EditorOptions.cs" />
-    <Compile Include="Controls\FTP\FTPFolder.cs" />
-    <Compile Include="GlobalOptions.cs" />
-    <Compile Include="Controls\TextEditor\IconBar\IconBarManager.cs" />
-    <Compile Include="Controls\TextEditor\IconBar\IconBarMargin.cs" />
-    <Compile Include="Controls\AngleConverter\LeastSquaresFit3D.cs" />
-    <Compile Include="Controls\AngleConverter\Line3D.cs" />
-    <Compile Include="Controls\AngleConverter\MatrixNullReference.cs" />
-    <Compile Include="Controls\TextEditor\Brackets\MyBracketSearcher.cs" />
-    <Compile Include="Messages\OutputWindowMessage.cs" />
-    <Compile Include="Controls\AngleConverter\Plane3D.cs" />
-    <Compile Include="Languages\Data\PositionBase.cs" />
-    <Compile Include="Languages\Data\PositionValue.cs" />
-    <Compile Include="Controls\AngleConverter\Project3D.cs" />
-    <Compile Include="Model\ShiftClass.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetCollection.cs" />
-    <Compile Include="Controls\AngleConverter\Sphere3D.cs" />
-    <Compile Include="Controls\Splasher.cs" />
-    <Compile Include="Controls\TextEditor\TextChangeEventArgs.cs" />
-    <Compile Include="Controls\TextEditor\ImageElementGenerator.cs" />
-    <Compile Include="Controls\TextEditor\StringTextBuffer.cs" />
-    <Compile Include="Controls\TextEditor\Bookmarks\ClassMemberBookmark.cs" />
-    <Compile Include="Controls\TextEditor\Formatting\DefaultFormattingStrategy.cs" />
-    <Compile Include="Controls\FindReplace\FindReplaceResult.cs" />
-    <Compile Include="Global.cs" />
-    <Compile Include="Controls\TextEditor\Indentation\IndentationClass.cs" />
-    <Compile Include="Controls\TextEditor\Indentation\IndentationSettings.cs" />
-    <Compile Include="Controls\TextEditor\Indentation\IndentationStrategy.cs" />
-    <Compile Include="UI\Behaviors\DataGridHelper.cs" />
-    <Compile Include="UI\Behaviors\DropFilesBehaviorExtension.cs" />
-    <Compile Include="UI\DispatcherHelper.cs" />
-    <Compile Include="UI\ISingleInstanceApp.cs" />
-    <Compile Include="UI\LayoutInitializer.cs" />
-    <Compile Include="UI\SingleInstance.cs" />
-    <Compile Include="Utilities\AppHelper.cs" />
-    <Compile Include="Utilities\FileHelper.cs" />
-    <Compile Include="Utilities\LogWriter.cs" />
-    <Compile Include="Controls\TextEditor\TextSourceAdapter.cs" />
-    <Compile Include="Utilities\StringEx.cs" />
-    <Compile Include="Utilities\TraceWriter.cs" />
-    <Compile Include="Languages\Data\Variable.cs" />
-    <Compile Include="Languages\Data\VariableBase.cs" />
-    <Compile Include="Languages\Data\VariableHelper.cs" />
-    <Compile Include="Languages\Data\VariableItem.cs" />
-    <Compile Include="Controls\AngleConverter\RotationMatrix3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\TransformationMatrix3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Matrix.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Point2D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Point3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Quaternion.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\SquareMatrix.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\SVD.cs" />
-    <Compile Include="Controls\AngleConverter\Exceptions\MatrixException.cs" />
-    <Compile Include="Controls\AngleConverter\Interfaces\IGeometricElement3D.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Vector.cs" />
-    <Compile Include="Controls\AngleConverter\Classes\Vector2D.cs" />
-    <Compile Include="Controls\ExplorerClass.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ExtendedGridSplitter.cs" />
-    <Compile Include="Controls\FileInfo.xaml.cs">
-      <DependentUpon>FileInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FilesControl.xaml.cs">
-      <DependentUpon>FilesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FunctionItem.xaml.cs">
-      <DependentUpon>FunctionItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\InfoFile.xaml.cs">
-      <DependentUpon>InfoFile.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\KukaControl.xaml.cs">
-      <DependentUpon>KukaControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListFromFileBox.xaml.cs">
-      <DependentUpon>ListFromFileBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RecentFileList.cs" />
-    <Compile Include="Controls\SnippetToolTip.xaml.cs">
-      <DependentUpon>SnippetToolTip.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TextEditor\CompletionData.cs" />
-    <Compile Include="Controls\TextEditor\Extensions\ITextEditorExtensions.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionContextInfo.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CodeCompletionDataUsageCache.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionData\CompletionType.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\CompletionData\ICompletionDataProvider.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\Literal.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetCompletionData.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetCompletionDataProvider.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetHeader.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetInfo.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetManager.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetParser.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\SnippetType.cs" />
-    <Compile Include="Controls\TextEditor\Snippets\StringHelper.cs" />
-    <Compile Include="Controls\VisualVariableControl.xaml.cs">
-      <DependentUpon>VisualVariableControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\VisualVariableItem.xaml.cs">
-      <DependentUpon>VisualVariableItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\AngleToolTipConverter.cs" />
-    <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
-    <Compile Include="Converters\GetFileInfoSystemsConverter.cs" />
-    <Compile Include="Converters\SolidColorBrushToColorConverter.cs" />
-    <Compile Include="Enums\EDITORTYPE.cs" />
-    <Compile Include="Enums\GridSplitterCollapseMode.cs" />
-    <Compile Include="future\CodeCommenter.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Controls\TextEditor\Brackets\IBracketSearcher.cs" />
-    <Compile Include="Controls\TextEditor\IEditorDocument.cs" />
-    <Compile Include="Controls\TextEditor\IEditorDocumentLine.cs" />
-    <Compile Include="Controls\TextEditor\Completion\IFancyCompletionItem.cs" />
-    <Compile Include="IOptions.cs" />
-    <Compile Include="Languages\ILanguageRegex.cs" />
-    <Compile Include="Languages\DatCleaner.cs" />
-    <Compile Include="Languages\Fanuc.cs" />
-    <Compile Include="Languages\Kawasaki.cs" />
-    <Compile Include="Languages\KrlFoldingStrategy.cs" />
-    <Compile Include="Languages\KrlRegularExpressions.cs" />
-    <Compile Include="Languages\KUKA.cs" />
-    <Compile Include="Languages\LanguageBase.cs" />
-    <Compile Include="Languages\LanguageFold.cs" />
-    <Compile Include="Messages\ErrorMessage.cs" />
-    <Compile Include="Messages\MessageBase.cs" />
-    <Compile Include="Messages\WindowMessage.cs" />
-    <Compile Include="Selectors\PanesTemplateSelector.cs" />
-    <Compile Include="Utilities\ImageHelper.cs" />
-    <Compile Include="ViewModel\AdjustST.cs" />
-    <Compile Include="ViewModel\ArchiveInfoViewModel.cs" />
-    <Compile Include="ViewModel\CartesianPosition.cs" />
-    <Compile Include="ViewModel\DocumentViewModel.cs" />
-    <Compile Include="ViewModel\GlobalOptionsViewModel.cs" />
-    <Compile Include="ViewModel\GotoViewModel.cs" />
-    <Compile Include="ViewModel\InfoFile.cs" />
-    <Compile Include="ViewModel\IOViewModel.cs" />
-    <Compile Include="ViewModel\Item.cs" />
-    <Compile Include="ViewModel\KFDDialogViewModel.cs" />
-    <Compile Include="ViewModel\KukaViewModel.cs" />
-    <Compile Include="ViewModel\LocalVariablesViewModel.cs" />
-    <Compile Include="ViewModel\NotesViewModel.cs" />
-    <Compile Include="ViewModel\ObjectBrowserViewModel.cs" />
-    <Compile Include="ViewModel\ProgressBarViewModel.cs" />
-    <Compile Include="ViewModel\ShiftViewModel.cs" />
-    <Compile Include="ViewModel\StatusBarViewModel.cs" />
-    <Compile Include="ViewModel\ToolItems.cs" />
-    <Compile Include="ViewModel\ToolTipViewModel.cs" />
-    <Compile Include="ViewModel\ValueBoxViewModel.cs" />
-    <Compile Include="Views\AngleConverterView.xaml.cs">
-      <DependentUpon>AngleConverterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ArchiveInfoView.xaml.cs">
-      <DependentUpon>ArchiveInfoView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FileExplorerControl.xaml.cs">
-      <DependentUpon>FileExplorerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FileExplorerView.xaml.cs">
-      <DependentUpon>FileExplorerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FunctionView.xaml.cs">
-      <DependentUpon>FunctionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IOView.xaml.cs">
-      <DependentUpon>IOView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\LocalVariablesView.xaml.cs">
-      <DependentUpon>LocalVariablesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MessageView.xaml.cs">
-      <DependentUpon>MessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\NotesView.xaml.cs">
-      <DependentUpon>NotesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ObjectBrowserView.xaml.cs">
-      <DependentUpon>ObjectBrowserView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OptionsView.xaml.cs">
-      <DependentUpon>OptionsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AdjustSTWindow.xaml.cs">
-      <DependentUpon>AdjustSTWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AttributeViewerWindow.xaml.cs">
-      <DependentUpon>AttributeViewerWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\FileExplorerWindow.xaml.cs">
-      <DependentUpon>FileExplorerWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\FindAndReplaceWindow.xaml.cs">
-      <DependentUpon>FindAndReplaceWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\GotoWindow.xaml.cs">
-      <DependentUpon>GotoWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\KFDAssistantWindow.xaml.cs">
-      <DependentUpon>KFDAssistantWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\KFDDialogWindow.xaml.cs">
-      <DependentUpon>KFDDialogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ReverseWindow.xaml.cs">
-      <DependentUpon>ReverseWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ShiftWindow.xaml.cs">
-      <DependentUpon>ShiftWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SnippetWindow.xaml.cs">
-      <DependentUpon>SnippetWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\SplashScreenWindow.xaml.cs">
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\XmlReaderWindow.xaml.cs">
-      <DependentUpon>XmlReaderWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Assets\Styles\Controls.AvalonEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Controls.DataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Controls.Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Controls.MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Controls.Toolbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\Templates.ObjectBrowserView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FileInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FilesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FunctionItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\InfoFile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\KukaControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListFromFileBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SnippetToolTip.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\VisualVariableControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\VisualVariableItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Languages\LanguageTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\ExplorerWindowDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Brushes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Styles\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\ExplorerTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\ExtendedGridSplitterTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\KukaSpecificTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\LayoutItemTemplates.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\MenuDictionaryTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\OptionsTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\ShiftTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Templates\StatusBarTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AngleConverterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ArchiveInfoView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FileExplorerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FileExplorerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FunctionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\IOView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LocalVariablesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NotesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ObjectBrowserView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OptionsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AdjustSTWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\AttributeViewerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\FileExplorerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\FindAndReplaceWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\GotoWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\KFDAssistantWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\KFDDialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ReverseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ShiftWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\SnippetWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\SplashScreenWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\XmlReaderWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Compile Include="Converters\ActiveEditorConverter.cs" />
-    <Compile Include="Converters\BooleanToTypeModeStringConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\GetFileIconConverter.cs" />
-    <Compile Include="Converters\TextOptionsConverter.cs" />
-    <Compile Include="Converters\VariableToFunctionConverter.cs" />
-    <Compile Include="Converters\WidthConverter.cs" />
-    <Compile Include="Enums\CartesianEnum.cs" />
-    <Compile Include="Enums\DefaultToolPane.cs" />
-    <Compile Include="Enums\MsgIcon.cs" />
-    <Compile Include="Enums\Tokens.cs" />
-    <Compile Include="Enums\CompletionItemListKeyResult.cs" />
-    <Compile Include="Enums\MessageType.cs" />
-    <Compile Include="Enums\Typlanguage.cs" />
-    <Compile Include="Enums\WM.cs" />
-    <Compile Include="Exceptions\ExceptionDialogShowingEventArgs.cs" />
-    <Compile Include="Messages\IMessage.cs" />
-    <Compile Include="IOptionPanel.cs" />
-    <Compile Include="Languages\Data\IPosition.cs" />
-    <Compile Include="Controls\TextEditor\ITextAnchor.cs" />
-    <Compile Include="Controls\TextEditor\IInsightItem.cs" />
-    <Compile Include="Controls\TextEditor\IInsightWindow.cs" />
-    <Compile Include="Controls\TextEditor\ITextEditorOptions.cs" />
-    <Compile Include="Controls\TextEditor\Completion\ICompletionWindow.cs" />
-    <Compile Include="Controls\TextEditor\Completion\ICompletionItem.cs" />
-    <Compile Include="Controls\TextEditor\Completion\ICompletionItemList.cs" />
-    <Compile Include="Controls\TextEditor\Completion\ICompletionListWindow.cs" />
-    <Compile Include="Controls\TextEditor\ITextEditorCaret.cs" />
-    <Compile Include="Controls\TextEditor\ITextEditor.cs" />
-    <Compile Include="Controls\TextEditor\Formatting\IFormattingStrategy.cs" />
-    <Compile Include="Controls\TextEditor\Bookmarks\IBookmark.cs" />
-    <Compile Include="Controls\TextEditor\Bookmarks\IBookmarkMargin.cs" />
-    <Compile Include="Controls\TextEditor\IEditor.cs" />
-    <Compile Include="Controls\TextEditor\IImage.cs" />
-    <Compile Include="Controls\TextEditor\ITextBuffer.cs" />
-    <Compile Include="Controls\TextEditor\ITextBufferVersion.cs" />
-    <Compile Include="Languages\Data\IVariable.cs" />
-    <Compile Include="Languages\ABB.cs" />
-    <Compile Include="Languages\VBA.cs" />
-    <Compile Include="Languages\DatCleanHelper.cs" />
-    <Compile Include="Model\DataItem.cs" />
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\IDataService.cs" />
-    <Compile Include="Parsers\E6Parser.cs" />
-    <Compile Include="Rules\Class1.cs" />
-    <Compile Include="Selectors\MenuTemplateSelector.cs" />
-    <Compile Include="Selectors\PanesStyleSelector.cs" />
-    <Compile Include="Structs\Location.cs" />
-    <Compile Include="ViewModel\AbstractPaneViewModel.cs" />
-    <Compile Include="ViewModel\AngleConvertorViewModel.cs" />
-    <Compile Include="ViewModel\FileOptionsViewModel.cs" />
-    <Compile Include="ViewModel\FileViewModel.cs" />
-    <Compile Include="ViewModel\FindReplaceViewModel.cs" />
-    <Compile Include="ViewModel\FTPAccountWindowViewModel.cs" />
-    <Compile Include="ViewModel\FTPBrowserViewModel.cs" />
-    <Compile Include="ViewModel\FunctionViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\MessageViewModel.cs" />
-    <Compile Include="ViewModel\PaneViewModel.cs" />
-    <Compile Include="ViewModel\SystemFunctionsViewModel.cs" />
-    <Compile Include="ViewModel\ToolViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Windows\RenamePositionWindow.xaml.cs">
-      <DependentUpon>RenamePositionWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Assets\Skins\MainSkin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\RenamePositionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include=".editorconfig" />
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\ABBHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\FANUCHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
@@ -759,29 +67,28 @@
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\NONEHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
     <EmbeddedResource Include="Controls\TextEditor\SyntaxHighlighting\VBAHighlight.xshd" />
-    <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
-    <None Include="RobotEditor.ruleset" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Flyouts\" />
-    <Folder Include="Options\" />
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.72.0" />
+    <PackageReference Include="Dirkster.ColorPickerLib" Version="1.6.2" />
+    <PackageReference Include="Dirkster.NumericUpDownLib" Version="3.4.0" />
+    <PackageReference Include="DotNetZip" Version="1.16.0" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Languages\CompletionItems.xml" />
-  </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Images\binoculars.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\collapsefolds.png" />
-    <Resource Include="Images\editor.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\editor.ico" />
+    <Resource Include="Images\kuka.ico" />
+    <Resource Include="Images\miRobotEditor.Resources.vxmethod_icon.png" />
     <Resource Include="Images\mnuCopy.png" />
     <Resource Include="Images\mnuCut.png" />
     <Resource Include="Images\mnuDelete.png" />
@@ -811,69 +118,27 @@
     <Resource Include="Images\resources-vxenum_icon.png" />
     <Resource Include="Images\resources-vxevent_icon.png" />
     <Resource Include="Images\resources-vxfield_icon.png" />
+    <Resource Include="Images\resources-vxmethod_icon.png" />
     <Resource Include="Images\resources-vxmodule_icon.png" />
     <Resource Include="Images\resources-vxproperty_icon.png" />
     <Resource Include="Images\resources-vxstruct_icon.png" />
     <Resource Include="Images\resources-vxvaluetype_icon.png" />
     <Resource Include="Images\resources-vxxyz_icon.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <CodeAnalysisDictionary Include="Spelling.xml" />
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\resources-vxmethod_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <FileAssociation Include=".dat">
-      <Visible>False</Visible>
-      <Description>Kuka Data File</Description>
-      <Progid>1</Progid>
-      <DefaultIcon>Images\kuka.ico</DefaultIcon>
-    </FileAssociation>
-    <FileAssociation Include=".src">
-      <Visible>False</Visible>
-      <Description>KUKA Source File</Description>
-      <Progid>1</Progid>
-      <DefaultIcon>Images\kuka.ico</DefaultIcon>
-    </FileAssociation>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\kuka.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.4.7.1\build\MaterialDesignThemes.targets'))" />
-    <Error Condition="!Exists('packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets'))" />
-  </Target>
-  <Import Project="packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('packages\CommunityToolkit.Mvvm.8.1.0\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

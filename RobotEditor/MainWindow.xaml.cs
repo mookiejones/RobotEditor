@@ -111,7 +111,7 @@ namespace RobotEditor
             int delayMilliseconds = (int)delay.TotalMilliseconds;
             if (delayMilliseconds < 0)
             {
-                throw new ArgumentOutOfRangeException("delay", delay, Properties.Resources.ValueMustBePositive);
+                throw new ArgumentOutOfRangeException("delay", delay, "ValueMustBePositive");
             }
             if (method == null)
             {

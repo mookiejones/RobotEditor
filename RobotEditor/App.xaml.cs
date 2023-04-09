@@ -12,7 +12,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using MessageBox = System.Windows.MessageBox;
@@ -22,7 +21,7 @@ namespace RobotEditor
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : ISingleInstanceApp
+    public partial class App : Application
     {
         private const string Unique = "RobotEditor";
         public static App Application;
@@ -47,7 +46,7 @@ namespace RobotEditor
             // used on another machine than it was installed on (e.g. "SharpDevelop on USB stick")
             if (Environment.Version < new Version(4, 0, 30319))
             {
-                _ = MessageBox.Show(string.Format(RobotEditor.Properties.Resources.CheckEnvironment,
+                _ = MessageBox.Show(string.Format("This version of {0} requires .Net 4.0. Your are using:{1}",
                     Assembly.GetExecutingAssembly().GetName().Name, Environment.Version));
                 return false;
             }
@@ -80,17 +79,14 @@ namespace RobotEditor
 
 
 #if DEBUG
-            Control.CheckForIllegalCrossThreadCalls = true;
+//            Control.CheckForIllegalCrossThreadCalls = true;
 #endif
             if (!CheckEnvironment())
             {
                 return;
             }
 
-            if (!SingleInstance<App>.InitializeAsFirstInstance(Unique))
-            {
-                return;
-            }
+          
             //    Application = new App();
 
             //    Application.InitializeComponent();
@@ -109,8 +105,7 @@ namespace RobotEditor
             //      }
             //  }
             // Allow single instance code to perform cleanup operations
-            SingleInstance<App>.Cleanup();
-
+        
             if (e.Args.Length > 0)
             {
                 foreach (string v in e.Args)
