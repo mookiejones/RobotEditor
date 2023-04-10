@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
 [ValueConversion(typeof(ReadOnlyObservableCollection<IVariable>), typeof(ObservableCollection<IVariable>))]
 sealed class VariableToFunctionConverter : SingletonValueConverter<VariableToFunctionConverter>
@@ -19,9 +19,9 @@ sealed class VariableToFunctionConverter : SingletonValueConverter<VariableToFun
         }
 
 
-        return   items.Where(o => o.Type.ToLower() == "def")
+        return items.Where(o => o.Type.ToLower() == "def")
                      .ToList();
-      
+
     }
 
     public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();

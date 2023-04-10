@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RobotEditor.Tools.AngleConverter" xmlns:converters="clr-namespace:RobotEditor.Converters"
+             xmlns:local="clr-namespace:RobotEditor.Tools.AngleConverter" xmlns:converters="clr-namespace:RobotEditor.UI.Converters"
              mc:Ignorable="d" >
     <StackPanel Orientation="Vertical" Width="Auto" Height="Auto">
         <StackPanel.Resources>

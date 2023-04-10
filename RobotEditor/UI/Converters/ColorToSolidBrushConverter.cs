@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
-namespace RobotEditor.Converters;
+
+namespace RobotEditor.UI.Converters;
 
 
 
@@ -37,5 +38,5 @@ class ColorToSolidColorBrushConverter : SingletonValueConverter<ColorToSolidColo
         return FallbackBrush;
     }
 
-    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (value is SolidColorBrush solidColorBrush) ? new Color?(solidColorBrush.Color) : FallbackColor;
+    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value is SolidColorBrush solidColorBrush ? new Color?(solidColorBrush.Color) : FallbackColor;
 }

@@ -4,10 +4,10 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
-[ValueConversion(typeof(bool),typeof(Visibility))]
- sealed class BooleanToVisibilityConverter : SingletonValueConverter<BooleanToVisibilityConverter>
+[ValueConversion(typeof(bool), typeof(Visibility))]
+sealed class BooleanToVisibilityConverter : SingletonValueConverter<BooleanToVisibilityConverter>
 {
     private bool InvertVisibility { get; set; }
 
@@ -17,7 +17,7 @@ namespace RobotEditor.Converters;
         if (targetType == typeof(Visibility))
         {
             bool flag = System.Convert.ToBoolean(value, culture);
-            if (InvertVisibility)                
+            if (InvertVisibility)
                 flag = !flag;
 
 
@@ -26,5 +26,5 @@ namespace RobotEditor.Converters;
         throw new InvalidOperationException("Converter can only convert to value of type Visibility.");
     }
 
-    public override  object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible;
+    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => (Visibility)value == Visibility.Visible;
 }

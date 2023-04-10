@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
 [ValueConversion(typeof(Thickness), typeof(double), ParameterType = typeof(ThicknessSideType))]
 public class ThicknessToDoubleConverter : IValueConverter

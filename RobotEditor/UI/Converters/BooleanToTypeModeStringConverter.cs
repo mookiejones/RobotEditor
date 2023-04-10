@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
 public class BooleanToTypeModeStringConverter : IValueConverter
 {

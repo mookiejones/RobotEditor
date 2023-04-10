@@ -118,7 +118,7 @@ public sealed partial class MainWindow
         }
         SafeThreadAsyncCall(delegate
         {
-            Timer t = new()
+            System.Windows.Forms.Timer t = new()
             {
                 Interval = Math.Max(1, delayMilliseconds)
             };

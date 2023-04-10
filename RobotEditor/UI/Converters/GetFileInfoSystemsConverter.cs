@@ -3,13 +3,13 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
- sealed class GetFileSystemInfosConverter : SingletonValueConverter<GetFileSystemInfosConverter>
+sealed class GetFileSystemInfosConverter : SingletonValueConverter<GetFileSystemInfosConverter>
 {
     public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-         
+
         try
         {
             if (value is DirectoryInfo directoryInfo)

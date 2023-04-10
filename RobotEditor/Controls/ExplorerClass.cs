@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace RobotEditor.Controls;
 
-public sealed class ExplorerClass : TreeView, IComparable
+public sealed class ExplorerClass : System.Windows.Forms.TreeView, IComparable
 {
     public ExplorerClass()
     {
@@ -149,14 +149,11 @@ public sealed class ExplorerClass : TreeView, IComparable
 
     public void ShowTree(DriveType driveType)
     {
-        DriveInfo[] drives = DriveInfo.GetDrives();
-        foreach (DriveInfo current in
-            from driveInfo in drives
-            where driveInfo.DriveType == driveType
-            select driveInfo)
-        {
-            ShowTree(current.Name, false, "", false);
-        }
+        var items = DriveInfo.GetDrives()
+                .Where(driveInfo => driveInfo.DriveType == driveType);
+
+        foreach (var item in items)
+            ShowTree(item.Name, false, "", false);
     }
 
     [Localizable(false)]

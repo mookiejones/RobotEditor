@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace RobotEditor.Rules;
+namespace RobotEditor.UI.Rules;
 
 [Localizable(false)]
 public sealed class DoubleValidationRule : ValidationRule

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
 [Localizable(false)]
 public class TextOptionsConverter : IValueConverter

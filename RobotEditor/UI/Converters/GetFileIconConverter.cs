@@ -8,13 +8,13 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters;
+namespace RobotEditor.UI.Converters;
 
 sealed class GetFileIconConverter : SingletonValueConverter<GetFileIconConverter>
 {
-    public override  object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      
+
         try
         {
             string extension = Path.GetExtension(value.ToString().ToLower());

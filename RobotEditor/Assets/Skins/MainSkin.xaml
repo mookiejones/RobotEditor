@@ -3,7 +3,7 @@
                     xmlns:views="clr-namespace:RobotEditor.Views"
                     xmlns:ac="clr-namespace:RobotEditor.Tools.AngleConverter"
                     xmlns:viewModel="clr-namespace:RobotEditor.ViewModel"
-                    xmlns:converters="clr-namespace:RobotEditor.Converters"
+                    xmlns:converters="clr-namespace:RobotEditor.UI.Converters"
                     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                     xmlns:regularExpressions="clr-namespace:System.Text.RegularExpressions;assembly=System"
                     xmlns:controls="clr-namespace:RobotEditor.Controls"

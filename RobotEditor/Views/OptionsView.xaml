@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             xmlns:converters="clr-namespace:RobotEditor.Converters" xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" 
+             xmlns:converters="clr-namespace:RobotEditor.UI.Converters" xmlns:xctk1="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib" 
              xmlns:xctk2="clr-namespace:ColorPickerLib.Controls;assembly=ColorPickerLib" 
              xmlns:roboteditor="clr-namespace:RobotEditor"
              xmlns:textEditor="clr-namespace:RobotEditor.Controls.TextEditor"

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RobotEditor.Selectors;
+namespace RobotEditor.UI.Selectors;
 
 public sealed class MenuTemplateSelector : DataTemplateSelector
 {

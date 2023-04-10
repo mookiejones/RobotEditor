@@ -18,7 +18,6 @@
     <Using Include="System.Threading.Tasks"/>
     <Using Include="System.Windows.Controls"/>
     <Using Include="System.Windows.Controls.Primitives"/>
-    <Using Include="System.Windows.Input"/>
     <Using Include="System.Windows.Markup"/>
   </ItemGroup>
 </Project>
