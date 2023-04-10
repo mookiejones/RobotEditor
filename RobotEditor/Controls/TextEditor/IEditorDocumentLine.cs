@@ -1,9 +1,8 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Interfaces;
+
+public interface IEditorDocumentLine : IDocumentLine
 {
-    public interface IEditorDocumentLine : IDocumentLine
-    {
-        string Text { get; }
-    }
+    string Text { get; }
 }

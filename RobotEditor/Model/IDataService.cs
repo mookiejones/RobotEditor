@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace RobotEditor.Model
+namespace RobotEditor.Model;
+
+public interface IDataService
 {
-    public interface IDataService
-    {
-        void GetData(Action<DataItem, Exception> callback);
-    }
+    void GetData(Action<DataItem, Exception> callback);
 }

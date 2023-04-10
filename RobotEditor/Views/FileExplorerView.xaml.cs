@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for FileExplorerView.xaml
+/// </summary>
+public partial class FileExplorerView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for FileExplorerView.xaml
-    /// </summary>
-    public partial class FileExplorerView : UserControl
+    public FileExplorerView()
     {
-        public FileExplorerView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

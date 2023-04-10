@@ -1,12 +1,11 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum Typlanguage
 {
-    public enum Typlanguage
-    {
-        None,
-        KUKA,
-        KAWASAKI,
-        ABB,
-        VBA,
-        Fanuc
-    }
+    None,
+    KUKA,
+    KAWASAKI,
+    ABB,
+    VBA,
+    Fanuc
 }

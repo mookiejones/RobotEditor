@@ -1,15 +1,14 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum MessageType
 {
-    public enum MessageType
-    {
-        Question,
-        Error,
-        Warning,
-        Information,
-        Asterisk,
-        Exclamation,
-        Hand,
-        None,
-        Stop
-    }
+    Question,
+    Error,
+    Warning,
+    Information,
+    Asterisk,
+    Exclamation,
+    Hand,
+    None,
+    Stop
 }

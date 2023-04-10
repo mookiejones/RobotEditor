@@ -1,9 +1,8 @@
 ﻿using ICSharpCode.AvalonEdit.Document;
 
-namespace RobotEditor.Controls.TextEditor.Brackets
+namespace RobotEditor.Controls.TextEditor.Brackets;
+
+public interface IBracketSearcher
 {
-    public interface IBracketSearcher
-    {
-        BracketSearchResult SearchBracket(TextDocument document, int offset);
-    }
+    BracketSearchResult SearchBracket(TextDocument document, int offset);
 }

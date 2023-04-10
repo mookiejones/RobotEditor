@@ -6,41 +6,40 @@ using System.IO;
 using System.Linq;
 
 
-namespace RobotEditor.Controls.TextEditor.Snippets
+namespace RobotEditor.Controls.TextEditor.Snippets;
+
+public sealed class SnippetCompletionDataProvider : ICompletionDataProvider, IDisposable
 {
-    public sealed class SnippetCompletionDataProvider : ICompletionDataProvider, IDisposable
+    public IEnumerable<ICompletionData> ProvideData(CompletionContextInfo context)
     {
-        public IEnumerable<ICompletionData> ProvideData(CompletionContextInfo context)
+
+
+        if (context != null && context.Path != null && context.CompletionType != CompletionType.CompletionKey && context.CompletionType != CompletionType.ScopeChange)
         {
-
-
-            if (context != null && context.Path != null && context.CompletionType != CompletionType.CompletionKey && context.CompletionType != CompletionType.ScopeChange)
+            string extension = Path.GetExtension(context.Path);
+            if (extension != null && (extension.Equals(".src", StringComparison.InvariantCultureIgnoreCase) || extension.Equals(".dat", StringComparison.InvariantCultureIgnoreCase) || extension.Equals(".sub", StringComparison.InvariantCultureIgnoreCase)))
             {
-                string extension = Path.GetExtension(context.Path);
-                if (extension != null && (extension.Equals(".src", StringComparison.InvariantCultureIgnoreCase) || extension.Equals(".dat", StringComparison.InvariantCultureIgnoreCase) || extension.Equals(".sub", StringComparison.InvariantCultureIgnoreCase)))
+                if (context.StringBeforeCaret.Contains(";"))
                 {
-                    if (context.StringBeforeCaret.Contains(";"))
-                    {
-                        goto IL_170;
-                    }
-                    int num = context.StringBeforeCaret.Count(c => c == '"');
-                    if (num % 2 == 1)
-                    {
-                        goto IL_170;
-                    }
+                    goto IL_170;
                 }
-                foreach (ICompletionData current in SnippetManager.GetCompletionDataForExtension(extension))
+                int num = context.StringBeforeCaret.Count(c => c == '"');
+                if (num % 2 == 1)
                 {
-                    yield return current;
+                    goto IL_170;
                 }
             }
-        IL_170:
-            yield break;
+            foreach (ICompletionData current in SnippetManager.GetCompletionDataForExtension(extension))
+            {
+                yield return current;
+            }
         }
-        public void Dispose()
-        {
-        }
-
-
+    IL_170:
+        yield break;
     }
+    public void Dispose()
+    {
+    }
+
+
 }

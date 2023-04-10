@@ -1,12 +1,11 @@
 ﻿using RobotEditor.Enums;
 using System.ComponentModel;
 
-namespace RobotEditor.Languages.Data
+namespace RobotEditor.Languages.Data;
+
+[Localizable(false)]
+public sealed class CartesianTypes
 {
-    [Localizable(false)]
-    public sealed class CartesianTypes
-    {
-        public CartesianEnum ValueCartesianEnum { get; set; }
-        public string ValueCartesianString { get; set; }
-    }
+    public CartesianEnum ValueCartesianEnum { get; set; }
+    public string ValueCartesianString { get; set; }
 }

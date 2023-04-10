@@ -1,10 +1,9 @@
-namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData
+namespace RobotEditor.Controls.TextEditor.Snippets.CompletionData;
+
+public enum CompletionType
 {
-    public enum CompletionType
-    {
-        Default,
-        ExplicitRequest,
-        CompletionKey,
-        ScopeChange
-    }
+    Default,
+    ExplicitRequest,
+    CompletionKey,
+    ScopeChange
 }

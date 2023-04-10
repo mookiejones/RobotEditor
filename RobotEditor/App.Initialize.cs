@@ -4,39 +4,38 @@ using RobotEditor.Model;
 using RobotEditor.ViewModel;
 using System;
 
-namespace RobotEditor
+namespace RobotEditor;
+
+public partial class App
 {
-    public partial class App
+    /// <summary>
+    /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+    /// </summary>
+    public IServiceProvider Services { get; }
+
+    public App()
+
     {
-        /// <summary>
-        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
-        /// </summary>
-        public IServiceProvider Services { get; }
+        Services = ConfigureServices();
+        Ioc.Default.ConfigureServices(Services);
+    }
 
-        public App()
+    /// <summary>
+    /// Configures the services for the application.
+    /// </summary>
+    private static IServiceProvider ConfigureServices()
+    {
+        ServiceCollection services = new();
+        // Services
+        _ = services.AddSingleton<IDataService, DataService>();
 
-        {
-            Services = ConfigureServices();
-            Ioc.Default.ConfigureServices(Services);
-        }
+        // ViewModels
+        _ = services.AddSingleton<MainViewModel>();
+        _ = services.AddSingleton<MessageViewModel>();
 
-        /// <summary>
-        /// Configures the services for the application.
-        /// </summary>
-        private static IServiceProvider ConfigureServices()
-        {
-            ServiceCollection services = new();
-            // Services
-            _ = services.AddSingleton<IDataService, DataService>();
+        _ = services.AddSingleton<StatusBarViewModel>();
+        _ = services.AddSingleton<ObjectBrowserViewModel>();
 
-            // ViewModels
-            _ = services.AddSingleton<MainViewModel>();
-            _ = services.AddSingleton<MessageViewModel>();
-
-            _ = services.AddSingleton<StatusBarViewModel>();
-            _ = services.AddSingleton<ObjectBrowserViewModel>();
-
-            return services.BuildServiceProvider();
-        }
+        return services.BuildServiceProvider();
     }
 }

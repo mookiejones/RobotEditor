@@ -1,8 +1,7 @@
-﻿namespace RobotEditor.Interfaces
+﻿namespace RobotEditor.Interfaces;
+
+public interface IInsightItem
 {
-    public interface IInsightItem
-    {
-        object Header { get; }
-        object Content { get; }
-    }
+    object Header { get; }
+    object Content { get; }
 }

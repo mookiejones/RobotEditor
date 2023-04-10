@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for ListFromFileBox.xaml
+/// </summary>
+public partial class ListFromFileBox : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for ListFromFileBox.xaml
-    /// </summary>
-    public partial class ListFromFileBox : UserControl
+    public ListFromFileBox()
     {
-        public ListFromFileBox()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

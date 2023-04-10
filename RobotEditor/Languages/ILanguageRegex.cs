@@ -1,14 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RobotEditor.Interfaces
+namespace RobotEditor.Interfaces;
+
+public interface ILanguageRegex
 {
-    public interface ILanguageRegex
-    {
-         Regex MethodRegex { get; }
-         Regex FieldRegex { get; }
-         Regex EnumRegex { get; }
-         Regex XYZRegex { get; }
-         Regex StructRegex { get; }
-         Regex SignalRegex { get; }
-    }
+     Regex MethodRegex { get; }
+     Regex FieldRegex { get; }
+     Regex EnumRegex { get; }
+     Regex XYZRegex { get; }
+     Regex StructRegex { get; }
+     Regex SignalRegex { get; }
 }

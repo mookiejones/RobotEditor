@@ -1,10 +1,9 @@
-namespace RobotEditor.ViewModel
+namespace RobotEditor.ViewModel;
+
+public class FTPBrowserViewModel : ToolViewModel
 {
-    public class FTPBrowserViewModel : ToolViewModel
+    public FTPBrowserViewModel()
+        : base("FTP Browser")
     {
-        public FTPBrowserViewModel()
-            : base("FTP Browser")
-        {
-        }
     }
 }

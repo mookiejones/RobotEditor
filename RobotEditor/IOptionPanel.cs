@@ -1,10 +1,9 @@
-﻿namespace RobotEditor.Interfaces
+﻿namespace RobotEditor.Interfaces;
+
+public interface IOptionPanel
 {
-    public interface IOptionPanel
-    {
-        object Owner { get; set; }
-        object Control { get; }
-        void LoadOptions();
-        bool SaveOptions();
-    }
+    object Owner { get; set; }
+    object Control { get; }
+    void LoadOptions();
+    bool SaveOptions();
 }

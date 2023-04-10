@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace RobotEditor.Windows
+namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for AdjustSTWindow.xaml
+/// </summary>
+public partial class AdjustSTWindow : Window
 {
-    /// <summary>
-    ///     Interaction logic for AdjustSTWindow.xaml
-    /// </summary>
-    public partial class AdjustSTWindow : Window
+    public AdjustSTWindow()
     {
-        public AdjustSTWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

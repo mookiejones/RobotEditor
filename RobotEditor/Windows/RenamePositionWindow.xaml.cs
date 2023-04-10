@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace RobotEditor.Windows
+namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for RenamePositionWindow.xaml
+/// </summary>
+public sealed partial class RenamePositionWindow : Window
 {
-    /// <summary>
-    ///     Interaction logic for RenamePositionWindow.xaml
-    /// </summary>
-    public sealed partial class RenamePositionWindow : Window
+    public RenamePositionWindow()
     {
-        public RenamePositionWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

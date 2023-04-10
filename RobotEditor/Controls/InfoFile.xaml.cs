@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for InfoFile.xaml
+/// </summary>
+public sealed partial class InfoFile : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for InfoFile.xaml
-    /// </summary>
-    public sealed partial class InfoFile : UserControl
+    public InfoFile()
     {
-        public InfoFile()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

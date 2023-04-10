@@ -2,12 +2,11 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RobotEditor.Converters
-{
-    public class BooleanToTypeModeStringConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+namespace RobotEditor.Converters;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
-    }
+public class BooleanToTypeModeStringConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }

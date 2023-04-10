@@ -1,7 +1,6 @@
-﻿namespace RobotEditor.Interfaces
+﻿namespace RobotEditor.Interfaces;
+
+public interface IOptions
 {
-    public interface IOptions
-    {
-        string Title { get; }
-    }
+    string Title { get; }
 }

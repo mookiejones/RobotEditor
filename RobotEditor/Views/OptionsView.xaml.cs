@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for OptionsView.xaml
+/// </summary>
+public partial class OptionsView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for OptionsView.xaml
-    /// </summary>
-    public partial class OptionsView : UserControl
+    public OptionsView()
     {
-        public OptionsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for AngleConverterView.xaml
+/// </summary>
+public sealed partial class AngleConverterView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for AngleConverterView.xaml
-    /// </summary>
-    public sealed partial class AngleConverterView : UserControl
+    public AngleConverterView()
     {
-        public AngleConverterView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

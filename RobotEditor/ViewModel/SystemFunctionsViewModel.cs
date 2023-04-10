@@ -1,139 +1,138 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RobotEditor.ViewModel
+namespace RobotEditor.ViewModel;
+
+public sealed class SystemFunctionsViewModel : ObservableRecipient
 {
-    public sealed class SystemFunctionsViewModel : ObservableRecipient
+    #region Structures
+
+    /// <summary>
+    ///     The <see cref="Structures" /> property's name.
+    /// </summary>
+    private const string StructuresPropertyName = "Structures";
+
+    private bool _structures = true;
+
+    /// <summary>
+    ///     Sets and gets the Structures property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public bool Structures
     {
-        #region Structures
+        get => _structures;
 
-        /// <summary>
-        ///     The <see cref="Structures" /> property's name.
-        /// </summary>
-        private const string StructuresPropertyName = "Structures";
-
-        private bool _structures = true;
-
-        /// <summary>
-        ///     Sets and gets the Structures property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public bool Structures
+        set
         {
-            get => _structures;
-
-            set
+            if (_structures == value)
             {
-                if (_structures == value)
-                {
-                    return;
-                }
-
-
-                _structures = value;
-                OnPropertyChanged(StructuresPropertyName);
+                return;
             }
+
+
+            _structures = value;
+            OnPropertyChanged(StructuresPropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region Programs
+    #region Programs
 
-        /// <summary>
-        ///     The <see cref="Programs" /> property's name.
-        /// </summary>
-        private const string ProgramsPropertyName = "Programs";
+    /// <summary>
+    ///     The <see cref="Programs" /> property's name.
+    /// </summary>
+    private const string ProgramsPropertyName = "Programs";
 
-        private bool _programs = true;
+    private bool _programs = true;
 
-        /// <summary>
-        ///     Sets and gets the Programs property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public bool Programs
+    /// <summary>
+    ///     Sets and gets the Programs property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public bool Programs
+    {
+        get => _programs;
+
+        set
         {
-            get => _programs;
-
-            set
+            if (_programs == value)
             {
-                if (_programs == value)
-                {
-                    return;
-                }
-
-
-                _programs = value;
-                OnPropertyChanged(ProgramsPropertyName);
+                return;
             }
+
+
+            _programs = value;
+            OnPropertyChanged(ProgramsPropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region Functions
+    #region Functions
 
-        /// <summary>
-        ///     The <see cref="Functions" /> property's name.
-        /// </summary>
-        private const string FunctionsPropertyName = "Functions";
+    /// <summary>
+    ///     The <see cref="Functions" /> property's name.
+    /// </summary>
+    private const string FunctionsPropertyName = "Functions";
 
-        private bool _functions = true;
+    private bool _functions = true;
 
-        /// <summary>
-        ///     Sets and gets the Functions property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public bool Functions
+    /// <summary>
+    ///     Sets and gets the Functions property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public bool Functions
+    {
+        get => _functions;
+
+        set
         {
-            get => _functions;
-
-            set
+            if (_functions == value)
             {
-                if (_functions == value)
-                {
-                    return;
-                }
-
-
-                _functions = value;
-                OnPropertyChanged(FunctionsPropertyName);
+                return;
             }
+
+
+            _functions = value;
+            OnPropertyChanged(FunctionsPropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region Variables
+    #region Variables
 
-        /// <summary>
-        ///     The <see cref="Variables" /> property's name.
-        /// </summary>
-        private const string VariablesPropertyName = "Variables";
+    /// <summary>
+    ///     The <see cref="Variables" /> property's name.
+    /// </summary>
+    private const string VariablesPropertyName = "Variables";
 
-        private bool _variables = true;
+    private bool _variables = true;
 
-        /// <summary>
-        ///     Sets and gets the Variables property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public bool Variables
+    /// <summary>
+    ///     Sets and gets the Variables property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public bool Variables
+    {
+        get => _variables;
+
+        set
         {
-            get => _variables;
-
-            set
+            if (_variables == value)
             {
-                if (_variables == value)
-                {
-                    return;
-                }
-
-
-                _variables = value;
-                OnPropertyChanged(VariablesPropertyName);
+                return;
             }
-        }
 
-        #endregion
 
-        public void ShowDialog()
-        {
+            _variables = value;
+            OnPropertyChanged(VariablesPropertyName);
         }
+    }
+
+    #endregion
+
+    public void ShowDialog()
+    {
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for FilesControl.xaml
+/// </summary>
+public sealed partial class FilesControl : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for FilesControl.xaml
-    /// </summary>
-    public sealed partial class FilesControl : UserControl
+    public FilesControl()
     {
-        public FilesControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

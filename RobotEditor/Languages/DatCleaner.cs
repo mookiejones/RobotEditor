@@ -1,8 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace RobotEditor.Languages
+namespace RobotEditor.Languages;
+
+internal class DatCleaner : ObservableRecipient
 {
-    internal class DatCleaner : ObservableRecipient
-    {
-    }
 }

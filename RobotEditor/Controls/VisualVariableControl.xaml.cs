@@ -8,95 +8,94 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for VisualVariableControl.xaml
+/// </summary>
+public sealed partial class VisualVariableControl : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for VisualVariableControl.xaml
-    /// </summary>
-    public sealed partial class VisualVariableControl : UserControl
+    public VisualVariableControl()
     {
-        public VisualVariableControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
+    private void ToolTip_Opening(object sender, ToolTipEventArgs e) => throw new NotImplementedException();
 
-        private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        DependencyObject child = (DependencyObject)e.OriginalSource;
+        DataGridRow dataGridRow = TryFindParent<DataGridRow>(child);
+        if (dataGridRow != null)
         {
-            DependencyObject child = (DependencyObject)e.OriginalSource;
-            DataGridRow dataGridRow = TryFindParent<DataGridRow>(child);
-            if (dataGridRow != null)
+            DataGrid dataGrid = sender as DataGrid;
+            if (dataGrid == null || dataGrid.CurrentCell.IsValid)
             {
-                DataGrid dataGrid = sender as DataGrid;
-                if (dataGrid == null || dataGrid.CurrentCell.IsValid)
+                if (dataGrid != null)
                 {
-                    if (dataGrid != null)
+                    MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
+                    if (dataGrid.CurrentCell.Item is IVariable variable && File.Exists(variable.Path))
                     {
-                        MainViewModel instance = Ioc.Default.GetRequiredService<MainViewModel>();
-                        if (dataGrid.CurrentCell.Item is IVariable variable && File.Exists(variable.Path))
-                        {
-                            instance.OpenFile(variable);
-                        }
+                        instance.OpenFile(variable);
                     }
-                    e.Handled = true;
                 }
+                e.Handled = true;
             }
         }
+    }
 
-        public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
+    public T TryFindParent<T>(DependencyObject child) where T : DependencyObject
+    {
+        DependencyObject parentObject = GetParentObject(child);
+        T result;
+        if (parentObject == null)
         {
-            DependencyObject parentObject = GetParentObject(child);
-            T result;
-            if (parentObject == null)
+            result = default(T);
+        }
+        else
+        {
+            T parent = parentObject as T;
+            T resultObject;
+
+            if ((resultObject = parent) == null)
             {
-                result = default(T);
+                resultObject = TryFindParent<T>(parentObject);
+            }
+            result = resultObject;
+        }
+        return result;
+    }
+
+    public DependencyObject GetParentObject(DependencyObject child)
+    {
+        DependencyObject result;
+        if (child == null)
+        {
+            result = null;
+        }
+        else
+        {
+            if (child is ContentElement contentElement)
+            {
+                DependencyObject parent = ContentOperations.GetParent(contentElement);
+                result = parent != null
+                    ? parent
+                    : (contentElement is FrameworkContentElement frameworkContentElement) ? frameworkContentElement.Parent : null;
             }
             else
             {
-                T parent = parentObject as T;
-                T resultObject;
-
-                if ((resultObject = parent) == null)
+                if (child is FrameworkElement frameworkElement)
                 {
-                    resultObject = TryFindParent<T>(parentObject);
-                }
-                result = resultObject;
-            }
-            return result;
-        }
-
-        public DependencyObject GetParentObject(DependencyObject child)
-        {
-            DependencyObject result;
-            if (child == null)
-            {
-                result = null;
-            }
-            else
-            {
-                if (child is ContentElement contentElement)
-                {
-                    DependencyObject parent = ContentOperations.GetParent(contentElement);
-                    result = parent != null
-                        ? parent
-                        : (contentElement is FrameworkContentElement frameworkContentElement) ? frameworkContentElement.Parent : null;
-                }
-                else
-                {
-                    if (child is FrameworkElement frameworkElement)
+                    DependencyObject parent = frameworkElement.Parent;
+                    if (parent != null)
                     {
-                        DependencyObject parent = frameworkElement.Parent;
-                        if (parent != null)
-                        {
-                            result = parent;
-                            return result;
-                        }
+                        result = parent;
+                        return result;
                     }
-                    result = VisualTreeHelper.GetParent(child);
                 }
+                result = VisualTreeHelper.GetParent(child);
             }
-            return result;
         }
+        return result;
     }
 }

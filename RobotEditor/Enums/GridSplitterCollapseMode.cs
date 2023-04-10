@@ -1,9 +1,8 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum GridSplitterCollapseMode
 {
-    public enum GridSplitterCollapseMode
-    {
-        None,
-        Next,
-        Previous
-    }
+    None,
+    Next,
+    Previous
 }

@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for IOView.xaml
+/// </summary>
+public sealed partial class IOView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for IOView.xaml
-    /// </summary>
-    public sealed partial class IOView : UserControl
+    public IOView()
     {
-        public IOView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Windows;
 
-namespace RobotEditor.Windows
+namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for FindAndReplaceWindow.xaml
+/// </summary>
+public sealed partial class FindAndReplaceWindow : Window
 {
-    /// <summary>
-    ///     Interaction logic for FindAndReplaceWindow.xaml
-    /// </summary>
-    public sealed partial class FindAndReplaceWindow : Window
+    private static FindAndReplaceWindow _instance;
+
+    public FindAndReplaceWindow()
     {
-        private static FindAndReplaceWindow _instance;
+        InitializeComponent();
+    }
 
-        public FindAndReplaceWindow()
-        {
-            InitializeComponent();
-        }
+    public FindAndReplaceWindow(MainWindow instance)
+    {
+        throw new NotImplementedException();
+    }
 
-        public FindAndReplaceWindow(MainWindow instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static FindAndReplaceWindow Instance
-        {
-            get => _instance ?? (_instance = new FindAndReplaceWindow());
-            set => _instance = value;
-        }
+    public static FindAndReplaceWindow Instance
+    {
+        get => _instance ??= new FindAndReplaceWindow();
+        set => _instance = value;
     }
 }

@@ -4,96 +4,95 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace RobotEditor.Controls.TextEditor.Views
+namespace RobotEditor.Controls.TextEditor.Views;
+
+[ValueConversion(typeof(Msg.MsgCategory), typeof(System.Windows.Media.ImageSource))]
+public class MsgTypeToResourceConverter : IValueConverter
 {
-    [ValueConversion(typeof(Msg.MsgCategory), typeof(System.Windows.Media.ImageSource))]
-    public class MsgTypeToResourceConverter : IValueConverter
+    #region IValueConverter Members
+    /// <summary> 
+    /// Converts a value. 
+    /// </summary> 
+    /// <param name="value">The value produced by the binding source.</param> 
+    /// <param name="targetType">The type of the binding target property.</param> 
+    /// <param name="parameter">The converter parameter to use.</param> 
+    /// <param name="culture">The culture to use in the converter.</param> 
+    /// <returns> 
+    /// A converted value. If the method returns null, the valid null value is used. 
+    /// </returns> 
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-        #region IValueConverter Members
-        /// <summary> 
-        /// Converts a value. 
-        /// </summary> 
-        /// <param name="value">The value produced by the binding source.</param> 
-        /// <param name="targetType">The type of the binding target property.</param> 
-        /// <param name="parameter">The converter parameter to use.</param> 
-        /// <param name="culture">The culture to use in the converter.</param> 
-        /// <returns> 
-        /// A converted value. If the method returns null, the valid null value is used. 
-        /// </returns> 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        // Check input parameter types
+        if (value == null)
         {
-            // Check input parameter types
-            if (value == null)
-            {
-                return Binding.DoNothing;
-            }
-
-            if (!(value is Msg.MsgCategory category))
-            {
-                throw new ArgumentException("Invalid argument. Expected argument: ViewModel.Base.Msg.MsgType");
-            }
-
-            if (targetType != typeof(System.Windows.Media.ImageSource))
-            {
-                throw new ArgumentException("Invalid return type. Expected return type: System.Windows.Media.ImageSource");
-            }
-
-            string resourceUri = "Images/MessageIcons/Unknown.png";
-            switch (category)
-            {
-                case Msg.MsgCategory.Information:
-                    break;
-                case Msg.MsgCategory.Error:
-                    resourceUri = "Images/MessageIcons/Error.png";
-                    break;
-                case Msg.MsgCategory.Warning:
-                    resourceUri = "Images/MessageIcons/Warning.png";
-                    break;
-                case Msg.MsgCategory.InternalError:
-                    resourceUri = "Images/MessageIcons/InternalError.png";
-                    break;
-                case Msg.MsgCategory.Unknown:
-                default:
-                    resourceUri = "Images/MessageIcons/Unknown.png";
-                    break;
-            }
-
-            BitmapImage icon = new();
-
-            try
-            {
-                icon.BeginInit();
-                icon.UriSource = new Uri(string.Format(CultureInfo.InvariantCulture, "pack://application:,,,/{0};component/{1}", "Themes", resourceUri));
-                icon.EndInit();
-            }
-            catch
-            {
-                return Binding.DoNothing;
-            }
-
-            return icon;
+            return Binding.DoNothing;
         }
 
-        /// <summary> 
-        /// Converts a value. 
-        /// </summary> 
-        /// <param name="value">The value that is produced by the binding target.</param> 
-        /// <param name="targetType">The type to convert to.</param> 
-        /// <param name="parameter">The converter parameter to use.</param> 
-        /// <param name="culture">The culture to use in the converter.</param> 
-        /// <returns> 
-        /// A converted value. If the method returns null, the valid null value is used. 
-        /// </returns> 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        if (value is not Msg.MsgCategory category)
         {
-            if (value is Visibility && targetType == typeof(bool))
-            {
-                Visibility val = (Visibility)value;
-                return val == Visibility.Visible ? true : (object)false;
-            }
-
-            throw new ArgumentException("Invalid argument/return type. Expected argument: Visibility and return type: bool");
+            throw new ArgumentException("Invalid argument. Expected argument: ViewModel.Base.Msg.MsgType");
         }
-        #endregion
+
+        if (targetType != typeof(System.Windows.Media.ImageSource))
+        {
+            throw new ArgumentException("Invalid return type. Expected return type: System.Windows.Media.ImageSource");
+        }
+
+        string resourceUri = "Images/MessageIcons/Unknown.png";
+        switch (category)
+        {
+            case Msg.MsgCategory.Information:
+                break;
+            case Msg.MsgCategory.Error:
+                resourceUri = "Images/MessageIcons/Error.png";
+                break;
+            case Msg.MsgCategory.Warning:
+                resourceUri = "Images/MessageIcons/Warning.png";
+                break;
+            case Msg.MsgCategory.InternalError:
+                resourceUri = "Images/MessageIcons/InternalError.png";
+                break;
+            case Msg.MsgCategory.Unknown:
+            default:
+                resourceUri = "Images/MessageIcons/Unknown.png";
+                break;
+        }
+
+        BitmapImage icon = new();
+
+        try
+        {
+            icon.BeginInit();
+            icon.UriSource = new Uri(string.Format(CultureInfo.InvariantCulture, "pack://application:,,,/{0};component/{1}", "Themes", resourceUri));
+            icon.EndInit();
+        }
+        catch
+        {
+            return Binding.DoNothing;
+        }
+
+        return icon;
     }
+
+    /// <summary> 
+    /// Converts a value. 
+    /// </summary> 
+    /// <param name="value">The value that is produced by the binding target.</param> 
+    /// <param name="targetType">The type to convert to.</param> 
+    /// <param name="parameter">The converter parameter to use.</param> 
+    /// <param name="culture">The culture to use in the converter.</param> 
+    /// <returns> 
+    /// A converted value. If the method returns null, the valid null value is used. 
+    /// </returns> 
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        if (value is Visibility && targetType == typeof(bool))
+        {
+            Visibility val = (Visibility)value;
+            return val == Visibility.Visible ? true : (object)false;
+        }
+
+        throw new ArgumentException("Invalid argument/return type. Expected argument: Visibility and return type: bool");
+    }
+    #endregion
 }

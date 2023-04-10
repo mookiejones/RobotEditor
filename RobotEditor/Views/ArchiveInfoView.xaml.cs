@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for ArchiveInfoView.xaml
+/// </summary>
+public sealed partial class ArchiveInfoView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for ArchiveInfoView.xaml
-    /// </summary>
-    public sealed partial class ArchiveInfoView : UserControl
+    public ArchiveInfoView()
     {
-        public ArchiveInfoView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

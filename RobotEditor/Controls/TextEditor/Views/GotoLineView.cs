@@ -2,81 +2,80 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RobotEditor.Controls.TextEditor.Views
+namespace RobotEditor.Controls.TextEditor.Views;
+
+/// <summary>
+/// This class implement the view part of a goto text editor line dialog
+/// as Custom (look-less) WPF Control.
+/// </summary>
+public class GotoLineView : Control
 {
     /// <summary>
-    /// This class implement the view part of a goto text editor line dialog
-    /// as Custom (look-less) WPF Control.
+    /// Link to required <seealso cref="TextBox"/> input control
     /// </summary>
-    public class GotoLineView : Control
+    private TextBox mTxtLineNumber;
+
+    /// <summary>
+    /// Style key for look-less control
+    /// </summary>
+    static GotoLineView()
     {
-        /// <summary>
-        /// Link to required <seealso cref="TextBox"/> input control
-        /// </summary>
-        private TextBox mTxtLineNumber;
-
-        /// <summary>
-        /// Style key for look-less control
-        /// </summary>
-        static GotoLineView()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(GotoLineView), new FrameworkPropertyMetadata(typeof(GotoLineView)));
-        }
-
-        /// <summary>
-        /// Constructur
-        /// </summary>
-        public GotoLineView()
-        {
-            mTxtLineNumber = null;
-        }
-
-        /// <summary>
-        /// This method is executed when the XAML for this control is applied.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            try
-            {
-                mTxtLineNumber = GetTemplateChild("PART_TxtLineNumber") as TextBox;
-
-                if (mTxtLineNumber != null)
-                {
-                    mTxtLineNumber.Loaded += (s, e) =>  // Set textbox to be intially focussed
-                    {
-                        _ = mTxtLineNumber.Focus();
-                    };
-
-                    mTxtLineNumber.GotKeyboardFocus += (s, e) =>
-                    {
-                        mTxtLineNumber.SelectAll();
-                    };
-                }
-            }
-            catch (System.Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Always select text content when ever this is (re-)rendered
-        /// </summary>
-        /// <param name="drawingContext"></param>
-        protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
-
-            mTxtLineNumber?.SelectAll();
-        }
-
-
-
-
-
-
-
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(GotoLineView), new FrameworkPropertyMetadata(typeof(GotoLineView)));
     }
+
+    /// <summary>
+    /// Constructur
+    /// </summary>
+    public GotoLineView()
+    {
+        mTxtLineNumber = null;
+    }
+
+    /// <summary>
+    /// This method is executed when the XAML for this control is applied.
+    /// </summary>
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+        try
+        {
+            mTxtLineNumber = GetTemplateChild("PART_TxtLineNumber") as TextBox;
+
+            if (mTxtLineNumber != null)
+            {
+                mTxtLineNumber.Loaded += (s, e) =>  // Set textbox to be intially focussed
+                {
+                    _ = mTxtLineNumber.Focus();
+                };
+
+                mTxtLineNumber.GotKeyboardFocus += (s, e) =>
+                {
+                    mTxtLineNumber.SelectAll();
+                };
+            }
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine(e.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Always select text content when ever this is (re-)rendered
+    /// </summary>
+    /// <param name="drawingContext"></param>
+    protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
+    {
+        base.OnRender(drawingContext);
+
+        mTxtLineNumber?.SelectAll();
+    }
+
+
+
+
+
+
+
 }

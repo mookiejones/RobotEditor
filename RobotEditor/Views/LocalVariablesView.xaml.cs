@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views
+namespace RobotEditor.Views;
+
+/// <summary>
+///     Interaction logic for LocalVariablesView.xaml
+/// </summary>
+public partial class LocalVariablesView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for LocalVariablesView.xaml
-    /// </summary>
-    public partial class LocalVariablesView : UserControl
+    public LocalVariablesView()
     {
-        public LocalVariablesView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

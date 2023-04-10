@@ -1,14 +1,13 @@
 using System;
 using System.ComponentModel;
 
-namespace RobotEditor.Controls.AngleConverter.Exceptions
+namespace RobotEditor.Controls.AngleConverter.Exceptions;
+
+[Serializable]
+public sealed class MatrixException : Exception
 {
-    [Serializable]
-    public sealed class MatrixException : Exception
+    public MatrixException([Localizable(false)] string message)
+        : base(message)
     {
-        public MatrixException([Localizable(false)] string message)
-            : base(message)
-        {
-        }
     }
 }

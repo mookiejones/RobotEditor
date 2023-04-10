@@ -6,24 +6,23 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RobotEditor.Converters
+namespace RobotEditor.Converters;
+
+[ValueConversion(typeof(ReadOnlyObservableCollection<IVariable>), typeof(ObservableCollection<IVariable>))]
+sealed class VariableToFunctionConverter : SingletonValueConverter<VariableToFunctionConverter>
 {
-    [ValueConversion(typeof(ReadOnlyObservableCollection<IVariable>), typeof(ObservableCollection<IVariable>))]
-    sealed class VariableToFunctionConverter : SingletonValueConverter<VariableToFunctionConverter>
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is not ReadOnlyObservableCollection<IVariable> items)
         {
-            if (!(value is ReadOnlyObservableCollection<IVariable> items))
-            {
-                return Binding.DoNothing;
-            }
-
-
-            return   items.Where(o => o.Type.ToLower() == "def")
-                         .ToList();
-          
+            return Binding.DoNothing;
         }
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+
+        return   items.Where(o => o.Type.ToLower() == "def")
+                     .ToList();
+      
     }
+
+    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }

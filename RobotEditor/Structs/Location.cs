@@ -1,87 +1,86 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace RobotEditor.Structs
+namespace RobotEditor.Structs;
+
+public struct Location : IComparable<Location>, IEquatable<Location>
 {
-    public struct Location : IComparable<Location>, IEquatable<Location>
+    public static readonly Location Empty = new(-1, -1);
+
+    public Location(int column, int line)
     {
-        public static readonly Location Empty = new(-1, -1);
+        X = column;
+        Y = line;
+    }
 
-        public Location(int column, int line)
+    public int X { get; set; }
+
+    public int Y { get; set; }
+
+    public int Line
+    {
+        get => Y;
+        set => Y = value;
+    }
+
+    public int Column
+    {
+        get => X;
+        set => X = value;
+    }
+
+    public bool IsEmpty => X <= 0 && Y <= 0;
+
+    public int CompareTo(Location other)
+    {
+        int result;
+        if (this == other)
         {
-            X = column;
-            Y = line;
+            result = 0;
         }
-
-        public int X { get; set; }
-
-        public int Y { get; set; }
-
-        public int Line
+        else
         {
-            get => Y;
-            set => Y = value;
+            result = this < other ? -1 : 1;
         }
+        return result;
+    }
 
-        public int Column
-        {
-            get => X;
-            set => X = value;
-        }
+    public bool Equals(Location other) => this == other;
 
-        public bool IsEmpty => X <= 0 && Y <= 0;
+    [Localizable(false)]
+    public override string ToString() => string.Format("(Line {1}, Col {0})", X, Y);
 
-        public int CompareTo(Location other)
-        {
-            int result;
-            if (this == other)
-            {
-                result = 0;
-            }
-            else
-            {
-                result = this < other ? -1 : 1;
-            }
-            return result;
-        }
+    public override int GetHashCode() => (87 * X.GetHashCode()) ^ Y.GetHashCode();
 
-        public bool Equals(Location other) => this == other;
+    public override bool Equals(object obj) => obj is Location && (Location)obj == this;
 
-        [Localizable(false)]
-        public override string ToString() => string.Format("(Line {1}, Col {0})", X, Y);
+    public static bool operator ==(Location a, Location b)
+    {
+        return a.X == b.X && a.Y == b.Y;
+    }
 
-        public override int GetHashCode() => (87 * X.GetHashCode()) ^ Y.GetHashCode();
+    public static bool operator !=(Location a, Location b)
+    {
+        return a.X != b.X || a.Y != b.Y;
+    }
 
-        public override bool Equals(object obj) => obj is Location && (Location)obj == this;
+    public static bool operator <(Location a, Location b)
+    {
+        return a.Y < b.Y || (a.Y == b.Y && a.X < b.X);
+    }
 
-        public static bool operator ==(Location a, Location b)
-        {
-            return a.X == b.X && a.Y == b.Y;
-        }
+    public static bool operator >(Location a, Location b)
+    {
+        return a.Y > b.Y || (a.Y == b.Y && a.X > b.X);
+    }
 
-        public static bool operator !=(Location a, Location b)
-        {
-            return a.X != b.X || a.Y != b.Y;
-        }
+    public static bool operator <=(Location a, Location b)
+    {
+        return !(a > b);
+    }
 
-        public static bool operator <(Location a, Location b)
-        {
-            return a.Y < b.Y || (a.Y == b.Y && a.X < b.X);
-        }
-
-        public static bool operator >(Location a, Location b)
-        {
-            return a.Y > b.Y || (a.Y == b.Y && a.X > b.X);
-        }
-
-        public static bool operator <=(Location a, Location b)
-        {
-            return !(a > b);
-        }
-
-        public static bool operator >=(Location a, Location b)
-        {
-            return !(a < b);
-        }
+    public static bool operator >=(Location a, Location b)
+    {
+        return !(a < b);
     }
 }

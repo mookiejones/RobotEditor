@@ -1,8 +1,7 @@
-namespace RobotEditor.Controls.TextEditor.Snippets
+namespace RobotEditor.Controls.TextEditor.Snippets;
+
+public enum SnippetType
 {
-    public enum SnippetType
-    {
-        Expansion,
-        SurroundsWith
-    }
+    Expansion,
+    SurroundsWith
 }

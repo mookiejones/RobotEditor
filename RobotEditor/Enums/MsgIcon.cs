@@ -1,8 +1,7 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum MsgIcon
 {
-    public enum MsgIcon
-    {
-        Error,
-        Info
-    }
+    Error,
+    Info
 }

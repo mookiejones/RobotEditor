@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace RobotEditor.Windows
+namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for SnippetWindow.xaml
+/// </summary>
+public partial class SnippetWindow : Window
 {
-    /// <summary>
-    ///     Interaction logic for SnippetWindow.xaml
-    /// </summary>
-    public partial class SnippetWindow : Window
+    public SnippetWindow()
     {
-        public SnippetWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

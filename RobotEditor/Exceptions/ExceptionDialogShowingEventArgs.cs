@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace RobotEditor.Exceptions
-{
-    public class ExceptionDialogShowingEventArgs : CancelEventArgs
-    {
-        internal ExceptionDialogShowingEventArgs(Exception exception)
-        {
-            this.Exception = exception;
-        }
+namespace RobotEditor.Exceptions;
 
-        public Exception Exception { get; }
+public class ExceptionDialogShowingEventArgs : CancelEventArgs
+{
+    internal ExceptionDialogShowingEventArgs(Exception exception)
+    {
+        this.Exception = exception;
     }
+
+    public Exception Exception { get; }
 }

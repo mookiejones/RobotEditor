@@ -1,6 +1,5 @@
-﻿namespace RobotEditor.Controls.FindReplace
+﻿namespace RobotEditor.Controls.FindReplace;
+
+public class FindReplaceResult
 {
-    public class FindReplaceResult
-    {
-    }
 }

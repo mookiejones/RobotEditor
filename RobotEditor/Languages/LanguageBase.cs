@@ -12,78 +12,77 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using FileInfo = System.IO.FileInfo;
 
-namespace RobotEditor.Languages
+namespace RobotEditor.Languages;
+
+[Localizable(false)]
+public sealed class LanguageBase : AbstractLanguageClass
 {
-    [Localizable(false)]
-    public sealed class LanguageBase : AbstractLanguageClass
+    public LanguageBase()
     {
-        public LanguageBase()
-        {
-        }
+    }
 
-        public LanguageBase(string file)
-            : base(file)
-        {
-        }
+    public LanguageBase(string file)
+        : base(file)
+    {
+    }
 
-        public override List<string> SearchFilters => DefaultSearchFilters;
+    public override List<string> SearchFilters => DefaultSearchFilters;
 
-        private static List<string> DefaultSearchFilters => new()
-        {
-                    "*.*"
-                };
+    private static List<string> DefaultSearchFilters => new()
+    {
+                "*.*"
+            };
 
-        internal override Typlanguage RobotType => Typlanguage.None;
+    internal override Typlanguage RobotType => Typlanguage.None;
 
-        internal override string FunctionItems => string.Empty;
+    internal override string FunctionItems => string.Empty;
 
-        internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
+    internal override AbstractFoldingStrategy FoldingStrategy { get; set; }
 
-        protected override string ShiftRegex => throw new NotImplementedException();
+    protected override string ShiftRegex => throw new NotImplementedException();
 
-        internal override string SourceFile => throw new NotImplementedException();
+    internal override string SourceFile => throw new NotImplementedException();
 
-        internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
-                {
-                    new CodeCompletion("Item1")
-                };
-
-        public override Regex MethodRegex => new(string.Empty);
-
-        public override Regex StructRegex => new(string.Empty);
-
-        public override Regex FieldRegex => new(string.Empty);
-
-        public override Regex EnumRegex => new(string.Empty);
-
-        public override void Initialize(string filename) => Initialize();
-
-        public override string CommentChar => throw new NotImplementedException();
-
-        public override Regex SignalRegex => new(string.Empty);
-
-        public override Regex XYZRegex => new(string.Empty);
-
-        protected override bool IsFileValid(FileInfo file) => false;
-
-        public override DocumentViewModel GetFile(string filename) => new(filename);
-
-        internal override string FoldTitle(FoldingSection section, TextDocument doc)
-        {
-            if (doc == null)
+    internal override IList<ICompletionData> CodeCompletion => new List<ICompletionData>
             {
-                throw new ArgumentNullException("doc");
-            }
-            string[] array = Regex.Split(section.Title, "�");
-            int offset = section.StartOffset + array[0].Length;
-            int length = section.Length - array[0].Length;
-            return doc.GetText(offset, length);
-        }
+                new CodeCompletion("Item1")
+            };
 
-        public override string ExtractXYZ(string positionstring)
+    public override Regex MethodRegex => new(string.Empty);
+
+    public override Regex StructRegex => new(string.Empty);
+
+    public override Regex FieldRegex => new(string.Empty);
+
+    public override Regex EnumRegex => new(string.Empty);
+
+    public override void Initialize(string filename) => Initialize();
+
+    public override string CommentChar => throw new NotImplementedException();
+
+    public override Regex SignalRegex => new(string.Empty);
+
+    public override Regex XYZRegex => new(string.Empty);
+
+    protected override bool IsFileValid(FileInfo file) => false;
+
+    public override DocumentViewModel GetFile(string filename) => new(filename);
+
+    internal override string FoldTitle(FoldingSection section, TextDocument doc)
+    {
+        if (doc == null)
         {
-            PositionBase positionBase = new(positionstring);
-            return positionBase.ExtractFromMatch();
+            throw new ArgumentNullException(nameof(doc));
         }
+        string[] array = Regex.Split(section.Title, "�");
+        int offset = section.StartOffset + array[0].Length;
+        int length = section.Length - array[0].Length;
+        return doc.GetText(offset, length);
+    }
+
+    public override string ExtractXYZ(string positionstring)
+    {
+        PositionBase positionBase = new(positionstring);
+        return positionBase.ExtractFromMatch();
     }
 }

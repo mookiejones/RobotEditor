@@ -3,35 +3,34 @@ using RobotEditor.Interfaces;
 using RobotEditor.Utilities;
 using System.Windows.Media.Imaging;
 
-namespace RobotEditor.Messages
+namespace RobotEditor.Messages;
+
+public class MessageBase : IMessage
 {
-    public class MessageBase : IMessage
+
+    protected MessageBase() { }
+    protected MessageBase(string title, string description, MessageType icon, bool force = false)
     {
+        Title = title;
+        Description = description;
+        Icon = GetIcon(icon);
+        ForceActivation = force;
+    }
 
-        protected MessageBase() { }
-        protected MessageBase(string title, string description, MessageType icon, bool force = false)
+    public BitmapImage Icon { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public bool ForceActivation { get; set; }
+
+    private BitmapImage GetIcon(MessageType icon)
+    {
+        switch (icon)
         {
-            Title = title;
-            Description = description;
-            Icon = GetIcon(icon);
-            ForceActivation = force;
+            case MessageType.Error:
+                return ImageHelper.LoadBitmap(Global.ImgError);
+            case MessageType.Information:
+                return ImageHelper.LoadBitmap(Global.ImgInfo);
         }
-
-        public BitmapImage Icon { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public bool ForceActivation { get; set; }
-
-        private BitmapImage GetIcon(MessageType icon)
-        {
-            switch (icon)
-            {
-                case MessageType.Error:
-                    return ImageHelper.LoadBitmap(Global.ImgError);
-                case MessageType.Information:
-                    return ImageHelper.LoadBitmap(Global.ImgInfo);
-            }
-            return null;
-        }
+        return null;
     }
 }

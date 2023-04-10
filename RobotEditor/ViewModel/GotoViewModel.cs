@@ -3,162 +3,160 @@ using CommunityToolkit.Mvvm.Input;
 using RobotEditor.Controls.TextEditor;
 using System.Windows.Input;
 
-namespace RobotEditor.ViewModel
+namespace RobotEditor.ViewModel;
+
+public sealed class GotoViewModel : ObservableRecipient
 {
-    public sealed class GotoViewModel : ObservableRecipient
+    private RelayCommand _okCommand;
+
+    #region Editor
+
+
+
+    private AvalonEditor _editor = new();
+
+    /// <summary>
+    ///     Sets and gets the Editor property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public AvalonEditor Editor
     {
-        private RelayCommand _okCommand;
+        get => _editor;
+        set => SetProperty(ref _editor, value);
 
-        #region Editor
+    }
 
+    #endregion
 
+    #region Description
 
-        private AvalonEditor _editor = new();
+    /// <summary>
+    ///     The <see cref="Description" /> property's name.
+    /// </summary>
+    private const string DescriptionPropertyName = "Description";
 
-        /// <summary>
-        ///     Sets and gets the Editor property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public AvalonEditor Editor
+    private string _description = string.Empty;
+
+    /// <summary>
+    ///     Sets and gets the Description property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public string Description
+    {
+        get => _description;
+
+        set
         {
-            get => _editor;
-            set => SetProperty(ref _editor, value);
-
-        }
-
-        #endregion
-
-        #region Description
-
-        /// <summary>
-        ///     The <see cref="Description" /> property's name.
-        /// </summary>
-        private const string DescriptionPropertyName = "Description";
-
-        private string _description = string.Empty;
-
-        /// <summary>
-        ///     Sets and gets the Description property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public string Description
-        {
-            get => _description;
-
-            set
+            if (_description == value)
             {
-                if (_description == value)
-                {
-                    return;
-                }
-
-
-                _description = value;
-                OnPropertyChanged(DescriptionPropertyName);
+                return;
             }
+
+
+            _description = value;
+            OnPropertyChanged(DescriptionPropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region EnteredText
+    #region EnteredText
 
-        /// <summary>
-        ///     The <see cref="EnteredText" /> property's name.
-        /// </summary>
-        private const string EnteredTextPropertyName = "EnteredText";
+    /// <summary>
+    ///     The <see cref="EnteredText" /> property's name.
+    /// </summary>
+    private const string EnteredTextPropertyName = "EnteredText";
 
-        private int _enteredText = -1;
+    private int _enteredText = -1;
 
-        /// <summary>
-        ///     Sets and gets the EnteredText property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public int EnteredText
+    /// <summary>
+    ///     Sets and gets the EnteredText property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public int EnteredText
+    {
+        get => _enteredText;
+
+        set
         {
-            get => _enteredText;
-
-            set
+            if (_enteredText == value)
             {
-                if (_enteredText == value)
-                {
-                    return;
-                }
-
-
-                _enteredText = value;
-                OnPropertyChanged(EnteredTextPropertyName);
+                return;
             }
+
+
+            _enteredText = value;
+            OnPropertyChanged(EnteredTextPropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region SelectedLine
+    #region SelectedLine
 
-        /// <summary>
-        ///     The <see cref="SelectedLine" /> property's name.
-        /// </summary>
-        private const string SelectedLinePropertyName = "SelectedLine";
+    /// <summary>
+    ///     The <see cref="SelectedLine" /> property's name.
+    /// </summary>
+    private const string SelectedLinePropertyName = "SelectedLine";
 
-        private int _selectedLine = -1;
+    private int _selectedLine = -1;
 
-        /// <summary>
-        ///     Sets and gets the SelectedLine property.
-        ///     Changes to that property's value raise the PropertyChanged event.
-        /// </summary>
-        public int SelectedLine
+    /// <summary>
+    ///     Sets and gets the SelectedLine property.
+    ///     Changes to that property's value raise the PropertyChanged event.
+    /// </summary>
+    public int SelectedLine
+    {
+        get => _selectedLine;
+
+        set
         {
-            get => _selectedLine;
-
-            set
+            if (_selectedLine == value)
             {
-                if (_selectedLine == value)
-                {
-                    return;
-                }
-
-
-                _selectedLine = value;
-                OnPropertyChanged(SelectedLinePropertyName);
+                return;
             }
+
+
+            _selectedLine = value;
+            OnPropertyChanged(SelectedLinePropertyName);
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region CancelCommand
+    #region CancelCommand
 
-        private RelayCommand _cancelCommand;
+    private RelayCommand _cancelCommand;
 
-        /// <summary>
-        ///     Gets the CancelCommand.
-        /// </summary>
-        public RelayCommand CancelCommand => _cancelCommand
-                       ?? (_cancelCommand = new RelayCommand(ExecuteCancelCommand));
+    /// <summary>
+    ///     Gets the CancelCommand.
+    /// </summary>
+    public RelayCommand CancelCommand => _cancelCommand ??= new RelayCommand(ExecuteCancelCommand);
 
-        private void ExecuteCancelCommand()
-        {
-        }
+    private void ExecuteCancelCommand()
+    {
+    }
 
-        #endregion
+    #endregion
 
-        // ReSharper restore ExplicitCallerInfoArgument
+    // ReSharper restore ExplicitCallerInfoArgument
 
-        public GotoViewModel(AvalonEditor editor)
-        {
-            Editor = editor;
-        }
+    public GotoViewModel(AvalonEditor editor)
+    {
+        Editor = editor;
+    }
 
-        public GotoViewModel()
-        {
-        }
+    public GotoViewModel()
+    {
+    }
 
-        public ICommand OkCommand => _okCommand ?? (_okCommand = new RelayCommand(Accept));
+    public ICommand OkCommand => _okCommand ??= new RelayCommand(Accept);
 
-        private void Accept()
-        {
-            ICSharpCode.AvalonEdit.Document.DocumentLine lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
-            Editor.CaretOffset = lineByNumber.Offset;
-            Editor.TextArea.Caret.BringCaretToView();
-            Editor.ScrollToLine(_selectedLine);
-        }
+    private void Accept()
+    {
+        ICSharpCode.AvalonEdit.Document.DocumentLine lineByNumber = Editor.Document.GetLineByNumber(EnteredText);
+        Editor.CaretOffset = lineByNumber.Offset;
+        Editor.TextArea.Caret.BringCaretToView();
+        Editor.ScrollToLine(_selectedLine);
     }
 }

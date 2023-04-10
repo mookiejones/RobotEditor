@@ -1,10 +1,9 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum DefaultToolPane
 {
-    public enum DefaultToolPane
-    {
-        Left,
-        Right,
-        Bottom,
-        None
-    }
+    Left,
+    Right,
+    Bottom,
+    None
 }

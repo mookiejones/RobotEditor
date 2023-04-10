@@ -9,202 +9,201 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace RobotEditor.Controls.TextEditor.Snippets
+namespace RobotEditor.Controls.TextEditor.Snippets;
+
+public class SnippetManager
 {
-    public class SnippetManager
+    private static readonly Dictionary<string, SnippetInfo> Snippets = new();
+    private static readonly Dictionary<string, List<SnippetInfo>> SnippetsByExtension = new();
+
+    public static IList<SnippetCompletionData> CompletionData
     {
-        private static readonly Dictionary<string, SnippetInfo> Snippets = new();
-        private static readonly Dictionary<string, List<SnippetInfo>> SnippetsByExtension = new();
+        get
+        {
+            Dictionary<SnippetInfo, string> dictionary = new();
+            List<SnippetCompletionData> list = new();
+            foreach (SnippetInfo current in Snippets.Values)
+            {
+                if (!dictionary.ContainsKey(current))
+                {
+                    list.Add(new SnippetCompletionData(current));
+                    dictionary.Add(current, string.Empty);
+                }
+            }
+            return list;
+        }
+    }
+    public static IEnumerable<SnippetCompletionData> GetCompletionDataForExtension(string extension)
+    {
+        if (SnippetsByExtension.ContainsKey(extension))
+        {
+            foreach (SnippetInfo current in SnippetsByExtension[extension])
+            {
+                yield return new SnippetCompletionData(current);
+            }
+        }
+        yield break;
+    }
+    public static SnippetInfo GetSnippetForShortcut(string shortCut) => Snippets.ContainsKey(shortCut) ? Snippets[shortCut] : null;
+    public static IEnumerable<SnippetInfo> GetSnippetsForExtension(string extension)
+    {
+        if (SnippetsByExtension.ContainsKey(extension))
+        {
+            foreach (SnippetInfo current in SnippetsByExtension[extension])
+            {
+                yield return current;
+            }
+        }
+        yield break;
+    }
+    public static bool HasSnippetsForExtension(string extension) => SnippetsByExtension.ContainsKey(extension);
 
-        public static IList<SnippetCompletionData> CompletionData
+    public static bool HasSnippetsFor(string shortCut, string extension)
+    {
+        if (Snippets.ContainsKey(shortCut))
         {
-            get
+            SnippetInfo snippetInfo = Snippets[shortCut];
+            if (snippetInfo.Header.Extensions.Contains(extension))
             {
-                Dictionary<SnippetInfo, string> dictionary = new();
-                List<SnippetCompletionData> list = new();
-                foreach (SnippetInfo current in Snippets.Values)
-                {
-                    if (!dictionary.ContainsKey(current))
-                    {
-                        list.Add(new SnippetCompletionData(current));
-                        dictionary.Add(current, string.Empty);
-                    }
-                }
-                return list;
+                return true;
             }
         }
-        public static IEnumerable<SnippetCompletionData> GetCompletionDataForExtension(string extension)
-        {
-            if (SnippetsByExtension.ContainsKey(extension))
-            {
-                foreach (SnippetInfo current in SnippetsByExtension[extension])
-                {
-                    yield return new SnippetCompletionData(current);
-                }
-            }
-            yield break;
-        }
-        public static SnippetInfo GetSnippetForShortcut(string shortCut) => Snippets.ContainsKey(shortCut) ? Snippets[shortCut] : null;
-        public static IEnumerable<SnippetInfo> GetSnippetsForExtension(string extension)
-        {
-            if (SnippetsByExtension.ContainsKey(extension))
-            {
-                foreach (SnippetInfo current in SnippetsByExtension[extension])
-                {
-                    yield return current;
-                }
-            }
-            yield break;
-        }
-        public static bool HasSnippetsForExtension(string extension) => SnippetsByExtension.ContainsKey(extension);
+        return false;
+    }
+    public static bool KnowsShortCut(string shortCut) => Snippets.ContainsKey(shortCut);
 
-        public static bool HasSnippetsFor(string shortCut, string extension)
+    public static bool LoadSnippet(string file)
+    {
+        file = Path.GetFullPath(file);
+        if (!File.Exists(file))
         {
-            if (Snippets.ContainsKey(shortCut))
-            {
-                SnippetInfo snippetInfo = Snippets[shortCut];
-                if (snippetInfo.Header.Extensions.Contains(extension))
-                {
-                    return true;
-                }
-            }
             return false;
         }
-        public static bool KnowsShortCut(string shortCut) => Snippets.ContainsKey(shortCut);
-
-        public static bool LoadSnippet(string file)
+        bool result;
+        try
         {
-            file = Path.GetFullPath(file);
-            if (!File.Exists(file))
+            XElement xElement = XElement.Load(file);
+            if (xElement.Name != "CodeSnippets")
             {
-                return false;
+                result = false;
             }
-            bool result;
-            try
+            else
             {
-                XElement xElement = XElement.Load(file);
-                if (xElement.Name != "CodeSnippets")
+                if (xElement.Elements("CodeSnippet").Count<XElement>() == 0)
                 {
                     result = false;
                 }
                 else
                 {
-                    if (xElement.Elements("CodeSnippet").Count<XElement>() == 0)
+                    foreach (XElement current in xElement.Elements("CodeSnippet"))
                     {
-                        result = false;
-                    }
-                    else
-                    {
-                        foreach (XElement current in xElement.Elements("CodeSnippet"))
+                        SnippetInfo snippetInfo = BuildSnippet(current, file);
+                        foreach (string current2 in snippetInfo.Header.Shortcuts)
                         {
-                            SnippetInfo snippetInfo = BuildSnippet(current, file);
-                            foreach (string current2 in snippetInfo.Header.Shortcuts)
+                            if (!Snippets.ContainsKey(current2))
                             {
-                                if (!Snippets.ContainsKey(current2))
-                                {
-                                    Snippets.Add(current2, snippetInfo);
-                                }
-                                else
-                                {
-                                    ErrorMessage msg = new(string.Format("Duplicate Shortcut :", file), null,
-                                        MessageType.Error);
-                                    _ = WeakReferenceMessenger.Default.Send(msg);
-
-                                }
+                                Snippets.Add(current2, snippetInfo);
                             }
-                            foreach (string current3 in snippetInfo.Header.Extensions)
+                            else
                             {
-                                if (SnippetsByExtension.ContainsKey(current3))
-                                {
-                                    List<SnippetInfo> list = SnippetsByExtension[current3];
-                                    if (!list.Contains(snippetInfo))
-                                    {
-                                        list.Add(snippetInfo);
-                                    }
-                                }
-                                else
-                                {
-                                    SnippetsByExtension[current3] = new List<SnippetInfo>
-                                    {
-                                        snippetInfo
-                                    };
-                                }
+                                ErrorMessage msg = new(string.Format("Duplicate Shortcut :", file), null,
+                                    MessageType.Error);
+                                _ = WeakReferenceMessenger.Default.Send(msg);
+
                             }
                         }
-                        result = true;
+                        foreach (string current3 in snippetInfo.Header.Extensions)
+                        {
+                            if (SnippetsByExtension.ContainsKey(current3))
+                            {
+                                List<SnippetInfo> list = SnippetsByExtension[current3];
+                                if (!list.Contains(snippetInfo))
+                                {
+                                    list.Add(snippetInfo);
+                                }
+                            }
+                            else
+                            {
+                                SnippetsByExtension[current3] = new List<SnippetInfo>
+                                {
+                                    snippetInfo
+                                };
+                            }
+                        }
                     }
+                    result = true;
                 }
             }
-            catch (Exception ex2)
-            {
-                ErrorMessage msg = new("ErrorOnLoadingSnippet", ex2, MessageType.Error);
-                _ = WeakReferenceMessenger.Default.Send(msg);
+        }
+        catch (Exception ex2)
+        {
+            ErrorMessage msg = new("ErrorOnLoadingSnippet", ex2, MessageType.Error);
+            _ = WeakReferenceMessenger.Default.Send(msg);
 
-                result = false;
-            }
-            return result;
+            result = false;
         }
-        public static void LoadSnippets(string directory)
+        return result;
+    }
+    public static void LoadSnippets(string directory)
+    {
+        if (!Directory.Exists(directory))
         {
-            if (!Directory.Exists(directory))
-            {
-                return;
-            }
-            foreach (string current in
-                from x in Directory.GetFiles(directory)
-                where x.ToLowerInvariant().EndsWith(".snippet")
-                select x)
-            {
-                _ = LoadSnippet(current);
-            }
+            return;
         }
-        public static void ImportSnippet(string sourceFilePath, string targetDirectory)
+        foreach (string current in
+            from x in Directory.GetFiles(directory)
+            where x.ToLowerInvariant().EndsWith(".snippet")
+            select x)
         {
-            if (!Path.IsPathRooted(targetDirectory))
-            {
-                targetDirectory = Path.GetFullPath(targetDirectory);
-            }
-            if (!Path.IsPathRooted(sourceFilePath))
-            {
-                sourceFilePath = Path.GetFullPath(sourceFilePath);
-            }
-            if (File.Exists(targetDirectory))
-            {
-                throw new ArgumentException("Target directory is an existing file.");
-            }
-            if (!Directory.Exists(targetDirectory))
-            {
-                _ = Directory.CreateDirectory(targetDirectory);
-            }
-            string name = FileExtended.GetName(sourceFilePath);
-            string destFileName = Path.Combine(targetDirectory, name);
-            if (LoadSnippet(sourceFilePath))
-            {
-                File.Copy(sourceFilePath, destFileName, true);
-            }
+            _ = LoadSnippet(current);
         }
-        private static SnippetInfo BuildSnippet(XElement element, string path)
+    }
+    public static void ImportSnippet(string sourceFilePath, string targetDirectory)
+    {
+        if (!Path.IsPathRooted(targetDirectory))
         {
-            if (element == null)
-            {
-                throw new ArgumentNullException("element");
-            }
-            XAttribute xAttribute = element.Attribute("Format");
-            if (xAttribute == null)
-            {
-                throw new XmlException("The Attribute 'Format' is missing on element'" + element + "'");
-            }
-            string value = xAttribute.Value;
-            XElement headerElement = element.Element("Header");
-            SnippetHeader header = new(headerElement);
-            XElement element2 = element.Element("Snippet");
-            Snippet snippet = SnippetParser.BuildSnippet(element2);
-            return new SnippetInfo(path)
-            {
-                Version = value,
-                Snippet = snippet,
-                Header = header
-            };
+            targetDirectory = Path.GetFullPath(targetDirectory);
         }
+        if (!Path.IsPathRooted(sourceFilePath))
+        {
+            sourceFilePath = Path.GetFullPath(sourceFilePath);
+        }
+        if (File.Exists(targetDirectory))
+        {
+            throw new ArgumentException("Target directory is an existing file.");
+        }
+        if (!Directory.Exists(targetDirectory))
+        {
+            _ = Directory.CreateDirectory(targetDirectory);
+        }
+        string name = FileExtended.GetName(sourceFilePath);
+        string destFileName = Path.Combine(targetDirectory, name);
+        if (LoadSnippet(sourceFilePath))
+        {
+            File.Copy(sourceFilePath, destFileName, true);
+        }
+    }
+    private static SnippetInfo BuildSnippet(XElement element, string path)
+    {
+        if (element == null)
+        {
+            throw new ArgumentNullException(nameof(element));
+        }
+        XAttribute xAttribute = element.Attribute("Format");
+        if (xAttribute == null)
+        {
+            throw new XmlException("The Attribute 'Format' is missing on element'" + element + "'");
+        }
+        string value = xAttribute.Value;
+        XElement headerElement = element.Element("Header");
+        SnippetHeader header = new(headerElement);
+        XElement element2 = element.Element("Snippet");
+        Snippet snippet = SnippetParser.BuildSnippet(element2);
+        return new SnippetInfo(path)
+        {
+            Version = value,
+            Snippet = snippet,
+            Header = header
+        };
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace RobotEditor.Enums
+﻿namespace RobotEditor.Enums;
+
+public enum CompletionItemListKeyResult
 {
-    public enum CompletionItemListKeyResult
-    {
-        NormalKey,
-        InsertionKey,
-        BeforeStartKey,
-        Cancel
-    }
+    NormalKey,
+    InsertionKey,
+    BeforeStartKey,
+    Cancel
 }

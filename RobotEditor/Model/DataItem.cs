@@ -1,12 +1,11 @@
-﻿namespace RobotEditor.Model
-{
-    public sealed class DataItem
-    {
-        public DataItem(string title)
-        {
-            Title = title;
-        }
+﻿namespace RobotEditor.Model;
 
-        private string Title { get; set; }
+public sealed class DataItem
+{
+    public DataItem(string title)
+    {
+        Title = title;
     }
+
+    private string Title { get; set; }
 }

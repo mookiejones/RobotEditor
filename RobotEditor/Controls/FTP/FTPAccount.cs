@@ -1,6 +1,5 @@
-﻿namespace RobotEditor.Controls.FTP
+﻿namespace RobotEditor.Controls.FTP;
+
+public abstract class FTPAccount
 {
-    public abstract class FTPAccount
-    {
-    }
 }

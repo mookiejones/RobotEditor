@@ -1,13 +1,12 @@
-﻿namespace RobotEditor.Windows
+﻿namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for AttributeViewerWindow.xaml
+/// </summary>
+public partial class AttributeViewerWindow
 {
-    /// <summary>
-    ///     Interaction logic for AttributeViewerWindow.xaml
-    /// </summary>
-    public partial class AttributeViewerWindow
+    public AttributeViewerWindow()
     {
-        public AttributeViewerWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

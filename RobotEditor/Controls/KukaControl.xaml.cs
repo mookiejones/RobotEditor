@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for KukaControl.xaml
+/// </summary>
+public partial class KukaControl : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for KukaControl.xaml
-    /// </summary>
-    public partial class KukaControl : UserControl
+    public KukaControl()
     {
-        public KukaControl()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

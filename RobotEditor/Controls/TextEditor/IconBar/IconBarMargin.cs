@@ -10,290 +10,289 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace RobotEditor.Controls.TextEditor.IconBar
+namespace RobotEditor.Controls.TextEditor.IconBar;
+
+public sealed class IconBarMargin : AbstractMargin, IDisposable
 {
-    public sealed class IconBarMargin : AbstractMargin, IDisposable
+    private readonly IBookmarkMargin _manager;
+    private IBookmark _dragDropBookmark;
+    private double _dragDropCurrentPoint;
+    private double _dragDropStartPoint;
+    private bool _dragStarted;
+
+    public IconBarMargin(IBookmarkMargin manager)
     {
-        private readonly IBookmarkMargin _manager;
-        private IBookmark _dragDropBookmark;
-        private double _dragDropCurrentPoint;
-        private double _dragDropStartPoint;
-        private bool _dragStarted;
+        _manager = manager ?? throw new ArgumentNullException(nameof(manager));
+    }
 
-        public IconBarMargin(IBookmarkMargin manager)
+    public void Dispose()
+    {
+        TextView = null;
+        // ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Called when the <see cref="P:ICSharpCode.AvalonEdit.Editing.AbstractMargin.TextView" /> is changing.
+    /// </summary>
+    protected override void OnTextViewChanged(TextView oldTextView, TextView newTextView)
+    {
+        if (oldTextView != null)
         {
-            _manager = manager ?? throw new ArgumentNullException("manager");
+            oldTextView.VisualLinesChanged -= OnRedrawRequested;
+            _manager.RedrawRequested -= OnRedrawRequested;
+        }
+        base.OnTextViewChanged(oldTextView, newTextView);
+        if (newTextView != null)
+        {
+            newTextView.VisualLinesChanged += OnRedrawRequested;
+            _manager.RedrawRequested += OnRedrawRequested;
         }
 
-        public void Dispose()
-        {
-            TextView = null;
-            // ReSharper disable once GCSuppressFinalizeForTypeWithoutDestructor
-            GC.SuppressFinalize(this);
-        }
+        //            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
+        InvalidateVisual();
+    }
 
-        /// <summary>
-        ///     Called when the <see cref="P:ICSharpCode.AvalonEdit.Editing.AbstractMargin.TextView" /> is changing.
-        /// </summary>
-        protected override void OnTextViewChanged(TextView oldTextView, TextView newTextView)
+    [DebuggerStepThrough]
+    private void OnRedrawRequested(object sender, EventArgs e)
+    {
+        if (TextView != null && TextView.VisualLinesValid)
         {
-            if (oldTextView != null)
-            {
-                oldTextView.VisualLinesChanged -= OnRedrawRequested;
-                _manager.RedrawRequested -= OnRedrawRequested;
-            }
-            base.OnTextViewChanged(oldTextView, newTextView);
-            if (newTextView != null)
-            {
-                newTextView.VisualLinesChanged += OnRedrawRequested;
-                _manager.RedrawRequested += OnRedrawRequested;
-            }
-
-            //            Console.WriteLine(Properties.Resources.IconBarMargin_OnTextViewChanged_Fix_On_Text_View_Changed_in_IconBarMargin);
             InvalidateVisual();
         }
+    }
 
-        [DebuggerStepThrough]
-        private void OnRedrawRequested(object sender, EventArgs e)
+    protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters) => new PointHitTestResult(this, hitTestParameters.HitPoint);
+
+    [DebuggerStepThrough]
+    protected override Size MeasureOverride(Size availableSize) => new(18.0, 0.0);
+
+    [DebuggerStepThrough]
+    protected override void OnRender(DrawingContext drawingContext)
+    {
+        Size renderSize = RenderSize;
+        drawingContext.DrawRectangle(SystemColors.ControlBrush, null,
+            new Rect(0, 0, renderSize.Width, renderSize.Height));
+        drawingContext.DrawLine(new Pen(SystemColors.ControlDarkBrush, 1),
+            new Point(renderSize.Width - 0.5, 0),
+            new Point(renderSize.Width - 0.5, renderSize.Height));
+
+        TextView textView = TextView;
+        if (textView == null || !textView.VisualLinesValid)
         {
-            if (TextView != null && TextView.VisualLinesValid)
+            return;
+        }
+        // create a dictionary line number => first bookmark
+        Dictionary<int, IBookmark> bookmarkDict = new();
+        foreach (IBookmark bm in _manager.Bookmarks)
+        {
+            int line = bm.LineNumber;
+            if (!bookmarkDict.TryGetValue(line, out IBookmark existingBookmark) || bm.ZOrder > existingBookmark.ZOrder)
             {
-                InvalidateVisual();
+                bookmarkDict[line] = bm;
             }
         }
-
-        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters) => new PointHitTestResult(this, hitTestParameters.HitPoint);
-
-        [DebuggerStepThrough]
-        protected override Size MeasureOverride(Size availableSize) => new(18.0, 0.0);
-
-        [DebuggerStepThrough]
-        protected override void OnRender(DrawingContext drawingContext)
+        Size pixelSize = PixelSnapHelpers.GetPixelSize(this);
+        Rect rect;
+        foreach (VisualLine line in textView.VisualLines)
         {
-            Size renderSize = RenderSize;
-            drawingContext.DrawRectangle(SystemColors.ControlBrush, null,
-                new Rect(0, 0, renderSize.Width, renderSize.Height));
-            drawingContext.DrawLine(new Pen(SystemColors.ControlDarkBrush, 1),
-                new Point(renderSize.Width - 0.5, 0),
-                new Point(renderSize.Width - 0.5, renderSize.Height));
+            int lineNumber = line.FirstDocumentLine.LineNumber;
 
-            TextView textView = TextView;
-            if (textView == null || !textView.VisualLinesValid)
+            if (!bookmarkDict.TryGetValue(lineNumber, out IBookmark bm))
             {
-                return;
-            }
-            // create a dictionary line number => first bookmark
-            Dictionary<int, IBookmark> bookmarkDict = new();
-            foreach (IBookmark bm in _manager.Bookmarks)
-            {
-                int line = bm.LineNumber;
-                if (!bookmarkDict.TryGetValue(line, out IBookmark existingBookmark) || bm.ZOrder > existingBookmark.ZOrder)
-                {
-                    bookmarkDict[line] = bm;
-                }
-            }
-            Size pixelSize = PixelSnapHelpers.GetPixelSize(this);
-            Rect rect;
-            foreach (VisualLine line in textView.VisualLines)
-            {
-                int lineNumber = line.FirstDocumentLine.LineNumber;
-
-                if (!bookmarkDict.TryGetValue(lineNumber, out IBookmark bm))
-                {
-                    continue;
-                }
-
-                double lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) -
-                                    textView.VerticalOffset;
-                rect = new Rect(0, PixelSnapHelpers.Round(lineMiddle - 8, pixelSize.Height), 16, 16);
-                if (_dragDropBookmark == bm && _dragStarted)
-                {
-                    drawingContext.PushOpacity(0.5);
-                }
-
-                drawingContext.DrawImage((bm.Image ?? BookmarkBase.defaultBookmarkImage).Bitmap, rect);
-                if (_dragDropBookmark == bm && _dragStarted)
-                {
-                    drawingContext.Pop();
-                }
-            }
-            if (_dragDropBookmark == null || !_dragStarted)
-            {
-                return;
+                continue;
             }
 
-            rect = new Rect(0, PixelSnapHelpers.Round(_dragDropCurrentPoint - 8, pixelSize.Height), 16, 16);
-            drawingContext.DrawImage((_dragDropBookmark.Image ?? BookmarkBase.defaultBookmarkImage).ImageSource, rect);
+            double lineMiddle = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextMiddle) -
+                                textView.VerticalOffset;
+            rect = new Rect(0, PixelSnapHelpers.Round(lineMiddle - 8, pixelSize.Height), 16, 16);
+            if (_dragDropBookmark == bm && _dragStarted)
+            {
+                drawingContext.PushOpacity(0.5);
+            }
+
+            drawingContext.DrawImage((bm.Image ?? BookmarkBase.defaultBookmarkImage).Bitmap, rect);
+            if (_dragDropBookmark == bm && _dragStarted)
+            {
+                drawingContext.Pop();
+            }
+        }
+        if (_dragDropBookmark == null || !_dragStarted)
+        {
+            return;
         }
 
-        protected override void OnMouseDown(MouseButtonEventArgs e)
+        rect = new Rect(0, PixelSnapHelpers.Round(_dragDropCurrentPoint - 8, pixelSize.Height), 16, 16);
+        drawingContext.DrawImage((_dragDropBookmark.Image ?? BookmarkBase.defaultBookmarkImage).ImageSource, rect);
+    }
+
+    protected override void OnMouseDown(MouseButtonEventArgs e)
+    {
+        CancelDragDrop();
+        base.OnMouseDown(e);
+        int lineFromMousePosition = GetLineFromMousePosition(e);
+        if (!e.Handled && lineFromMousePosition > 0)
         {
-            CancelDragDrop();
-            base.OnMouseDown(e);
-            int lineFromMousePosition = GetLineFromMousePosition(e);
-            if (!e.Handled && lineFromMousePosition > 0)
+            IBookmark bookmarkFromLine = GetBookmarkFromLine(lineFromMousePosition);
+            if (bookmarkFromLine != null)
             {
-                IBookmark bookmarkFromLine = GetBookmarkFromLine(lineFromMousePosition);
-                if (bookmarkFromLine != null)
+                bookmarkFromLine.MouseDown(e);
+                if (!e.Handled)
                 {
-                    bookmarkFromLine.MouseDown(e);
-                    if (!e.Handled)
+                    if (e.ChangedButton == MouseButton.Left && bookmarkFromLine.CanDragDrop && CaptureMouse())
                     {
-                        if (e.ChangedButton == MouseButton.Left && bookmarkFromLine.CanDragDrop && CaptureMouse())
-                        {
-                            StartDragDrop(bookmarkFromLine, e);
-                            e.Handled = true;
-                        }
+                        StartDragDrop(bookmarkFromLine, e);
+                        e.Handled = true;
                     }
                 }
             }
-            if (e.ChangedButton == MouseButton.Left)
+        }
+        if (e.ChangedButton == MouseButton.Left)
+        {
+            e.Handled = true;
+        }
+    }
+
+    private IBookmark GetBookmarkFromLine(int line)
+    {
+        IBookmark[] result = { null };
+        foreach (
+            IBookmark bm in
+                _manager.Bookmarks.Where(bm => bm.LineNumber == line)
+                    .Where(bm => result[0] == null || bm.ZOrder > result[0].ZOrder))
+        {
+            result[0] = bm;
+        }
+        return result[0];
+    }
+
+    protected override void OnLostMouseCapture(MouseEventArgs e)
+    {
+        CancelDragDrop();
+        base.OnLostMouseCapture(e);
+    }
+
+    private void StartDragDrop(IBookmark bm, MouseEventArgs e)
+    {
+        _dragDropBookmark = bm;
+        _dragDropStartPoint = _dragDropCurrentPoint = e.GetPosition(this).Y;
+        if (TextView != null)
+        {
+            if (TextView.Services.GetService(typeof(TextArea)) is TextArea textArea)
             {
-                e.Handled = true;
+                textArea.PreviewKeyDown += TextAreaPreviewKeyDown;
             }
         }
+    }
 
-        private IBookmark GetBookmarkFromLine(int line)
+    private void CancelDragDrop()
+    {
+        if (_dragDropBookmark != null)
         {
-            IBookmark[] result = { null };
-            foreach (
-                IBookmark bm in
-                    _manager.Bookmarks.Where(bm => bm.LineNumber == line)
-                        .Where(bm => result[0] == null || bm.ZOrder > result[0].ZOrder))
-            {
-                result[0] = bm;
-            }
-            return result[0];
-        }
-
-        protected override void OnLostMouseCapture(MouseEventArgs e)
-        {
-            CancelDragDrop();
-            base.OnLostMouseCapture(e);
-        }
-
-        private void StartDragDrop(IBookmark bm, MouseEventArgs e)
-        {
-            _dragDropBookmark = bm;
-            _dragDropStartPoint = _dragDropCurrentPoint = e.GetPosition(this).Y;
+            _dragDropBookmark = null;
+            _dragStarted = false;
             if (TextView != null)
             {
                 if (TextView.Services.GetService(typeof(TextArea)) is TextArea textArea)
                 {
-                    textArea.PreviewKeyDown += TextAreaPreviewKeyDown;
+                    textArea.PreviewKeyDown -= TextAreaPreviewKeyDown;
                 }
             }
+            ReleaseMouseCapture();
+            InvalidateVisual();
         }
+    }
 
-        private void CancelDragDrop()
+    private void TextAreaPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        CancelDragDrop();
+        if (e.Key == Key.Escape)
         {
-            if (_dragDropBookmark != null)
+            e.Handled = true;
+        }
+    }
+
+    private int GetLineFromMousePosition(MouseEventArgs e)
+    {
+        TextView textView = TextView;
+        int result;
+        if (textView == null)
+        {
+            result = 0;
+        }
+        else
+        {
+            VisualLine visualLineFromVisualTop =
+                textView.GetVisualLineFromVisualTop(e.GetPosition(textView).Y + textView.ScrollOffset.Y);
+            result = visualLineFromVisualTop == null ? 0 : visualLineFromVisualTop.FirstDocumentLine.LineNumber;
+        }
+        return result;
+    }
+
+    protected override void OnMouseMove(MouseEventArgs e)
+    {
+        base.OnMouseMove(e);
+        if (_dragDropBookmark != null)
+        {
+            _dragDropCurrentPoint = e.GetPosition(this).Y;
+            if (Math.Abs(_dragDropCurrentPoint - _dragDropStartPoint) > SystemParameters.MinimumVerticalDragDistance)
             {
-                _dragDropBookmark = null;
-                _dragStarted = false;
-                if (TextView != null)
+                _dragStarted = true;
+            }
+            InvalidateVisual();
+        }
+    }
+
+    protected override void OnMouseUp(MouseButtonEventArgs e)
+    {
+        base.OnMouseUp(e);
+        int lineFromMousePosition = GetLineFromMousePosition(e);
+        if (!e.Handled && _dragDropBookmark != null)
+        {
+            if (_dragStarted)
+            {
+                if (lineFromMousePosition != 0)
                 {
-                    if (TextView.Services.GetService(typeof(TextArea)) is TextArea textArea)
-                    {
-                        textArea.PreviewKeyDown -= TextAreaPreviewKeyDown;
-                    }
+                    _dragDropBookmark.Drop(lineFromMousePosition);
                 }
-                ReleaseMouseCapture();
-                InvalidateVisual();
-            }
-        }
-
-        private void TextAreaPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            CancelDragDrop();
-            if (e.Key == Key.Escape)
-            {
                 e.Handled = true;
             }
+            CancelDragDrop();
         }
-
-        private int GetLineFromMousePosition(MouseEventArgs e)
+        if (!e.Handled && lineFromMousePosition != 0)
         {
-            TextView textView = TextView;
-            int result;
-            if (textView == null)
+            IBookmark bookmarkFromLine = GetBookmarkFromLine(lineFromMousePosition);
+            if (bookmarkFromLine != null)
             {
-                result = 0;
-            }
-            else
-            {
-                VisualLine visualLineFromVisualTop =
-                    textView.GetVisualLineFromVisualTop(e.GetPosition(textView).Y + textView.ScrollOffset.Y);
-                result = visualLineFromVisualTop == null ? 0 : visualLineFromVisualTop.FirstDocumentLine.LineNumber;
-            }
-            return result;
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            base.OnMouseMove(e);
-            if (_dragDropBookmark != null)
-            {
-                _dragDropCurrentPoint = e.GetPosition(this).Y;
-                if (Math.Abs(_dragDropCurrentPoint - _dragDropStartPoint) > SystemParameters.MinimumVerticalDragDistance)
+                bookmarkFromLine.MouseUp(e);
+                if (e.Handled)
                 {
-                    _dragStarted = true;
+                    return;
                 }
-                InvalidateVisual();
             }
-        }
-
-        protected override void OnMouseUp(MouseButtonEventArgs e)
-        {
-            base.OnMouseUp(e);
-            int lineFromMousePosition = GetLineFromMousePosition(e);
-            if (!e.Handled && _dragDropBookmark != null)
+            if (e.ChangedButton == MouseButton.Left && TextView != null)
             {
-                if (_dragStarted)
+                if (TextView.Services.GetService(typeof(ITextEditor)) is ITextEditor)
                 {
-                    if (lineFromMousePosition != 0)
-                    {
-                        _dragDropBookmark.Drop(lineFromMousePosition);
-                    }
-                    e.Handled = true;
-                }
-                CancelDragDrop();
-            }
-            if (!e.Handled && lineFromMousePosition != 0)
-            {
-                IBookmark bookmarkFromLine = GetBookmarkFromLine(lineFromMousePosition);
-                if (bookmarkFromLine != null)
-                {
-                    bookmarkFromLine.MouseUp(e);
-                    if (e.Handled)
-                    {
-                        return;
-                    }
-                }
-                if (e.ChangedButton == MouseButton.Left && TextView != null)
-                {
-                    if (TextView.Services.GetService(typeof(ITextEditor)) is ITextEditor)
-                    {
-                    }
                 }
             }
         }
-
-        // no bookmark on the line: create a new breakpoint
-
-
-        //		ITextEditor textEditor = TextView.Services.GetService(typeof(ITextEditor)) as ITextEditor;
-        //		if (textEditor != null) {
-        //			DebuggerService.ToggleBreakpointAt(textEditor, line, typeof(BreakpointBookmark));
-        //			return;
-        //		}
-        //		
-        //		// create breakpoint for the other posible active contents
-        //		var viewContent = WorkbenchSingleton.Workbench.ActiveContent as AbstractViewContentWithoutFile;
-        //		if (viewContent != null) {
-        //			textEditor = viewContent.Services.GetService(typeof(ITextEditor)) as ITextEditor;
-        //			if (textEditor != null) {
-        //				DebuggerService.ToggleBreakpointAt(textEditor, line, typeof(DecompiledBreakpointBookmark));
-        //				return;
     }
+
+    // no bookmark on the line: create a new breakpoint
+
+
+    //		ITextEditor textEditor = TextView.Services.GetService(typeof(ITextEditor)) as ITextEditor;
+    //		if (textEditor != null) {
+    //			DebuggerService.ToggleBreakpointAt(textEditor, line, typeof(BreakpointBookmark));
+    //			return;
+    //		}
+    //		
+    //		// create breakpoint for the other posible active contents
+    //		var viewContent = WorkbenchSingleton.Workbench.ActiveContent as AbstractViewContentWithoutFile;
+    //		if (viewContent != null) {
+    //			textEditor = viewContent.Services.GetService(typeof(ITextEditor)) as ITextEditor;
+    //			if (textEditor != null) {
+    //				DebuggerService.ToggleBreakpointAt(textEditor, line, typeof(DecompiledBreakpointBookmark));
+    //				return;
 }

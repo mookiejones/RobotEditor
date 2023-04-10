@@ -1,7 +1,6 @@
-﻿namespace RobotEditor.Controls.TextEditor.Completion
+﻿namespace RobotEditor.Controls.TextEditor.Completion;
+
+public interface IFancyCompletionItem : ICompletionItem
 {
-    public interface IFancyCompletionItem : ICompletionItem
-    {
-        object Content { get; }
-    }
+    object Content { get; }
 }

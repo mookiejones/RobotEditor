@@ -1,15 +1,14 @@
 ﻿using System.Windows;
 
-namespace RobotEditor.Windows
+namespace RobotEditor.Windows;
+
+/// <summary>
+///     Interaction logic for KFDDialogWindow.xaml
+/// </summary>
+public partial class KFDDialogWindow : Window
 {
-    /// <summary>
-    ///     Interaction logic for KFDDialogWindow.xaml
-    /// </summary>
-    public partial class KFDDialogWindow : Window
+    public KFDDialogWindow()
     {
-        public KFDDialogWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

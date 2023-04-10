@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Controls
+namespace RobotEditor.Controls;
+
+/// <summary>
+///     Interaction logic for FunctionItem.xaml
+/// </summary>
+public sealed partial class FunctionItem : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for FunctionItem.xaml
-    /// </summary>
-    public sealed partial class FunctionItem : UserControl
+    public FunctionItem()
     {
-        public FunctionItem()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
