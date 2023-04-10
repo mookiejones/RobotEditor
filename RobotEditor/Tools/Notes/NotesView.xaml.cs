@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views;
+namespace RobotEditor.Tools.Notes;
 
 /// <summary>
 ///     Interaction logic for NotesView.xaml

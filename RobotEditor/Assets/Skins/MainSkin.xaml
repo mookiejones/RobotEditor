@@ -21,8 +21,8 @@
         <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.MessageView.xaml" />
 
         <ResourceDictionary Source="/RobotEditor;component/Assets/Templates/KUKASpecificTemplates.xaml" />
-        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.AvalonEd ditor.xaml" />
-        <ResourceDictionary Source="/RobotEditor;component/Tools/ArchiveInfo/ArchiveInfo.xaml"/>
+        <ResourceDictionary Source="/RobotEditor;component/Assets/Styles/Controls.AvalonEditor.xaml" />
+        <ResourceDictionary Source="/RobotEditor;component/Tools/Tools.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <converters:VariableToFunctionConverter x:Key="VariableToFunctionConverter" />
     <converters:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
@@ -115,10 +115,7 @@
         </StackPanel>
     </DataTemplate>
 
-    <!-- Angle Converter -->
-    <DataTemplate x:Key="AngleConverterTemplate" DataType="{x:Type ac:AngleConvertorViewModel}">
-        <ac:AngleConverterView />
-    </DataTemplate>
+ 
 
     <!-- Messages-->
     <DataTemplate x:Key="MessageTemplate" DataType="{x:Type viewModel:MessageViewModel}">
@@ -268,8 +265,5 @@
     <!--Object Browser Template-->
     <DataTemplate x:Key="ObjectBrowser" DataType="{x:Type viewModel:ObjectBrowserViewModel}">
         <views:ObjectBrowserView />
-    </DataTemplate>
-    <DataTemplate x:Key="Notes">
-        <views:NotesView />
     </DataTemplate>
 </ResourceDictionary>

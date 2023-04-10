@@ -11,6 +11,7 @@ using RobotEditor.Languages;
 using RobotEditor.Messages;
 using RobotEditor.Tools.AngleConverter;
 using RobotEditor.Tools.ArchiveInfo;
+using RobotEditor.Tools.Notes;
 using RobotEditor.UI;
 using RobotEditor.Windows;
 using System;

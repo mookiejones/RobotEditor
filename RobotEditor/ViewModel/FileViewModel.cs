@@ -1,8 +1,9 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.IO;
 
 namespace RobotEditor.ViewModel;
 
-public abstract class FileViewModel : PaneViewModel
+public abstract partial class FileViewModel : PaneViewModel
 {
     #region FilePath
 

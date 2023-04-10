@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/RobotEditor;component/Tools/ArchiveInfo/ArchiveInfo.xaml"/>
+        <ResourceDictionary Source="/RobotEditor;component/Tools/AngleConverter/AngleConverter.xaml"/>
+        <ResourceDictionary Source="/RobotEditor;component/Tools/Notes/Notes.xaml"/>
+
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

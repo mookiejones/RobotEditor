@@ -32,7 +32,7 @@ public sealed class Sphere3D : IGeometricElement3D
 
     public TransformationMatrix3D Position => new((Vector3D)Origin, RotationMatrix3D.Identity());
 
-    public string ToString(string format, IFormatProvider formatProvider = null) => string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
+    public string ToString(string format, IFormatProvider? formatProvider) => string.Format("Sphere3D: Centre {0:F2} Radius {1:F2}", Origin, Radius);
 
     public static Sphere3D FitToPoints(Collection<Point3D> points)
     {

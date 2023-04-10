@@ -8,7 +8,7 @@ namespace RobotEditor.Controls.AngleConverter.Classes;
 [Localizable(false)]
 public sealed class Point3D : IGeometricElement3D, IFormattable
 {
-    private readonly Vector3D _position;
+    private readonly Vector3D? _position;
 
     public Point3D()
     {
@@ -63,7 +63,7 @@ public sealed class Point3D : IGeometricElement3D, IFormattable
     public override bool Equals(object obj) => obj is object &&
                (ReferenceEquals(this, obj) || (obj is Point3D && Equals((Point3D)obj)));
 
-    public override int GetHashCode() => (_position != null) ? _position.GetHashCode() : 0;
+    public override int GetHashCode() => _position?.GetHashCode()??0;
 
     public static Point3D Centroid(Collection<Point3D> points)
     {

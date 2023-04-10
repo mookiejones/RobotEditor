@@ -35,7 +35,7 @@ public sealed partial class AngleConvertorViewModel : ToolViewModel
     [ObservableProperty]
     private ValueBoxViewModel _outputItems = new() { IsReadOnly = true };
 
-    public string Error => null;
+    public string? Error => null;
 
 
     public void Convert()

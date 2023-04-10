@@ -28,7 +28,7 @@ public sealed class Plane3D : IGeometricElement3D
 
     TransformationMatrix3D IGeometricElement3D.Position => throw new NotImplementedException();
 
-    public string ToString(string format, IFormatProvider formatProvider = null) => string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
+    public string ToString(string format, IFormatProvider? formatProvider) => string.Format("Plane: Origin={0}, Normal={1}", Point.ToString(format, formatProvider),
             Normal.ToString(format, formatProvider));
 
     public static Plane3D FitToPoints(Collection<Point3D> points)

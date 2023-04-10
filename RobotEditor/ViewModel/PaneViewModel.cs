@@ -6,17 +6,20 @@ namespace RobotEditor.ViewModel;
 public partial class PaneViewModel : ObservableRecipient
 {
     [ObservableProperty]
-    private string _contentId;
+    private string contentId;
+
     [ObservableProperty]
-    private bool _isActive;
+    private bool isActive;
+
     [ObservableProperty]
-    private bool _isSelected;
+    private bool isSelected;
+
     [ObservableProperty]
-    private string _title;
+    private string title;
 
 
 
-    public ImageSource IconSource { get; set; }
+    public ImageSource? IconSource { get; set; }
 
 
 }
