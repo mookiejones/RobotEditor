@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views;
+namespace RobotEditor.Tools.AngleConverter;
 
 /// <summary>
 ///     Interaction logic for AngleConverterView.xaml

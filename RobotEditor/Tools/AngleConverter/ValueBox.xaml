@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="RobotEditor.Tools.AngleConverter.ValueBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RobotEditor.Tools.AngleConverter" xmlns:converters="clr-namespace:RobotEditor.Converters"
+             mc:Ignorable="d" >
+    <StackPanel Orientation="Vertical" Width="Auto" Height="Auto">
+        <StackPanel.Resources>
+            <converters:AngleToolTipConverter x:Key="Tooltip" />
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="IsReadOnly" Value="{Binding IsReadOnly}" />
+                <Setter Property="Width" Value="53" />
+                <Setter Property="Margin" Value="0,2,2,0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding BoxVisibility}" Value="Collapsed">
+                        <Setter Property="Width" Value="71" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </StackPanel.Resources>
+        <ComboBox ItemsSource="{Binding SelectionItems}" IsReadOnly="True" DisplayMemberPath="ValueCartesianString"
+                      SelectedValuePath="ValueCartesianEnum" SelectedValue="{Binding SelectedItem}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="V1" Text="{Binding V1, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}"
+                         ToolTip="{Binding SelectedItem, ConverterParameter=V1, Converter={StaticResource Tooltip}}" />
+            <TextBox x:Name="V2" Text="{Binding V2, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}"
+                         ToolTip="{Binding SelectedItem, ConverterParameter=V2, Converter={StaticResource Tooltip}}" />
+            <TextBox x:Name="V3" Text="{Binding V3, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}"
+                         ToolTip="{Binding SelectedItem, ConverterParameter=V3, Converter={StaticResource Tooltip}}" />
+            <TextBox x:Name="V4" Text="{Binding V4, StringFormat=\{0:F3\}, UpdateSourceTrigger=LostFocus}"
+                         Visibility="{Binding BoxVisibility}"
+                         ToolTip="{Binding SelectedItem, ConverterParameter=V4, Converter={StaticResource Tooltip}}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -2,9 +2,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using RobotEditor.Controls.AngleConverter;
 using RobotEditor.Controls.AngleConverter.Classes;
 using RobotEditor.Enums;
+using RobotEditor.ViewModel;
 using System;
 
-namespace RobotEditor.ViewModel;
+namespace RobotEditor.Tools.AngleConverter;
 
 public sealed partial class AngleConvertorViewModel : ToolViewModel
 {
@@ -22,17 +23,17 @@ public sealed partial class AngleConvertorViewModel : ToolViewModel
     {
         InputItems.ItemsChanged += (s, e) => Convert();
         OutputItems.ItemsChanged += (s, e) => Convert();
-        base.ContentId = "AngleConverterTool";
+        ContentId = "AngleConverterTool";
         DefaultPane = DefaultToolPane.Right;
     }
 
     public static CartesianEnum CartesianType { get; set; }
 
     [ObservableProperty]
-    private ValueBoxViewModel _inputItems = new();
+    private ValueBoxViewModel inputItems = new();
 
     [ObservableProperty]
-    private ValueBoxViewModel _outputItems = new() {  IsReadOnly=true};
+    private ValueBoxViewModel _outputItems = new() { IsReadOnly = true };
 
     public string Error => null;
 

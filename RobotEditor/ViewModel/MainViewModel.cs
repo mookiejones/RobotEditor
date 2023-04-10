@@ -9,6 +9,8 @@ using RobotEditor.Enums;
 using RobotEditor.Interfaces;
 using RobotEditor.Languages;
 using RobotEditor.Messages;
+using RobotEditor.Tools.AngleConverter;
+using RobotEditor.Tools.ArchiveInfo;
 using RobotEditor.UI;
 using RobotEditor.Windows;
 using System;
@@ -29,7 +31,7 @@ namespace RobotEditor.ViewModel;
 ///     </para>
 /// </summary>
 // ReSharper disable once ClassNeverInstantiated.Global
-public sealed class MainViewModel : ObservableRecipient
+public sealed partial class MainViewModel : ObservableRecipient
 {
     private static IEditorDocument _activeEditor;
     private ILayoutUpdateStrategy _layoutInitializer;
@@ -161,39 +163,11 @@ public sealed class MainViewModel : ObservableRecipient
 
     #endregion
 
-    #region ShowIO
+    
 
-    /// <summary>
-    ///     The <see cref="ShowIO" /> property's name.
-    /// </summary>
-    private const string ShowIOPropertyName = "ShowIO";
-
-    private bool _showIO;
-
-    /// <summary>
-    ///     Sets and gets the ShowIO property.
-    ///     Changes to that property's value raise the PropertyChanged event.
-    /// </summary>
-    public bool ShowIO
-    {
-        get => _showIO;
-
-        set
-        {
-            if (_showIO == value)
-            {
-                return;
-            }
-
-            // ReSharper disable once ExplicitCallerInfoArgument
-
-            _showIO = value;
-            // ReSharper disable once ExplicitCallerInfoArgument
-            OnPropertyChanged(ShowIOPropertyName);
-        }
-    }
-
-    #endregion
+    [ObservableProperty]
+    private bool showIO;
+  
 
     #region EnableIO
 
@@ -287,172 +261,6 @@ public sealed class MainViewModel : ObservableRecipient
 
     #endregion
 
-    #region Commands
-
-    #region CloseCommand
-
-    private RelayCommand<object> _closeCommand;
-
-    /// <summary>
-    ///     Gets the CloseCommand.
-    /// </summary>
-    public RelayCommand<object> CloseCommand => _closeCommand ??= new RelayCommand<object>(ExecuteCloseCommand, CanExecuteCloseCommand);
-
-
-
-    private void ExecuteCloseCommand(object obj)
-
-    {
-        _ = _files.Remove(ActiveEditor);
-
-        ActiveEditor.Close();
-        ActiveEditor = _files.FirstOrDefault();
-        // Close(ActiveEditor);
-        OnPropertyChanged(nameof(ActiveEditor));
-    }
-
-    private bool CanExecuteCloseCommand(object arg) => true;
-
-    #endregion
-
-    #region ShowIOCommand
-
-    private RelayCommand _showIOCommand;
-
-    /// <summary>
-    ///     Gets the ShowIOCommand.
-    /// </summary>
-    public RelayCommand ShowIOCommand => _showIOCommand ??= new RelayCommand(ExecuteShowIO);
-
-    #endregion
-
-    #region ChangeThemeCommand
-
-    private RelayCommand<object> _changeThemeCommand;
-
-    /// <summary>
-    ///     Gets the ChangeThemeCommand.
-    /// </summary>
-    public RelayCommand<object> ChangeThemeCommand => _changeThemeCommand ??= new RelayCommand<object>(
-                       ChangeTheme);
-
-    #endregion
-
-    #region ChangeAccentCommand
-
-    private RelayCommand<object> _changeAccentCommand;
-
-    /// <summary>
-    ///     Gets the ChangeAccentCommand.
-    /// </summary>
-    public RelayCommand<object> ChangeAccentCommand => _changeAccentCommand ??= new RelayCommand<object>(
-                       ChangeAccent);
-
-    #endregion
-
-    #region NewFileCommand
-
-    private RelayCommand _newFileCommand;
-
-    /// <summary>
-    ///     Gets the NewFileCommand.
-    /// </summary>
-    public RelayCommand NewFileCommand => _newFileCommand ??= new RelayCommand(
-                       AddNewFile);
-
-    #endregion
-
-    #region ShowFindReplaceCommand
-
-    private RelayCommand _showFileReplaceCommand;
-
-    /// <summary>
-    ///     Gets the ShowFindReplaceCommand.
-    /// </summary>
-    public RelayCommand ShowFindReplaceCommand => _showFileReplaceCommand ??= new RelayCommand(ShowFindReplace);
-
-    #endregion
-
-    #region ShowSettingsCommand
-
-    private RelayCommand _showSettingsCommand;
-
-    /// <summary>
-    ///     Gets the ShowSettingsCommand.
-    /// </summary>
-    public RelayCommand ShowSettingsCommand => _showSettingsCommand ??= new RelayCommand(ExecuteShowSettings);
-
-    #endregion
-
-    #region ChangeViewAsCommand
-
-    private RelayCommand<string> _changeViewAsCommand;
-
-    /// <summary>
-    ///     Gets the ChangeViewAsCommand.
-    /// </summary>
-    public RelayCommand<string> ChangeViewAsCommand => _changeViewAsCommand ??= new RelayCommand<string>(ChangeViewAs);
-
-    #endregion
-
-    #region ExitCommand
-
-    private RelayCommand _exitCommand;
-
-    /// <summary>
-    ///     Gets the ExitCommand.
-    /// </summary>
-    public RelayCommand ExitCommand => _exitCommand ??= new RelayCommand(Exit);
-
-    #endregion
-
-    #region ImportCommand
-
-    private RelayCommand<object> _importCommand;
-
-    /// <summary>
-    ///     Gets the ImportCommand.
-    /// </summary>
-    public RelayCommand<object> ImportCommand => _importCommand ??= new RelayCommand<object>(p => ImportRobot(), CanImport);
-
-    public bool CanImport(object p) => !((p is LanguageBase) | p is Fanuc | p is Kawasaki | p == null);
-
-    #endregion
-
-    #region AddToolCommand
-
-    private RelayCommand<object> _addToolCommand;
-
-    /// <summary>
-    ///     Gets the AddToolCommand.
-    /// </summary>
-    public RelayCommand<object> AddToolCommand => _addToolCommand ??= new RelayCommand<object>(AddTool);
-
-    #endregion
-
-    #region ShowAboutCommand
-
-    private RelayCommand _showAboutCommand;
-
-    /// <summary>
-    ///     Gets the ShowAboutCommand.
-    /// </summary>
-    public RelayCommand ShowAboutCommand => _showAboutCommand ??= new RelayCommand(ShowAbout);
-
-    #endregion
-
-    #region OpenFileCommand
-
-    private RelayCommand<object> _openFileCommand;
-
-    /// <summary>
-    ///     Gets the OpenFileCommand.
-    /// </summary>
-    public RelayCommand<object> OpenFileCommand => _openFileCommand ??= new RelayCommand<object>(OnOpen);
-
-    #endregion
-
-    #endregion
 
     private static string ShortenPathname(string pathname, int maxLength)
     {
@@ -559,12 +367,14 @@ public sealed class MainViewModel : ObservableRecipient
 
     private void ExecuteShowIO() => ShowIO = !ShowIO;
 
+    [RelayCommand]
     private void ShowFindReplace()
     {
         // FindandReplaceControl findandReplaceControl = new FindandReplaceControl(MainWindow.Instance);
         //findandReplaceControl.ShowDialog().GetValueOrDefault();
     }
 
+    [RelayCommand]
     private void ExecuteShowSettings() => ShowSettings = !ShowSettings;
 
     private void ChangeAccent(object param)

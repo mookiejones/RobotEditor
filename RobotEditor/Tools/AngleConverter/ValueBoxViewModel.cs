@@ -5,13 +5,17 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace RobotEditor.ViewModel;
+namespace RobotEditor.Tools.AngleConverter;
 
-public class ValueBoxViewModel : ObservableObject
+public partial class ValueBoxViewModel : ObservableObject
 {
     private Visibility _boxVisibility = Visibility.Visible;
+
+    [ObservableProperty]
     private string _header = string.Empty;
-    private bool _isReadOnly;
+    [ObservableProperty]
+    private bool isReadOnly;
+
     private CartesianEnum _selectedItem = CartesianEnum.ABB_Quaternion;
     private double _v1;
     private double _v2;
@@ -58,9 +62,7 @@ public class ValueBoxViewModel : ObservableObject
         }
     }
 
-    public bool IsReadOnly { get => _isReadOnly; set => SetProperty(ref _isReadOnly, value); }
 
-    public string Header { get => _header; set => SetProperty(ref _header, value); }
 
     public Visibility BoxVisibility { get => _boxVisibility; set => SetProperty(ref _boxVisibility, value); }
 
@@ -80,8 +82,14 @@ public class ValueBoxViewModel : ObservableObject
 
     public event ItemsChangedEventHandler ItemsChanged;
 
-    private void RaiseItemsChanged() => ItemsChanged?.Invoke(this, (ItemsChangedEventArgs)new EventArgs());
+    private void RaiseItemsChanged()
+    {
+        var args = new EventArgs();
+        var passedArgs = args as ItemsChangedEventArgs;
 
+        ItemsChanged?.Invoke(this, passedArgs);
+
+    }
     private void CheckVisibility()
     {
         switch (_selectedItem)

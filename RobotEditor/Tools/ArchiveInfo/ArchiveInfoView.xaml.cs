@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotEditor.Views;
+namespace RobotEditor.Tools.ArchiveInfo;
 
 /// <summary>
 ///     Interaction logic for ArchiveInfoView.xaml

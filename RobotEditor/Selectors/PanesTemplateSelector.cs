@@ -1,4 +1,5 @@
-﻿using RobotEditor.ViewModel;
+﻿using RobotEditor.Tools.AngleConverter;
+using RobotEditor.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Ionic.Zip;
 using RobotEditor.Enums;
+using RobotEditor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace RobotEditor.ViewModel;
+namespace RobotEditor.Tools.ArchiveInfo;
 
 public sealed class ArchiveInfoViewModel : ToolViewModel
 {
@@ -66,23 +67,23 @@ public sealed class ArchiveInfoViewModel : ToolViewModel
         OnPropertyChanged(nameof(AnInVisibility));
         OnPropertyChanged(nameof(AnOutVisibility));
         DefaultPane = DefaultToolPane.Right;
-        base.Width = 250;
-        base.Height = 600;
+        Width = 250;
+        Height = 600;
     }
 
-    public Visibility DigInVisibility => (Inputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
+    public Visibility DigInVisibility => Inputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility DigOutVisibility => (Outputs.Count > 0) ? Visibility.Visible : Visibility.Hidden;
+    public Visibility DigOutVisibility => Outputs.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility AnInVisibility => (AnIn.Count > 0) ? Visibility.Visible : Visibility.Hidden;
+    public Visibility AnInVisibility => AnIn.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility AnOutVisibility => (AnOut.Count > 0) ? Visibility.Visible : Visibility.Hidden;
+    public Visibility AnOutVisibility => AnOut.Count > 0 ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility DigitalVisibility => (DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible)
+    public Visibility DigitalVisibility => DigInVisibility == Visibility.Visible && DigOutVisibility == Visibility.Visible
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 
-    public Visibility AnalogVisibility => (AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible)
+    public Visibility AnalogVisibility => AnOutVisibility == Visibility.Visible || AnInVisibility == Visibility.Visible
                 ? Visibility.Visible
                 : Visibility.Collapsed;
 
@@ -277,7 +278,7 @@ public sealed class ArchiveInfoViewModel : ToolViewModel
                 _flags.Add(item);
             }
         }
-        FlagVisibility = (Flags.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
+        FlagVisibility = Flags.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         OnPropertyChanged(nameof(FlagVisibility));
     }
 
@@ -300,7 +301,7 @@ public sealed class ArchiveInfoViewModel : ToolViewModel
                 _timer.Add(item);
             }
         }
-        TimerVisibility = (Timer.Count > 0) ? Visibility.Visible : Visibility.Collapsed;
+        TimerVisibility = Timer.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
         OnPropertyChanged(nameof(TimerVisibility));
     }
 

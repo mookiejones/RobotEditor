@@ -1,11 +1,11 @@
-﻿using RobotEditor.Enums;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using RobotEditor.Enums;
 
 namespace RobotEditor.ViewModel;
 
-public class ToolViewModel : PaneViewModel
+public partial class ToolViewModel : PaneViewModel
 {
     public DefaultToolPane DefaultPane = DefaultToolPane.None;
-    private bool _isVisible = true;
 
     protected ToolViewModel(string name)
     {
@@ -17,5 +17,6 @@ public class ToolViewModel : PaneViewModel
     public int Width { get; set; }
     public string Name { get; private set; }
 
-    public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
+    [ObservableProperty]
+    private bool _isVisible = true;
 }
