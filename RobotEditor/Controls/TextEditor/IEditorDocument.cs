@@ -11,7 +11,7 @@ public interface IEditorDocument
     AbstractLanguageClass FileLanguage { get; set; }
     AvalonEditor TextBox { get; set; }
     string FilePath { get; set; }
-    ImageSource IconSource { get; set; }
+    ImageSource? IconSource { get; set; }
     string FileName { get; }
     string Title { get; set; }
     bool IsDirty { get; set; }

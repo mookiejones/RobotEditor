@@ -8,9 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13F16D7A-3294-48A1-9DBF-2560799DEA8C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotEditor.Tests", "..\RobotEditor.Tests\RobotEditor.Tests.csproj", "{EA45EAB0-D207-4D29-A3A1-426C63498D48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +21,6 @@ Global
 		{F11B1F5B-8D35-4957-AF78-1D36BF7D50C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F11B1F5B-8D35-4957-AF78-1D36BF7D50C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F11B1F5B-8D35-4957-AF78-1D36BF7D50C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA45EAB0-D207-4D29-A3A1-426C63498D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA45EAB0-D207-4D29-A3A1-426C63498D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA45EAB0-D207-4D29-A3A1-426C63498D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA45EAB0-D207-4D29-A3A1-426C63498D48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
